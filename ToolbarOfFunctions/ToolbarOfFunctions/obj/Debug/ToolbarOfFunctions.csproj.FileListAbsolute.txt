@@ -1,0 +1,12 @@
+D:\My Source Code\C#\ToolbarOfFunctions\ToolbarOfFunctions\bin\Debug\ToolbarOfFunctions.dll
+D:\My Source Code\C#\ToolbarOfFunctions\ToolbarOfFunctions\bin\Debug\ToolbarOfFunctions.pdb
+D:\My Source Code\C#\ToolbarOfFunctions\ToolbarOfFunctions\bin\Debug\ToolbarOfFunctions.dll.manifest
+D:\My Source Code\C#\ToolbarOfFunctions\ToolbarOfFunctions\bin\Debug\ToolbarOfFunctions.vsto
+D:\My Source Code\C#\ToolbarOfFunctions\ToolbarOfFunctions\bin\Debug\Microsoft.Office.Tools.Common.v4.0.Utilities.dll
+D:\My Source Code\C#\ToolbarOfFunctions\ToolbarOfFunctions\obj\Debug\ToolbarOfFunctions.Properties.Resources.resources
+D:\My Source Code\C#\ToolbarOfFunctions\ToolbarOfFunctions\obj\Debug\ToolbarOfFunctions.Ribbon1.resources
+D:\My Source Code\C#\ToolbarOfFunctions\ToolbarOfFunctions\obj\Debug\ToolbarOfFunctions.csproj.GenerateResource.cache
+D:\My Source Code\C#\ToolbarOfFunctions\ToolbarOfFunctions\obj\Debug\ToolbarOfFunctions.csproj.CoreCompileInputs.cache
+D:\My Source Code\C#\ToolbarOfFunctions\ToolbarOfFunctions\obj\Debug\ToolbarOfFunctions.csproj.CopyComplete
+D:\My Source Code\C#\ToolbarOfFunctions\ToolbarOfFunctions\obj\Debug\ToolbarOfFunctions.dll
+D:\My Source Code\C#\ToolbarOfFunctions\ToolbarOfFunctions\obj\Debug\ToolbarOfFunctions.pdb
