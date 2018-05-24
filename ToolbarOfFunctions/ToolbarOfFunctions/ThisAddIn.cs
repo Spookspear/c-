@@ -12,6 +12,9 @@ using System.Windows.Forms;
 using Microsoft.Office.Tools.Excel;
 using Microsoft.Office.Interop.Excel;
 
+using System.IO;            // for Directory function
+using System.Diagnostics;   // .FileVersionInfo
+
 
 namespace ToolbarOfFunctions
 {
@@ -64,7 +67,112 @@ namespace ToolbarOfFunctions
 
         public void readFolders(Excel.Workbook Wkb)
         {
-            MsgBox("readFolders - code goes here");
+            // MsgBox("readFolders - code goes here");
+
+            Excel.Worksheet Wks;
+            // Excel.Range xlCell;
+
+            // point to active sheet
+            Wks = Wkb.ActiveSheet;
+
+            // initalise folder browser control / component?
+            FolderBrowserDialog fbd = new FolderBrowserDialog
+            {
+                Description = "Select folder to read into worksheet",
+                ShowNewFolderButton = false
+            };
+
+            // need a yes or no for reading in extra details
+
+            DialogResult dlgReadExtraDetails = askGetExtraDetails();
+            bool boolExtraDetails = false;
+
+            if (dlgReadExtraDetails == DialogResult.Yes)
+                boolExtraDetails = true;
+
+            if (dlgReadExtraDetails == DialogResult.No)
+                boolExtraDetails = false;
+
+
+            if (dlgReadExtraDetails != DialogResult.Cancel) {
+                // can set the root folder here
+                // fbd.RootFolder = Environment.SpecialFolder.MyDocuments;
+                    if (fbd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    // MsgBox(fbd.SelectedPath);
+                    int gintFileCount = 2;
+
+                    // do I need this?
+                    string strPath = fbd.SelectedPath + "\\";
+
+                    directorySearch(strPath, Wks, gintFileCount, boolExtraDetails, false);
+
+                    Wks.Columns.AutoFit();
+                }
+
+            }
+
+            // MsgBox("Finished ...");
+
+        }
+
+        public static DialogResult askGetExtraDetails()
+        {
+            DialogResult dlgResult = MessageBox.Show("Populate extract detail columns?", "Question", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+
+            return dlgResult;
+
+        }
+
+        public static void getExtraDetails(string file, Excel.Worksheet Wks, int gintFileCount)
+        {
+
+            FileInfo oFileInfo = new FileInfo(file);
+            FileVersionInfo oFileVersionInfo = FileVersionInfo.GetVersionInfo(file);
+
+            Wks.Cells[gintFileCount, 2].value = oFileInfo.LastAccessTime.ToString();        // date
+            Wks.Cells[gintFileCount, 3].value = oFileInfo.Length.ToString();                // Size
+            // Wks.Cells[gintFileCount, 4].value = oFileInfo.ver;                                                                                                                                                                  
+            Wks.Cells[gintFileCount, 4].value = oFileVersionInfo.FileVersion;                
+            Wks.Cells[gintFileCount, 5].value = oFileInfo.Name;                             // File Name Extracted
+
+
+        }
+        public static void directorySearch(string root, Excel.Worksheet Wks, int gintFileCount, bool boolExtraDetails, bool isRootItrated)
+        {
+            if (!isRootItrated)
+            {
+                var rootDirectoryFiles = Directory.GetFiles(root);
+                foreach (var file in rootDirectoryFiles)
+                {
+                    Console.WriteLine(file);
+                    Wks.Cells[gintFileCount, 1].value = file.ToString();
+
+                    if (boolExtraDetails)
+                        getExtraDetails(file, Wks, gintFileCount);
+
+                    gintFileCount++;
+                }
+            }
+
+            var subDirectories = Directory.GetDirectories(root);
+            if (subDirectories?.Any() == true)
+            {
+                foreach (var directory in subDirectories)
+                {
+                    var files = Directory.GetFiles(directory);
+                    foreach (var file in files)
+                    {
+                        Console.WriteLine(file);
+                        Wks.Cells[gintFileCount, 1].value = file.ToString();
+                        if (boolExtraDetails)
+                            getExtraDetails(file, Wks, gintFileCount);
+
+                        gintFileCount++;
+                    }
+                    directorySearch(directory, Wks, gintFileCount, boolExtraDetails, true);
+                }
+            }
         }
 
 
@@ -186,6 +294,32 @@ namespace ToolbarOfFunctions
             }
 
             return found;
+        }
+
+
+        static void listSubFoldersAndFiles(string strSubFolderPath, Excel.Worksheet Wks, int gintFileCount)
+        {
+            // recursive function that will read from the current folder into selected wokrksheet
+            try
+            {
+                foreach (string d in Directory.GetDirectories(strSubFolderPath))
+                {
+                    foreach (string f in Directory.GetFiles(d))
+                    {
+
+                        Console.WriteLine(f);
+
+                        Wks.Cells[gintFileCount, 1].value = f.ToString();
+                        gintFileCount++;
+                    }
+                    listSubFoldersAndFiles(d, Wks, gintFileCount);
+                }
+            }
+            catch (System.Exception excpt)
+            {
+                Console.WriteLine(excpt.Message);
+            }
+
         }
 
         private static void graveYard()

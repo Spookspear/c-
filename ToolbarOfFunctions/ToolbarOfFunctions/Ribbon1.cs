@@ -21,26 +21,23 @@ namespace ToolbarOfFunctions
         private void btnZap_Click(object sender, RibbonControlEventArgs e)
         {
             Globals.ThisAddIn.zapWorksheet(Globals.ThisAddIn.Application.ActiveWorkbook);
-
-
         }
 
         private void btnDeleteBlankLines_Click(object sender, RibbonControlEventArgs e)
         {
             Globals.ThisAddIn.deleteBlankLines(Globals.ThisAddIn.Application.ActiveWorkbook);
-
-
         }
 
         private void btnReadFolders_Click(object sender, RibbonControlEventArgs e)
         {
             Globals.ThisAddIn.readFolders(Globals.ThisAddIn.Application.ActiveWorkbook);
-        }
+        }       
 
         private void btnCompareSheets_Click(object sender, RibbonControlEventArgs e)
         {
             Globals.ThisAddIn.compareSheets(Globals.ThisAddIn.Application.ActiveWorkbook);
         }
+
     }
 
 }

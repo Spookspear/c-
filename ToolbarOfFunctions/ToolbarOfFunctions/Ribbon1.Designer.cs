@@ -37,10 +37,11 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Ribbon1));
             this.MYTOOLBAR = this.Factory.CreateRibbonTab();
             this.customToolbar = this.Factory.CreateRibbonGroup();
-            this.btnZap = this.Factory.CreateRibbonButton();
-            this.btnDeleteBlankLines = this.Factory.CreateRibbonButton();
             this.btnReadFolders = this.Factory.CreateRibbonButton();
             this.btnCompareSheets = this.Factory.CreateRibbonButton();
+            this.btnZap = this.Factory.CreateRibbonButton();
+            this.btnDeleteBlankLines = this.Factory.CreateRibbonButton();
+            this.folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.MYTOOLBAR.SuspendLayout();
             this.customToolbar.SuspendLayout();
             this.SuspendLayout();
@@ -59,6 +60,24 @@
             this.customToolbar.Items.Add(this.btnDeleteBlankLines);
             this.customToolbar.Label = "Custom Toolbar";
             this.customToolbar.Name = "customToolbar";
+            // 
+            // btnReadFolders
+            // 
+            this.btnReadFolders.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this.btnReadFolders.Image = ((System.Drawing.Image)(resources.GetObject("btnReadFolders.Image")));
+            this.btnReadFolders.Label = "Read Folders";
+            this.btnReadFolders.Name = "btnReadFolders";
+            this.btnReadFolders.ShowImage = true;
+            this.btnReadFolders.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnReadFolders_Click);
+            // 
+            // btnCompareSheets
+            // 
+            this.btnCompareSheets.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this.btnCompareSheets.Image = ((System.Drawing.Image)(resources.GetObject("btnCompareSheets.Image")));
+            this.btnCompareSheets.Label = "Compare Sheets";
+            this.btnCompareSheets.Name = "btnCompareSheets";
+            this.btnCompareSheets.ShowImage = true;
+            this.btnCompareSheets.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnCompareSheets_Click);
             // 
             // btnZap
             // 
@@ -79,24 +98,6 @@
             this.btnDeleteBlankLines.Name = "btnDeleteBlankLines";
             this.btnDeleteBlankLines.ShowImage = true;
             this.btnDeleteBlankLines.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnDeleteBlankLines_Click);
-            // 
-            // btnReadFolders
-            // 
-            this.btnReadFolders.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
-            this.btnReadFolders.Image = ((System.Drawing.Image)(resources.GetObject("btnReadFolders.Image")));
-            this.btnReadFolders.Label = "Read Folders";
-            this.btnReadFolders.Name = "btnReadFolders";
-            this.btnReadFolders.ShowImage = true;
-            this.btnReadFolders.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnReadFolders_Click);
-            // 
-            // btnCompareSheets
-            // 
-            this.btnCompareSheets.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
-            this.btnCompareSheets.Image = ((System.Drawing.Image)(resources.GetObject("btnCompareSheets.Image")));
-            this.btnCompareSheets.Label = "Compare Sheets";
-            this.btnCompareSheets.Name = "btnCompareSheets";
-            this.btnCompareSheets.ShowImage = true;
-            this.btnCompareSheets.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnCompareSheets_Click);
             // 
             // Ribbon1
             // 
@@ -120,6 +121,7 @@
         internal Microsoft.Office.Tools.Ribbon.RibbonButton btnDeleteBlankLines;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton btnReadFolders;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton btnCompareSheets;
+        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog;
     }
 
     partial class ThisRibbonCollection
