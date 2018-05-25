@@ -148,6 +148,11 @@ namespace ToolbarOfFunctions
             FileInfo oFileInfo = new FileInfo(file);
             FileVersionInfo oFileVersionInfo = FileVersionInfo.GetVersionInfo(file);            // Get file version info
 
+            // Left here: 25-05-2018 17:48
+            // Left here: 25-05-2018 17:48
+            // Left here: 25-05-2018 17:48
+
+
             // Wks.Cells[gintFileCount, 2].value = oFileInfo.LastAccessTime.ToString();         // date
             // Wks.Cells[gintFileCount, 2].value = oFileInfo.LastWriteTime.ToString();          // date
             Wks.Cells[gintFileCount, 2].value = oFileInfo.LastWriteTimeUtc;                        // date
