@@ -51,17 +51,37 @@ namespace ToolbarOfFunctions
             }
             else
             {
-                MsgBox("Cannot run in worksheet: InternalParameters");
+                MsgBox("Cannot run in worksheet: InternalParameters", "Error");
 
             }
 
         }
 
 
-
-        public void MsgBox(string strMessage)
+        public void MsgBox(string strMessage, string strWhichIcon = "Information")
         {
-            MessageBox.Show(strMessage);
+            MessageBoxIcon whichIcon = MessageBoxIcon.Information;
+            string strCaption = strWhichIcon;
+
+            switch (strWhichIcon)
+            {
+                case "Question":
+                    whichIcon = MessageBoxIcon.Question;
+                    break;
+
+                case "Error":
+                    whichIcon = MessageBoxIcon.Error;
+                    break;
+
+                case "Information":
+                    whichIcon = MessageBoxIcon.Information;
+                    break;
+
+            }
+
+            MessageBox.Show(strMessage, strCaption, MessageBoxButtons.OK, whichIcon);
+            // MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question
+
         }
 
 
@@ -75,12 +95,17 @@ namespace ToolbarOfFunctions
             // point to active sheet
             Wks = Wkb.ActiveSheet;
 
+
             // initalise folder browser control / component?
             FolderBrowserDialog fbd = new FolderBrowserDialog
             {
                 Description = "Select folder to read into worksheet",
                 ShowNewFolderButton = false
             };
+
+
+            // extend the call and add in the type in box
+            // fbd.
 
             // need a yes or no for reading in extra details
 
@@ -128,7 +153,7 @@ namespace ToolbarOfFunctions
         {
 
             FileInfo oFileInfo = new FileInfo(file);
-            FileVersionInfo oFileVersionInfo = FileVersionInfo.GetVersionInfo(file);
+            FileVersionInfo oFileVersionInfo = FileVersionInfo.GetVersionInfo(file);        // Get file version info
 
             Wks.Cells[gintFileCount, 2].value = oFileInfo.LastAccessTime.ToString();        // date
             Wks.Cells[gintFileCount, 3].value = oFileInfo.Length.ToString();                // Size
