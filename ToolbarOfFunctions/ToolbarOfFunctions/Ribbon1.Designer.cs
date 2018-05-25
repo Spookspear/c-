@@ -37,11 +37,14 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Ribbon1));
             this.MYTOOLBAR = this.Factory.CreateRibbonTab();
             this.customToolbar = this.Factory.CreateRibbonGroup();
+            this.folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.btnReadFolders = this.Factory.CreateRibbonButton();
             this.btnCompareSheets = this.Factory.CreateRibbonButton();
             this.btnZap = this.Factory.CreateRibbonButton();
-            this.btnDeleteBlankLines = this.Factory.CreateRibbonButton();
-            this.folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
+            this.btnDeleteBlankLinesA = this.Factory.CreateRibbonButton();
+            this.btnDeleteBlankLinesB = this.Factory.CreateRibbonButton();
+            this.btnDeleteBlankLinesC = this.Factory.CreateRibbonButton();
+            this.splitButton1 = this.Factory.CreateRibbonSplitButton();
             this.MYTOOLBAR.SuspendLayout();
             this.customToolbar.SuspendLayout();
             this.SuspendLayout();
@@ -55,9 +58,9 @@
             // customToolbar
             // 
             this.customToolbar.Items.Add(this.btnReadFolders);
-            this.customToolbar.Items.Add(this.btnCompareSheets);
             this.customToolbar.Items.Add(this.btnZap);
-            this.customToolbar.Items.Add(this.btnDeleteBlankLines);
+            this.customToolbar.Items.Add(this.splitButton1);
+            this.customToolbar.Items.Add(this.btnCompareSheets);
             this.customToolbar.Label = "Custom Toolbar";
             this.customToolbar.Name = "customToolbar";
             // 
@@ -89,15 +92,44 @@
             this.btnZap.ShowImage = true;
             this.btnZap.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnZap_Click);
             // 
-            // btnDeleteBlankLines
+            // btnDeleteBlankLinesA
             // 
-            this.btnDeleteBlankLines.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
-            this.btnDeleteBlankLines.Description = "Delete Blank Lines";
-            this.btnDeleteBlankLines.Image = ((System.Drawing.Image)(resources.GetObject("btnDeleteBlankLines.Image")));
-            this.btnDeleteBlankLines.Label = "Delete Blank Lines";
-            this.btnDeleteBlankLines.Name = "btnDeleteBlankLines";
-            this.btnDeleteBlankLines.ShowImage = true;
-            this.btnDeleteBlankLines.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnDeleteBlankLines_Click);
+            this.btnDeleteBlankLinesA.Image = ((System.Drawing.Image)(resources.GetObject("btnDeleteBlankLinesA.Image")));
+            this.btnDeleteBlankLinesA.Label = "Mode: A";
+            this.btnDeleteBlankLinesA.Name = "btnDeleteBlankLinesA";
+            this.btnDeleteBlankLinesA.ShowImage = true;
+            this.btnDeleteBlankLinesA.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnDeleteBlankLinesA_Click);
+            // 
+            // btnDeleteBlankLinesB
+            // 
+            this.btnDeleteBlankLinesB.Image = ((System.Drawing.Image)(resources.GetObject("btnDeleteBlankLinesB.Image")));
+            this.btnDeleteBlankLinesB.Label = "Mode: B";
+            this.btnDeleteBlankLinesB.Name = "btnDeleteBlankLinesB";
+            this.btnDeleteBlankLinesB.ScreenTip = "Fastest";
+            this.btnDeleteBlankLinesB.ShowImage = true;
+            this.btnDeleteBlankLinesB.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnDeleteBlankLinesB_Click);
+            // 
+            // btnDeleteBlankLinesC
+            // 
+            this.btnDeleteBlankLinesC.Image = ((System.Drawing.Image)(resources.GetObject("btnDeleteBlankLinesC.Image")));
+            this.btnDeleteBlankLinesC.Label = "Mode: C";
+            this.btnDeleteBlankLinesC.Name = "btnDeleteBlankLinesC";
+            this.btnDeleteBlankLinesC.ScreenTip = "Slowest";
+            this.btnDeleteBlankLinesC.ShowImage = true;
+            this.btnDeleteBlankLinesC.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnDeleteBlankLinesC_Click);
+            // 
+            // splitButton1
+            // 
+            this.splitButton1.ButtonType = Microsoft.Office.Tools.Ribbon.RibbonButtonType.ToggleButton;
+            this.splitButton1.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this.splitButton1.Description = "Mode type";
+            this.splitButton1.Image = ((System.Drawing.Image)(resources.GetObject("splitButton1.Image")));
+            this.splitButton1.Items.Add(this.btnDeleteBlankLinesA);
+            this.splitButton1.Items.Add(this.btnDeleteBlankLinesB);
+            this.splitButton1.Items.Add(this.btnDeleteBlankLinesC);
+            this.splitButton1.Label = "Delete Blank Lions";
+            this.splitButton1.Name = "splitButton1";
+            this.splitButton1.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.splitButton1_Click);
             // 
             // Ribbon1
             // 
@@ -118,10 +150,13 @@
         internal Microsoft.Office.Tools.Ribbon.RibbonTab MYTOOLBAR;
         internal Microsoft.Office.Tools.Ribbon.RibbonGroup customToolbar;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton btnZap;
-        internal Microsoft.Office.Tools.Ribbon.RibbonButton btnDeleteBlankLines;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton btnReadFolders;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton btnCompareSheets;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton btnDeleteBlankLinesB;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton btnDeleteBlankLinesC;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton btnDeleteBlankLinesA;
+        internal Microsoft.Office.Tools.Ribbon.RibbonSplitButton splitButton1;
     }
 
     partial class ThisRibbonCollection

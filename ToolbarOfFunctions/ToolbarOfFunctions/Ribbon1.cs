@@ -23,11 +23,6 @@ namespace ToolbarOfFunctions
             Globals.ThisAddIn.zapWorksheet(Globals.ThisAddIn.Application.ActiveWorkbook);
         }
 
-        private void btnDeleteBlankLines_Click(object sender, RibbonControlEventArgs e)
-        {
-            Globals.ThisAddIn.deleteBlankLines(Globals.ThisAddIn.Application.ActiveWorkbook);
-        }
-
         private void btnReadFolders_Click(object sender, RibbonControlEventArgs e)
         {
             Globals.ThisAddIn.readFolders(Globals.ThisAddIn.Application.ActiveWorkbook);
@@ -37,7 +32,29 @@ namespace ToolbarOfFunctions
         {
             Globals.ThisAddIn.compareSheets(Globals.ThisAddIn.Application.ActiveWorkbook);
         }
+        
+        private void btnDeleteBlankLinesA_Click(object sender, RibbonControlEventArgs e)
+        {
+            Globals.ThisAddIn.deleteBlankLines(Globals.ThisAddIn.Application.ActiveWorkbook, "A");
+        }
 
+
+        private void btnDeleteBlankLinesB_Click(object sender, RibbonControlEventArgs e)
+        {
+            Globals.ThisAddIn.deleteBlankLines(Globals.ThisAddIn.Application.ActiveWorkbook, "B");
+
+        }
+
+        private void btnDeleteBlankLinesC_Click(object sender, RibbonControlEventArgs e)
+        {
+            Globals.ThisAddIn.deleteBlankLines(Globals.ThisAddIn.Application.ActiveWorkbook, "C");
+
+        }
+
+        private void splitButton1_Click(object sender, RibbonControlEventArgs e)
+        {
+
+        }
     }
 
 }
