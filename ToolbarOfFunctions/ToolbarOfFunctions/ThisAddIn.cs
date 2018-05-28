@@ -14,7 +14,7 @@ using Microsoft.Office.Interop.Excel;
 
 using System.IO;            // for Directory function
 using System.Diagnostics;   // .FileVersionInfo
-
+using System.Drawing;       // for colours
 
 namespace ToolbarOfFunctions
 {
@@ -147,21 +147,12 @@ namespace ToolbarOfFunctions
 
             FileInfo oFileInfo = new FileInfo(file);
             FileVersionInfo oFileVersionInfo = FileVersionInfo.GetVersionInfo(file);            // Get file version info
-
-            // Left here: 25-05-2018 17:48
-            // Left here: 25-05-2018 17:48
-            // Left here: 25-05-2018 17:48
-
-
-            // Wks.Cells[gintFileCount, 2].value = oFileInfo.LastAccessTime.ToString();         // date
-            // Wks.Cells[gintFileCount, 2].value = oFileInfo.LastWriteTime.ToString();          // date
-            Wks.Cells[gintFileCount, 2].value = oFileInfo.LastWriteTimeUtc;                        // date
-            // Wks.Cells[gintFileCount, 3].value = oFileInfo.Length.ToString();                 // Size                                                                                                                                                                        
-            Wks.Cells[gintFileCount, 3].value = oFileInfo.Length;                               // Size                                                                                                                                                                        
+            Wks.Cells[gintFileCount, 2].value = oFileInfo.LastWriteTime;                        // date
+            Wks.Cells[gintFileCount, 3].value = oFileInfo.Length;                               // Size -- .ToString();
             Wks.Cells[gintFileCount, 4].value = oFileVersionInfo.FileVersion;
             Wks.Cells[gintFileCount, 5].value = oFileInfo.Name;                                 // File Name Extracted
         }
-        // got from the internet
+
         public static void directorySearch(string root, Excel.Worksheet Wks, int gintFileCount, bool boolExtraDetails, bool isRootItrated) {
 
             if (!isRootItrated) {
@@ -199,8 +190,216 @@ namespace ToolbarOfFunctions
         }
 
         public void compareSheets(Excel.Workbook Wkb) {
-            MsgBox("compareSheets - code goes here");
+            // MsgBox("compareSheets - code goes here");
+            // get current sheet
+            // get sheet next door
+            Excel.Worksheet Wks1;
+            Excel.Worksheet Wks2;
+            string strClearOrColour = "Colour";
+
+            Wks1 = Wkb.ActiveSheet;
+            Wks2 = Wkb.Sheets[Wks1.Index + 1];
+
+            DialogResult dlgResult = MessageBox.Show("Compare: Worksheet: " + Wks1.Name + " against: " + Wks2.Name + " and " + strClearOrColour + " ones which are the same?", "Compare Sheets", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+
+            if (dlgResult == DialogResult.Yes)
+            {
+                // MsgBox("will proceed");
+
+                int intTargetRow = 0;
+                //int intDeltaCount = 1;        // used for refreshing the screen
+                int intStartRow = 2;
+
+                // how may columns to check ?
+                int intNoCheckCols = 5;             // for later loop?
+                int intStartColumToCheck = 1;
+                int intColScore = 0;
+
+                string strValue1 = "";
+
+                int intSheetLastRow1 = getLastRow(Wks1);
+                int intSheetLastRow2 = getLastRow(Wks2);
+
+                for (int intSourceRow = intStartRow; intSourceRow <= intSheetLastRow1; intSourceRow++)
+                {
+                    // read in vlaue from sheet 
+                    // maybe I should ready all into arrayS?
+
+                    strValue1 = Wks1.Cells[intSourceRow, intStartColumToCheck].Value;
+
+                    intTargetRow = searchForValue(Wks2, strValue1, intStartColumToCheck);
+
+                    if (intSourceRow == 8)
+                    {
+                        Console.Write("stop");
+                    }
+
+
+
+                    if (intTargetRow > 0)
+                    {
+                        string stringCell1 = "";
+                        string stringCell2 = "";
+
+                        //  start from correct column
+                        for (int intColCount  = intStartColumToCheck; intColCount <= intNoCheckCols; intColCount++)
+                        {
+                            if (!isEmptyCell(Wks1.Cells[intSourceRow, intColCount]))
+                            {
+                                stringCell1 = Wks1.Cells[intSourceRow, intColCount].Value.ToString();
+                            }
+
+                            // need to handle nulls properly
+                            if (!isEmptyCell(Wks2.Cells[intTargetRow, intColCount]))
+                            {
+                                stringCell2 = Wks2.Cells[intTargetRow, intColCount].Value.ToString();
+                            }
+
+                            if (stringCell1 == stringCell2)
+                            {
+                                intColScore++;
+                            }
+
+                        }
+
+                        // Score system = if all the same then can blue it
+                        if (intColScore == intNoCheckCols)
+                        {
+                            colourCells(Wks1, intSourceRow, "OK");
+
+                        } else
+                        {
+                            colourCells(Wks1, intSourceRow, "Error");
+                        }
+
+                        intColScore = 0;
+                    }
+                }
+            }
         }
+
+
+        public void colourCells(Excel.Worksheet Wks, int intSourceRow, string strDoWhat)
+        {
+            int intStartColumToCheck = 1;
+            int intNoCheckCols = 5;
+
+            for (int intColCount = intStartColumToCheck; intColCount <= intNoCheckCols; intColCount++)
+            {
+                if (strDoWhat == "OK")
+                    Wks.Cells[intSourceRow, intColCount].Font.Color = ColorTranslator.ToOle(System.Drawing.Color.Blue);
+
+                if (strDoWhat == "Error")
+                    Wks.Cells[intSourceRow, intColCount].Font.Color = ColorTranslator.ToOle(System.Drawing.Color.Red);
+            }
+
+        }
+
+        public void compareSheetsOld(Excel.Workbook Wkb)
+        {
+            // MsgBox("compareSheets - code goes here");
+            // get current sheet
+            // get sheet next door
+            Excel.Worksheet Wks1;
+            Excel.Worksheet Wks2;
+            string strClearOrColour = "Colour";
+
+            Wks1 = Wkb.ActiveSheet;
+            Wks2 = Wkb.Sheets[Wks1.Index + 1];
+
+            DialogResult dlgResult = MessageBox.Show("Compare: Worksheet: " + Wks1.Name + " against: " + Wks2.Name + " and " + strClearOrColour + " ones which are the same?", "Compare Sheets", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+
+            if (dlgResult == DialogResult.Yes)
+            {
+                // MsgBox("will proceed");
+
+                int intTargetRow = 0;
+                //int intDeltaCount = 1;        // used for refreshing the screen
+                int intStartRow = 2;
+
+                // how may columns to check ?
+                int intNoCheckCols = 5;             // for later loop?
+                int intStartColumToCheck = 1;
+                int intColScore = 1;
+
+                string strValue1 = "";
+
+                int intSheetLastRow1 = getLastRow(Wks1);
+                int intSheetLastRow2 = getLastRow(Wks2);
+
+                for (int intSourceRow = intStartRow; intSourceRow <= intSheetLastRow1; intSourceRow++)
+                {
+                    // read in vlaue from sheet 
+                    // maybe I should ready all into arrayS?
+
+                    strValue1 = Wks1.Cells[intSourceRow, intStartColumToCheck].Value;
+
+                    intTargetRow = searchForValue(Wks2, strValue1, intStartColumToCheck);
+
+                    if (intTargetRow > 0)
+                    {
+                        //  start from correct column
+                        for (int intColCount = intStartColumToCheck; intColCount <= intNoCheckCols; intColCount++)
+                        {
+                            // Compare cells directly
+                            if (Wks1.Cells[intSourceRow, intColCount].Value == Wks2.Cells[intTargetRow, intColCount].Value)
+                            {
+                                intColScore++;
+                            }
+
+                        }
+
+                        // Score system = if all the same then can blue it
+                        if (intColScore == intNoCheckCols)
+                        {
+                            for (int intColCount = intStartColumToCheck; intColCount <= intNoCheckCols; intColCount++)
+                            {
+                                if (strClearOrColour == "Colour")
+                                {
+                                    Wks1.Cells[intSourceRow, intColCount].Font.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Blue); ;
+                                }
+                            }
+                        }
+
+                        intColScore = 1;
+                    }
+                }
+            }
+        }
+
+
+        private int searchForValue(Excel.Worksheet Wks2, string searchString, int intStartColumToCheck)
+        {
+
+            Excel.Range colRange = Wks2.Columns["A:A"];             //get the range object where you want to search from
+
+            Excel.Range resultRange = colRange.Find(
+
+                    What: searchString,
+
+                    LookIn: Excel.XlFindLookIn.xlValues,
+
+                    LookAt: Excel.XlLookAt.xlPart,
+
+                    // SearchOrder: Excel.XlSearchOrder.xlByRows,
+                    SearchOrder: Excel.XlSearchOrder.xlByColumns,
+
+                    SearchDirection: Excel.XlSearchDirection.xlNext
+
+                );                                                  // search searchString in the range, if find result, return a range
+            /*
+                if (resultRange is null) {
+                    MessageBox.Show("Did not found " + searchString + " in column A");
+                } else {
+                    //then you could handle how to display the row to the label according to resultRange
+                    MsgBox("found? - want to return the row no");
+                }
+                */
+
+            return resultRange.Row;
+
+        }
+
 
         public void deleteBlankLines(Excel.Workbook Wkb, string strMode) {
             Excel.Worksheet Wks;
@@ -456,7 +655,7 @@ namespace ToolbarOfFunctions
             Excel.Application application = Globals.ThisAddIn.Application;
             application.Cursor = Excel.XlMousePointer.xlWait;
         }
-        private static void SetCursorToDefault() {
+        private static void setCursorToDefault() {
             Excel.Application application = Globals.ThisAddIn.Application;
             application.Cursor = Excel.XlMousePointer.xlDefault;
         }

@@ -1,0 +1,17 @@
+    /* need to handle nulls properly
+    string stringCell1 = "";
+    string stringCell2 = "";
+
+    if (!isEmptyCell(Wks1.Cells[intSourceRow, intColCount])) {
+        stringCell1 = Wks1.Cells[intSourceRow, intColCount].Value.ToString();
+    }
+
+    // need to handle nulls properly
+    if (!isEmptyCell(Wks2.Cells[intSourceRow, intColCount])) {
+        stringCell2 = Wks2.Cells[intTargetRow, intColCount].Value.ToString();
+    }
+
+
+    if (stringCell1 == stringCell2) {
+        intColScore++;
+    }
