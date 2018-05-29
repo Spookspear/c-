@@ -51,9 +51,9 @@ namespace ToolbarOfFunctions
 
         }
 
-        private void splitButton1_Click(object sender, RibbonControlEventArgs e)
+        private void splitButtonDeleteLines_Click(object sender, RibbonControlEventArgs e)
         {
-
+            btnDeleteBlankLinesB_Click(sender, e);
         }
     }
 

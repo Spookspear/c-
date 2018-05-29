@@ -61,10 +61,32 @@ namespace DemoApp
 			comboRootFolder.DataSource = Enum.GetValues(typeof(Environment.SpecialFolder));
 		}
 
-		//private void _fillSpecialFolderCombo(ComboBox combo)
-		//{
-		//    //Environment.SpecialFolder.CommonApplicationData
-		//    combo.DataSource = Enum.GetValues(typeof(Environment.SpecialFolder));
-		//}
-	}
+        private void btnMine_Click(object sender, EventArgs e)
+        {
+
+            // 1gvb1 - need to set the properties I need and unstick them from the form
+
+            FolderBrowserDialogEx cfbd = new FolderBrowserDialogEx();
+            cfbd.Title = "Please Select Folder ...";
+            cfbd.SelectedPath = "";
+            cfbd.ShowEditbox = true;
+            cfbd.ShowNewFolderButton = false;
+            cfbd.RootFolder = Environment.SpecialFolder.Desktop;
+            cfbd.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+
+            DialogResult dr = cfbd.ShowDialog(this);
+            txtRtnCode.Text = dr.ToString();
+            txtRtnFolder.Text = "";
+            if (dr == DialogResult.OK)
+            {
+                txtRtnFolder.Text = cfbd.SelectedPath;
+            }
+        }
+
+        //private void _fillSpecialFolderCombo(ComboBox combo)
+        //{
+        //    //Environment.SpecialFolder.CommonApplicationData
+        //    combo.DataSource = Enum.GetValues(typeof(Environment.SpecialFolder));
+        //}
+    }
 }

@@ -17,7 +17,6 @@ Function browseFolder(myStartLocation, blnSimpleDialog)
 '                             empty string to open in "Desktop\My Documents"
 ' blnSimpleDialog   [boolean] if False, an additional text field will be
 '                             displayed where the folder can be selected
-'                             by typing the fully qualified path
 '
 ' Returns:          [string]  the fully qualified path to the selected folder
 '
@@ -40,7 +39,7 @@ Function browseFolder(myStartLocation, blnSimpleDialog)
     Else
         numOptions = &H10&  ' Additional text field to type folder path
     End If
-    
+
     ' Create a Windows Shell object
     Set objShell = CreateObject("Shell.Application")
 
@@ -70,7 +69,8 @@ Function browseFolder(myStartLocation, blnSimpleDialog)
     ' Return the path of the selected folder
     browseFolder = objPath
 End Function
-
+by typing the fully qualified path
+'
 ' ----------+-----------------------------------------------------------------------------------------------------
 ' Procedure | compareSheets
 ' Author    | G Bishop
@@ -104,70 +104,70 @@ Dim strNoCheckColsCheck As String
 
     ' Read in data from InternalParameters
     strDoWhat = getRangeValue("rangeCompareOption")
-    
+
     strNoCheckColsCheck = getRangeValue("rangeNoOfColumnsToCheck")
     If strNoCheckColsCheck = "X" Then
         intNoCheckCols = getLastCol(Wks1)
     Else
         intNoCheckCols = getRangeValue("rangeNoOfColumnsToCheck")
     End If
-    
+
     intStartRow = getRangeValue("rangeComparingStartRow")
     curStartColumToCheck = getRangeValue("rangeDupliateColumnToCheck")
-    
+
     lngClrFoundFont = InternalParameters.Range("rangeColourFound").Font.Color
     lngClrNotFoundFont = InternalParameters.Range("rangeColourNotFound").Font.Color
-    
+
     lngClrFoundBack = InternalParameters.Range("rangeColourFound").Interior.Color
     lngClrNotFoundBack = InternalParameters.Range("rangeColourNotFound").Interior.Color
 
     curSheetLastRow2 = getLastRow(Wks2)
     curSheetLastRow1 = getLastRow(Wks1)
-    
+
     Call setFontBlank
     Wks1.Cells(intStartRow, curStartColumToCheck).Select
 
     intDeltaCount = 1
-    
+
     ' start of loop
     For curSourceRow = intStartRow To curSheetLastRow1
-    
-    
+
+
         'If curSourceRow = 2234 Then
         '    MsgBox "stop", , "1GVB1 13/10/2017"
         'End If
-        
-    
+
+
         boolFound = False
         strFile1 = Wks1.Cells(curSourceRow, curStartColumToCheck).Value
-        
+
         curTargetRow = searchForValue(Wks2, strFile1, curStartColumToCheck)
-        
+
         If curTargetRow > 0 Then
             boolFound = True
             intScore = 0: intCount1 = 0
-            
+
             ' start from correct column
             For intCount1 = curStartColumToCheck To (intNoCheckCols + curStartColumToCheck - 1)
-            
+
                 If G_boolDevelopmentMode Then
                     Wks1.Cells(curSourceRow, intCount1).Activate
                     Debug.Print LCase(Wks1.Cells(curSourceRow, intCount1).Value)
                     Debug.Print LCase(Wks2.Cells(curTargetRow, intCount1).Value)
                 End If
-            
+
                 If LCase(Wks1.Cells(curSourceRow, intCount1).Value) = LCase(Wks2.Cells(curTargetRow, intCount1).Value) Then
                     intScore = intScore + 1
                 End If
             Next intCount1
-            
+
             ' Score system = if all the same then can blue it
             If intScore = intNoCheckCols Then
                 For intCount1 = curStartColumToCheck To (intNoCheckCols + curStartColumToCheck - 1)
                     If strDoWhat = "Colour" Then
                         Wks1.Cells(curSourceRow, intCount1).Font.Color = lngClrFoundFont
                         'Wks1.Cells(curSourceRow, intCount1).Interior.Color = lngClrFoundBack
-                    
+
                     Else
                         Wks1.Cells(curSourceRow, intCount1).Value = ""
                     End If
@@ -179,15 +179,15 @@ Dim strNoCheckColsCheck As String
             For intCount1 = curStartColumToCheck To (intNoCheckCols + curStartColumToCheck - 1)
                 Wks1.Cells(curSourceRow, intCount1).Font.Color = lngClrNotFoundFont
                 'Wks1.Cells(curSourceRow, intCount1).Interior.Color = lngClrNotFoundBack
-                
+
             Next intCount1
         End If
-        
+
         ' Every zoom 10% screen load '
         If intDeltaCount >= 5000 Then
-            
+
             'MsgBox "work on later - when checking more data", , "1GVB1 17/05/2017"
-            
+
             Application.ScreenUpdating = True
             Debug.Print "Row No: " & CStr(curSourceRow)
             Wks1.Cells(curSourceRow, intCount1).Select
@@ -195,11 +195,11 @@ Dim strNoCheckColsCheck As String
             Application.ScreenUpdating = False
             intDeltaCount = 1
         End If
-        
+
         intDeltaCount = intDeltaCount + 1
-        
+
     Next curSourceRow
-        
+
 End Sub
 
 '--------------------------------------------------------------------------
@@ -218,13 +218,13 @@ Dim objFile1 As Object
 
     Set objFileSystem = CreateObject("Scripting.FileSystemObject")
     intStartRow = 2
-    
+
     Set WksActiveSheet = ActiveWorkbook.Sheets(strSheetName)
-    
+
     For intCount = intStartRow To intRows
-    
+
         strFileName = WksActiveSheet.Cells(intCount, 1)
-        
+
         If strFileName > "" Then
             Set objFile1 = objFileSystem.GetFile(strFileName)
             With objFile1
@@ -232,14 +232,14 @@ Dim objFile1 As Object
                 WksActiveSheet.Cells(intCount, 3) = .Size
             End With
             WksActiveSheet.Cells(intCount, 4) = objFileSystem.GetFileVersion(strFileName)
-            
+
             WksActiveSheet.Cells(intCount, 5) = extractFileNameOnly(strFileName)
-            
+
         End If
     Next intCount
-    
+
     Set objFile1 = Nothing
-    
+
 End Sub
 
 ' ----------+-----------------------------------------------------------------------------------------------------
@@ -261,16 +261,16 @@ Dim strFile
 
     ' move to global?
     Set objFolder = objShell.Namespace(strPath)
-    
+
     For Each objFile In objFolder.Items
-    
+
         If strFile = objFolder.getDetailsOf(objFile, 0) Then
             getDetailsOf = objFolder.getDetailsOf(objFile, intWhichAttrib)
             Exit For
         End If
-    
+
     Next
-    
+
     Set objFolder = Nothing
 
 End Function
@@ -291,34 +291,34 @@ Dim objFile1 As Object
 
     Set objFileSystem = CreateObject("Scripting.FileSystemObject")
     Set objShell = CreateObject("Shell.Application")
-    
+
     intStartRow = 2
-    
+
     Set WksActiveSheet = ActiveWorkbook.Sheets(strSheetName)
-    
+
     For intCount = intStartRow To intRows
-    
+
         strFileName = WksActiveSheet.Cells(intCount, 1)
-        
+
         If strFileName > "" Then
             Set objFile1 = objFileSystem.GetFile(strFileName)
             With objFile1
                 WksActiveSheet.Cells(intCount, 2) = .DateLastModified
                 WksActiveSheet.Cells(intCount, 3) = .Size
             End With
-            
+
             WksActiveSheet.Cells(intCount, 4) = objFileSystem.GetFileVersion(strFileName)
             If Len(Trim(WksActiveSheet.Cells(intCount, 4))) = 0 Then
                 WksActiveSheet.Cells(intCount, 4) = getDetailsOf(strFileName, 22)
             End If
-            
+
             WksActiveSheet.Cells(intCount, 5) = extractFileNameOnly(strFileName)
-            
+
         End If
     Next intCount
-    
+
     Set objFile1 = Nothing
-    
+
 End Sub
 
 '--------------------------------------------------------------------------
@@ -346,18 +346,18 @@ Dim ObjFileCollection
 Dim ObjSubFolderCollection
 Dim ObjSubFolder
 Dim objFile
-   
+
     Set objFolder = objFileSystem.GetFolder(strSubFolderPath)
     Set ObjFileCollection = objFolder.Files
 
     For Each objFile In ObjFileCollection
         ' Stick the value on the names sheet
         ActiveWorkbook.Sheets(strOutputSheet).Cells(gnCount, 1).Value = objFile.Path
-        
+
         If Len(objFile.Path) > intHighlightRows And intHighlightRows <> 0 Then
             ActiveWorkbook.Sheets(strOutputSheet).Cells(gnCount, 1).Font.Color = vbRed
         End If
-        
+
         gnCount = gnCount + 1
     Next
 
@@ -390,6 +390,6 @@ Dim strInputFolder
             populateSheetFromFolder = True
         End If
     End If
-   
+
 End Function
 

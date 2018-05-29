@@ -1,0 +1,6 @@
+D:\GitHub\c-\FolderBrowserDialogEx\FolderBrowserDialogEx\bin\Debug\FolderBrowserDialogEx.dll
+D:\GitHub\c-\FolderBrowserDialogEx\FolderBrowserDialogEx\bin\Debug\FolderBrowserDialogEx.pdb
+D:\GitHub\c-\FolderBrowserDialogEx\FolderBrowserDialogEx\obj\Debug\FolderBrowserDialogEx.csprojAssemblyReference.cache
+D:\GitHub\c-\FolderBrowserDialogEx\FolderBrowserDialogEx\obj\Debug\FolderBrowserDialogEx.csproj.CoreCompileInputs.cache
+D:\GitHub\c-\FolderBrowserDialogEx\FolderBrowserDialogEx\obj\Debug\FolderBrowserDialogEx.dll
+D:\GitHub\c-\FolderBrowserDialogEx\FolderBrowserDialogEx\obj\Debug\FolderBrowserDialogEx.pdb

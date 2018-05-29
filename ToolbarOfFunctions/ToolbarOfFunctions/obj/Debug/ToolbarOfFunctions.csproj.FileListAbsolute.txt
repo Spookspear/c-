@@ -23,3 +23,4 @@ D:\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\obj\Debug\ToolbarOfFunctions.
 D:\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\obj\Debug\ToolbarOfFunctions.dll
 D:\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\obj\Debug\ToolbarOfFunctions.pdb
 D:\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\obj\Debug\ToolbarOfFunctions.csprojAssemblyReference.cache
+D:\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\obj\Debug\ToolbarOfFunctions.Form1.resources

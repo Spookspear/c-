@@ -173,10 +173,13 @@
         YII=
 </value>
   </data>
-  <data name="splitButton1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <metadata name="splitButtonDeleteLines.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="splitButtonDeleteLines.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAS5SURBVFhH5ZZtSN11FMd9Fb2QCMn2YLLKJVN3xYfdTPOa
+        YQUAAAAJcEhZcwAADsIAAA7CARUoSoAAAAS5SURBVFhH5ZZtSN11FMd9Fb2QCMn2YLLKJVN3xYfdTPOa
         iqyUue2ucsl225JRuwgra4OZyXbZMGe56o4NE2d7kW22rSWBbzaXjYSItDGMcE0CmW8sIWFCvjrtc/if
         2//O+XCbQdAXDr//w/md73n8/f9x/0vU1NSIc3lvaGxsFK/XKyUlJeL3+6Wqqmpew+h4PJ6IOI9jQzgc
         VsL8/Hypr6+Xvm8vC5iYmFBnHLVZMEdZIZ9PdxY6Ozs1QjaRvp6eHrn15y0lnp6eVnLucQhxtiksS2TH
@@ -280,7 +283,7 @@
   <data name="btnCompareSheets.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAVxSURBVFhHtVYNTFVlGL74F5qBIb+C/ARccSLDbgmbiMLA
+        YQUAAAAJcEhZcwAADsIAAA7CARUoSoAAAAVxSURBVFhHtVYNTFVlGL74F5qBIb+C/ARccSLDbgmbiMLA
         dBI/SghzZQ5JhABhaYzUOVdYZNpkuMpUcjozmUoIgvxc/gL5ESUZioRCGMGuZaQ4bW1v53nvOUcuF8EL
         9G4P5+P73ud53vN+53znKsYSSUlJFBwcTH5+fgyMMScu/z/h7e0NA5o2w4gUC8xp8nJbUqx0YvBYmOM1
         IUfMnZhQKpVa4WVzacr212laph/NPbKGvE9vpsBzyQyMMYe1F1M8uSBwwBVlDA+xpSw2PcOH5h9fR/Hq

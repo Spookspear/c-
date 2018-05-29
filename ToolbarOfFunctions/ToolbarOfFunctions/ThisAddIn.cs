@@ -1,5 +1,8 @@
 ﻿#pragma warning disable IDE1006 // Naming Styles
 
+// ask around how to add a comman class that I can share with this
+
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,23 +19,35 @@ using System.IO;            // for Directory function
 using System.Diagnostics;   // .FileVersionInfo
 using System.Drawing;       // for colours
 
+using DaveChambers.FolderBrowserDialogEx;
+
+using System.ComponentModel;
+using System.Data;
+
+
+
 namespace ToolbarOfFunctions
-{
+    {
     public partial class ThisAddIn
     {
+        internal readonly IntPtr Handle;
+        //internal IntPtr Handle;
+        //IntPtr Handle = Process.GetCurrentProcess().MainWindowHandle;
+        // internal readonly IntPtr Handle = Process.GetCurrentProcess().MainWindowHandle;
+
 
         private void ThisAddIn_Startup(object sender, System.EventArgs e) { }
 
         private void ThisAddIn_Shutdown(object sender, System.EventArgs e) { }
 
         // Clear the workbook
-        public void zapWorksheet(Excel.Workbook Wkb) {
+        public void zapWorksheet(Excel.Workbook Wkb, int intFirstRow =2) {
             Excel.Worksheet Wks;
             Excel.Range xlCell;
 
             Wks = Wkb.ActiveSheet;
 
-            int intFirstRow = 2;
+            // int intFirstRow = 2;
             int intLastRow = getLastRow(Wks);
             xlCell = Wks.get_Range("A" + intFirstRow + ":A" + intLastRow);
 
@@ -71,6 +86,7 @@ namespace ToolbarOfFunctions
 
         }
 
+
         public void readFolders(Excel.Workbook Wkb) {
             // MsgBox("readFolders - code goes here");
 
@@ -80,18 +96,24 @@ namespace ToolbarOfFunctions
             // point to active sheet
             Wks = Wkb.ActiveSheet;
 
-            // initalise folder browser control / component?
-            FolderBrowserDialog fbd = new FolderBrowserDialog {
+            // split this lot into functions
+
+            /*initalise folder browser control / component?
+            FolderBrowserDialog cfbd = new FolderBrowserDialog {
                 Description = "Select folder to read into worksheet ...",
                 ShowNewFolderButton = false
-            };
+            }; */
 
-
-            // extend the call and add in the type in box
-            // fbd. will do this later
+            FolderBrowserDialogEx cfbd = new FolderBrowserDialogEx() {
+                Title = "Please Select Folder ...",
+                SelectedPath = "c:\\temp\\sfc",
+                ShowEditbox = true,
+                ShowNewFolderButton = false,
+                RootFolder = Environment.SpecialFolder.Desktop,
+                StartPosition = FormStartPosition.CenterScreen
+                };
 
             // need a yes or no for reading in extra details
-
             DialogResult dlgReadExtraDetails = askGetExtraDetails();
             bool boolExtraDetails = false;
 
@@ -101,19 +123,18 @@ namespace ToolbarOfFunctions
             if (dlgReadExtraDetails == DialogResult.No)
                 boolExtraDetails = false;
 
-
             if (dlgReadExtraDetails != DialogResult.Cancel) {
-                // can set the root folder here
-                // fbd.RootFolder = Environment.SpecialFolder.MyDocuments;
-                // MsgBox(fbd.SelectedPath);
-                if (fbd.ShowDialog() == System.Windows.Forms.DialogResult.OK) {
+
+                if (cfbd.ShowDialog(this) == System.Windows.Forms.DialogResult.OK) {
                     int gintFileCount = 2;
 
-                    // do I need this?
-                    string strPath = fbd.SelectedPath + "\\";
-                    directorySearch(strPath, Wks, gintFileCount, boolExtraDetails, false);
+                    // zap the sheet before we start
+                    zapWorksheet(Wkb, 1);
 
-                    writeHeaders(Wks, "FILES");
+                    // string strPath = cfbd.SelectedPath;
+                    directorySearch(cfbd.SelectedPath.ToString(), Wks, gintFileCount, boolExtraDetails, false);
+
+                    writeHeaders(Wks, "FILES", boolExtraDetails);
                     Wks.Columns.AutoFit();
                 }
             }
@@ -122,19 +143,23 @@ namespace ToolbarOfFunctions
 
         }
 
-        public void writeHeaders(Excel.Worksheet Wks, string strDoWhat)
+        public void writeHeaders(Excel.Worksheet Wks, string strDoWhat, bool boolExtraDetails)
         {
-            if (strDoWhat == "FILES")
-            {
-                Wks.Cells[1, 1].value = "File Name";
-                Wks.Cells[1, 2].value = "Date";
-                Wks.Cells[1, 3].value = "Size";
-                Wks.Cells[1, 4].value = "Version";
-                Wks.Cells[1, 5].value = "File Name Extracted";
-            }
+            string strHead;
 
+            if (boolExtraDetails)
+                strHead = "File Name;Date Last Accessed;Size;Version;File Name Extracted;";
+            else 
+                strHead = "FileName;;;;;";            
+
+            string[] strWords = strHead.Split(';');
+
+            if (strDoWhat == "FILES")            
+                for (int i = 0; i <= strWords.GetUpperBound(0); i++) 
+                    Wks.Cells[1, (i+1)].value = strWords[i];
+                
             Wks.Range["A1:E1"].Font.Bold = true;
-        
+
         }
 
         public static DialogResult askGetExtraDetails() {
@@ -146,10 +171,25 @@ namespace ToolbarOfFunctions
         public static void getExtraDetails(string file, Excel.Worksheet Wks, int gintFileCount) {
 
             FileInfo oFileInfo = new FileInfo(file);
-            FileVersionInfo oFileVersionInfo = FileVersionInfo.GetVersionInfo(file);            // Get file version info
-            Wks.Cells[gintFileCount, 2].value = oFileInfo.LastWriteTime;                        // date
+            FileVersionInfo oFileVersionInfo = FileVersionInfo.GetVersionInfo(file);            // Get file version info LastWriteTime, LastAccessTime
+            Wks.Cells[gintFileCount, 2].value = oFileInfo.LastAccessTime;                        // date
             Wks.Cells[gintFileCount, 3].value = oFileInfo.Length;                               // Size -- .ToString();
-            Wks.Cells[gintFileCount, 4].value = oFileVersionInfo.FileVersion;
+
+            // Wks.Cells[gintFileCount, 4].value = oFileVersionInfo.FileVersion;
+            // 0.0.0.0
+            // 16.21.0.0
+
+            string strFileVersioninfo = oFileVersionInfo.FileMajorPart.ToString() + "." +
+                                                oFileVersionInfo.FileMinorPart.ToString() + "." +
+                                                oFileVersionInfo.FileBuildPart.ToString() + "." +
+                                                oFileVersionInfo.FilePrivatePart.ToString();
+
+
+            if (strFileVersioninfo != "0.0.0.0") { 
+                Wks.Cells[gintFileCount, 4].value = strFileVersioninfo;
+            }
+
+
             Wks.Cells[gintFileCount, 5].value = oFileInfo.Name;                                 // File Name Extracted
         }
 
@@ -190,6 +230,7 @@ namespace ToolbarOfFunctions
         }
 
         public void compareSheets(Excel.Workbook Wkb) {
+
             // MsgBox("compareSheets - code goes here");
             // get current sheet
             // get sheet next door
@@ -229,48 +270,32 @@ namespace ToolbarOfFunctions
 
                     intTargetRow = searchForValue(Wks2, strValue1, intStartColumToCheck);
 
-                    if (intSourceRow == 8)
-                    {
-                        Console.Write("stop");
-                    }
-
-
-
                     if (intTargetRow > 0)
                     {
-                        string stringCell1 = "";
-                        string stringCell2 = "";
+                        string stringCell1 = ""; string stringCell2 = "";
 
                         //  start from correct column
                         for (int intColCount  = intStartColumToCheck; intColCount <= intNoCheckCols; intColCount++)
                         {
                             if (!isEmptyCell(Wks1.Cells[intSourceRow, intColCount]))
-                            {
                                 stringCell1 = Wks1.Cells[intSourceRow, intColCount].Value.ToString();
-                            }
-
+                            
                             // need to handle nulls properly
                             if (!isEmptyCell(Wks2.Cells[intTargetRow, intColCount]))
-                            {
                                 stringCell2 = Wks2.Cells[intTargetRow, intColCount].Value.ToString();
-                            }
 
                             if (stringCell1 == stringCell2)
-                            {
                                 intColScore++;
-                            }
 
                         }
+
 
                         // Score system = if all the same then can blue it
                         if (intColScore == intNoCheckCols)
-                        {
                             colourCells(Wks1, intSourceRow, "OK");
-
-                        } else
-                        {
+                        else 
                             colourCells(Wks1, intSourceRow, "Error");
-                        }
+                        
 
                         intColScore = 0;
                     }
@@ -278,13 +303,12 @@ namespace ToolbarOfFunctions
             }
         }
 
-
         public void colourCells(Excel.Worksheet Wks, int intSourceRow, string strDoWhat)
         {
             int intStartColumToCheck = 1;
             int intNoCheckCols = 5;
 
-            for (int intColCount = intStartColumToCheck; intColCount <= intNoCheckCols; intColCount++)
+           for (int intColCount = intStartColumToCheck; intColCount <= intNoCheckCols; intColCount++)
             {
                 if (strDoWhat == "OK")
                     Wks.Cells[intSourceRow, intColCount].Font.Color = ColorTranslator.ToOle(System.Drawing.Color.Blue);
