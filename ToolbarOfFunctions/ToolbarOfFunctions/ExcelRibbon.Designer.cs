@@ -1,13 +1,13 @@
 ﻿namespace ToolbarOfFunctions
 {
-    partial class Ribbon1 : Microsoft.Office.Tools.Ribbon.RibbonBase
+    partial class ExcelRibbon : Microsoft.Office.Tools.Ribbon.RibbonBase
     {
         /// <summary>
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        public Ribbon1()
+        public ExcelRibbon()
             : base(Globals.Factory.GetRibbonFactory())
         {
             InitializeComponent();
@@ -34,10 +34,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Ribbon1));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ExcelRibbon));
             this.MYTOOLBAR = this.Factory.CreateRibbonTab();
             this.customToolbar = this.Factory.CreateRibbonGroup();
-            this.folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
+            this.btnSettings = this.Factory.CreateRibbonButton();
             this.btnReadFolders = this.Factory.CreateRibbonButton();
             this.btnCompareSheets = this.Factory.CreateRibbonButton();
             this.btnZap = this.Factory.CreateRibbonButton();
@@ -45,15 +45,15 @@
             this.btnDeleteBlankLinesA = this.Factory.CreateRibbonButton();
             this.btnDeleteBlankLinesB = this.Factory.CreateRibbonButton();
             this.btnDeleteBlankLinesC = this.Factory.CreateRibbonButton();
-            this.btnDelBlankLines = this.Factory.CreateRibbonButton();
             this.btnDealWithSingleDuplicates = this.Factory.CreateRibbonButton();
+            this.btnDealWithManyDuplicates = this.Factory.CreateRibbonButton();
             this.btnLoadADGroupIntoSpreadsheet = this.Factory.CreateRibbonButton();
             this.btnLoadADGroupIntoSpreadsheetActiveCell = this.Factory.CreateRibbonButton();
             this.btnReadUsersGroupMembership = this.Factory.CreateRibbonButton();
             this.btnReadUsers = this.Factory.CreateRibbonButton();
             this.btnWriteTimeSheet = this.Factory.CreateRibbonButton();
             this.btnPingServers = this.Factory.CreateRibbonButton();
-            this.btnSettings = this.Factory.CreateRibbonButton();
+            this.folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.MYTOOLBAR.SuspendLayout();
             this.customToolbar.SuspendLayout();
             this.SuspendLayout();
@@ -71,8 +71,8 @@
             this.customToolbar.Items.Add(this.btnCompareSheets);
             this.customToolbar.Items.Add(this.btnZap);
             this.customToolbar.Items.Add(this.splitButtonDeleteLines);
-            this.customToolbar.Items.Add(this.btnDelBlankLines);
             this.customToolbar.Items.Add(this.btnDealWithSingleDuplicates);
+            this.customToolbar.Items.Add(this.btnDealWithManyDuplicates);
             this.customToolbar.Items.Add(this.btnLoadADGroupIntoSpreadsheet);
             this.customToolbar.Items.Add(this.btnLoadADGroupIntoSpreadsheetActiveCell);
             this.customToolbar.Items.Add(this.btnReadUsersGroupMembership);
@@ -81,6 +81,16 @@
             this.customToolbar.Items.Add(this.btnPingServers);
             this.customToolbar.Label = "Custom Toolbar";
             this.customToolbar.Name = "customToolbar";
+            // 
+            // btnSettings
+            // 
+            this.btnSettings.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this.btnSettings.Description = "Zap Worksheet";
+            this.btnSettings.Image = ((System.Drawing.Image)(resources.GetObject("btnSettings.Image")));
+            this.btnSettings.Label = "Settings";
+            this.btnSettings.Name = "btnSettings";
+            this.btnSettings.ShowImage = true;
+            this.btnSettings.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnSettings_Click);
             // 
             // btnReadFolders
             // 
@@ -153,23 +163,24 @@
             this.btnDeleteBlankLinesC.ShowImage = true;
             this.btnDeleteBlankLinesC.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnDeleteBlankLinesC_Click);
             // 
-            // btnDelBlankLines
-            // 
-            this.btnDelBlankLines.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
-            this.btnDelBlankLines.Description = "Duplicates (Cols: Single): &Del";
-            this.btnDelBlankLines.Image = ((System.Drawing.Image)(resources.GetObject("btnDelBlankLines.Image")));
-            this.btnDelBlankLines.Label = "Duplicates (Cols: Single):";
-            this.btnDelBlankLines.Name = "btnDelBlankLines";
-            this.btnDelBlankLines.ShowImage = true;
-            // 
             // btnDealWithSingleDuplicates
             // 
             this.btnDealWithSingleDuplicates.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
-            this.btnDealWithSingleDuplicates.Description = "Zap Worksheet";
+            this.btnDealWithSingleDuplicates.Description = "Duplicates (Cols: Single): &Del";
             this.btnDealWithSingleDuplicates.Image = ((System.Drawing.Image)(resources.GetObject("btnDealWithSingleDuplicates.Image")));
-            this.btnDealWithSingleDuplicates.Label = "Duplicates (Cols: Many)";
+            this.btnDealWithSingleDuplicates.Label = "Duplicates (Cols: Single):";
             this.btnDealWithSingleDuplicates.Name = "btnDealWithSingleDuplicates";
             this.btnDealWithSingleDuplicates.ShowImage = true;
+            this.btnDealWithSingleDuplicates.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnDealWithSingleDuplicates_Click);
+            // 
+            // btnDealWithManyDuplicates
+            // 
+            this.btnDealWithManyDuplicates.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this.btnDealWithManyDuplicates.Description = "Zap Worksheet";
+            this.btnDealWithManyDuplicates.Image = ((System.Drawing.Image)(resources.GetObject("btnDealWithManyDuplicates.Image")));
+            this.btnDealWithManyDuplicates.Label = "Duplicates (Cols: Many)";
+            this.btnDealWithManyDuplicates.Name = "btnDealWithManyDuplicates";
+            this.btnDealWithManyDuplicates.ShowImage = true;
             // 
             // btnLoadADGroupIntoSpreadsheet
             // 
@@ -225,19 +236,9 @@
             this.btnPingServers.Name = "btnPingServers";
             this.btnPingServers.ShowImage = true;
             // 
-            // btnSettings
+            // ExcelRibbon
             // 
-            this.btnSettings.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
-            this.btnSettings.Description = "Zap Worksheet";
-            this.btnSettings.Image = ((System.Drawing.Image)(resources.GetObject("btnSettings.Image")));
-            this.btnSettings.Label = "Settings";
-            this.btnSettings.Name = "btnSettings";
-            this.btnSettings.ShowImage = true;
-            this.btnSettings.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnSettings_Click);
-            // 
-            // Ribbon1
-            // 
-            this.Name = "Ribbon1";
+            this.Name = "ExcelRibbon";
             this.RibbonType = "Microsoft.Excel.Workbook";
             this.Tabs.Add(this.MYTOOLBAR);
             this.Load += new Microsoft.Office.Tools.Ribbon.RibbonUIEventHandler(this.Ribbon1_Load);
@@ -261,8 +262,8 @@
         internal Microsoft.Office.Tools.Ribbon.RibbonButton btnDeleteBlankLinesC;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton btnDeleteBlankLinesA;
         internal Microsoft.Office.Tools.Ribbon.RibbonSplitButton splitButtonDeleteLines;
-        internal Microsoft.Office.Tools.Ribbon.RibbonButton btnDelBlankLines;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton btnDealWithSingleDuplicates;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton btnDealWithManyDuplicates;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton btnLoadADGroupIntoSpreadsheet;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton btnLoadADGroupIntoSpreadsheetActiveCell;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton btnReadUsersGroupMembership;
@@ -274,9 +275,9 @@
 
     partial class ThisRibbonCollection
     {
-        internal Ribbon1 Ribbon1
+        internal ExcelRibbon Ribbon1
         {
-            get { return this.GetRibbon<Ribbon1>(); }
+            get { return this.GetRibbon<ExcelRibbon>(); }
         }
     }
 }

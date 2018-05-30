@@ -24,7 +24,7 @@ using DaveChambers.FolderBrowserDialogEx;
 using System.ComponentModel;
 using System.Data;
 
-
+using Microsoft.VisualStudio.Tools.Applications.Runtime;
 
 namespace ToolbarOfFunctions
     {
@@ -35,8 +35,16 @@ namespace ToolbarOfFunctions
         //IntPtr Handle = Process.GetCurrentProcess().MainWindowHandle;
         // internal readonly IntPtr Handle = Process.GetCurrentProcess().MainWindowHandle;
 
+        bool boolDisplayMessage;
+        frmSettings myForm = new frmSettings();
 
-        private void ThisAddIn_Startup(object sender, System.EventArgs e) { }
+        private void ThisAddIn_Startup(object sender, System.EventArgs e) {
+
+            // get the value from the form?
+            boolDisplayMessage = myForm.chkProduceMessageBox.Checked;
+
+
+        }
 
         private void ThisAddIn_Shutdown(object sender, System.EventArgs e) { }
 
@@ -59,6 +67,15 @@ namespace ToolbarOfFunctions
                 MsgBox("Cannot run in worksheet: InternalParameters", "Error");
             }
 
+        }
+
+        internal void openSettingsForm(Excel.Workbook activeWorkbook)
+        {
+
+            // frmSettings myForm = new frmSettings();
+            myForm.ShowDialog();
+
+            // throw new NotImplementedException();
         }
 
         public void MsgBox(string strMessage, string strWhichIcon = "Information") {
@@ -88,25 +105,24 @@ namespace ToolbarOfFunctions
 
 
         public void readFolders(Excel.Workbook Wkb) {
-            // MsgBox("readFolders - code goes here");
 
-            Excel.Worksheet Wks;
-            // Excel.Range xlCell;
+            Excel.Worksheet Wks;            // instantiate worksheet object
+            Wks = Wkb.ActiveSheet;          // point to active sheet
 
-            // point to active sheet
-            Wks = Wkb.ActiveSheet;
+            // custom extended class for browsing folders
 
-            // split this lot into functions
+            // am needing a folder full of files that will take a while to load
+            // how many files?
+            // 
+            // C:\Temp\manyFiles-01
+            string strPath;
 
-            /*initalise folder browser control / component?
-            FolderBrowserDialog cfbd = new FolderBrowserDialog {
-                Description = "Select folder to read into worksheet ...",
-                ShowNewFolderButton = false
-            }; */
+            strPath = "C:\\Temp\\manyFiles-01";
+            // strPath = "c:\\temp\\sfc"""
 
             FolderBrowserDialogEx cfbd = new FolderBrowserDialogEx() {
                 Title = "Please Select Folder ...",
-                SelectedPath = "c:\\temp\\sfc",
+                SelectedPath = strPath,
                 ShowEditbox = true,
                 ShowNewFolderButton = false,
                 RootFolder = Environment.SpecialFolder.Desktop,
@@ -123,9 +139,20 @@ namespace ToolbarOfFunctions
             if (dlgReadExtraDetails == DialogResult.No)
                 boolExtraDetails = false;
 
+
+
+            // Excel.XlEnableCancelKey.xlInterrupt
+
+            string strWhichColumn = "F";
+
             if (dlgReadExtraDetails != DialogResult.Cancel) {
 
                 if (cfbd.ShowDialog(this) == System.Windows.Forms.DialogResult.OK) {
+
+                    Stopwatch sw = new Stopwatch();
+                    sw.Start();
+                    // Wks.Range[strWhichColumn + "1"].Value = DateTime.Now;
+
                     int gintFileCount = 2;
 
                     // zap the sheet before we start
@@ -136,12 +163,17 @@ namespace ToolbarOfFunctions
 
                     writeHeaders(Wks, "FILES", boolExtraDetails);
                     Wks.Columns.AutoFit();
+
+                    // Wks.Range[strWhichColumn + "2"].Value = DateTime.Now;
+                    Wks.Range[strWhichColumn + "1"].Value = sw.Elapsed.Milliseconds;
+
                 }
             }
 
             // MsgBox("Finished ...");
 
         }
+
 
         public void writeHeaders(Excel.Worksheet Wks, string strDoWhat, bool boolExtraDetails)
         {
@@ -199,6 +231,7 @@ namespace ToolbarOfFunctions
                 var rootDirectoryFiles = Directory.GetFiles(root);
                 foreach (var file in rootDirectoryFiles)
                 {
+
                     Console.WriteLine(file);
                     Wks.Cells[gintFileCount, 1].value = file.ToString();
 
@@ -209,6 +242,8 @@ namespace ToolbarOfFunctions
                 }
             }
 
+            // c# code to stop a macro running
+
             var subDirectories = Directory.GetDirectories(root);
             // does this need to be var?
             if (subDirectories?.Any() == true) {
@@ -217,6 +252,7 @@ namespace ToolbarOfFunctions
                     var files = Directory.GetFiles(directory);
                     foreach (var file in files)
                     {
+
                         Console.WriteLine(file);
                         Wks.Cells[gintFileCount, 1].value = file.ToString();
                         if (boolExtraDetails)
@@ -228,6 +264,47 @@ namespace ToolbarOfFunctions
                 }
             }
         }
+
+
+        internal void dealWithSingleDuplicates(Excel.Workbook Wkb)
+        {
+
+            // load relevant details from form
+            boolDisplayMessage = myForm.chkProduceMessageBox.Checked;
+
+            Excel.Worksheet Wks;   // get current sheet
+
+            Wks = Wkb.ActiveSheet;
+
+            int intStartColumToCheck = 1;
+            string strColumnName = getExcelColumnName(intStartColumToCheck);
+
+            DialogResult dlgResult = DialogResult.Yes;
+
+            if (boolDisplayMessage)
+            {
+                dlgResult = MessageBox.Show("Duplicate Rows Check on column: " + strColumnName + " - worksheet name: " + Wks.Name, "Duplicate Rows Check", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+            }
+
+            if (dlgResult == DialogResult.Yes)
+            {
+                int intStartRow = 1;
+
+                int intLastRow = getLastRow(Wks);
+                for (int intSourceRow = intStartRow; intSourceRow <= intLastRow; intSourceRow++)
+                {
+                    if (Wks.Cells[intSourceRow, intStartColumToCheck].Value == Wks.Cells[intSourceRow + 1, intStartColumToCheck].Value)
+                        colourCells(Wks, (intSourceRow+1), "Error");
+                
+                }
+
+
+                if (boolDisplayMessage)
+                    MsgBox("Complete ...");
+
+            }
+        }
+
 
         public void compareSheets(Excel.Workbook Wkb) {
 
@@ -352,7 +429,6 @@ namespace ToolbarOfFunctions
             Excel.Worksheet Wks;
             Wks = Wkb.ActiveSheet;
 
-
             string strResultsCol = "F";
 
             Stopwatch sw = new Stopwatch();
@@ -390,6 +466,7 @@ namespace ToolbarOfFunctions
 
         }
 
+
         private void delLinesModeA(Excel.Worksheet Wks) {
             Excel.Range xlCell;
 
@@ -413,8 +490,7 @@ namespace ToolbarOfFunctions
                 if (intColScore == intLastCol) {
                     string strRange = "A" + intRows + ":A" + intRows;
                     xlCell = Wks.get_Range(strRange);
-                    xlCell.EntireRow.Delete(Excel.XlDirection.xlUp);
-                    
+                    xlCell.EntireRow.Delete(Excel.XlDirection.xlUp);                    
 
                 }
 
@@ -496,7 +572,6 @@ namespace ToolbarOfFunctions
                 MsgBox("There are no lines to delete", "Error");
                 Console.WriteLine(excpt.Message);
             }
-
             
 
         }

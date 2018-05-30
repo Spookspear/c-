@@ -21,6 +21,9 @@ namespace ToolbarOfFunctions
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            cmboDifferences.Items.Add("Colour");
+            cmboDifferences.Items.Add("Clear");
+            cmboDifferences.SelectedIndex = 0;
 
         }
 

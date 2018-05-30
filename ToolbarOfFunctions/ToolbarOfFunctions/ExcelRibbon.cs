@@ -8,10 +8,12 @@ using Microsoft.Office.Tools.Ribbon;
 
 using System.Windows.Forms;
 using Excel = Microsoft.Office.Interop.Excel;
+using ToolbarOfFunctions = ToolbarOfFunctions.ThisAddIn;
+
 
 namespace ToolbarOfFunctions
 {
-    public partial class Ribbon1
+    public partial class ExcelRibbon
     {
         private void Ribbon1_Load(object sender, RibbonUIEventArgs e)
         {
@@ -60,11 +62,17 @@ namespace ToolbarOfFunctions
         private void btnSettings_Click(object sender, RibbonControlEventArgs e)
         {
 
-            frmSettings myForm = new frmSettings();
-            // myForm.TopLevel = false;
-            // myForm.AutoScroll = true;
-            // frmSettings.splitMainContainer.Panel2.Controls.Add(myForm);
-            myForm.Show();
+            Globals.ThisAddIn.openSettingsForm(Globals.ThisAddIn.Application.ActiveWorkbook);
+
+
+
+        }
+
+        private void btnDealWithSingleDuplicates_Click(object sender, RibbonControlEventArgs e)
+        {
+
+            Globals.ThisAddIn.dealWithSingleDuplicates(Globals.ThisAddIn.Application.ActiveWorkbook);
+
         }
     }
 

@@ -259,4 +259,10 @@ namespace ToolbarOfFunctions_Graveyard
         }
 
     }
+
+    // check for exit
+    // Excel.EnableCancelKey = Excel.XlEnableCancelKey.xlInterrupt;
+    // Excel.XlEnableCancelKey key = XlEnableCancelKey.xlErrorHandler;
+    // Globals.ThisAddIn.Application.SendKeys("{ESC}");
+
 }
