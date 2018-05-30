@@ -231,11 +231,8 @@ namespace ToolbarOfFunctions
 
         public void compareSheets(Excel.Workbook Wkb) {
 
-            // MsgBox("compareSheets - code goes here");
-            // get current sheet
-            // get sheet next door
-            Excel.Worksheet Wks1;
-            Excel.Worksheet Wks2;
+            Excel.Worksheet Wks1;   // get current sheet
+            Excel.Worksheet Wks2;   // get sheet next door
             string strClearOrColour = "Colour";
 
             Wks1 = Wkb.ActiveSheet;
@@ -245,10 +242,8 @@ namespace ToolbarOfFunctions
 
             if (dlgResult == DialogResult.Yes)
             {
-                // MsgBox("will proceed");
 
                 int intTargetRow = 0;
-                //int intDeltaCount = 1;        // used for refreshing the screen
                 int intStartRow = 2;
 
                 // how may columns to check ?
@@ -286,9 +281,7 @@ namespace ToolbarOfFunctions
 
                             if (stringCell1 == stringCell2)
                                 intColScore++;
-
                         }
-
 
                         // Score system = if all the same then can blue it
                         if (intColScore == intNoCheckCols)
@@ -319,80 +312,10 @@ namespace ToolbarOfFunctions
 
         }
 
-        public void compareSheetsOld(Excel.Workbook Wkb)
-        {
-            // MsgBox("compareSheets - code goes here");
-            // get current sheet
-            // get sheet next door
-            Excel.Worksheet Wks1;
-            Excel.Worksheet Wks2;
-            string strClearOrColour = "Colour";
-
-            Wks1 = Wkb.ActiveSheet;
-            Wks2 = Wkb.Sheets[Wks1.Index + 1];
-
-            DialogResult dlgResult = MessageBox.Show("Compare: Worksheet: " + Wks1.Name + " against: " + Wks2.Name + " and " + strClearOrColour + " ones which are the same?", "Compare Sheets", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
-
-            if (dlgResult == DialogResult.Yes)
-            {
-                // MsgBox("will proceed");
-
-                int intTargetRow = 0;
-                //int intDeltaCount = 1;        // used for refreshing the screen
-                int intStartRow = 2;
-
-                // how may columns to check ?
-                int intNoCheckCols = 5;             // for later loop?
-                int intStartColumToCheck = 1;
-                int intColScore = 1;
-
-                string strValue1 = "";
-
-                int intSheetLastRow1 = getLastRow(Wks1);
-                int intSheetLastRow2 = getLastRow(Wks2);
-
-                for (int intSourceRow = intStartRow; intSourceRow <= intSheetLastRow1; intSourceRow++)
-                {
-                    // read in vlaue from sheet 
-                    // maybe I should ready all into arrayS?
-
-                    strValue1 = Wks1.Cells[intSourceRow, intStartColumToCheck].Value;
-
-                    intTargetRow = searchForValue(Wks2, strValue1, intStartColumToCheck);
-
-                    if (intTargetRow > 0)
-                    {
-                        //  start from correct column
-                        for (int intColCount = intStartColumToCheck; intColCount <= intNoCheckCols; intColCount++)
-                        {
-                            // Compare cells directly
-                            if (Wks1.Cells[intSourceRow, intColCount].Value == Wks2.Cells[intTargetRow, intColCount].Value)
-                            {
-                                intColScore++;
-                            }
-
-                        }
-
-                        // Score system = if all the same then can blue it
-                        if (intColScore == intNoCheckCols)
-                        {
-                            for (int intColCount = intStartColumToCheck; intColCount <= intNoCheckCols; intColCount++)
-                            {
-                                if (strClearOrColour == "Colour")
-                                {
-                                    Wks1.Cells[intSourceRow, intColCount].Font.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Blue); ;
-                                }
-                            }
-                        }
-
-                        intColScore = 1;
-                    }
-                }
-            }
-        }
 
 
-        private int searchForValue(Excel.Worksheet Wks2, string searchString, int intStartColumToCheck)
+
+        public static int searchForValue(Excel.Worksheet Wks2, string searchString, int intStartColumToCheck)
         {
 
             Excel.Range colRange = Wks2.Columns["A:A"];             //get the range object where you want to search from
@@ -564,6 +487,9 @@ namespace ToolbarOfFunctions
                     // }
 
                 }
+
+                range.SpecialCells(XlCellType.xlCellTypeConstants).EntireRow.Hidden = false;
+
             }
             catch (System.Exception excpt)
             {
@@ -571,7 +497,7 @@ namespace ToolbarOfFunctions
                 Console.WriteLine(excpt.Message);
             }
 
-            range.SpecialCells(XlCellType.xlCellTypeConstants).EntireRow.Hidden = false;
+            
 
         }
 
@@ -665,16 +591,14 @@ namespace ToolbarOfFunctions
 
         }
 
-        private int getLastCol(Excel.Worksheet Wks) {
+        public static int getLastCol(Excel.Worksheet Wks) {
             return Wks.Cells.SpecialCells(Excel.XlCellType.xlCellTypeLastCell, Type.Missing).Column;
         }
 
-        private int getLastRow(Excel.Worksheet Wks) {
+        public static int getLastRow(Excel.Worksheet Wks) {
             return Wks.Cells.SpecialCells(Excel.XlCellType.xlCellTypeLastCell, Type.Missing).Row;
         }
     
-        
-
         private static void setCursorToWaiting() {
             Excel.Application application = Globals.ThisAddIn.Application;
             application.Cursor = Excel.XlMousePointer.xlWait;

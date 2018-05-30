@@ -37,14 +37,23 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Ribbon1));
             this.MYTOOLBAR = this.Factory.CreateRibbonTab();
             this.customToolbar = this.Factory.CreateRibbonGroup();
+            this.folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.btnReadFolders = this.Factory.CreateRibbonButton();
+            this.btnCompareSheets = this.Factory.CreateRibbonButton();
             this.btnZap = this.Factory.CreateRibbonButton();
             this.splitButtonDeleteLines = this.Factory.CreateRibbonSplitButton();
             this.btnDeleteBlankLinesA = this.Factory.CreateRibbonButton();
             this.btnDeleteBlankLinesB = this.Factory.CreateRibbonButton();
             this.btnDeleteBlankLinesC = this.Factory.CreateRibbonButton();
-            this.btnCompareSheets = this.Factory.CreateRibbonButton();
-            this.folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
+            this.btnDelBlankLines = this.Factory.CreateRibbonButton();
+            this.btnDealWithSingleDuplicates = this.Factory.CreateRibbonButton();
+            this.btnLoadADGroupIntoSpreadsheet = this.Factory.CreateRibbonButton();
+            this.btnLoadADGroupIntoSpreadsheetActiveCell = this.Factory.CreateRibbonButton();
+            this.btnReadUsersGroupMembership = this.Factory.CreateRibbonButton();
+            this.btnReadUsers = this.Factory.CreateRibbonButton();
+            this.btnWriteTimeSheet = this.Factory.CreateRibbonButton();
+            this.btnPingServers = this.Factory.CreateRibbonButton();
+            this.btnSettings = this.Factory.CreateRibbonButton();
             this.MYTOOLBAR.SuspendLayout();
             this.customToolbar.SuspendLayout();
             this.SuspendLayout();
@@ -57,10 +66,19 @@
             // 
             // customToolbar
             // 
+            this.customToolbar.Items.Add(this.btnSettings);
             this.customToolbar.Items.Add(this.btnReadFolders);
+            this.customToolbar.Items.Add(this.btnCompareSheets);
             this.customToolbar.Items.Add(this.btnZap);
             this.customToolbar.Items.Add(this.splitButtonDeleteLines);
-            this.customToolbar.Items.Add(this.btnCompareSheets);
+            this.customToolbar.Items.Add(this.btnDelBlankLines);
+            this.customToolbar.Items.Add(this.btnDealWithSingleDuplicates);
+            this.customToolbar.Items.Add(this.btnLoadADGroupIntoSpreadsheet);
+            this.customToolbar.Items.Add(this.btnLoadADGroupIntoSpreadsheetActiveCell);
+            this.customToolbar.Items.Add(this.btnReadUsersGroupMembership);
+            this.customToolbar.Items.Add(this.btnReadUsers);
+            this.customToolbar.Items.Add(this.btnWriteTimeSheet);
+            this.customToolbar.Items.Add(this.btnPingServers);
             this.customToolbar.Label = "Custom Toolbar";
             this.customToolbar.Name = "customToolbar";
             // 
@@ -72,6 +90,15 @@
             this.btnReadFolders.Name = "btnReadFolders";
             this.btnReadFolders.ShowImage = true;
             this.btnReadFolders.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnReadFolders_Click);
+            // 
+            // btnCompareSheets
+            // 
+            this.btnCompareSheets.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this.btnCompareSheets.Image = ((System.Drawing.Image)(resources.GetObject("btnCompareSheets.Image")));
+            this.btnCompareSheets.Label = "Compare Sheets";
+            this.btnCompareSheets.Name = "btnCompareSheets";
+            this.btnCompareSheets.ShowImage = true;
+            this.btnCompareSheets.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnCompareSheets_Click);
             // 
             // btnZap
             // 
@@ -126,14 +153,87 @@
             this.btnDeleteBlankLinesC.ShowImage = true;
             this.btnDeleteBlankLinesC.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnDeleteBlankLinesC_Click);
             // 
-            // btnCompareSheets
+            // btnDelBlankLines
             // 
-            this.btnCompareSheets.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
-            this.btnCompareSheets.Image = ((System.Drawing.Image)(resources.GetObject("btnCompareSheets.Image")));
-            this.btnCompareSheets.Label = "Compare Sheets";
-            this.btnCompareSheets.Name = "btnCompareSheets";
-            this.btnCompareSheets.ShowImage = true;
-            this.btnCompareSheets.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnCompareSheets_Click);
+            this.btnDelBlankLines.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this.btnDelBlankLines.Description = "Duplicates (Cols: Single): &Del";
+            this.btnDelBlankLines.Image = ((System.Drawing.Image)(resources.GetObject("btnDelBlankLines.Image")));
+            this.btnDelBlankLines.Label = "Duplicates (Cols: Single):";
+            this.btnDelBlankLines.Name = "btnDelBlankLines";
+            this.btnDelBlankLines.ShowImage = true;
+            // 
+            // btnDealWithSingleDuplicates
+            // 
+            this.btnDealWithSingleDuplicates.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this.btnDealWithSingleDuplicates.Description = "Zap Worksheet";
+            this.btnDealWithSingleDuplicates.Image = ((System.Drawing.Image)(resources.GetObject("btnDealWithSingleDuplicates.Image")));
+            this.btnDealWithSingleDuplicates.Label = "Duplicates (Cols: Many)";
+            this.btnDealWithSingleDuplicates.Name = "btnDealWithSingleDuplicates";
+            this.btnDealWithSingleDuplicates.ShowImage = true;
+            // 
+            // btnLoadADGroupIntoSpreadsheet
+            // 
+            this.btnLoadADGroupIntoSpreadsheet.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this.btnLoadADGroupIntoSpreadsheet.Description = "Zap Worksheet";
+            this.btnLoadADGroupIntoSpreadsheet.Image = ((System.Drawing.Image)(resources.GetObject("btnLoadADGroupIntoSpreadsheet.Image")));
+            this.btnLoadADGroupIntoSpreadsheet.Label = "AD Group Members";
+            this.btnLoadADGroupIntoSpreadsheet.Name = "btnLoadADGroupIntoSpreadsheet";
+            this.btnLoadADGroupIntoSpreadsheet.ShowImage = true;
+            // 
+            // btnLoadADGroupIntoSpreadsheetActiveCell
+            // 
+            this.btnLoadADGroupIntoSpreadsheetActiveCell.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this.btnLoadADGroupIntoSpreadsheetActiveCell.Description = "Zap Worksheet";
+            this.btnLoadADGroupIntoSpreadsheetActiveCell.Image = ((System.Drawing.Image)(resources.GetObject("btnLoadADGroupIntoSpreadsheetActiveCell.Image")));
+            this.btnLoadADGroupIntoSpreadsheetActiveCell.Label = "AD Members - Active Cell";
+            this.btnLoadADGroupIntoSpreadsheetActiveCell.Name = "btnLoadADGroupIntoSpreadsheetActiveCell";
+            this.btnLoadADGroupIntoSpreadsheetActiveCell.ShowImage = true;
+            // 
+            // btnReadUsersGroupMembership
+            // 
+            this.btnReadUsersGroupMembership.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this.btnReadUsersGroupMembership.Description = "Zap Worksheet";
+            this.btnReadUsersGroupMembership.Image = ((System.Drawing.Image)(resources.GetObject("btnReadUsersGroupMembership.Image")));
+            this.btnReadUsersGroupMembership.Label = "Users AD Membership";
+            this.btnReadUsersGroupMembership.Name = "btnReadUsersGroupMembership";
+            this.btnReadUsersGroupMembership.ShowImage = true;
+            // 
+            // btnReadUsers
+            // 
+            this.btnReadUsers.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this.btnReadUsers.Description = "Zap Worksheet";
+            this.btnReadUsers.Image = ((System.Drawing.Image)(resources.GetObject("btnReadUsers.Image")));
+            this.btnReadUsers.Label = "Details from AD Name";
+            this.btnReadUsers.Name = "btnReadUsers";
+            this.btnReadUsers.ShowImage = true;
+            // 
+            // btnWriteTimeSheet
+            // 
+            this.btnWriteTimeSheet.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this.btnWriteTimeSheet.Description = "Zap Worksheet";
+            this.btnWriteTimeSheet.Image = ((System.Drawing.Image)(resources.GetObject("btnWriteTimeSheet.Image")));
+            this.btnWriteTimeSheet.Label = "Update timesheet";
+            this.btnWriteTimeSheet.Name = "btnWriteTimeSheet";
+            this.btnWriteTimeSheet.ShowImage = true;
+            // 
+            // btnPingServers
+            // 
+            this.btnPingServers.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this.btnPingServers.Description = "Zap Worksheet";
+            this.btnPingServers.Image = ((System.Drawing.Image)(resources.GetObject("btnPingServers.Image")));
+            this.btnPingServers.Label = "Ping Servers";
+            this.btnPingServers.Name = "btnPingServers";
+            this.btnPingServers.ShowImage = true;
+            // 
+            // btnSettings
+            // 
+            this.btnSettings.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this.btnSettings.Description = "Zap Worksheet";
+            this.btnSettings.Image = ((System.Drawing.Image)(resources.GetObject("btnSettings.Image")));
+            this.btnSettings.Label = "Settings";
+            this.btnSettings.Name = "btnSettings";
+            this.btnSettings.ShowImage = true;
+            this.btnSettings.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnSettings_Click);
             // 
             // Ribbon1
             // 
@@ -161,6 +261,15 @@
         internal Microsoft.Office.Tools.Ribbon.RibbonButton btnDeleteBlankLinesC;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton btnDeleteBlankLinesA;
         internal Microsoft.Office.Tools.Ribbon.RibbonSplitButton splitButtonDeleteLines;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton btnDelBlankLines;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton btnDealWithSingleDuplicates;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton btnLoadADGroupIntoSpreadsheet;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton btnLoadADGroupIntoSpreadsheetActiveCell;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton btnReadUsersGroupMembership;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton btnReadUsers;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton btnWriteTimeSheet;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton btnPingServers;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton btnSettings;
     }
 
     partial class ThisRibbonCollection

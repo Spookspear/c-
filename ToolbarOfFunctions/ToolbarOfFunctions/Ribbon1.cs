@@ -18,6 +18,7 @@ namespace ToolbarOfFunctions
 
         }
 
+
         private void btnZap_Click(object sender, RibbonControlEventArgs e)
         {
             Globals.ThisAddIn.zapWorksheet(Globals.ThisAddIn.Application.ActiveWorkbook);
@@ -54,6 +55,16 @@ namespace ToolbarOfFunctions
         private void splitButtonDeleteLines_Click(object sender, RibbonControlEventArgs e)
         {
             btnDeleteBlankLinesB_Click(sender, e);
+        }
+
+        private void btnSettings_Click(object sender, RibbonControlEventArgs e)
+        {
+
+            frmSettings myForm = new frmSettings();
+            // myForm.TopLevel = false;
+            // myForm.AutoScroll = true;
+            // frmSettings.splitMainContainer.Panel2.Controls.Add(myForm);
+            myForm.Show();
         }
     }
 

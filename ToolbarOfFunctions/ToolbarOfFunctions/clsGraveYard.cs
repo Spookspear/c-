@@ -11,8 +11,23 @@ using Microsoft.Office.Interop.Excel;
 
 using Excel = Microsoft.Office.Interop.Excel;
 
+using System.Xml.Linq;
+using Office = Microsoft.Office.Core;
 
-namespace ToolbarOfFunctions
+using System.Windows.Forms;
+
+using System.IO;            // for Directory function
+using System.Diagnostics;   // .FileVersionInfo
+using System.Drawing;       // for colours
+
+using System.ComponentModel;
+using System.Data;
+
+using ToolbarOfFunctions;
+using ToolbarOfFunctions = ToolbarOfFunctions.ThisAddIn;
+
+
+namespace ToolbarOfFunctions_Graveyard
 {
     class classGraveYard
     {
@@ -101,7 +116,7 @@ namespace ToolbarOfFunctions
             }
         }
 
-        private static void DeleteTopEmptyRows(Excel.Worksheet worksheet, int startRow)
+        private static void deleteTopEmptyRows(Excel.Worksheet worksheet, int startRow)
         {
             for (int i = 0; i < startRow - 1; i++)
             {
@@ -122,16 +137,16 @@ namespace ToolbarOfFunctions
             return true;
         }
 
-        private static void RemoveEmptyTopRowsAndLeftCols(Excel.Worksheet worksheet, Excel.Range usedRange)
+        private static void removeEmptyTopRowsAndLeftCols(Excel.Worksheet worksheet, Excel.Range usedRange)
         {
             string addressString = usedRange.Address.ToString();
-            int rowsToDelete = GetNumberOfTopRowsToDelete(addressString);
-            DeleteTopEmptyRows(worksheet, rowsToDelete);
-            int colsToDelete = GetNumberOfLeftColsToDelte(addressString);
-            DeleteLeftEmptyColumns(worksheet, colsToDelete);
+            int rowsToDelete = getNumberOfTopRowsToDelete(addressString);
+            deleteTopEmptyRows(worksheet, rowsToDelete);
+            int colsToDelete = getNumberOfLeftColsToDelte(addressString);
+            deleteLeftEmptyColumns(worksheet, colsToDelete);
         }
 
-        private static void DeleteLeftEmptyColumns(Excel.Worksheet worksheet, int colCount)
+        private static void deleteLeftEmptyColumns(Excel.Worksheet worksheet, int colCount)
         {
             for (int i = 0; i < colCount - 1; i++)
             {
@@ -139,7 +154,7 @@ namespace ToolbarOfFunctions
             }
         }
 
-        private static int GetNumberOfTopRowsToDelete(string address)
+        private static int getNumberOfTopRowsToDelete(string address)
         {
             string[] splitArray = address.Split(':');
             string firstIndex = splitArray[0];
@@ -151,16 +166,16 @@ namespace ToolbarOfFunctions
             return returnValue;
         }
 
-        private static int GetNumberOfLeftColsToDelte(string address)
+        private static int getNumberOfLeftColsToDelte(string address)
         {
             string[] splitArray = address.Split(':');
             string firstindex = splitArray[0];
             splitArray = firstindex.Split('$');
             string value = splitArray[1];
-            return ParseColHeaderToIndex(value);
+            return parseColHeaderToIndex(value);
         }
 
-        private static int ParseColHeaderToIndex(string colAdress)
+        private static int parseColHeaderToIndex(string colAdress)
         {
             int[] digits = new int[colAdress.Length];
             for (int i = 0; i < colAdress.Length; ++i)
@@ -176,7 +191,72 @@ namespace ToolbarOfFunctions
             return res;
         }
 
+        public void compareSheets_graveYard(Excel.Workbook Wkb)
+        {
+            Excel.Worksheet Wks1;               // get current sheet
+            Excel.Worksheet Wks2;               // get sheet next door
+            string strClearOrColour = "Colour";
 
+            Wks1 = Wkb.ActiveSheet;
+            Wks2 = Wkb.Sheets[Wks1.Index + 1];
+
+            DialogResult dlgResult = MessageBox.Show("Compare: Worksheet: " + Wks1.Name + " against: " + Wks2.Name + " and " + strClearOrColour + " ones which are the same?", "Compare Sheets", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+
+            if (dlgResult == DialogResult.Yes)
+            {
+
+                int intTargetRow = 0;
+                int intStartRow = 2;
+
+                // how may columns to check ?
+                int intNoCheckCols = 5;             // for later loop?
+                int intStartColumToCheck = 1;
+                int intColScore = 1;
+
+                string strValue1 = "";
+
+                int intSheetLastRow1 = ThisAddIn.getLastRow(Wks1);
+                int intSheetLastRow2 = ThisAddIn.getLastRow(Wks2);
+
+                for (int intSourceRow = intStartRow; intSourceRow <= intSheetLastRow1; intSourceRow++)
+                {
+                    // read in vlaue from sheet 
+                    // maybe I should ready all into arrayS?
+
+                    strValue1 = Wks1.Cells[intSourceRow, intStartColumToCheck].Value;
+
+                    intTargetRow = ThisAddIn.searchForValue(Wks2, strValue1, intStartColumToCheck);
+
+                    if (intTargetRow > 0)
+                    {
+                        //  start from correct column
+                        for (int intColCount = intStartColumToCheck; intColCount <= intNoCheckCols; intColCount++)
+                        {
+                            // Compare cells directly
+                            if (Wks1.Cells[intSourceRow, intColCount].Value == Wks2.Cells[intTargetRow, intColCount].Value)
+                            {
+                                intColScore++;
+                            }
+
+                        }
+
+                        // Score system = if all the same then can blue it
+                        if (intColScore == intNoCheckCols)
+                        {
+                            for (int intColCount = intStartColumToCheck; intColCount <= intNoCheckCols; intColCount++)
+                            {
+                                if (strClearOrColour == "Colour")
+                                {
+                                    Wks1.Cells[intSourceRow, intColCount].Font.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Blue); ;
+                                }
+                            }
+                        }
+
+                        intColScore = 1;
+                    }
+                }
+            }
+        }
 
     }
 }
