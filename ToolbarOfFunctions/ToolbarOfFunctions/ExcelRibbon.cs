@@ -64,13 +64,13 @@ namespace ToolbarOfFunctions
 
             Globals.ThisAddIn.openSettingsForm(Globals.ThisAddIn.Application.ActiveWorkbook);
 
+            btnDealWithSingleDuplicates.Label = "Hi";
 
 
         }
 
-        private void btnDealWithSingleDuplicates_Click(object sender, RibbonControlEventArgs e)
+        public void btnDealWithSingleDuplicates_Click(object sender, RibbonControlEventArgs e)
         {
-
             Globals.ThisAddIn.dealWithSingleDuplicates(Globals.ThisAddIn.Application.ActiveWorkbook);
 
         }

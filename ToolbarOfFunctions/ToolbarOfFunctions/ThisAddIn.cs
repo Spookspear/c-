@@ -25,6 +25,7 @@ using System.ComponentModel;
 using System.Data;
 
 using Microsoft.VisualStudio.Tools.Applications.Runtime;
+// using ExcelRibbon = ToolbarOfFunctions.ExcelRibbon;
 
 namespace ToolbarOfFunctions
     {
@@ -40,7 +41,7 @@ namespace ToolbarOfFunctions
 
         private void ThisAddIn_Startup(object sender, System.EventArgs e) {
 
-            // get the value from the form?
+            // get the values from the form?
             boolDisplayMessage = myForm.chkProduceMessageBox.Checked;
 
 
@@ -74,6 +75,13 @@ namespace ToolbarOfFunctions
 
             // frmSettings myForm = new frmSettings();
             myForm.ShowDialog();
+
+            /// ask nicola
+            // ThisAddIn.btnDealWithSingleDuplicates.Label = "Hi";
+            // ExcelRibbon ThisAddIn.btnDealWithSingleDuplicates.Label = "Hi";
+
+            MsgBox("Hi");
+
 
             // throw new NotImplementedException();
         }
@@ -138,8 +146,6 @@ namespace ToolbarOfFunctions
 
             if (dlgReadExtraDetails == DialogResult.No)
                 boolExtraDetails = false;
-
-
 
             // Excel.XlEnableCancelKey.xlInterrupt
 
@@ -389,9 +395,6 @@ namespace ToolbarOfFunctions
 
         }
 
-
-
-
         public static int searchForValue(Excel.Worksheet Wks2, string searchString, int intStartColumToCheck)
         {
 
@@ -413,7 +416,7 @@ namespace ToolbarOfFunctions
                 );                                                  // search searchString in the range, if find result, return a range
             /*
                 if (resultRange is null) {
-                    MessageBox.Show("Did not found " + searchString + " in column A");
+                    MessageBox.Show("Did not find " + searchString + " in column A");
                 } else {
                     //then you could handle how to display the row to the label according to resultRange
                     MsgBox("found? - want to return the row no");
