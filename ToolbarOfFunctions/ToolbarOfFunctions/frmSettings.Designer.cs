@@ -34,12 +34,12 @@ namespace ToolbarOfFunctions
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.pingServers = new System.Windows.Forms.GroupBox();
             this.numColPingRead = new System.Windows.Forms.NumericUpDown();
-            this.btnCancel = new System.Windows.Forms.Button();
             this.numColPingWrite = new System.Windows.Forms.NumericUpDown();
             this.numPingSheetRowNo = new System.Windows.Forms.NumericUpDown();
             this.label12 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
+            this.btnCancel = new System.Windows.Forms.Button();
             this.grpTimeSheet = new System.Windows.Forms.GroupBox();
             this.chkTimeSheetGetRowNo = new System.Windows.Forms.CheckBox();
             this.numTimeSheetRowNo = new System.Windows.Forms.NumericUpDown();
@@ -63,16 +63,10 @@ namespace ToolbarOfFunctions
             this.chkDisplayTimeTaken = new System.Windows.Forms.CheckBox();
             this.label3 = new System.Windows.Forms.Label();
             this.cmboHighLightOrDelete = new System.Windows.Forms.ComboBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.cmboShowToolbarDescription = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.cmboDifferences = new System.Windows.Forms.ComboBox();
             this.chkProduceMessageBox = new System.Windows.Forms.CheckBox();
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
-            this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
+            this.chkLargeButtons = new System.Windows.Forms.CheckBox();
             this.pingServers.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numColPingRead)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numColPingWrite)).BeginInit();
@@ -85,7 +79,6 @@ namespace ToolbarOfFunctions
             ((System.ComponentModel.ISupportInitialize)(this.numNoOfColumnsToCheck)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numHighlightRowsOver)).BeginInit();
-            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // pingServers
@@ -96,19 +89,19 @@ namespace ToolbarOfFunctions
             this.pingServers.Controls.Add(this.label12);
             this.pingServers.Controls.Add(this.label13);
             this.pingServers.Controls.Add(this.label14);
-            this.pingServers.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pingServers.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.pingServers.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.pingServers.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.pingServers.Location = new System.Drawing.Point(0, 0);
+            this.pingServers.Location = new System.Drawing.Point(0, 460);
             this.pingServers.Name = "pingServers";
-            this.pingServers.Size = new System.Drawing.Size(572, 120);
+            this.pingServers.Size = new System.Drawing.Size(645, 96);
             this.pingServers.TabIndex = 32;
             this.pingServers.TabStop = false;
             this.pingServers.Text = "Ping Servers ..:";
             // 
             // numColPingRead
             // 
-            this.numColPingRead.Location = new System.Drawing.Point(274, 48);
+            this.numColPingRead.Location = new System.Drawing.Point(272, 39);
             this.numColPingRead.Name = "numColPingRead";
             this.numColPingRead.Size = new System.Drawing.Size(61, 23);
             this.numColPingRead.TabIndex = 37;
@@ -118,20 +111,9 @@ namespace ToolbarOfFunctions
             0,
             0});
             // 
-            // btnCancel
-            // 
-            this.btnCancel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.btnCancel.Location = new System.Drawing.Point(473, 184);
-            this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(87, 27);
-            this.btnCancel.TabIndex = 33;
-            this.btnCancel.Text = "Exit";
-            this.btnCancel.UseVisualStyleBackColor = true;
-            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
-            // 
             // numColPingWrite
             // 
-            this.numColPingWrite.Location = new System.Drawing.Point(272, 77);
+            this.numColPingWrite.Location = new System.Drawing.Point(272, 68);
             this.numColPingWrite.Name = "numColPingWrite";
             this.numColPingWrite.Size = new System.Drawing.Size(61, 23);
             this.numColPingWrite.TabIndex = 36;
@@ -143,7 +125,7 @@ namespace ToolbarOfFunctions
             // 
             // numPingSheetRowNo
             // 
-            this.numPingSheetRowNo.Location = new System.Drawing.Point(274, 19);
+            this.numPingSheetRowNo.Location = new System.Drawing.Point(272, 12);
             this.numPingSheetRowNo.Name = "numPingSheetRowNo";
             this.numPingSheetRowNo.Size = new System.Drawing.Size(61, 23);
             this.numPingSheetRowNo.TabIndex = 35;
@@ -157,7 +139,7 @@ namespace ToolbarOfFunctions
             // 
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(133, 76);
+            this.label12.Location = new System.Drawing.Point(133, 70);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(133, 15);
             this.label12.TabIndex = 34;
@@ -167,7 +149,7 @@ namespace ToolbarOfFunctions
             // 
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(140, 50);
+            this.label13.Location = new System.Drawing.Point(142, 41);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(126, 15);
             this.label13.TabIndex = 33;
@@ -177,11 +159,22 @@ namespace ToolbarOfFunctions
             // 
             this.label14.AutoSize = true;
             this.label14.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.Location = new System.Drawing.Point(189, 19);
+            this.label14.Location = new System.Drawing.Point(189, 14);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(77, 15);
             this.label14.TabIndex = 32;
             this.label14.Text = "Start Row:";
+            // 
+            // btnCancel
+            // 
+            this.btnCancel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.btnCancel.Location = new System.Drawing.Point(511, 180);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(87, 27);
+            this.btnCancel.TabIndex = 33;
+            this.btnCancel.Text = "Exit";
+            this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // grpTimeSheet
             // 
@@ -189,11 +182,11 @@ namespace ToolbarOfFunctions
             this.grpTimeSheet.Controls.Add(this.chkTimeSheetGetRowNo);
             this.grpTimeSheet.Controls.Add(this.numTimeSheetRowNo);
             this.grpTimeSheet.Controls.Add(this.label11);
-            this.grpTimeSheet.Dock = System.Windows.Forms.DockStyle.Top;
+            this.grpTimeSheet.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.grpTimeSheet.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.grpTimeSheet.Location = new System.Drawing.Point(0, 120);
+            this.grpTimeSheet.Location = new System.Drawing.Point(0, 391);
             this.grpTimeSheet.Name = "grpTimeSheet";
-            this.grpTimeSheet.Size = new System.Drawing.Size(572, 81);
+            this.grpTimeSheet.Size = new System.Drawing.Size(645, 69);
             this.grpTimeSheet.TabIndex = 34;
             this.grpTimeSheet.TabStop = false;
             this.grpTimeSheet.Text = "Timesheet ..:";
@@ -205,7 +198,7 @@ namespace ToolbarOfFunctions
             this.chkTimeSheetGetRowNo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkTimeSheetGetRowNo.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkTimeSheetGetRowNo.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.chkTimeSheetGetRowNo.Location = new System.Drawing.Point(147, 50);
+            this.chkTimeSheetGetRowNo.Location = new System.Drawing.Point(147, 49);
             this.chkTimeSheetGetRowNo.Name = "chkTimeSheetGetRowNo";
             this.chkTimeSheetGetRowNo.Size = new System.Drawing.Size(135, 19);
             this.chkTimeSheetGetRowNo.TabIndex = 28;
@@ -215,7 +208,7 @@ namespace ToolbarOfFunctions
             // 
             // numTimeSheetRowNo
             // 
-            this.numTimeSheetRowNo.Location = new System.Drawing.Point(275, 21);
+            this.numTimeSheetRowNo.Location = new System.Drawing.Point(272, 20);
             this.numTimeSheetRowNo.Maximum = new decimal(new int[] {
             300000,
             0,
@@ -234,7 +227,7 @@ namespace ToolbarOfFunctions
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(98, 22);
+            this.label11.Location = new System.Drawing.Point(95, 22);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(168, 15);
             this.label11.TabIndex = 26;
@@ -252,11 +245,11 @@ namespace ToolbarOfFunctions
             this.grpCompare.Controls.Add(this.label6);
             this.grpCompare.Controls.Add(this.label5);
             this.grpCompare.Controls.Add(this.label4);
-            this.grpCompare.Dock = System.Windows.Forms.DockStyle.Top;
+            this.grpCompare.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.grpCompare.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.grpCompare.Location = new System.Drawing.Point(0, 201);
+            this.grpCompare.Location = new System.Drawing.Point(0, 230);
             this.grpCompare.Name = "grpCompare";
-            this.grpCompare.Size = new System.Drawing.Size(572, 191);
+            this.grpCompare.Size = new System.Drawing.Size(645, 161);
             this.grpCompare.TabIndex = 35;
             this.grpCompare.TabStop = false;
             this.grpCompare.Text = "Compare ..:";
@@ -264,18 +257,18 @@ namespace ToolbarOfFunctions
             // txtColourNotFound
             // 
             this.txtColourNotFound.ForeColor = System.Drawing.Color.Blue;
-            this.txtColourNotFound.Location = new System.Drawing.Point(277, 155);
+            this.txtColourNotFound.Location = new System.Drawing.Point(275, 128);
             this.txtColourNotFound.Name = "txtColourNotFound";
-            this.txtColourNotFound.Size = new System.Drawing.Size(116, 23);
+            this.txtColourNotFound.Size = new System.Drawing.Size(61, 23);
             this.txtColourNotFound.TabIndex = 24;
             this.txtColourNotFound.Text = "Not Found";
             // 
             // txtColourFound
             // 
             this.txtColourFound.ForeColor = System.Drawing.Color.Red;
-            this.txtColourFound.Location = new System.Drawing.Point(277, 122);
+            this.txtColourFound.Location = new System.Drawing.Point(277, 102);
             this.txtColourFound.Name = "txtColourFound";
-            this.txtColourFound.Size = new System.Drawing.Size(116, 23);
+            this.txtColourFound.Size = new System.Drawing.Size(59, 23);
             this.txtColourFound.TabIndex = 23;
             this.txtColourFound.Text = "Found";
             // 
@@ -283,7 +276,7 @@ namespace ToolbarOfFunctions
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(42, 162);
+            this.label9.Location = new System.Drawing.Point(39, 131);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(224, 15);
             this.label9.TabIndex = 22;
@@ -293,7 +286,7 @@ namespace ToolbarOfFunctions
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(42, 125);
+            this.label8.Location = new System.Drawing.Point(44, 105);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(224, 15);
             this.label8.TabIndex = 21;
@@ -301,7 +294,7 @@ namespace ToolbarOfFunctions
             // 
             // numComparingStartRow
             // 
-            this.numComparingStartRow.Location = new System.Drawing.Point(275, 56);
+            this.numComparingStartRow.Location = new System.Drawing.Point(275, 44);
             this.numComparingStartRow.Name = "numComparingStartRow";
             this.numComparingStartRow.Size = new System.Drawing.Size(61, 23);
             this.numComparingStartRow.TabIndex = 19;
@@ -313,7 +306,7 @@ namespace ToolbarOfFunctions
             // 
             // numDupliateColumnToCheck
             // 
-            this.numDupliateColumnToCheck.Location = new System.Drawing.Point(275, 89);
+            this.numDupliateColumnToCheck.Location = new System.Drawing.Point(274, 73);
             this.numDupliateColumnToCheck.Name = "numDupliateColumnToCheck";
             this.numDupliateColumnToCheck.Size = new System.Drawing.Size(61, 23);
             this.numDupliateColumnToCheck.TabIndex = 18;
@@ -325,7 +318,7 @@ namespace ToolbarOfFunctions
             // 
             // numNoOfColumnsToCheck
             // 
-            this.numNoOfColumnsToCheck.Location = new System.Drawing.Point(275, 23);
+            this.numNoOfColumnsToCheck.Location = new System.Drawing.Point(275, 15);
             this.numNoOfColumnsToCheck.Name = "numNoOfColumnsToCheck";
             this.numNoOfColumnsToCheck.Size = new System.Drawing.Size(61, 23);
             this.numNoOfColumnsToCheck.TabIndex = 17;
@@ -339,7 +332,7 @@ namespace ToolbarOfFunctions
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(56, 89);
+            this.label6.Location = new System.Drawing.Point(58, 75);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(210, 15);
             this.label6.TabIndex = 16;
@@ -349,7 +342,7 @@ namespace ToolbarOfFunctions
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(168, 57);
+            this.label5.Location = new System.Drawing.Point(168, 46);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(98, 15);
             this.label5.TabIndex = 15;
@@ -359,7 +352,7 @@ namespace ToolbarOfFunctions
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(98, 23);
+            this.label4.Location = new System.Drawing.Point(98, 17);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(168, 15);
             this.label4.TabIndex = 14;
@@ -367,6 +360,7 @@ namespace ToolbarOfFunctions
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.chkLargeButtons);
             this.groupBox1.Controls.Add(this.numHighlightRowsOver);
             this.groupBox1.Controls.Add(this.btnCancel);
             this.groupBox1.Controls.Add(this.label10);
@@ -375,16 +369,14 @@ namespace ToolbarOfFunctions
             this.groupBox1.Controls.Add(this.chkDisplayTimeTaken);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.cmboHighLightOrDelete);
-            this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.cmboShowToolbarDescription);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.cmboDifferences);
             this.groupBox1.Controls.Add(this.chkProduceMessageBox);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox1.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(0, 392);
+            this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(572, 224);
+            this.groupBox1.Size = new System.Drawing.Size(645, 224);
             this.groupBox1.TabIndex = 36;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Misc ..:";
@@ -469,25 +461,6 @@ namespace ToolbarOfFunctions
             this.cmboHighLightOrDelete.Size = new System.Drawing.Size(161, 23);
             this.cmboHighLightOrDelete.TabIndex = 28;
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(72, 25);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(196, 15);
-            this.label2.TabIndex = 27;
-            this.label2.Text = "Show Tool Bar Descriptions:";
-            // 
-            // cmboShowToolbarDescription
-            // 
-            this.cmboShowToolbarDescription.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmboShowToolbarDescription.FormattingEnabled = true;
-            this.cmboShowToolbarDescription.Location = new System.Drawing.Point(274, 22);
-            this.cmboShowToolbarDescription.Name = "cmboShowToolbarDescription";
-            this.cmboShowToolbarDescription.Size = new System.Drawing.Size(161, 23);
-            this.cmboShowToolbarDescription.TabIndex = 26;
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -522,51 +495,27 @@ namespace ToolbarOfFunctions
             this.chkProduceMessageBox.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.chkProduceMessageBox.UseVisualStyleBackColor = true;
             // 
-            // statusStrip1
+            // chkLargeButtons
             // 
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripStatusLabel1,
-            this.toolStripDropDownButton1,
-            this.toolStripStatusLabel2,
-            this.toolStripProgressBar1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 622);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(572, 22);
-            this.statusStrip1.TabIndex = 37;
-            this.statusStrip1.Text = "statusStrip1";
-            // 
-            // toolStripStatusLabel1
-            // 
-            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(118, 17);
-            this.toolStripStatusLabel1.Text = "toolStripStatusLabel1";
-            // 
-            // toolStripDropDownButton1
-            // 
-            this.toolStripDropDownButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripDropDownButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton1.Image")));
-            this.toolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
-            this.toolStripDropDownButton1.Size = new System.Drawing.Size(29, 20);
-            this.toolStripDropDownButton1.Text = "toolStripDropDownButton1";
-            // 
-            // toolStripStatusLabel2
-            // 
-            this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
-            this.toolStripStatusLabel2.Size = new System.Drawing.Size(118, 17);
-            this.toolStripStatusLabel2.Text = "toolStripStatusLabel2";
-            // 
-            // toolStripProgressBar1
-            // 
-            this.toolStripProgressBar1.Name = "toolStripProgressBar1";
-            this.toolStripProgressBar1.Size = new System.Drawing.Size(100, 16);
+            this.chkLargeButtons.AutoSize = true;
+            this.chkLargeButtons.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.chkLargeButtons.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.chkLargeButtons.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkLargeButtons.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.chkLargeButtons.Location = new System.Drawing.Point(161, 26);
+            this.chkLargeButtons.Name = "chkLargeButtons";
+            this.chkLargeButtons.Size = new System.Drawing.Size(121, 19);
+            this.chkLargeButtons.TabIndex = 35;
+            this.chkLargeButtons.Text = "Large Buttons:";
+            this.chkLargeButtons.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.chkLargeButtons.UseVisualStyleBackColor = true;
+            this.chkLargeButtons.CheckedChanged += new System.EventHandler(this.chkLargeButtons_CheckedChanged);
             // 
             // frmSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(572, 644);
-            this.Controls.Add(this.statusStrip1);
+            this.ClientSize = new System.Drawing.Size(645, 556);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.grpCompare);
             this.Controls.Add(this.grpTimeSheet);
@@ -596,10 +545,7 @@ namespace ToolbarOfFunctions
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numHighlightRowsOver)).EndInit();
-            this.statusStrip1.ResumeLayout(false);
-            this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -636,15 +582,9 @@ namespace ToolbarOfFunctions
         public System.Windows.Forms.CheckBox chkDisplayTimeTaken;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox cmboHighLightOrDelete;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ComboBox cmboShowToolbarDescription;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox cmboDifferences;
         public System.Windows.Forms.CheckBox chkProduceMessageBox;
-        private System.Windows.Forms.StatusStrip statusStrip1;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
-        private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton1;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
-        private System.Windows.Forms.ToolStripProgressBar toolStripProgressBar1;
+        public System.Windows.Forms.CheckBox chkLargeButtons;
     }
 }

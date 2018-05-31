@@ -10,6 +10,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using ToolbarOfFunctions_CommonClasses;
+using ToolbarOfFunctions;
+
+using Microsoft.Office.Tools.Ribbon;
+
+// using ExcelRibbon;
+
+
+
 namespace ToolbarOfFunctions
 {
     public partial class frmSettings : Form
@@ -18,6 +27,24 @@ namespace ToolbarOfFunctions
         {
             InitializeComponent();
         }
+
+        private void chkLargeButtons_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkLargeButtons.Checked)
+            {
+                // set the toolbar button size?
+                // CommonExcelClasses.ButtonSetSize(btnSettings, "Large");
+                // CommonExcelClasses.ButtonUpdateLabel(btnSettings, "Hi");
+                // CommonExcelClasses.ButtonSetSize(btnSettings, "Small");
+
+
+            }
+            else
+            {
+
+            }
+        }
+
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -32,7 +59,10 @@ namespace ToolbarOfFunctions
         {
 
             // can I dynamically change the text if a button?
-            
+
+            //now set the buttons size if reqd
+            // boolDisplayMessage = myForm.chkLargeButtons.Checked;
+
             this.Hide();
         }
 
@@ -45,7 +75,6 @@ namespace ToolbarOfFunctions
         {
 
         }
-
 
     }
 }

@@ -1,8 +1,5 @@
 ﻿#pragma warning disable IDE1006 // Naming Styles
 
-// ask around how to add a comman class that I can share with this
-
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,10 +22,13 @@ using System.ComponentModel;
 using System.Data;
 
 using Microsoft.VisualStudio.Tools.Applications.Runtime;
-// using ExcelRibbon = ToolbarOfFunctions.ExcelRibbon;
+using Microsoft.Office.Tools.Ribbon;
+
+using ToolbarOfFunctions_CommonClasses;
+
 
 namespace ToolbarOfFunctions
-    {
+{
     public partial class ThisAddIn
     {
         internal readonly IntPtr Handle;
@@ -39,7 +39,8 @@ namespace ToolbarOfFunctions
         bool boolDisplayMessage;
         frmSettings myForm = new frmSettings();
 
-        private void ThisAddIn_Startup(object sender, System.EventArgs e) {
+        private void ThisAddIn_Startup(object sender, System.EventArgs e)
+        {
 
             // get the values from the form?
             boolDisplayMessage = myForm.chkProduceMessageBox.Checked;
@@ -50,22 +51,27 @@ namespace ToolbarOfFunctions
         private void ThisAddIn_Shutdown(object sender, System.EventArgs e) { }
 
         // Clear the workbook
-        public void zapWorksheet(Excel.Workbook Wkb, int intFirstRow =2) {
+        public void zapWorksheet(Excel.Workbook Wkb, int intFirstRow = 2)
+        {
             Excel.Worksheet Wks;
             Excel.Range xlCell;
 
             Wks = Wkb.ActiveSheet;
 
             // int intFirstRow = 2;
-            int intLastRow = getLastRow(Wks);
+            int intLastRow = CommonExcelClasses.getLastRow(Wks);
             xlCell = Wks.get_Range("A" + intFirstRow + ":A" + intLastRow);
 
-            if (Wks.Name != "InternalParameters") {
-                if (intLastRow > intFirstRow) {
+            if (Wks.Name != "InternalParameters")
+            {
+                if (intLastRow > intFirstRow)
+                {
                     xlCell.EntireRow.Delete(Excel.XlDirection.xlUp);
                 }
-            } else {
-                MsgBox("Cannot run in worksheet: InternalParameters", "Error");
+            }
+            else
+            {
+                CommonExcelClasses.MsgBox("Cannot run in worksheet: InternalParameters", "Error");
             }
 
         }
@@ -77,42 +83,20 @@ namespace ToolbarOfFunctions
             myForm.ShowDialog();
 
             /// ask nicola
-            // ThisAddIn.btnDealWithSingleDuplicates.Label = "Hi";
+             // btnDealWithSingleDuplicates.Label = "Hi";
+            // ToolbarOfFunctions.ExcelRibbon.
             // ExcelRibbon ThisAddIn.btnDealWithSingleDuplicates.Label = "Hi";
-
-            MsgBox("Hi");
+            // btnDealWithSingleDuplicates.Label = "Hi";
+            // MsgBox("Hi");
 
 
             // throw new NotImplementedException();
         }
 
-        public void MsgBox(string strMessage, string strWhichIcon = "Information") {
-            MessageBoxIcon whichIcon = MessageBoxIcon.Information;
-            string strCaption = strWhichIcon;
-
-            switch (strWhichIcon)
-            {
-                case "Question":
-                    whichIcon = MessageBoxIcon.Question;
-                    break;
-
-                case "Error":
-                    whichIcon = MessageBoxIcon.Error;
-                    break;
-
-                case "Information":
-                    whichIcon = MessageBoxIcon.Information;
-                    break;
-
-            }
-
-            MessageBox.Show(strMessage, strCaption, MessageBoxButtons.OK, whichIcon);
-            // MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question
-
-        }
 
 
-        public void readFolders(Excel.Workbook Wkb) {
+        public void readFolders(Excel.Workbook Wkb)
+        {
 
             Excel.Worksheet Wks;            // instantiate worksheet object
             Wks = Wkb.ActiveSheet;          // point to active sheet
@@ -128,14 +112,15 @@ namespace ToolbarOfFunctions
             strPath = "C:\\Temp\\manyFiles-01";
             // strPath = "c:\\temp\\sfc"""
 
-            FolderBrowserDialogEx cfbd = new FolderBrowserDialogEx() {
+            FolderBrowserDialogEx cfbd = new FolderBrowserDialogEx()
+            {
                 Title = "Please Select Folder ...",
                 SelectedPath = strPath,
                 ShowEditbox = true,
                 ShowNewFolderButton = false,
                 RootFolder = Environment.SpecialFolder.Desktop,
                 StartPosition = FormStartPosition.CenterScreen
-                };
+            };
 
             // need a yes or no for reading in extra details
             DialogResult dlgReadExtraDetails = askGetExtraDetails();
@@ -151,9 +136,11 @@ namespace ToolbarOfFunctions
 
             string strWhichColumn = "F";
 
-            if (dlgReadExtraDetails != DialogResult.Cancel) {
+            if (dlgReadExtraDetails != DialogResult.Cancel)
+            {
 
-                if (cfbd.ShowDialog(this) == System.Windows.Forms.DialogResult.OK) {
+                if (cfbd.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+                {
 
                     Stopwatch sw = new Stopwatch();
                     sw.Start();
@@ -187,26 +174,28 @@ namespace ToolbarOfFunctions
 
             if (boolExtraDetails)
                 strHead = "File Name;Date Last Accessed;Size;Version;File Name Extracted;";
-            else 
-                strHead = "FileName;;;;;";            
+            else
+                strHead = "FileName;;;;;";
 
             string[] strWords = strHead.Split(';');
 
-            if (strDoWhat == "FILES")            
-                for (int i = 0; i <= strWords.GetUpperBound(0); i++) 
-                    Wks.Cells[1, (i+1)].value = strWords[i];
-                
+            if (strDoWhat == "FILES")
+                for (int i = 0; i <= strWords.GetUpperBound(0); i++)
+                    Wks.Cells[1, (i + 1)].value = strWords[i];
+
             Wks.Range["A1:E1"].Font.Bold = true;
 
         }
 
-        public static DialogResult askGetExtraDetails() {
+        public static DialogResult askGetExtraDetails()
+        {
             DialogResult dlgResult = MessageBox.Show("Populate extract detail columns?", "Question", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
 
             return dlgResult;
         }
 
-        public static void getExtraDetails(string file, Excel.Worksheet Wks, int gintFileCount) {
+        public static void getExtraDetails(string file, Excel.Worksheet Wks, int gintFileCount)
+        {
 
             FileInfo oFileInfo = new FileInfo(file);
             FileVersionInfo oFileVersionInfo = FileVersionInfo.GetVersionInfo(file);            // Get file version info LastWriteTime, LastAccessTime
@@ -223,7 +212,8 @@ namespace ToolbarOfFunctions
                                                 oFileVersionInfo.FilePrivatePart.ToString();
 
 
-            if (strFileVersioninfo != "0.0.0.0") { 
+            if (strFileVersioninfo != "0.0.0.0")
+            {
                 Wks.Cells[gintFileCount, 4].value = strFileVersioninfo;
             }
 
@@ -231,9 +221,11 @@ namespace ToolbarOfFunctions
             Wks.Cells[gintFileCount, 5].value = oFileInfo.Name;                                 // File Name Extracted
         }
 
-        public static void directorySearch(string root, Excel.Worksheet Wks, int gintFileCount, bool boolExtraDetails, bool isRootItrated) {
+        public static void directorySearch(string root, Excel.Worksheet Wks, int gintFileCount, bool boolExtraDetails, bool isRootItrated)
+        {
 
-            if (!isRootItrated) {
+            if (!isRootItrated)
+            {
                 var rootDirectoryFiles = Directory.GetFiles(root);
                 foreach (var file in rootDirectoryFiles)
                 {
@@ -252,7 +244,8 @@ namespace ToolbarOfFunctions
 
             var subDirectories = Directory.GetDirectories(root);
             // does this need to be var?
-            if (subDirectories?.Any() == true) {
+            if (subDirectories?.Any() == true)
+            {
                 foreach (var directory in subDirectories)
                 {
                     var files = Directory.GetFiles(directory);
@@ -283,7 +276,7 @@ namespace ToolbarOfFunctions
             Wks = Wkb.ActiveSheet;
 
             int intStartColumToCheck = 1;
-            string strColumnName = getExcelColumnName(intStartColumToCheck);
+            string strColumnName = CommonExcelClasses.getExcelColumnName(intStartColumToCheck);
 
             DialogResult dlgResult = DialogResult.Yes;
 
@@ -296,23 +289,24 @@ namespace ToolbarOfFunctions
             {
                 int intStartRow = 1;
 
-                int intLastRow = getLastRow(Wks);
+                int intLastRow = CommonExcelClasses.getLastRow(Wks);
                 for (int intSourceRow = intStartRow; intSourceRow <= intLastRow; intSourceRow++)
                 {
                     if (Wks.Cells[intSourceRow, intStartColumToCheck].Value == Wks.Cells[intSourceRow + 1, intStartColumToCheck].Value)
-                        colourCells(Wks, (intSourceRow+1), "Error");
-                
+                        colourCells(Wks, (intSourceRow + 1), "Error");
+
                 }
 
 
                 if (boolDisplayMessage)
-                    MsgBox("Complete ...");
+                    CommonExcelClasses.MsgBox("Complete ...");
 
             }
         }
 
 
-        public void compareSheets(Excel.Workbook Wkb) {
+        public void compareSheets(Excel.Workbook Wkb)
+        {
 
             Excel.Worksheet Wks1;   // get current sheet
             Excel.Worksheet Wks2;   // get sheet next door
@@ -336,45 +330,47 @@ namespace ToolbarOfFunctions
 
                 string strValue1 = "";
 
-                int intSheetLastRow1 = getLastRow(Wks1);
-                int intSheetLastRow2 = getLastRow(Wks2);
+                int intSheetLastRow1 = CommonExcelClasses.getLastRow(Wks1);
+                int intSheetLastRow2 = CommonExcelClasses.getLastRow(Wks2);
 
                 for (int intSourceRow = intStartRow; intSourceRow <= intSheetLastRow1; intSourceRow++)
                 {
                     // read in vlaue from sheet 
-                    // maybe I should ready all into arrayS?
+                    // maybe I should ready all into arrays - maybe later?
 
                     strValue1 = Wks1.Cells[intSourceRow, intStartColumToCheck].Value;
 
-                    intTargetRow = searchForValue(Wks2, strValue1, intStartColumToCheck);
+                    intTargetRow = CommonExcelClasses.searchForValue(Wks2, strValue1, intStartColumToCheck);
 
                     if (intTargetRow > 0)
                     {
                         string stringCell1 = ""; string stringCell2 = "";
 
                         //  start from correct column
-                        for (int intColCount  = intStartColumToCheck; intColCount <= intNoCheckCols; intColCount++)
+                        for (int intColCount = intStartColumToCheck; intColCount <= intNoCheckCols; intColCount++)
                         {
-                            if (!isEmptyCell(Wks1.Cells[intSourceRow, intColCount]))
+
+                            if (!CommonExcelClasses.isEmptyCell(Wks1.Cells[intSourceRow, intColCount]))
                                 stringCell1 = Wks1.Cells[intSourceRow, intColCount].Value.ToString();
-                            
+
                             // need to handle nulls properly
-                            if (!isEmptyCell(Wks2.Cells[intTargetRow, intColCount]))
+                            if (!CommonExcelClasses.isEmptyCell(Wks2.Cells[intTargetRow, intColCount]))
                                 stringCell2 = Wks2.Cells[intTargetRow, intColCount].Value.ToString();
 
                             if (stringCell1 == stringCell2)
                                 intColScore++;
                         }
 
-                        // Score system = if all the same then can blue it
-                        if (intColScore == intNoCheckCols)
-                            colourCells(Wks1, intSourceRow, "OK");
-                        else 
-                            colourCells(Wks1, intSourceRow, "Error");
-                        
-
-                        intColScore = 0;
                     }
+
+                    // Score system = if all the same then can blue it
+                    if (intColScore == intNoCheckCols)
+                        colourCells(Wks1, intSourceRow, "OK");
+                    else
+                        colourCells(Wks1, intSourceRow, "Error");
+
+                    intColScore = 0;
+
                 }
             }
         }
@@ -384,7 +380,7 @@ namespace ToolbarOfFunctions
             int intStartColumToCheck = 1;
             int intNoCheckCols = 5;
 
-           for (int intColCount = intStartColumToCheck; intColCount <= intNoCheckCols; intColCount++)
+            for (int intColCount = intStartColumToCheck; intColCount <= intNoCheckCols; intColCount++)
             {
                 if (strDoWhat == "OK")
                     Wks.Cells[intSourceRow, intColCount].Font.Color = ColorTranslator.ToOle(System.Drawing.Color.Blue);
@@ -395,40 +391,10 @@ namespace ToolbarOfFunctions
 
         }
 
-        public static int searchForValue(Excel.Worksheet Wks2, string searchString, int intStartColumToCheck)
+
+
+        public void deleteBlankLines(Excel.Workbook Wkb, string strMode)
         {
-
-            Excel.Range colRange = Wks2.Columns["A:A"];             //get the range object where you want to search from
-
-            Excel.Range resultRange = colRange.Find(
-
-                    What: searchString,
-
-                    LookIn: Excel.XlFindLookIn.xlValues,
-
-                    LookAt: Excel.XlLookAt.xlPart,
-
-                    // SearchOrder: Excel.XlSearchOrder.xlByRows,
-                    SearchOrder: Excel.XlSearchOrder.xlByColumns,
-
-                    SearchDirection: Excel.XlSearchDirection.xlNext
-
-                );                                                  // search searchString in the range, if find result, return a range
-            /*
-                if (resultRange is null) {
-                    MessageBox.Show("Did not find " + searchString + " in column A");
-                } else {
-                    //then you could handle how to display the row to the label according to resultRange
-                    MsgBox("found? - want to return the row no");
-                }
-                */
-
-            return resultRange.Row;
-
-        }
-
-
-        public void deleteBlankLines(Excel.Workbook Wkb, string strMode) {
             Excel.Worksheet Wks;
             Wks = Wkb.ActiveSheet;
 
@@ -443,57 +409,64 @@ namespace ToolbarOfFunctions
 
             if (Wks.Name != "InternalParameters")
             {
-                if (strMode == "A") {
+                if (strMode == "A")
+                {
                     delLinesModeA(Wks);
                 }
 
-                if (strMode == "B") {
+                if (strMode == "B")
+                {
                     delLinesModeB(Wks);
                 }
 
-                if (strMode == "C") {
+                if (strMode == "C")
+                {
                     delLinesModeC(Wks);
                 }
 
-
             }
-            else {
-                MsgBox("Cannot run in worksheet: InternalParameters", "Error");
+            else
+            {
+                CommonExcelClasses.MsgBox("Cannot run in worksheet: InternalParameters", "Error");
             }
 
             sw.Stop();
 
             Wks.Range[strResultsCol + "2"].Value = DateTime.Now;
             Wks.Range[strResultsCol + "3"].Value = sw.Elapsed.Milliseconds;
-            MsgBox("Finshed ...");
+            CommonExcelClasses.MsgBox("Finshed ...");
 
         }
 
 
-        private void delLinesModeA(Excel.Worksheet Wks) {
+        private void delLinesModeA(Excel.Worksheet Wks)
+        {
             Excel.Range xlCell;
 
             int intFirstRow = 2;
             int intColScore = 0;
 
-            int intLastRow = getLastRow(Wks);
-            int intLastCol = getLastCol(Wks);
+            int intLastRow = CommonExcelClasses.getLastRow(Wks);
+            int intLastCol = CommonExcelClasses.getLastCol(Wks);
 
             // loop along looking for data
-            for (int intRows = intLastRow; intRows >= intFirstRow; intRows--) {
+            for (int intRows = intLastRow; intRows >= intFirstRow; intRows--)
+            {
                 Console.WriteLine(intRows);
 
-                for (int intCols = 1; intCols <= intLastCol; intCols++) {
+                for (int intCols = 1; intCols <= intLastCol; intCols++)
+                {
                     Console.WriteLine(intCols);
 
-                    if (isEmptyCell(Wks.Cells[intRows, intCols]))
+                    if (CommonExcelClasses.isEmptyCell(Wks.Cells[intRows, intCols]))
                         intColScore++;
                 }
 
-                if (intColScore == intLastCol) {
+                if (intColScore == intLastCol)
+                {
                     string strRange = "A" + intRows + ":A" + intRows;
                     xlCell = Wks.get_Range(strRange);
-                    xlCell.EntireRow.Delete(Excel.XlDirection.xlUp);                    
+                    xlCell.EntireRow.Delete(Excel.XlDirection.xlUp);
 
                 }
 
@@ -517,10 +490,10 @@ namespace ToolbarOfFunctions
                 Excel.Range xlCell;
 
                 // int intRowFirst = 2;
-                int intRowLast = getLastRow(Wks);
-                int intColLast = getLastCol(Wks);
+                int intRowLast = CommonExcelClasses.getLastRow(Wks);
+                int intColLast = CommonExcelClasses.getLastCol(Wks);
 
-                string strLastCol = getExcelColumnName(intColLast);
+                string strLastCol = CommonExcelClasses.getExcelColumnName(intColLast);
 
                 int intRowToStartFrom = 1;
                 int intColScore = 0;
@@ -534,7 +507,7 @@ namespace ToolbarOfFunctions
                     {
                         Console.WriteLine(intCols);
 
-                        if (isEmptyCell(Wks.Cells[intRows, intCols]))
+                        if (CommonExcelClasses.isEmptyCell(Wks.Cells[intRows, intCols]))
                             intColScore++;
                     }
 
@@ -572,10 +545,10 @@ namespace ToolbarOfFunctions
             }
             catch (System.Exception excpt)
             {
-                MsgBox("There are no lines to delete", "Error");
+                CommonExcelClasses.MsgBox("There are no lines to delete", "Error");
                 Console.WriteLine(excpt.Message);
             }
-            
+
 
         }
 
@@ -584,130 +557,20 @@ namespace ToolbarOfFunctions
             // Excel.Application excel = new Excel.Application();
 
             // deleteEmptyRowsCols(worksheet);
-            deleteEmptyRows(worksheet);
+            CommonExcelClasses.deleteEmptyRows(worksheet);
 
         }
 
-        private static void deleteEmptyRows(Excel.Worksheet Wks)
+
+        static void listSubFoldersAndFiles(string strSubFolderPath, Excel.Worksheet Wks, int gintFileCount)
         {
-            Excel.Range xlTargetCells = Wks.UsedRange;
-            object[,] allValues = (object[,])xlTargetCells.Cells.Value;
-            int intTotalRows = xlTargetCells.Rows.Count;
-            int intTotalCols = xlTargetCells.Columns.Count;
-
-            List<int> lstEmptyRows = getEmptyRows(allValues, intTotalRows, intTotalCols);
-
-            // now we have a list of the empty rows and columns we need to delete
-            deleteRows(lstEmptyRows, Wks);
-        }
-
-
-        private static List<int> getEmptyRows(object[,] allValues, int intTotalRows, int intTotalCols)
-        {
-            List<int> lstEmptyRows = new List<int>();
-
-            for (int i = 1; i < intTotalRows; i++)
-            {
-                if (isRowEmpty(allValues, i, intTotalCols))
-                {
-                    lstEmptyRows.Add(i);
-                }
-            }
-            // sort the list from high to low
-            return lstEmptyRows.OrderByDescending(x => x).ToList();
-        }
-
-
-        private static bool isRowEmpty(object[,] allValues, int rowIndex, int intTotalCols)
-        {
-            for (int i = 1; i < intTotalCols; i++)
-            {
-                if (allValues[rowIndex, i] != null)
-                {
-                    return false;
-                }
-            }
-            return true;
-        }
-
-        private static void deleteRows(List<int> rowsToDelete, Excel.Worksheet worksheet)
-        {
-            // the rows are sorted high to low - so index's wont shift
-            foreach (int rowIndex in rowsToDelete)
-            {
-                worksheet.Rows[rowIndex].Delete();
-            }
-        }
-
-
-        // move these to common
-
-        // I was after this 
-        private string getExcelColumnName(int columnNumber)
-        {
-            int dividend = columnNumber;
-            string columnName = String.Empty;
-            int modulo;
-
-            while (dividend > 0)
-            {
-                modulo = (dividend - 1) % 26;
-                columnName = Convert.ToChar(65 + modulo).ToString() + columnName;
-                dividend = (int)((dividend - modulo) / 26);
-            }
-            return columnName;
-        }
-
-        private bool isEmptyCell(Excel.Range xlCell) {
-            bool boolRetVal = false;
-
-            if (xlCell == null || xlCell.Value2 == null || xlCell.Value2.ToString() == "") {
-                boolRetVal = true;
-            }
-
-            return boolRetVal;
-
-        }
-
-        public static int getLastCol(Excel.Worksheet Wks) {
-            return Wks.Cells.SpecialCells(Excel.XlCellType.xlCellTypeLastCell, Type.Missing).Column;
-        }
-
-        public static int getLastRow(Excel.Worksheet Wks) {
-            return Wks.Cells.SpecialCells(Excel.XlCellType.xlCellTypeLastCell, Type.Missing).Row;
-        }
-    
-        private static void setCursorToWaiting() {
-            Excel.Application application = Globals.ThisAddIn.Application;
-            application.Cursor = Excel.XlMousePointer.xlWait;
-        }
-        private static void setCursorToDefault() {
-            Excel.Application application = Globals.ThisAddIn.Application;
-            application.Cursor = Excel.XlMousePointer.xlDefault;
-        }
-
-        private bool WorksheetExist(Excel.Workbook Wkb, string strSheetName) {
-            bool found = false;
-
-            foreach (Excel.Worksheet Wks in Wkb.Sheets) {
-
-                MsgBox("inside WorksheetExist() - ws Name " + Wks.Name.ToLower());
-
-                if (Wks.Name.ToLower() == strSheetName.ToLower()) {
-                    found = true;
-                    break;
-                }
-            }
-
-            return found;
-        }
-
-
-        static void listSubFoldersAndFiles(string strSubFolderPath, Excel.Worksheet Wks, int gintFileCount) {
             // recursive function that will read from the current folder into selected wokrksheet
-            try {
-                foreach (string d in Directory.GetDirectories(strSubFolderPath)) {
-                    foreach (string f in Directory.GetFiles(d)) {
+            try
+            {
+                foreach (string d in Directory.GetDirectories(strSubFolderPath))
+                {
+                    foreach (string f in Directory.GetFiles(d))
+                    {
 
                         Console.WriteLine(f);
 
@@ -724,34 +587,7 @@ namespace ToolbarOfFunctions
 
         }
 
-        private static void graveYard()
-        {
-            // Excel.Worksheet activeWorksheet = null;
-            // int cnt = 0;
-            //foreach (Excel.Range element in range.Cells)            {
-            //    if (element.Value2 != null)
-            //    {
-            //        cnt = cnt + 1;
-            //    }
-            //    System.Console.WriteLine(cnt);
-            //}
-            //MessageBox.Show(cnt.ToString());
 
-            // Excel.Worksheet activeWorksheet;
-
-            // MessageBox.Show(activeWorksheet.Name.ToLower());
-            // string activeWorksheet = Wkb.Sheets[0].name;
-            //activeWorksheet = Wkb.Sheets[1];
-            //MessageBox.Show(activeWorksheet._CodeName);
-            //WorksheetExist(Wkb, "Sheet1");
-
-            // Excel.Range cell = activeWorksheet.get_Range(x.column + x.row);
-            // string activeWorksheetName = activeWorksheet.Name;
-            // MessageBox.Show(activeWorksheet.Name);
-            // MessageBox.Show(activeWorksheetName);
-            // setCursorToWaiting();
-
-        }
 
         #region VSTO generated code
 
@@ -759,11 +595,12 @@ namespace ToolbarOfFunctions
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
-        private void InternalStartup() {
+        private void InternalStartup()
+        {
             this.Startup += new System.EventHandler(ThisAddIn_Startup);
             this.Shutdown += new System.EventHandler(ThisAddIn_Shutdown);
         }
-        
+
         #endregion
     }
 }

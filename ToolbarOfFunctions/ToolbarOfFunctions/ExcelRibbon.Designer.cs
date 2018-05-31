@@ -37,6 +37,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ExcelRibbon));
             this.MYTOOLBAR = this.Factory.CreateRibbonTab();
             this.customToolbar = this.Factory.CreateRibbonGroup();
+            this.folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.btnSettings = this.Factory.CreateRibbonButton();
             this.btnReadFolders = this.Factory.CreateRibbonButton();
             this.btnCompareSheets = this.Factory.CreateRibbonButton();
@@ -53,7 +54,6 @@
             this.btnReadUsers = this.Factory.CreateRibbonButton();
             this.btnWriteTimeSheet = this.Factory.CreateRibbonButton();
             this.btnPingServers = this.Factory.CreateRibbonButton();
-            this.folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.MYTOOLBAR.SuspendLayout();
             this.customToolbar.SuspendLayout();
             this.SuspendLayout();
