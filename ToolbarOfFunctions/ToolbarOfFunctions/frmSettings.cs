@@ -10,13 +10,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-using ToolbarOfFunctions_CommonClasses;
-using ToolbarOfFunctions;
-
 using Microsoft.Office.Tools.Ribbon;
 
-// using ExcelRibbon;
-
+using ToolbarOfFunctions_CommonClasses;
+using ToolbarOfFunctions;
 
 
 namespace ToolbarOfFunctions
@@ -30,19 +27,7 @@ namespace ToolbarOfFunctions
 
         private void chkLargeButtons_CheckedChanged(object sender, EventArgs e)
         {
-            if (chkLargeButtons.Checked)
-            {
-                // set the toolbar button size?
-                // CommonExcelClasses.ButtonSetSize(btnSettings, "Large");
-                // CommonExcelClasses.ButtonUpdateLabel(btnSettings, "Hi");
-                // CommonExcelClasses.ButtonSetSize(btnSettings, "Small");
 
-
-            }
-            else
-            {
-
-            }
         }
 
 

@@ -27,32 +27,37 @@ using System.Data;
 using Microsoft.VisualStudio.Tools.Applications.Runtime;
 using ToolbarOfFunctions;
 
+using Microsoft.Office.Core;
+
 namespace ToolbarOfFunctions_CommonClasses
 {
     public class CommonExcelClasses
     {
+
+        private static readonly Office.RibbonControlSize RibbonControlSizeLarge;
+        private static readonly Office.RibbonControlSize RibbonControlSizeRegular;
+
+
+
         public static void ButtonUpdateLabel(RibbonButton rbnButton, string strText)
         {
             rbnButton.Label = strText;
-
         }
 
-        public static void ButtonSetSize(RibbonButton rbnButton, string strText)
+        public static void ButtonSetSize(RibbonButton rbnButton, bool boolLargeButton)
         {
-            // RibbonControlSizeRegular
-            // RibbonControlSizeLarge
-
-            if (strText == "Large")
-            {
-                Office.RibbonControlSize RibbonControlSizeLarge = default(Office.RibbonControlSize);
-                rbnButton.ControlSize = RibbonControlSizeLarge;
-            }
+            if (boolLargeButton)
+                rbnButton.ControlSize = RibbonControlSize.RibbonControlSizeLarge;
             else
-            {
-                Office.RibbonControlSize RibbonControlSizeRegular = default(Office.RibbonControlSize);
-                rbnButton.ControlSize = RibbonControlSizeRegular;
-            }
+                rbnButton.ControlSize = RibbonControlSize.RibbonControlSizeRegular;
+        }
 
+        public static void SplitButtonSetSize(RibbonSplitButton rbnSplitButton, bool boolLargeButton)
+        {
+            if (boolLargeButton)
+                rbnSplitButton.ControlSize = RibbonControlSize.RibbonControlSizeLarge;
+            else
+                rbnSplitButton.ControlSize = RibbonControlSize.RibbonControlSizeRegular;
         }
 
         public static void MsgBox(string strMessage, string strWhichIcon = "Information")

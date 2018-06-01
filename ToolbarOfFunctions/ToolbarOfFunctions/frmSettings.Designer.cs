@@ -56,6 +56,7 @@ namespace ToolbarOfFunctions
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.chkLargeButtons = new System.Windows.Forms.CheckBox();
             this.numHighlightRowsOver = new System.Windows.Forms.NumericUpDown();
             this.label10 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
@@ -66,7 +67,6 @@ namespace ToolbarOfFunctions
             this.label1 = new System.Windows.Forms.Label();
             this.cmboDifferences = new System.Windows.Forms.ComboBox();
             this.chkProduceMessageBox = new System.Windows.Forms.CheckBox();
-            this.chkLargeButtons = new System.Windows.Forms.CheckBox();
             this.pingServers.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numColPingRead)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numColPingWrite)).BeginInit();
@@ -381,6 +381,24 @@ namespace ToolbarOfFunctions
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Misc ..:";
             // 
+            // chkLargeButtons
+            // 
+            this.chkLargeButtons.AutoSize = true;
+            this.chkLargeButtons.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.chkLargeButtons.Checked = true;
+            this.chkLargeButtons.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkLargeButtons.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.chkLargeButtons.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkLargeButtons.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.chkLargeButtons.Location = new System.Drawing.Point(161, 26);
+            this.chkLargeButtons.Name = "chkLargeButtons";
+            this.chkLargeButtons.Size = new System.Drawing.Size(121, 19);
+            this.chkLargeButtons.TabIndex = 35;
+            this.chkLargeButtons.Text = "Large Buttons:";
+            this.chkLargeButtons.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.chkLargeButtons.UseVisualStyleBackColor = true;
+            this.chkLargeButtons.CheckedChanged += new System.EventHandler(this.chkLargeButtons_CheckedChanged);
+            // 
             // numHighlightRowsOver
             // 
             this.numHighlightRowsOver.Location = new System.Drawing.Point(275, 188);
@@ -494,22 +512,6 @@ namespace ToolbarOfFunctions
             this.chkProduceMessageBox.Text = "Produce Message Box?";
             this.chkProduceMessageBox.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.chkProduceMessageBox.UseVisualStyleBackColor = true;
-            // 
-            // chkLargeButtons
-            // 
-            this.chkLargeButtons.AutoSize = true;
-            this.chkLargeButtons.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.chkLargeButtons.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.chkLargeButtons.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkLargeButtons.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.chkLargeButtons.Location = new System.Drawing.Point(161, 26);
-            this.chkLargeButtons.Name = "chkLargeButtons";
-            this.chkLargeButtons.Size = new System.Drawing.Size(121, 19);
-            this.chkLargeButtons.TabIndex = 35;
-            this.chkLargeButtons.Text = "Large Buttons:";
-            this.chkLargeButtons.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.chkLargeButtons.UseVisualStyleBackColor = true;
-            this.chkLargeButtons.CheckedChanged += new System.EventHandler(this.chkLargeButtons_CheckedChanged);
             // 
             // frmSettings
             // 

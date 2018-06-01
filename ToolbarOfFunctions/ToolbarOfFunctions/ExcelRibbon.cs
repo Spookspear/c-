@@ -9,12 +9,23 @@ using Microsoft.Office.Tools.Ribbon;
 using System.Windows.Forms;
 using Excel = Microsoft.Office.Interop.Excel;
 using ToolbarOfFunctions = ToolbarOfFunctions.ThisAddIn;
+using ToolbarOfFunctions_CommonClasses;
+
+using ToolbarOfFunctions;
+
 
 
 namespace ToolbarOfFunctions
 {
     public partial class ExcelRibbon
     {
+
+        public bool boolDisplayMessage, boolLargeButton;
+
+        // frmSettings frmSettings = new frmSettings();
+        // frmSettings frmSettings = default(frmSettings);
+        frmSettings frmSettings = new frmSettings();
+
         private void Ribbon1_Load(object sender, RibbonUIEventArgs e)
         {
 
@@ -59,12 +70,32 @@ namespace ToolbarOfFunctions
             btnDeleteBlankLinesB_Click(sender, e);
         }
 
-        private void btnSettings_Click(object sender, RibbonControlEventArgs e)
+        public void btnSettings_Click(object sender, RibbonControlEventArgs e)
         {
+            // frmSettings frmSettings = new frmSettings();
+            // Globals.ThisAddIn.openSettingsForm(Globals.ThisAddIn.Application.ActiveWorkbook);
+            // btnDealWithSingleDuplicates.Label = "Hi";
 
-            Globals.ThisAddIn.openSettingsForm(Globals.ThisAddIn.Application.ActiveWorkbook);
+            frmSettings.ShowDialog();
 
-            btnDealWithSingleDuplicates.Label = "Hi";
+            boolDisplayMessage = frmSettings.chkProduceMessageBox.Checked;
+            boolLargeButton = frmSettings.chkLargeButtons.Checked;
+
+            CommonExcelClasses.ButtonSetSize(btnSettings, boolLargeButton);
+            CommonExcelClasses.ButtonSetSize(btnReadFolders, boolLargeButton);
+            CommonExcelClasses.ButtonSetSize(btnCompareSheets, boolLargeButton);
+            CommonExcelClasses.ButtonSetSize(btnZap, boolLargeButton);
+            CommonExcelClasses.SplitButtonSetSize(splitButtonDeleteLines, boolLargeButton);
+
+
+            CommonExcelClasses.ButtonSetSize(btnDealWithSingleDuplicates, boolLargeButton);
+            CommonExcelClasses.ButtonSetSize(btnDealWithManyDuplicates, boolLargeButton);
+            CommonExcelClasses.ButtonSetSize(btnLoadADGroupIntoSpreadsheet, boolLargeButton);
+            CommonExcelClasses.ButtonSetSize(btnLoadADGroupIntoSpreadsheetActiveCell, boolLargeButton);
+            CommonExcelClasses.ButtonSetSize(btnReadUsersGroupMembership, boolLargeButton);
+            CommonExcelClasses.ButtonSetSize(btnReadUsers, boolLargeButton);
+            CommonExcelClasses.ButtonSetSize(btnWriteTimeSheet, boolLargeButton);
+            CommonExcelClasses.ButtonSetSize(btnPingServers, boolLargeButton);
 
 
         }

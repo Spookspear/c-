@@ -36,14 +36,17 @@ namespace ToolbarOfFunctions
         //IntPtr Handle = Process.GetCurrentProcess().MainWindowHandle;
         // internal readonly IntPtr Handle = Process.GetCurrentProcess().MainWindowHandle;
 
-        bool boolDisplayMessage;
-        frmSettings myForm = new frmSettings();
+        public bool boolDisplayMessage;
+
+        frmSettings frmSettings = new frmSettings();
+        // frmSettings frmSettings = default(frmSettings);
+
 
         private void ThisAddIn_Startup(object sender, System.EventArgs e)
         {
 
             // get the values from the form?
-            boolDisplayMessage = myForm.chkProduceMessageBox.Checked;
+            boolDisplayMessage = frmSettings.chkProduceMessageBox.Checked;
 
 
         }
@@ -79,8 +82,40 @@ namespace ToolbarOfFunctions
         internal void openSettingsForm(Excel.Workbook activeWorkbook)
         {
 
-            // frmSettings myForm = new frmSettings();
-            myForm.ShowDialog();
+            // bool boolDisplayMessage, boolLargeButton;
+
+
+            // ExcelRibbon ExcelRibbon = new ExcelRibbon();
+            // frmSettings frmSettings = new frmSettings();
+
+            frmSettings.ShowDialog();
+            // boolLargeButton = frmSettings.chkLargeButtons.Checked;
+            // boolDisplayMessage = frmSettings.chkProduceMessageBox.Checked;
+
+
+            // may have to do it here instead
+            // string strWhatSize;
+            // if (boolLargeButton)
+            // strWhatSize = "Large";
+            // else
+            // strWhatSize = "Small";
+
+            // CommonExcelClasses.ButtonSetSize(btnSettings, strWhatSize);
+            // CommonExcelClasses.ButtonSetSize(btnReadFolders, strWhatSize);
+            // CommonExcelClasses.ButtonSetSize(btnCompareSheets, strWhatSize);
+            // CommonExcelClasses.ButtonSetSize(btnZap, strWhatSize);
+            // CommonExcelClasses.ButtonSetSize(splitButtonDeleteLines, strWhatSize);
+            // CommonExcelClasses.ButtonSetSize(btnDealWithSingleDuplicates, strWhatSize);
+            // CommonExcelClasses.ButtonSetSize(btnDealWithManyDuplicates, strWhatSize);
+            // CommonExcelClasses.ButtonSetSize(btnLoadADGroupIntoSpreadsheet, strWhatSize);
+            // CommonExcelClasses.ButtonSetSize(btnLoadADGroupIntoSpreadsheetActiveCell, strWhatSize);
+            // CommonExcelClasses.ButtonSetSize(btnReadUsersGroupMembership, strWhatSize);
+            // CommonExcelClasses.ButtonSetSize(btnReadUsers, strWhatSize);
+            // CommonExcelClasses.ButtonSetSize(btnWriteTimeSheet, strWhatSize);
+            // CommonExcelClasses.ButtonSetSize(btnPingServers, strWhatSize);
+
+            // do it here then?
+
 
             /// ask nicola
              // btnDealWithSingleDuplicates.Label = "Hi";
@@ -269,7 +304,7 @@ namespace ToolbarOfFunctions
         {
 
             // load relevant details from form
-            boolDisplayMessage = myForm.chkProduceMessageBox.Checked;
+            boolDisplayMessage = frmSettings.chkProduceMessageBox.Checked;
 
             Excel.Worksheet Wks;   // get current sheet
 
