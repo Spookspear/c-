@@ -33,6 +33,7 @@ namespace ToolbarOfFunctions
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmSettings));
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.pingServers = new System.Windows.Forms.GroupBox();
+            this.btnApply = new System.Windows.Forms.Button();
             this.numColPingRead = new System.Windows.Forms.NumericUpDown();
             this.numColPingWrite = new System.Windows.Forms.NumericUpDown();
             this.btnCancel = new System.Windows.Forms.Button();
@@ -68,7 +69,6 @@ namespace ToolbarOfFunctions
             this.label1 = new System.Windows.Forms.Label();
             this.cmboDifferences = new System.Windows.Forms.ComboBox();
             this.chkProduceMessageBox = new System.Windows.Forms.CheckBox();
-            this.btnApply = new System.Windows.Forms.Button();
             this.pingServers.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numColPingRead)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numColPingWrite)).BeginInit();
@@ -102,6 +102,18 @@ namespace ToolbarOfFunctions
             this.pingServers.TabIndex = 32;
             this.pingServers.TabStop = false;
             this.pingServers.Text = "Ping Servers ..:";
+            // 
+            // btnApply
+            // 
+            this.btnApply.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.btnApply.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.btnApply.Location = new System.Drawing.Point(586, 58);
+            this.btnApply.Name = "btnApply";
+            this.btnApply.Size = new System.Drawing.Size(87, 27);
+            this.btnApply.TabIndex = 38;
+            this.btnApply.Text = "&Apply";
+            this.btnApply.UseVisualStyleBackColor = true;
+            this.btnApply.Click += new System.EventHandler(this.btnApply_Click);
             // 
             // numColPingRead
             // 
@@ -449,17 +461,17 @@ namespace ToolbarOfFunctions
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(67, 206);
+            this.label7.Location = new System.Drawing.Point(73, 201);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(169, 13);
+            this.label7.Size = new System.Drawing.Size(187, 13);
             this.label7.TabIndex = 32;
-            this.label7.Text = "Del blank Lines Mode A or B";
+            this.label7.Text = "Del blank Lines Mode A, B or C";
             // 
             // cmboDelModeAorBorC
             // 
             this.cmboDelModeAorBorC.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmboDelModeAorBorC.FormattingEnabled = true;
-            this.cmboDelModeAorBorC.Location = new System.Drawing.Point(242, 196);
+            this.cmboDelModeAorBorC.Location = new System.Drawing.Point(271, 196);
             this.cmboDelModeAorBorC.Name = "cmboDelModeAorBorC";
             this.cmboDelModeAorBorC.Size = new System.Drawing.Size(161, 23);
             this.cmboDelModeAorBorC.TabIndex = 31;
@@ -471,7 +483,7 @@ namespace ToolbarOfFunctions
             this.chkDisplayTimeTaken.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkDisplayTimeTaken.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkDisplayTimeTaken.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.chkDisplayTimeTaken.Location = new System.Drawing.Point(123, 148);
+            this.chkDisplayTimeTaken.Location = new System.Drawing.Point(147, 150);
             this.chkDisplayTimeTaken.Name = "chkDisplayTimeTaken";
             this.chkDisplayTimeTaken.Size = new System.Drawing.Size(137, 17);
             this.chkDisplayTimeTaken.TabIndex = 30;
@@ -524,25 +536,13 @@ namespace ToolbarOfFunctions
             this.chkProduceMessageBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkProduceMessageBox.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkProduceMessageBox.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.chkProduceMessageBox.Location = new System.Drawing.Point(117, 173);
+            this.chkProduceMessageBox.Location = new System.Drawing.Point(136, 173);
             this.chkProduceMessageBox.Name = "chkProduceMessageBox";
             this.chkProduceMessageBox.Size = new System.Drawing.Size(143, 17);
             this.chkProduceMessageBox.TabIndex = 23;
             this.chkProduceMessageBox.Text = "Produce Message Box?";
             this.chkProduceMessageBox.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.chkProduceMessageBox.UseVisualStyleBackColor = true;
-            // 
-            // btnApply
-            // 
-            this.btnApply.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.btnApply.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnApply.Location = new System.Drawing.Point(586, 58);
-            this.btnApply.Name = "btnApply";
-            this.btnApply.Size = new System.Drawing.Size(87, 27);
-            this.btnApply.TabIndex = 38;
-            this.btnApply.Text = "&Apply";
-            this.btnApply.UseVisualStyleBackColor = true;
-            this.btnApply.Click += new System.EventHandler(this.btnApply_Click);
             // 
             // frmSettings
             // 

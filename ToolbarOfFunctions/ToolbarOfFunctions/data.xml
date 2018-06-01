@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Information xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <LargeButtons>true</LargeButtons>
+  <HideText>false</HideText>
+  <Differences>Clear</Differences>
+  <HighLightOrDelete>Delete</HighLightOrDelete>
+  <DisplayTimeTaken>false</DisplayTimeTaken>
+  <ProduceMessageBox>false</ProduceMessageBox>
+  <DelModeAorBorC>Mode: C</DelModeAorBorC>
+  <HighlightRowsOver>24</HighlightRowsOver>
+  <NoOfColumnsToCheck>5</NoOfColumnsToCheck>
+  <ComparingStartRow>2</ComparingStartRow>
+  <DupliateColumnToCheck>1</DupliateColumnToCheck>
+  <ColourFound>red</ColourFound>
+  <ColourNotFound>blue</ColourNotFound>
+  <TimeSheetRowNo>1</TimeSheetRowNo>
+  <TimeSheetGetRowNo>true</TimeSheetGetRowNo>
+  <PingSheetRowNo>2</PingSheetRowNo>
+  <ColPingRead>1</ColPingRead>
+  <ColPingWrite>10</ColPingWrite>
+</Information>

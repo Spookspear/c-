@@ -79,54 +79,11 @@ namespace ToolbarOfFunctions
 
         }
 
-        internal void openSettingsForm(Excel.Workbook activeWorkbook)
-        {
-
-            // bool boolDisplayMessage, boolLargeButton;
-
-
-            // ExcelRibbon ExcelRibbon = new ExcelRibbon();
-            // frmSettings frmSettings = new frmSettings();
-
-            frmSettings.ShowDialog();
-            // boolLargeButton = frmSettings.chkLargeButtons.Checked;
-            // boolDisplayMessage = frmSettings.chkProduceMessageBox.Checked;
-
-
-            // may have to do it here instead
-            // string strWhatSize;
-            // if (boolLargeButton)
-            // strWhatSize = "Large";
-            // else
-            // strWhatSize = "Small";
-
-            // CommonExcelClasses.ButtonSetSize(btnSettings, strWhatSize);
-            // CommonExcelClasses.ButtonSetSize(btnReadFolders, strWhatSize);
-            // CommonExcelClasses.ButtonSetSize(btnCompareSheets, strWhatSize);
-            // CommonExcelClasses.ButtonSetSize(btnZap, strWhatSize);
-            // CommonExcelClasses.ButtonSetSize(splitButtonDeleteLines, strWhatSize);
-            // CommonExcelClasses.ButtonSetSize(btnDealWithSingleDuplicates, strWhatSize);
-            // CommonExcelClasses.ButtonSetSize(btnDealWithManyDuplicates, strWhatSize);
-            // CommonExcelClasses.ButtonSetSize(btnLoadADGroupIntoSpreadsheet, strWhatSize);
-            // CommonExcelClasses.ButtonSetSize(btnLoadADGroupIntoSpreadsheetActiveCell, strWhatSize);
-            // CommonExcelClasses.ButtonSetSize(btnReadUsersGroupMembership, strWhatSize);
-            // CommonExcelClasses.ButtonSetSize(btnReadUsers, strWhatSize);
-            // CommonExcelClasses.ButtonSetSize(btnWriteTimeSheet, strWhatSize);
-            // CommonExcelClasses.ButtonSetSize(btnPingServers, strWhatSize);
-
-            // do it here then?
-
-
-            /// ask nicola
-             // btnDealWithSingleDuplicates.Label = "Hi";
-            // ToolbarOfFunctions.ExcelRibbon.
-            // ExcelRibbon ThisAddIn.btnDealWithSingleDuplicates.Label = "Hi";
-            // btnDealWithSingleDuplicates.Label = "Hi";
-            // MsgBox("Hi");
-
-
-            // throw new NotImplementedException();
-        }
+        // internal void openSettingsForm(Excel.Workbook activeWorkbook)
+        // {
+        // frmSettings.ShowDialog();
+        // 
+        // }
 
 
 

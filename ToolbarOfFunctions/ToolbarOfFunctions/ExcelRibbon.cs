@@ -29,6 +29,8 @@ namespace ToolbarOfFunctions
         private void Ribbon1_Load(object sender, RibbonUIEventArgs e)
         {
 
+            // so here change the lable of the compare button
+
         }
 
 
@@ -77,12 +79,11 @@ namespace ToolbarOfFunctions
 
             if (dr == DialogResult.OK)
             {
-                CommonExcelClasses.MsgBox("Ok Was selected");
+                // CommonExcelClasses.MsgBox("Ok Was selected");
 
                 boolDisplayMessage = frmSettings.chkProduceMessageBox.Checked;
                 boolLargeButton = frmSettings.chkLargeButtons.Checked;
                 boolHideText = frmSettings.chkHideText.Checked;
-
 
                 // I NEED A VAR THAT WILL ONLY GET UPDATED IF THE BUTTON WAS CHECKED
 
