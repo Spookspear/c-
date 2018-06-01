@@ -53,9 +53,7 @@ namespace ToolbarOfFunctions_CommonClasses
                 rbnButton.ControlSize = RibbonControlSizeRegular;
             }
 
-
         }
-
 
         public static void MsgBox(string strMessage, string strWhichIcon = "Information")
         {
@@ -178,7 +176,6 @@ namespace ToolbarOfFunctions_CommonClasses
             // sort the list from high to low
             return lstEmptyRows.OrderByDescending(x => x).ToList();
         }
-
 
         private static bool isRowEmpty(object[,] allValues, int rowIndex, int intTotalCols)
         {

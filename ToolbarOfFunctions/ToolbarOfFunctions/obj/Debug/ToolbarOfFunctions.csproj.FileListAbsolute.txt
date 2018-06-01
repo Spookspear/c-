@@ -21,6 +21,7 @@ D:\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\obj\Debug\ToolbarOfFunctions.
 D:\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\obj\Debug\ToolbarOfFunctions.csproj.CopyComplete
 D:\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\obj\Debug\ToolbarOfFunctions.dll
 D:\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\obj\Debug\ToolbarOfFunctions.pdb
-D:\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\obj\Debug\ToolbarOfFunctions.csprojAssemblyReference.cache
 D:\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\obj\Debug\ToolbarOfFunctions.frmSettings.resources
 D:\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\obj\Debug\ToolbarOfFunctions.ExcelRibbon.resources
+D:\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\bin\Debug\ToolbarOfFunctions.dll.CodeAnalysisLog.xml
+D:\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\bin\Debug\ToolbarOfFunctions.dll.lastcodeanalysissucceeded
