@@ -32,9 +32,6 @@ namespace ToolbarOfFunctions
     public partial class ThisAddIn
     {
         internal readonly IntPtr Handle;
-        //internal IntPtr Handle;
-        //IntPtr Handle = Process.GetCurrentProcess().MainWindowHandle;
-        // internal readonly IntPtr Handle = Process.GetCurrentProcess().MainWindowHandle;
 
         public bool boolDisplayMessage;
 
@@ -302,7 +299,11 @@ namespace ToolbarOfFunctions
 
             Excel.Worksheet Wks1;   // get current sheet
             Excel.Worksheet Wks2;   // get sheet next door
-            string strClearOrColour = "Colour";
+
+            string strClearOrColour = "Colour";     // need to get this from somewhere
+
+            // strClearOrColour = (string)frmSettings.cmboCompareDifferences.SelectedItem;
+            strClearOrColour = CommonExcelClasses.readProperty("strCompareOrColour");
 
             Wks1 = Wkb.ActiveSheet;
             Wks2 = Wkb.Sheets[Wks1.Index + 1];

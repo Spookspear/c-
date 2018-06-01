@@ -12,6 +12,8 @@ using ToolbarOfFunctions = ToolbarOfFunctions.ThisAddIn;
 using ToolbarOfFunctions_CommonClasses;
 
 using ToolbarOfFunctions;
+using System.Xml.Serialization;
+using System.IO;
 
 
 
@@ -21,15 +23,29 @@ namespace ToolbarOfFunctions
     {
 
         public bool boolDisplayMessage, boolLargeButton, boolHideText;
+        public string strCompareOrColour;
+
+        // public string strFilename = "D:\\GitHub\\c-\\ToolbarOfFunctions\\ToolbarOfFunctions\\data.xml";
+        public string strFilename = CommonExcelClasses.strFilename;
+
 
         // frmSettings frmSettings = new frmSettings();
         // frmSettings frmSettings = default(frmSettings);
         frmSettings frmSettings = new frmSettings();
+        
 
         private void Ribbon1_Load(object sender, RibbonUIEventArgs e)
         {
 
+            strCompareOrColour = CommonExcelClasses.readProperty("strCompareOrColour");
+
             // so here change the lable of the compare button
+            // strCompareOrColour = (string)frmSettings.cmboHighLightOrDelete.SelectedValue;
+
+            // CommonExcelClasses.MsgBox("strCompareOrColour = " + strCompareOrColour);
+
+            CommonExcelClasses.ButtonUpdateLabel(btnCompareSheets, "Compare (" + strCompareOrColour +")");
+
 
         }
 
@@ -131,7 +147,7 @@ namespace ToolbarOfFunctions
 
                     CommonExcelClasses.ButtonUpdateLabel(btnSettings, "Settings");
                     CommonExcelClasses.ButtonUpdateLabel(btnReadFolders, "Read Folders");
-                    CommonExcelClasses.ButtonUpdateLabel(btnCompareSheets, "Compare Sheets");
+                    CommonExcelClasses.ButtonUpdateLabel(btnCompareSheets, "Compare (" + CommonExcelClasses.readProperty("strCompareOrColour") + ")");
                     CommonExcelClasses.ButtonUpdateLabel(btnZap, "Zap Worksheet");
                     CommonExcelClasses.SplitButtonUpdateLabel(splitButtonDeleteLines, "Delete Blank Lines");
                     CommonExcelClasses.ButtonUpdateLabel(btnDeleteBlankLinesA, "Mode: A");
@@ -157,6 +173,10 @@ namespace ToolbarOfFunctions
             Globals.ThisAddIn.dealWithSingleDuplicates(Globals.ThisAddIn.Application.ActiveWorkbook);
 
         }
+
+
+
+
     }
 
 }

@@ -2,7 +2,7 @@
 <Information xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <LargeButtons>true</LargeButtons>
   <HideText>false</HideText>
-  <Differences>Clear</Differences>
+  <Differences>Colour</Differences>
   <HighLightOrDelete>Delete</HighLightOrDelete>
   <DisplayTimeTaken>false</DisplayTimeTaken>
   <ProduceMessageBox>false</ProduceMessageBox>

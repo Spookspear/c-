@@ -67,7 +67,7 @@ namespace ToolbarOfFunctions
             this.label3 = new System.Windows.Forms.Label();
             this.cmboHighLightOrDelete = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.cmboDifferences = new System.Windows.Forms.ComboBox();
+            this.cmboCompareDifferences = new System.Windows.Forms.ComboBox();
             this.chkProduceMessageBox = new System.Windows.Forms.CheckBox();
             this.pingServers.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numColPingRead)).BeginInit();
@@ -96,7 +96,7 @@ namespace ToolbarOfFunctions
             this.pingServers.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.pingServers.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.pingServers.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.pingServers.Location = new System.Drawing.Point(0, 597);
+            this.pingServers.Location = new System.Drawing.Point(0, 627);
             this.pingServers.Name = "pingServers";
             this.pingServers.Size = new System.Drawing.Size(778, 96);
             this.pingServers.TabIndex = 32;
@@ -201,7 +201,7 @@ namespace ToolbarOfFunctions
             this.grpTimeSheet.Controls.Add(this.label11);
             this.grpTimeSheet.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.grpTimeSheet.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.grpTimeSheet.Location = new System.Drawing.Point(0, 528);
+            this.grpTimeSheet.Location = new System.Drawing.Point(0, 558);
             this.grpTimeSheet.Name = "grpTimeSheet";
             this.grpTimeSheet.Size = new System.Drawing.Size(778, 69);
             this.grpTimeSheet.TabIndex = 34;
@@ -264,7 +264,7 @@ namespace ToolbarOfFunctions
             this.grpCompare.Controls.Add(this.label4);
             this.grpCompare.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.grpCompare.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.grpCompare.Location = new System.Drawing.Point(0, 367);
+            this.grpCompare.Location = new System.Drawing.Point(0, 397);
             this.grpCompare.Name = "grpCompare";
             this.grpCompare.Size = new System.Drawing.Size(778, 161);
             this.grpCompare.TabIndex = 35;
@@ -387,7 +387,7 @@ namespace ToolbarOfFunctions
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.cmboHighLightOrDelete);
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.cmboDifferences);
+            this.groupBox1.Controls.Add(this.cmboCompareDifferences);
             this.groupBox1.Controls.Add(this.chkProduceMessageBox);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox1.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -428,7 +428,6 @@ namespace ToolbarOfFunctions
             this.chkLargeButtons.Text = "Large Buttons:";
             this.chkLargeButtons.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.chkLargeButtons.UseVisualStyleBackColor = true;
-            this.chkLargeButtons.CheckedChanged += new System.EventHandler(this.chkLargeButtons_CheckedChanged);
             // 
             // numHighlightRowsOver
             // 
@@ -514,20 +513,20 @@ namespace ToolbarOfFunctions
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(184, 95);
+            this.label1.Location = new System.Drawing.Point(133, 95);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(79, 13);
+            this.label1.Size = new System.Drawing.Size(127, 13);
             this.label1.TabIndex = 25;
-            this.label1.Text = "Differences:";
+            this.label1.Text = "Compare Differences:";
             // 
-            // cmboDifferences
+            // cmboCompareDifferences
             // 
-            this.cmboDifferences.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmboDifferences.FormattingEnabled = true;
-            this.cmboDifferences.Location = new System.Drawing.Point(271, 90);
-            this.cmboDifferences.Name = "cmboDifferences";
-            this.cmboDifferences.Size = new System.Drawing.Size(161, 23);
-            this.cmboDifferences.TabIndex = 24;
+            this.cmboCompareDifferences.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmboCompareDifferences.FormattingEnabled = true;
+            this.cmboCompareDifferences.Location = new System.Drawing.Point(271, 90);
+            this.cmboCompareDifferences.Name = "cmboCompareDifferences";
+            this.cmboCompareDifferences.Size = new System.Drawing.Size(161, 23);
+            this.cmboCompareDifferences.TabIndex = 24;
             // 
             // chkProduceMessageBox
             // 
@@ -548,7 +547,7 @@ namespace ToolbarOfFunctions
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(778, 693);
+            this.ClientSize = new System.Drawing.Size(778, 723);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.grpCompare);
             this.Controls.Add(this.grpTimeSheet);
@@ -614,9 +613,9 @@ namespace ToolbarOfFunctions
         private System.Windows.Forms.ComboBox cmboDelModeAorBorC;
         public System.Windows.Forms.CheckBox chkDisplayTimeTaken;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.ComboBox cmboHighLightOrDelete;
+        public System.Windows.Forms.ComboBox cmboHighLightOrDelete;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ComboBox cmboDifferences;
+        public System.Windows.Forms.ComboBox cmboCompareDifferences;
         public System.Windows.Forms.CheckBox chkProduceMessageBox;
         public System.Windows.Forms.CheckBox chkLargeButtons;
         public System.Windows.Forms.CheckBox chkHideText;

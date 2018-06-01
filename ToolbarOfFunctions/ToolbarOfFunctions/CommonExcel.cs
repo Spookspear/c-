@@ -29,10 +29,15 @@ using ToolbarOfFunctions;
 
 using Microsoft.Office.Core;
 
+using System.Xml.Serialization;
+
+
 namespace ToolbarOfFunctions_CommonClasses
 {
     public class CommonExcelClasses
     {
+
+        public static string strFilename = "D:\\GitHub\\c-\\ToolbarOfFunctions\\ToolbarOfFunctions\\data.xml";
 
         public static void ButtonUpdateLabel(RibbonButton rbnButton, string strText)
         {
@@ -246,6 +251,27 @@ namespace ToolbarOfFunctions_CommonClasses
         {
             Excel.Application application = Globals.ThisAddIn.Application;
             application.Cursor = Excel.XlMousePointer.xlDefault;
+        }
+
+        public static string readProperty(string strWhichProperty)
+        {
+            // load data
+            if (File.Exists(strFilename))
+            {
+                XmlSerializer xs = new XmlSerializer(typeof(Information));
+                FileStream read = new FileStream(strFilename, FileMode.Open, FileAccess.Read, FileShare.Read);
+                Information info = (Information)xs.Deserialize(read);
+                if (strWhichProperty == "strCompareOrColour")
+                {
+                    string strRetVal = info.Differences;
+                    read.Close();
+                    return strRetVal;
+                }
+
+            }
+
+            return "Could not Find";
+
         }
 
     }

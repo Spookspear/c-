@@ -23,21 +23,13 @@ namespace ToolbarOfFunctions
 {
     public partial class frmSettings : Form
     {
-
-
-        public string strFilename = "D:\\GitHub\\c-\\ToolbarOfFunctions\\ToolbarOfFunctions\\data.xml";
+        // public string strFilename = "D:\\GitHub\\c-\\ToolbarOfFunctions\\ToolbarOfFunctions\\data.xml";
+        public string strFilename = CommonExcelClasses.strFilename;
 
         public frmSettings()
         {
             InitializeComponent();
         }
-
-        private void chkLargeButtons_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -51,7 +43,7 @@ namespace ToolbarOfFunctions
 
                 chkLargeButtons.Checked = info.LargeButtons;
                 chkHideText.Checked = info.HideText;
-                cmboDifferences.Text = info.Differences;
+                cmboCompareDifferences.Text = info.Differences;
 
                 cmboHighLightOrDelete.Text = info.HighLightOrDelete;
                 chkDisplayTimeTaken.Checked = info.DisplayTimeTaken;
@@ -76,18 +68,15 @@ namespace ToolbarOfFunctions
                 numColPingWrite.Value = info.ColPingWrite;
 
                 read.Close();
-
-
+                
             }
 
 
-
-
-            if (cmboDifferences.Items.Count != 2)
+            if (cmboCompareDifferences.Items.Count != 2)
             {
-                cmboDifferences.Items.Add("Colour");
-                cmboDifferences.Items.Add("Clear");
-                // cmboDifferences.SelectedIndex = 0;
+                cmboCompareDifferences.Items.Add("Colour");
+                cmboCompareDifferences.Items.Add("Clear");
+                // cmboCompareDifferences.SelectedIndex = 0;
             }
 
 
@@ -121,7 +110,7 @@ namespace ToolbarOfFunctions
                 {
                     LargeButtons = chkLargeButtons.Checked,
                     HideText = chkHideText.Checked,
-                    Differences = cmboDifferences.Text,
+                    Differences = cmboCompareDifferences.Text,
 
                     HighLightOrDelete = cmboHighLightOrDelete.Text,
                     DisplayTimeTaken = chkDisplayTimeTaken.Checked,
@@ -170,15 +159,7 @@ namespace ToolbarOfFunctions
             this.Hide();            
         }
 
-        private void label1_Click(object sender, EventArgs e)
-        {
 
-        }
-
-        private void cmboDifferences_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
 
 
 

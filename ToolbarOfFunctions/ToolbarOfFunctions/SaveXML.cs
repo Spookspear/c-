@@ -12,6 +12,8 @@ namespace ToolbarOfFunctions
     public class SaveXML
     {
 
+        // might pout it in here public string strFilename = CommonExcelClasses.strFilename;
+
         public static void SaveData(object obj, string strFileName)
         {
             XmlSerializer sr = new XmlSerializer(obj.GetType());
