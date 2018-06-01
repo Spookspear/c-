@@ -34,22 +34,28 @@ namespace ToolbarOfFunctions_CommonClasses
     public class CommonExcelClasses
     {
 
-        private static readonly Office.RibbonControlSize RibbonControlSizeLarge;
-        private static readonly Office.RibbonControlSize RibbonControlSizeRegular;
-
-
-
         public static void ButtonUpdateLabel(RibbonButton rbnButton, string strText)
         {
             rbnButton.Label = strText;
         }
 
+
+        public static void SplitButtonUpdateLabel(RibbonSplitButton rbnSplitButton, string strText)
+        {
+            rbnSplitButton.Label = strText;
+        }        
+
+
         public static void ButtonSetSize(RibbonButton rbnButton, bool boolLargeButton)
         {
             if (boolLargeButton)
+            {
                 rbnButton.ControlSize = RibbonControlSize.RibbonControlSizeLarge;
+            }
             else
+            {
                 rbnButton.ControlSize = RibbonControlSize.RibbonControlSizeRegular;
+            }
         }
 
         public static void SplitButtonSetSize(RibbonSplitButton rbnSplitButton, bool boolLargeButton)
@@ -59,6 +65,8 @@ namespace ToolbarOfFunctions_CommonClasses
             else
                 rbnSplitButton.ControlSize = RibbonControlSize.RibbonControlSizeRegular;
         }
+
+        
 
         public static void MsgBox(string strMessage, string strWhichIcon = "Information")
         {

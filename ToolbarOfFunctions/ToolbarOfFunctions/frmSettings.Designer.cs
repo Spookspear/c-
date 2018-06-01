@@ -35,11 +35,11 @@ namespace ToolbarOfFunctions
             this.pingServers = new System.Windows.Forms.GroupBox();
             this.numColPingRead = new System.Windows.Forms.NumericUpDown();
             this.numColPingWrite = new System.Windows.Forms.NumericUpDown();
+            this.btnCancel = new System.Windows.Forms.Button();
             this.numPingSheetRowNo = new System.Windows.Forms.NumericUpDown();
             this.label12 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
-            this.btnCancel = new System.Windows.Forms.Button();
             this.grpTimeSheet = new System.Windows.Forms.GroupBox();
             this.chkTimeSheetGetRowNo = new System.Windows.Forms.CheckBox();
             this.numTimeSheetRowNo = new System.Windows.Forms.NumericUpDown();
@@ -56,6 +56,7 @@ namespace ToolbarOfFunctions
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.chkHideText = new System.Windows.Forms.CheckBox();
             this.chkLargeButtons = new System.Windows.Forms.CheckBox();
             this.numHighlightRowsOver = new System.Windows.Forms.NumericUpDown();
             this.label10 = new System.Windows.Forms.Label();
@@ -67,6 +68,7 @@ namespace ToolbarOfFunctions
             this.label1 = new System.Windows.Forms.Label();
             this.cmboDifferences = new System.Windows.Forms.ComboBox();
             this.chkProduceMessageBox = new System.Windows.Forms.CheckBox();
+            this.btnApply = new System.Windows.Forms.Button();
             this.pingServers.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numColPingRead)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numColPingWrite)).BeginInit();
@@ -83,8 +85,10 @@ namespace ToolbarOfFunctions
             // 
             // pingServers
             // 
+            this.pingServers.Controls.Add(this.btnApply);
             this.pingServers.Controls.Add(this.numColPingRead);
             this.pingServers.Controls.Add(this.numColPingWrite);
+            this.pingServers.Controls.Add(this.btnCancel);
             this.pingServers.Controls.Add(this.numPingSheetRowNo);
             this.pingServers.Controls.Add(this.label12);
             this.pingServers.Controls.Add(this.label13);
@@ -92,9 +96,9 @@ namespace ToolbarOfFunctions
             this.pingServers.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.pingServers.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.pingServers.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.pingServers.Location = new System.Drawing.Point(0, 460);
+            this.pingServers.Location = new System.Drawing.Point(0, 597);
             this.pingServers.Name = "pingServers";
-            this.pingServers.Size = new System.Drawing.Size(645, 96);
+            this.pingServers.Size = new System.Drawing.Size(778, 96);
             this.pingServers.TabIndex = 32;
             this.pingServers.TabStop = false;
             this.pingServers.Text = "Ping Servers ..:";
@@ -122,6 +126,18 @@ namespace ToolbarOfFunctions
             0,
             0,
             0});
+            // 
+            // btnCancel
+            // 
+            this.btnCancel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btnCancel.Location = new System.Drawing.Point(679, 58);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(87, 27);
+            this.btnCancel.TabIndex = 33;
+            this.btnCancel.Text = "E&xit";
+            this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // numPingSheetRowNo
             // 
@@ -165,17 +181,6 @@ namespace ToolbarOfFunctions
             this.label14.TabIndex = 32;
             this.label14.Text = "Start Row:";
             // 
-            // btnCancel
-            // 
-            this.btnCancel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.btnCancel.Location = new System.Drawing.Point(511, 180);
-            this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(87, 27);
-            this.btnCancel.TabIndex = 33;
-            this.btnCancel.Text = "Exit";
-            this.btnCancel.UseVisualStyleBackColor = true;
-            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
-            // 
             // grpTimeSheet
             // 
             this.grpTimeSheet.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
@@ -184,9 +189,9 @@ namespace ToolbarOfFunctions
             this.grpTimeSheet.Controls.Add(this.label11);
             this.grpTimeSheet.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.grpTimeSheet.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.grpTimeSheet.Location = new System.Drawing.Point(0, 391);
+            this.grpTimeSheet.Location = new System.Drawing.Point(0, 528);
             this.grpTimeSheet.Name = "grpTimeSheet";
-            this.grpTimeSheet.Size = new System.Drawing.Size(645, 69);
+            this.grpTimeSheet.Size = new System.Drawing.Size(778, 69);
             this.grpTimeSheet.TabIndex = 34;
             this.grpTimeSheet.TabStop = false;
             this.grpTimeSheet.Text = "Timesheet ..:";
@@ -247,9 +252,9 @@ namespace ToolbarOfFunctions
             this.grpCompare.Controls.Add(this.label4);
             this.grpCompare.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.grpCompare.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.grpCompare.Location = new System.Drawing.Point(0, 230);
+            this.grpCompare.Location = new System.Drawing.Point(0, 367);
             this.grpCompare.Name = "grpCompare";
-            this.grpCompare.Size = new System.Drawing.Size(645, 161);
+            this.grpCompare.Size = new System.Drawing.Size(778, 161);
             this.grpCompare.TabIndex = 35;
             this.grpCompare.TabStop = false;
             this.grpCompare.Text = "Compare ..:";
@@ -360,9 +365,9 @@ namespace ToolbarOfFunctions
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.chkHideText);
             this.groupBox1.Controls.Add(this.chkLargeButtons);
             this.groupBox1.Controls.Add(this.numHighlightRowsOver);
-            this.groupBox1.Controls.Add(this.btnCancel);
             this.groupBox1.Controls.Add(this.label10);
             this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Controls.Add(this.cmboDelModeAorBorC);
@@ -376,10 +381,24 @@ namespace ToolbarOfFunctions
             this.groupBox1.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(645, 224);
+            this.groupBox1.Size = new System.Drawing.Size(778, 274);
             this.groupBox1.TabIndex = 36;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Misc ..:";
+            // 
+            // chkHideText
+            // 
+            this.chkHideText.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.chkHideText.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.chkHideText.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkHideText.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.chkHideText.Location = new System.Drawing.Point(140, 51);
+            this.chkHideText.Name = "chkHideText";
+            this.chkHideText.Size = new System.Drawing.Size(142, 19);
+            this.chkHideText.TabIndex = 36;
+            this.chkHideText.Text = "Hide Button Text:";
+            this.chkHideText.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.chkHideText.UseVisualStyleBackColor = true;
             // 
             // chkLargeButtons
             // 
@@ -388,11 +407,11 @@ namespace ToolbarOfFunctions
             this.chkLargeButtons.Checked = true;
             this.chkLargeButtons.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkLargeButtons.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.chkLargeButtons.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkLargeButtons.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkLargeButtons.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.chkLargeButtons.Location = new System.Drawing.Point(161, 26);
             this.chkLargeButtons.Name = "chkLargeButtons";
-            this.chkLargeButtons.Size = new System.Drawing.Size(121, 19);
+            this.chkLargeButtons.Size = new System.Drawing.Size(107, 17);
             this.chkLargeButtons.TabIndex = 35;
             this.chkLargeButtons.Text = "Large Buttons:";
             this.chkLargeButtons.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -401,7 +420,7 @@ namespace ToolbarOfFunctions
             // 
             // numHighlightRowsOver
             // 
-            this.numHighlightRowsOver.Location = new System.Drawing.Point(275, 188);
+            this.numHighlightRowsOver.Location = new System.Drawing.Point(242, 225);
             this.numHighlightRowsOver.Maximum = new decimal(new int[] {
             1024,
             0,
@@ -419,20 +438,20 @@ namespace ToolbarOfFunctions
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(98, 186);
+            this.label10.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Location = new System.Drawing.Point(91, 229);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(168, 15);
+            this.label10.Size = new System.Drawing.Size(145, 13);
             this.label10.TabIndex = 33;
             this.label10.Text = "Highlight lengths over:";
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(70, 156);
+            this.label7.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(67, 206);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(196, 15);
+            this.label7.Size = new System.Drawing.Size(169, 13);
             this.label7.TabIndex = 32;
             this.label7.Text = "Del blank Lines Mode A or B";
             // 
@@ -440,7 +459,7 @@ namespace ToolbarOfFunctions
             // 
             this.cmboDelModeAorBorC.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmboDelModeAorBorC.FormattingEnabled = true;
-            this.cmboDelModeAorBorC.Location = new System.Drawing.Point(275, 159);
+            this.cmboDelModeAorBorC.Location = new System.Drawing.Point(242, 196);
             this.cmboDelModeAorBorC.Name = "cmboDelModeAorBorC";
             this.cmboDelModeAorBorC.Size = new System.Drawing.Size(161, 23);
             this.cmboDelModeAorBorC.TabIndex = 31;
@@ -450,11 +469,11 @@ namespace ToolbarOfFunctions
             this.chkDisplayTimeTaken.AutoSize = true;
             this.chkDisplayTimeTaken.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.chkDisplayTimeTaken.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.chkDisplayTimeTaken.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkDisplayTimeTaken.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkDisplayTimeTaken.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.chkDisplayTimeTaken.Location = new System.Drawing.Point(126, 109);
+            this.chkDisplayTimeTaken.Location = new System.Drawing.Point(123, 148);
             this.chkDisplayTimeTaken.Name = "chkDisplayTimeTaken";
-            this.chkDisplayTimeTaken.Size = new System.Drawing.Size(156, 19);
+            this.chkDisplayTimeTaken.Size = new System.Drawing.Size(137, 17);
             this.chkDisplayTimeTaken.TabIndex = 30;
             this.chkDisplayTimeTaken.Text = "Display Time Taken:";
             this.chkDisplayTimeTaken.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -463,10 +482,10 @@ namespace ToolbarOfFunctions
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(16, 80);
+            this.label3.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(46, 124);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(252, 15);
+            this.label3.Size = new System.Drawing.Size(217, 13);
             this.label3.TabIndex = 29;
             this.label3.Text = "Highlight or Delete Duplicate rows:";
             // 
@@ -474,7 +493,7 @@ namespace ToolbarOfFunctions
             // 
             this.cmboHighLightOrDelete.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmboHighLightOrDelete.FormattingEnabled = true;
-            this.cmboHighLightOrDelete.Location = new System.Drawing.Point(274, 80);
+            this.cmboHighLightOrDelete.Location = new System.Drawing.Point(271, 119);
             this.cmboHighLightOrDelete.Name = "cmboHighLightOrDelete";
             this.cmboHighLightOrDelete.Size = new System.Drawing.Size(161, 23);
             this.cmboHighLightOrDelete.TabIndex = 28;
@@ -482,10 +501,10 @@ namespace ToolbarOfFunctions
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(177, 54);
+            this.label1.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(184, 95);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(91, 15);
+            this.label1.Size = new System.Drawing.Size(79, 13);
             this.label1.TabIndex = 25;
             this.label1.Text = "Differences:";
             // 
@@ -493,7 +512,7 @@ namespace ToolbarOfFunctions
             // 
             this.cmboDifferences.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmboDifferences.FormattingEnabled = true;
-            this.cmboDifferences.Location = new System.Drawing.Point(274, 51);
+            this.cmboDifferences.Location = new System.Drawing.Point(271, 90);
             this.cmboDifferences.Name = "cmboDifferences";
             this.cmboDifferences.Size = new System.Drawing.Size(161, 23);
             this.cmboDifferences.TabIndex = 24;
@@ -503,21 +522,33 @@ namespace ToolbarOfFunctions
             this.chkProduceMessageBox.AutoSize = true;
             this.chkProduceMessageBox.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.chkProduceMessageBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.chkProduceMessageBox.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkProduceMessageBox.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkProduceMessageBox.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.chkProduceMessageBox.Location = new System.Drawing.Point(119, 134);
+            this.chkProduceMessageBox.Location = new System.Drawing.Point(117, 173);
             this.chkProduceMessageBox.Name = "chkProduceMessageBox";
-            this.chkProduceMessageBox.Size = new System.Drawing.Size(163, 19);
+            this.chkProduceMessageBox.Size = new System.Drawing.Size(143, 17);
             this.chkProduceMessageBox.TabIndex = 23;
             this.chkProduceMessageBox.Text = "Produce Message Box?";
             this.chkProduceMessageBox.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.chkProduceMessageBox.UseVisualStyleBackColor = true;
             // 
+            // btnApply
+            // 
+            this.btnApply.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.btnApply.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.btnApply.Location = new System.Drawing.Point(586, 58);
+            this.btnApply.Name = "btnApply";
+            this.btnApply.Size = new System.Drawing.Size(87, 27);
+            this.btnApply.TabIndex = 38;
+            this.btnApply.Text = "&Apply";
+            this.btnApply.UseVisualStyleBackColor = true;
+            this.btnApply.Click += new System.EventHandler(this.btnApply_Click);
+            // 
             // frmSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(645, 556);
+            this.ClientSize = new System.Drawing.Size(778, 693);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.grpCompare);
             this.Controls.Add(this.grpTimeSheet);
@@ -588,5 +619,7 @@ namespace ToolbarOfFunctions
         private System.Windows.Forms.ComboBox cmboDifferences;
         public System.Windows.Forms.CheckBox chkProduceMessageBox;
         public System.Windows.Forms.CheckBox chkLargeButtons;
+        public System.Windows.Forms.CheckBox chkHideText;
+        private System.Windows.Forms.Button btnApply;
     }
 }

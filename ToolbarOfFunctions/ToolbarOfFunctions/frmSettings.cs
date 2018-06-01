@@ -33,10 +33,12 @@ namespace ToolbarOfFunctions
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            cmboDifferences.Items.Add("Colour");
-            cmboDifferences.Items.Add("Clear");
-            cmboDifferences.SelectedIndex = 0;
-
+            if (cmboDifferences.Items.Count != 2)
+            {
+                cmboDifferences.Items.Add("Colour");
+                cmboDifferences.Items.Add("Clear");
+                cmboDifferences.SelectedIndex = 0;
+            }
 
         }
 
@@ -48,7 +50,7 @@ namespace ToolbarOfFunctions
             //now set the buttons size if reqd
             // boolDisplayMessage = myForm.chkLargeButtons.Checked;
 
-            this.Hide();
+            this.Hide();            
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -61,5 +63,10 @@ namespace ToolbarOfFunctions
 
         }
 
+        private void btnApply_Click(object sender, EventArgs e)
+        {
+            btnApply.Tag = "Apply";
+            this.Hide();
+        }
     }
 }

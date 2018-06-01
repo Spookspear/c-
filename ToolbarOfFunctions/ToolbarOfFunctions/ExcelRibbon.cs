@@ -20,7 +20,7 @@ namespace ToolbarOfFunctions
     public partial class ExcelRibbon
     {
 
-        public bool boolDisplayMessage, boolLargeButton;
+        public bool boolDisplayMessage, boolLargeButton, boolHideText;
 
         // frmSettings frmSettings = new frmSettings();
         // frmSettings frmSettings = default(frmSettings);
@@ -72,31 +72,82 @@ namespace ToolbarOfFunctions
 
         public void btnSettings_Click(object sender, RibbonControlEventArgs e)
         {
-            // frmSettings frmSettings = new frmSettings();
-            // Globals.ThisAddIn.openSettingsForm(Globals.ThisAddIn.Application.ActiveWorkbook);
-            // btnDealWithSingleDuplicates.Label = "Hi";
 
-            frmSettings.ShowDialog();
+            DialogResult dr = frmSettings.ShowDialog();
 
-            boolDisplayMessage = frmSettings.chkProduceMessageBox.Checked;
-            boolLargeButton = frmSettings.chkLargeButtons.Checked;
+            if (dr == DialogResult.OK)
+            {
+                CommonExcelClasses.MsgBox("Ok Was selected");
 
-            CommonExcelClasses.ButtonSetSize(btnSettings, boolLargeButton);
-            CommonExcelClasses.ButtonSetSize(btnReadFolders, boolLargeButton);
-            CommonExcelClasses.ButtonSetSize(btnCompareSheets, boolLargeButton);
-            CommonExcelClasses.ButtonSetSize(btnZap, boolLargeButton);
-            CommonExcelClasses.SplitButtonSetSize(splitButtonDeleteLines, boolLargeButton);
+                boolDisplayMessage = frmSettings.chkProduceMessageBox.Checked;
+                boolLargeButton = frmSettings.chkLargeButtons.Checked;
+                boolHideText = frmSettings.chkHideText.Checked;
 
 
-            CommonExcelClasses.ButtonSetSize(btnDealWithSingleDuplicates, boolLargeButton);
-            CommonExcelClasses.ButtonSetSize(btnDealWithManyDuplicates, boolLargeButton);
-            CommonExcelClasses.ButtonSetSize(btnLoadADGroupIntoSpreadsheet, boolLargeButton);
-            CommonExcelClasses.ButtonSetSize(btnLoadADGroupIntoSpreadsheetActiveCell, boolLargeButton);
-            CommonExcelClasses.ButtonSetSize(btnReadUsersGroupMembership, boolLargeButton);
-            CommonExcelClasses.ButtonSetSize(btnReadUsers, boolLargeButton);
-            CommonExcelClasses.ButtonSetSize(btnWriteTimeSheet, boolLargeButton);
-            CommonExcelClasses.ButtonSetSize(btnPingServers, boolLargeButton);
+                // I NEED A VAR THAT WILL ONLY GET UPDATED IF THE BUTTON WAS CHECKED
 
+                CommonExcelClasses.ButtonSetSize(btnSettings, boolLargeButton);
+                CommonExcelClasses.ButtonSetSize(btnReadFolders, boolLargeButton);
+                CommonExcelClasses.ButtonSetSize(btnCompareSheets, boolLargeButton);
+                CommonExcelClasses.ButtonSetSize(btnZap, boolLargeButton);
+                CommonExcelClasses.SplitButtonSetSize(splitButtonDeleteLines, boolLargeButton);
+
+                CommonExcelClasses.ButtonSetSize(btnDeleteBlankLinesA, boolLargeButton);
+                CommonExcelClasses.ButtonSetSize(btnDeleteBlankLinesB, boolLargeButton);
+                CommonExcelClasses.ButtonSetSize(btnDeleteBlankLinesC, boolLargeButton);
+
+                CommonExcelClasses.ButtonSetSize(btnDealWithSingleDuplicates, boolLargeButton);
+                CommonExcelClasses.ButtonSetSize(btnDealWithManyDuplicates, boolLargeButton);
+                CommonExcelClasses.ButtonSetSize(btnLoadADGroupIntoSpreadsheet, boolLargeButton);
+                CommonExcelClasses.ButtonSetSize(btnLoadADGroupIntoSpreadsheetActiveCell, boolLargeButton);
+                CommonExcelClasses.ButtonSetSize(btnReadUsersGroupMembership, boolLargeButton);
+                CommonExcelClasses.ButtonSetSize(btnReadUsers, boolLargeButton);
+                CommonExcelClasses.ButtonSetSize(btnWriteTimeSheet, boolLargeButton);
+                CommonExcelClasses.ButtonSetSize(btnPingServers, boolLargeButton);
+
+
+                if (boolHideText) {
+                    CommonExcelClasses.ButtonUpdateLabel(btnSettings, "");
+                    CommonExcelClasses.ButtonUpdateLabel(btnReadFolders, "");
+                    CommonExcelClasses.ButtonUpdateLabel(btnCompareSheets, "");
+                    CommonExcelClasses.ButtonUpdateLabel(btnZap, "");
+                    CommonExcelClasses.SplitButtonUpdateLabel(splitButtonDeleteLines, "");
+
+                    CommonExcelClasses.ButtonUpdateLabel(btnDeleteBlankLinesA, "");
+                    CommonExcelClasses.ButtonUpdateLabel(btnDeleteBlankLinesB, "");
+                    CommonExcelClasses.ButtonUpdateLabel(btnDeleteBlankLinesC, "");
+
+                    CommonExcelClasses.ButtonUpdateLabel(btnDealWithSingleDuplicates, "");
+                    CommonExcelClasses.ButtonUpdateLabel(btnDealWithManyDuplicates, "");
+                    CommonExcelClasses.ButtonUpdateLabel(btnLoadADGroupIntoSpreadsheet, "");
+                    CommonExcelClasses.ButtonUpdateLabel(btnLoadADGroupIntoSpreadsheetActiveCell, "");
+                    CommonExcelClasses.ButtonUpdateLabel(btnReadUsersGroupMembership, "");
+                    CommonExcelClasses.ButtonUpdateLabel(btnReadUsers, "");
+                    CommonExcelClasses.ButtonUpdateLabel(btnWriteTimeSheet, "");
+                    CommonExcelClasses.ButtonUpdateLabel(btnPingServers, "");
+
+                } else {
+
+                    CommonExcelClasses.ButtonUpdateLabel(btnSettings, "Settings");
+                    CommonExcelClasses.ButtonUpdateLabel(btnReadFolders, "Read Folders");
+                    CommonExcelClasses.ButtonUpdateLabel(btnCompareSheets, "Compare Sheets");
+                    CommonExcelClasses.ButtonUpdateLabel(btnZap, "Zap Worksheet");
+                    CommonExcelClasses.SplitButtonUpdateLabel(splitButtonDeleteLines, "Delete Blank Lines");
+                    CommonExcelClasses.ButtonUpdateLabel(btnDeleteBlankLinesA, "Mode: A");
+                    CommonExcelClasses.ButtonUpdateLabel(btnDeleteBlankLinesB, "Mode: B");
+                    CommonExcelClasses.ButtonUpdateLabel(btnDeleteBlankLinesC, "Mode: C");
+
+                    CommonExcelClasses.ButtonUpdateLabel(btnDealWithSingleDuplicates, "Duplicates (Cols: Single):");
+                    CommonExcelClasses.ButtonUpdateLabel(btnDealWithManyDuplicates, "Duplicates (Cols: Many)");
+                    CommonExcelClasses.ButtonUpdateLabel(btnLoadADGroupIntoSpreadsheet, "AD Group Members");
+                    CommonExcelClasses.ButtonUpdateLabel(btnLoadADGroupIntoSpreadsheetActiveCell, "AD Members - Active Cell");
+                    CommonExcelClasses.ButtonUpdateLabel(btnReadUsersGroupMembership, "Users AD Membership");
+                    CommonExcelClasses.ButtonUpdateLabel(btnReadUsers, "Details from AD Name");
+                    CommonExcelClasses.ButtonUpdateLabel(btnWriteTimeSheet, "Update timesheet");
+                    CommonExcelClasses.ButtonUpdateLabel(btnPingServers, "Ping Servers");
+
+                }
+            }
 
         }
 

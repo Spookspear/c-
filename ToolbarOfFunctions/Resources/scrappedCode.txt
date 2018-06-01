@@ -15,3 +15,52 @@
     if (stringCell1 == stringCell2) {
         intColScore++;
     }
+
+
+
+btnSettings
+btnReadFolders
+btnCompareSheets
+btnZap
+splitButtonDeleteLines
+btnDeleteBlankLinesA
+btnDeleteBlankLinesB
+btnDeleteBlankLinesC
+btnDealWithSingleDuplicates
+btnDealWithManyDuplicates
+btnLoadADGroupIntoSpreadsheet
+btnLoadADGroupIntoSpreadsheetActiveCell
+btnReadUsersGroupMembership
+btnReadUsers
+btnWriteTimeSheet
+btnPingServers
+
+
+ToolbarOfFunctions.frmSettings
+
+            FolderBrowserDialogEx cfbd = new FolderBrowserDialogEx();
+            cfbd.Title = txtCaption.Text;
+            cfbd.SelectedPath = txtInitialFolder.Text;
+            cfbd.ShowEditbox = chkEditbox.Checked;
+            cfbd.ShowNewFolderButton = chkShowNewFolderBtn.Checked;
+            cfbd.RootFolder = (Environment.SpecialFolder)comboRootFolder.SelectedValue;
+            cfbd.StartPosition = FormStartPosition.CenterScreen;
+
+            DialogResult dr = cfbd.ShowDialog(this);
+            txtRtnCode.Text = dr.ToString();
+            txtRtnFolder.Text = "";
+
+
+            if (dr == DialogResult.OK)
+            {
+                txtRtnFolder.Text = cfbd.SelectedPath;
+            }
+
+
+namespace ToolbarOfFunctions
+{
+    public partial class ExcelRibbon
+
+
+ToolbarOfFunctions.ExcelRibbon
+
