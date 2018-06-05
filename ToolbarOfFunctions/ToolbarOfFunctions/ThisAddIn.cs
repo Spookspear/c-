@@ -297,13 +297,20 @@ namespace ToolbarOfFunctions
         public void compareSheets(Excel.Workbook Wkb)
         {
 
+            // this whoile thing needs to be in a try - 1gvb2
+
             Excel.Worksheet Wks1;   // get current sheet
             Excel.Worksheet Wks2;   // get sheet next door
 
-            string strClearOrColour = "Colour";     // need to get this from somewhere
+            // string strClearOrColour = "Colour";     // need to get this from somewhere
+            // strClearOrColour = (string)frmSettings.cmboCompareDifferences.SelectedItem;  // read from settings
 
-            // strClearOrColour = (string)frmSettings.cmboCompareDifferences.SelectedItem;
-            strClearOrColour = CommonExcelClasses.readProperty("strCompareOrColour");
+            string strClearOrColour = SaveXML.readProperty("strCompareOrColour");    // read from function, that gets data from class
+
+            /* 1gvb1 - can I read thisd from the object?
+            InformationFromSettingsForm info = new InformationFromSettingsForm();
+            strClearOrColour = info.HighLightOrDelete;
+            */
 
             Wks1 = Wkb.ActiveSheet;
             Wks2 = Wkb.Sheets[Wks1.Index + 1];

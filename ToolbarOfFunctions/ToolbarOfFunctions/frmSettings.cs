@@ -24,7 +24,7 @@ namespace ToolbarOfFunctions
     public partial class frmSettings : Form
     {
         // public string strFilename = "D:\\GitHub\\c-\\ToolbarOfFunctions\\ToolbarOfFunctions\\data.xml";
-        public string strFilename = CommonExcelClasses.strFilename;
+        public string strFilename = SaveXML.strFilename;
 
         public frmSettings()
         {
@@ -37,9 +37,9 @@ namespace ToolbarOfFunctions
             // load data
             if (File.Exists(strFilename))
             {
-                XmlSerializer xs = new XmlSerializer(typeof(Information));
+                XmlSerializer xs = new XmlSerializer(typeof(InformationFromSettingsForm));
                 FileStream read = new FileStream(strFilename,FileMode.Open, FileAccess.Read, FileShare.Read);
-                Information info = (Information)xs.Deserialize(read);
+                InformationFromSettingsForm info = (InformationFromSettingsForm)xs.Deserialize(read);
 
                 chkLargeButtons.Checked = info.LargeButtons;
                 chkHideText.Checked = info.HideText;
@@ -106,7 +106,7 @@ namespace ToolbarOfFunctions
             // now save the data
             try
             {
-                Information info = new Information
+                InformationFromSettingsForm info = new InformationFromSettingsForm
                 {
                     LargeButtons = chkLargeButtons.Checked,
                     HideText = chkHideText.Checked,

@@ -37,7 +37,7 @@ namespace ToolbarOfFunctions_CommonClasses
     public class CommonExcelClasses
     {
 
-        public static string strFilename = "D:\\GitHub\\c-\\ToolbarOfFunctions\\ToolbarOfFunctions\\data.xml";
+//         public static string strFilename = "D:\\GitHub\\c-\\ToolbarOfFunctions\\ToolbarOfFunctions\\data.xml";
 
         public static void ButtonUpdateLabel(RibbonButton rbnButton, string strText)
         {
@@ -253,14 +253,15 @@ namespace ToolbarOfFunctions_CommonClasses
             application.Cursor = Excel.XlMousePointer.xlDefault;
         }
 
+        /*
         public static string readProperty(string strWhichProperty)
         {
             // load data
             if (File.Exists(strFilename))
             {
-                XmlSerializer xs = new XmlSerializer(typeof(Information));
+                XmlSerializer xs = new XmlSerializer(typeof(InformationFromSettingsForm));
                 FileStream read = new FileStream(strFilename, FileMode.Open, FileAccess.Read, FileShare.Read);
-                Information info = (Information)xs.Deserialize(read);
+                InformationFromSettingsForm info = (InformationFromSettingsForm)xs.Deserialize(read);
                 if (strWhichProperty == "strCompareOrColour")
                 {
                     string strRetVal = info.Differences;
@@ -271,8 +272,8 @@ namespace ToolbarOfFunctions_CommonClasses
             }
 
             return "Could not Find";
-
-        }
+    }
+    */
 
     }
 }

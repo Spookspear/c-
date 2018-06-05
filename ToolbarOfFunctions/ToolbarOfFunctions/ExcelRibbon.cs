@@ -26,7 +26,7 @@ namespace ToolbarOfFunctions
         public string strCompareOrColour;
 
         // public string strFilename = "D:\\GitHub\\c-\\ToolbarOfFunctions\\ToolbarOfFunctions\\data.xml";
-        public string strFilename = CommonExcelClasses.strFilename;
+        public string strFilename = SaveXML.strFilename;
 
 
         // frmSettings frmSettings = new frmSettings();
@@ -37,11 +37,11 @@ namespace ToolbarOfFunctions
         private void Ribbon1_Load(object sender, RibbonUIEventArgs e)
         {
 
-            strCompareOrColour = CommonExcelClasses.readProperty("strCompareOrColour");
+            strCompareOrColour = SaveXML.readProperty("strCompareOrColour");
 
             // so here change the lable of the compare button
+            // this is reading from the settings form
             // strCompareOrColour = (string)frmSettings.cmboHighLightOrDelete.SelectedValue;
-
             // CommonExcelClasses.MsgBox("strCompareOrColour = " + strCompareOrColour);
 
             CommonExcelClasses.ButtonUpdateLabel(btnCompareSheets, "Compare (" + strCompareOrColour +")");
@@ -102,6 +102,15 @@ namespace ToolbarOfFunctions
                 boolHideText = frmSettings.chkHideText.Checked;
 
                 // I NEED A VAR THAT WILL ONLY GET UPDATED IF THE BUTTON WAS CHECKED
+                // this object wil contian this!!!
+
+                // Remember from Commondity Wars 
+                // you can poke stuff into objects or classes and thety are rememebed 
+                // funckign dancer!
+                // and now to prove this
+
+                // the element I need is: Information.
+
 
                 CommonExcelClasses.ButtonSetSize(btnSettings, boolLargeButton);
                 CommonExcelClasses.ButtonSetSize(btnReadFolders, boolLargeButton);
@@ -147,7 +156,21 @@ namespace ToolbarOfFunctions
 
                     CommonExcelClasses.ButtonUpdateLabel(btnSettings, "Settings");
                     CommonExcelClasses.ButtonUpdateLabel(btnReadFolders, "Read Folders");
-                    CommonExcelClasses.ButtonUpdateLabel(btnCompareSheets, "Compare (" + CommonExcelClasses.readProperty("strCompareOrColour") + ")");
+
+                    // read from function, that gets data from class
+                    CommonExcelClasses.ButtonUpdateLabel(btnCompareSheets, "Compare (" + SaveXML.readProperty("strCompareOrColour") + ")");
+
+                    /*
+                    InformationFromSettingsForm info = new InformationFromSettingsForm();
+                    string strClearOrColour = info.HighLightOrDelete;
+                    CommonExcelClasses.ButtonUpdateLabel(btnCompareSheets, "Compare (" + strClearOrColour + ")");
+
+                    come back to ths after call
+
+                    */
+
+
+
                     CommonExcelClasses.ButtonUpdateLabel(btnZap, "Zap Worksheet");
                     CommonExcelClasses.SplitButtonUpdateLabel(splitButtonDeleteLines, "Delete Blank Lines");
                     CommonExcelClasses.ButtonUpdateLabel(btnDeleteBlankLinesA, "Mode: A");

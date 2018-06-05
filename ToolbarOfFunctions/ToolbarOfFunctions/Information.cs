@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ToolbarOfFunctions
 {
-    public class Information
+    public class InformationFromSettingsForm
     {
 
         public bool LargeButtons { get; set; }

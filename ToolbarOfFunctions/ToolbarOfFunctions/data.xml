@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Information xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<InformationFromSettingsForm xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <LargeButtons>true</LargeButtons>
   <HideText>false</HideText>
   <Differences>Colour</Differences>
@@ -18,4 +18,4 @@
   <PingSheetRowNo>2</PingSheetRowNo>
   <ColPingRead>1</ColPingRead>
   <ColPingWrite>10</ColPingWrite>
-</Information>
+</InformationFromSettingsForm>

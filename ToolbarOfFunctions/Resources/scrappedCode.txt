@@ -1,4 +1,38 @@
+strCompareOrColour = (string)frmSettings.cmboHighLightOrDelete.SelectedValue;
 
+
+try
+{
+
+}
+catch (System.Exception excpt)
+{
+    Console.WriteLine(excpt.Message);
+}
+
+
+
+Information info = new Information
+HighLightOrDelete = cmboHighLightOrDelete.Text,
+
+// --- get data of of an object / class
+
+                Information info = (Information)xs.Deserialize(read);
+
+                chkLargeButtons.Checked = info.LargeButtons;
+HighLightOrDelete = cmboHighLightOrDelete.Text,
+
+
+            try
+            {
+                Information info = new Information
+                {
+                    LargeButtons = chkLargeButtons.Checked,
+                    HideText = chkHideText.Checked,
+
+
+
+//-------------------
 
     /* need to handle nulls properly
     string stringCell1 = "";
