@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ToolbarOfFunctions
 {
-    public class InformationFromSettingsForm
+    public class InformationForSettingsForm
     {
 
         public bool LargeButtons { get; set; }
@@ -19,7 +19,9 @@ namespace ToolbarOfFunctions
 
         public bool DisplayTimeTaken { get; set; }
 
-        public bool ProduceMessageBox { get; set; }
+        public bool ProduceInitialMessageBox { get; set; }
+
+        public bool ProduceCompleteMessageBox { get; set; }
 
         public string DelModeAorBorC { get; set; }
 
@@ -31,9 +33,11 @@ namespace ToolbarOfFunctions
 
         public decimal DupliateColumnToCheck { get; set; }
 
-        public string ColourFound { get; set; }
+        public string ColourFoundText { get; set; }
+        public string ColourNotFoundText { get; set; }
 
-        public string ColourNotFound { get; set; }
+        public string ColourFoundColour { get; set; }
+        public string ColourNotFoundColour { get; set; }
 
         public decimal TimeSheetRowNo { get; set; }
 
@@ -46,4 +50,5 @@ namespace ToolbarOfFunctions
         public decimal ColPingWrite { get; set; }
 
     }
+
 }

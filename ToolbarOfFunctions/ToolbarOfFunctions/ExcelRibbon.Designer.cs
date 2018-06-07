@@ -37,6 +37,13 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ExcelRibbon));
             this.MYTOOLBAR = this.Factory.CreateRibbonTab();
             this.customToolbar = this.Factory.CreateRibbonGroup();
+            this.folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
+            this.separator1 = this.Factory.CreateRibbonSeparator();
+            this.separator2 = this.Factory.CreateRibbonSeparator();
+            this.separator3 = this.Factory.CreateRibbonSeparator();
+            this.separator4 = this.Factory.CreateRibbonSeparator();
+            this.separator5 = this.Factory.CreateRibbonSeparator();
+            this.separator6 = this.Factory.CreateRibbonSeparator();
             this.btnSettings = this.Factory.CreateRibbonButton();
             this.btnReadFolders = this.Factory.CreateRibbonButton();
             this.btnCompareSheets = this.Factory.CreateRibbonButton();
@@ -53,7 +60,6 @@
             this.btnReadUsers = this.Factory.CreateRibbonButton();
             this.btnWriteTimeSheet = this.Factory.CreateRibbonButton();
             this.btnPingServers = this.Factory.CreateRibbonButton();
-            this.folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.MYTOOLBAR.SuspendLayout();
             this.customToolbar.SuspendLayout();
             this.SuspendLayout();
@@ -67,20 +73,50 @@
             // customToolbar
             // 
             this.customToolbar.Items.Add(this.btnSettings);
+            this.customToolbar.Items.Add(this.separator1);
             this.customToolbar.Items.Add(this.btnReadFolders);
             this.customToolbar.Items.Add(this.btnCompareSheets);
+            this.customToolbar.Items.Add(this.separator2);
             this.customToolbar.Items.Add(this.btnZap);
+            this.customToolbar.Items.Add(this.separator3);
             this.customToolbar.Items.Add(this.splitButtonDeleteLines);
+            this.customToolbar.Items.Add(this.separator4);
             this.customToolbar.Items.Add(this.btnDealWithSingleDuplicates);
             this.customToolbar.Items.Add(this.btnDealWithManyDuplicates);
+            this.customToolbar.Items.Add(this.separator5);
             this.customToolbar.Items.Add(this.btnLoadADGroupIntoSpreadsheet);
             this.customToolbar.Items.Add(this.btnLoadADGroupIntoSpreadsheetActiveCell);
             this.customToolbar.Items.Add(this.btnReadUsersGroupMembership);
             this.customToolbar.Items.Add(this.btnReadUsers);
+            this.customToolbar.Items.Add(this.separator6);
             this.customToolbar.Items.Add(this.btnWriteTimeSheet);
             this.customToolbar.Items.Add(this.btnPingServers);
             this.customToolbar.Label = "Custom Toolbar";
             this.customToolbar.Name = "customToolbar";
+            // 
+            // separator1
+            // 
+            this.separator1.Name = "separator1";
+            // 
+            // separator2
+            // 
+            this.separator2.Name = "separator2";
+            // 
+            // separator3
+            // 
+            this.separator3.Name = "separator3";
+            // 
+            // separator4
+            // 
+            this.separator4.Name = "separator4";
+            // 
+            // separator5
+            // 
+            this.separator5.Name = "separator5";
+            // 
+            // separator6
+            // 
+            this.separator6.Name = "separator6";
             // 
             // btnSettings
             // 
@@ -271,6 +307,12 @@
         internal Microsoft.Office.Tools.Ribbon.RibbonButton btnWriteTimeSheet;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton btnPingServers;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton btnSettings;
+        internal Microsoft.Office.Tools.Ribbon.RibbonSeparator separator1;
+        internal Microsoft.Office.Tools.Ribbon.RibbonSeparator separator2;
+        internal Microsoft.Office.Tools.Ribbon.RibbonSeparator separator3;
+        internal Microsoft.Office.Tools.Ribbon.RibbonSeparator separator4;
+        internal Microsoft.Office.Tools.Ribbon.RibbonSeparator separator5;
+        internal Microsoft.Office.Tools.Ribbon.RibbonSeparator separator6;
     }
 
     partial class ThisRibbonCollection

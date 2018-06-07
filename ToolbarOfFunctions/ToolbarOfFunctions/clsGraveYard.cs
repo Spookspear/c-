@@ -26,6 +26,15 @@ using System.Data;
 // using ToolbarOfFunctions;
 using ToolbarOfFunctions_CommonClasses;
 
+// string strClearOrColour = "Colour";     // need to get this from somewhere
+// strClearOrColour = (string)frmSettings.cmboCompareDifferences.SelectedItem;  // read from settings
+// string strClearOrColour = SaveXML.readProperty("strCompareOrColour");    // read from function, that gets data from class
+/* 1gvb1 - can I read thisd from the object?
+InformationFromSettingsForm info = new InformationFromSettingsForm();
+strClearOrColour = info.HighLightOrDelete;
+*/
+// DialogResult dlgResult = MessageBox.Show("Compare: Worksheet: " + Wks1.Name + " against: " + Wks2.Name + " and " + strClearOrColour + " ones which are the same?", "Compare Sheets", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+
 
 namespace ToolbarOfFunctions_Graveyard
 {

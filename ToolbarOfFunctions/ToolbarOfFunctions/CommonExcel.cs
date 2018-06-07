@@ -37,8 +37,6 @@ namespace ToolbarOfFunctions_CommonClasses
     public class CommonExcelClasses
     {
 
-//         public static string strFilename = "D:\\GitHub\\c-\\ToolbarOfFunctions\\ToolbarOfFunctions\\data.xml";
-
         public static void ButtonUpdateLabel(RibbonButton rbnButton, string strText)
         {
             rbnButton.Label = strText;
@@ -92,12 +90,14 @@ namespace ToolbarOfFunctions_CommonClasses
                     whichIcon = MessageBoxIcon.Information;
                     break;
 
+                case "Warning":
+                    whichIcon = MessageBoxIcon.Warning;
+                    break;
+
             }
 
             MessageBox.Show(strMessage, strCaption, MessageBoxButtons.OK, whichIcon);
-            // MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question
         }
-
 
 
         public static bool isEmptyCell(Excel.Range xlCell)
@@ -252,28 +252,6 @@ namespace ToolbarOfFunctions_CommonClasses
             Excel.Application application = Globals.ThisAddIn.Application;
             application.Cursor = Excel.XlMousePointer.xlDefault;
         }
-
-        /*
-        public static string readProperty(string strWhichProperty)
-        {
-            // load data
-            if (File.Exists(strFilename))
-            {
-                XmlSerializer xs = new XmlSerializer(typeof(InformationFromSettingsForm));
-                FileStream read = new FileStream(strFilename, FileMode.Open, FileAccess.Read, FileShare.Read);
-                InformationFromSettingsForm info = (InformationFromSettingsForm)xs.Deserialize(read);
-                if (strWhichProperty == "strCompareOrColour")
-                {
-                    string strRetVal = info.Differences;
-                    read.Close();
-                    return strRetVal;
-                }
-
-            }
-
-            return "Could not Find";
-    }
-    */
 
     }
 }

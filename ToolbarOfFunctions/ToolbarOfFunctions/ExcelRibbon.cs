@@ -16,36 +16,21 @@ using System.Xml.Serialization;
 using System.IO;
 
 
-
 namespace ToolbarOfFunctions
 {
     public partial class ExcelRibbon
     {
-
         public bool boolDisplayMessage, boolLargeButton, boolHideText;
         public string strCompareOrColour;
 
-        // public string strFilename = "D:\\GitHub\\c-\\ToolbarOfFunctions\\ToolbarOfFunctions\\data.xml";
-        public string strFilename = SaveXML.strFilename;
-
-
-        // frmSettings frmSettings = new frmSettings();
-        // frmSettings frmSettings = default(frmSettings);
         frmSettings frmSettings = new frmSettings();
-        
+        InformationForSettingsForm myData = new InformationForSettingsForm();
 
         private void Ribbon1_Load(object sender, RibbonUIEventArgs e)
         {
-
-            strCompareOrColour = SaveXML.readProperty("strCompareOrColour");
-
-            // so here change the lable of the compare button
-            // this is reading from the settings form
-            // strCompareOrColour = (string)frmSettings.cmboHighLightOrDelete.SelectedValue;
-            // CommonExcelClasses.MsgBox("strCompareOrColour = " + strCompareOrColour);
-
-            CommonExcelClasses.ButtonUpdateLabel(btnCompareSheets, "Compare (" + strCompareOrColour +")");
-
+            myData = SaveXML.LoadData();
+            // strCompareOrColour = SaveXML.readProperty("strCompareOrColour");
+            CommonExcelClasses.ButtonUpdateLabel(btnCompareSheets, "Compare (" + myData.Differences + ")");
 
         }
 
@@ -90,27 +75,13 @@ namespace ToolbarOfFunctions
 
         public void btnSettings_Click(object sender, RibbonControlEventArgs e)
         {
-
             DialogResult dr = frmSettings.ShowDialog();
 
             if (dr == DialogResult.OK)
             {
-                // CommonExcelClasses.MsgBox("Ok Was selected");
-
-                boolDisplayMessage = frmSettings.chkProduceMessageBox.Checked;
+                boolDisplayMessage = frmSettings.chkProduceInitialMessageBox.Checked;
                 boolLargeButton = frmSettings.chkLargeButtons.Checked;
                 boolHideText = frmSettings.chkHideText.Checked;
-
-                // I NEED A VAR THAT WILL ONLY GET UPDATED IF THE BUTTON WAS CHECKED
-                // this object wil contian this!!!
-
-                // Remember from Commondity Wars 
-                // you can poke stuff into objects or classes and thety are rememebed 
-                // funckign dancer!
-                // and now to prove this
-
-                // the element I need is: Information.
-
 
                 CommonExcelClasses.ButtonSetSize(btnSettings, boolLargeButton);
                 CommonExcelClasses.ButtonSetSize(btnReadFolders, boolLargeButton);
@@ -156,21 +127,11 @@ namespace ToolbarOfFunctions
 
                     CommonExcelClasses.ButtonUpdateLabel(btnSettings, "Settings");
                     CommonExcelClasses.ButtonUpdateLabel(btnReadFolders, "Read Folders");
+                    
+                    // reload - 1gvb2
+                    myData = SaveXML.LoadData();
 
-                    // read from function, that gets data from class
-                    CommonExcelClasses.ButtonUpdateLabel(btnCompareSheets, "Compare (" + SaveXML.readProperty("strCompareOrColour") + ")");
-
-                    /*
-                    InformationFromSettingsForm info = new InformationFromSettingsForm();
-                    string strClearOrColour = info.HighLightOrDelete;
-                    CommonExcelClasses.ButtonUpdateLabel(btnCompareSheets, "Compare (" + strClearOrColour + ")");
-
-                    come back to ths after call
-
-                    */
-
-
-
+                    CommonExcelClasses.ButtonUpdateLabel(btnCompareSheets, "Compare (" + myData.Differences + ")");
                     CommonExcelClasses.ButtonUpdateLabel(btnZap, "Zap Worksheet");
                     CommonExcelClasses.SplitButtonUpdateLabel(splitButtonDeleteLines, "Delete Blank Lines");
                     CommonExcelClasses.ButtonUpdateLabel(btnDeleteBlankLinesA, "Mode: A");
@@ -196,9 +157,6 @@ namespace ToolbarOfFunctions
             Globals.ThisAddIn.dealWithSingleDuplicates(Globals.ThisAddIn.Application.ActiveWorkbook);
 
         }
-
-
-
 
     }
 

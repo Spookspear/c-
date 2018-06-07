@@ -23,8 +23,8 @@ namespace ToolbarOfFunctions
 {
     public partial class frmSettings : Form
     {
-        // public string strFilename = "D:\\GitHub\\c-\\ToolbarOfFunctions\\ToolbarOfFunctions\\data.xml";
-        public string strFilename = SaveXML.strFilename;
+
+        InformationForSettingsForm myData = new InformationForSettingsForm();
 
         public frmSettings()
         {
@@ -33,44 +33,42 @@ namespace ToolbarOfFunctions
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            
+            // InformationForSettingsForm myData = new InformationForSettingsForm();
+            myData = SaveXML.LoadData();
 
-            // load data
-            if (File.Exists(strFilename))
-            {
-                XmlSerializer xs = new XmlSerializer(typeof(InformationFromSettingsForm));
-                FileStream read = new FileStream(strFilename,FileMode.Open, FileAccess.Read, FileShare.Read);
-                InformationFromSettingsForm info = (InformationFromSettingsForm)xs.Deserialize(read);
+            chkLargeButtons.Checked = myData.LargeButtons;
+            chkHideText.Checked = myData.HideText;
+            cmboCompareDifferences.Text = myData.Differences;
 
-                chkLargeButtons.Checked = info.LargeButtons;
-                chkHideText.Checked = info.HideText;
-                cmboCompareDifferences.Text = info.Differences;
+            cmboHighLightOrDelete.Text = myData.HighLightOrDelete;
+            chkDisplayTimeTaken.Checked = myData.DisplayTimeTaken;
 
-                cmboHighLightOrDelete.Text = info.HighLightOrDelete;
-                chkDisplayTimeTaken.Checked = info.DisplayTimeTaken;
-                chkProduceMessageBox.Checked = info.ProduceMessageBox;
-                cmboDelModeAorBorC.Text = info.DelModeAorBorC;
-                numHighlightRowsOver.Value = info.HighlightRowsOver;
-                // ---------
+            chkProduceInitialMessageBox.Checked = myData.ProduceInitialMessageBox;
+            chkProduceCompleteMessageBox.Checked = myData.ProduceCompleteMessageBox;
 
-                numNoOfColumnsToCheck.Value = info.NoOfColumnsToCheck;
-                numComparingStartRow.Value = info.ComparingStartRow;
-                numDupliateColumnToCheck.Value = info.DupliateColumnToCheck;
-                txtColourFound.Text = info.ColourFound;
-                txtColourNotFound.Text = info.ColourNotFound;
+            cmboDelModeAorBorC.Text = myData.DelModeAorBorC;
+            numHighlightRowsOver.Value = myData.HighlightRowsOver;
+            // ---------
 
-                // ---------
-                numTimeSheetRowNo.Value = info.TimeSheetRowNo;
-                chkTimeSheetGetRowNo.Checked = info.TimeSheetGetRowNo;
+            numNoOfColumnsToCheck.Value = myData.NoOfColumnsToCheck;
+            numComparingStartRow.Value = myData.ComparingStartRow;
+            numDupliateColumnToCheck.Value = myData.DupliateColumnToCheck;
 
-                // ---------
-                numPingSheetRowNo.Value = info.PingSheetRowNo;
-                numColPingRead.Value = info.ColPingRead;
-                numColPingWrite.Value = info.ColPingWrite;
+            txtColourFound.Text = myData.ColourFoundText;
+            txtColourNotFound.Text = myData.ColourNotFoundText;
 
-                read.Close();
-                
-            }
+            txtColourFound.ForeColor = ColorTranslator.FromHtml(myData.ColourFoundColour);
+            txtColourNotFound.ForeColor = ColorTranslator.FromHtml(myData.ColourNotFoundColour);
 
+            // ---------
+            numTimeSheetRowNo.Value = myData.TimeSheetRowNo;
+            chkTimeSheetGetRowNo.Checked = myData.TimeSheetGetRowNo;
+
+            // ---------
+            numPingSheetRowNo.Value = myData.PingSheetRowNo;
+            numColPingRead.Value = myData.ColPingRead;
+            numColPingWrite.Value = myData.ColPingWrite;
 
             if (cmboCompareDifferences.Items.Count != 2)
             {
@@ -97,71 +95,100 @@ namespace ToolbarOfFunctions
 
             }
 
+            checkCompareCombo();
 
         }
 
         private void btnApply_Click(object sender, EventArgs e)
         {
+            myData.LargeButtons = chkLargeButtons.Checked;
+            myData.HideText = chkHideText.Checked;
+            myData.Differences = cmboCompareDifferences.Text;
 
-            // now save the data
-            try
-            {
-                InformationFromSettingsForm info = new InformationFromSettingsForm
-                {
-                    LargeButtons = chkLargeButtons.Checked,
-                    HideText = chkHideText.Checked,
-                    Differences = cmboCompareDifferences.Text,
+            myData.HighLightOrDelete = cmboHighLightOrDelete.Text;
+            myData.DisplayTimeTaken = chkDisplayTimeTaken.Checked;
 
-                    HighLightOrDelete = cmboHighLightOrDelete.Text,
-                    DisplayTimeTaken = chkDisplayTimeTaken.Checked,
-                    ProduceMessageBox = chkProduceMessageBox.Checked,
-                    DelModeAorBorC = cmboDelModeAorBorC.Text,
-                    HighlightRowsOver = numHighlightRowsOver.Value,
-                    // ---------
+            myData.ProduceInitialMessageBox = chkProduceInitialMessageBox.Checked;
+            myData.ProduceCompleteMessageBox = chkProduceCompleteMessageBox.Checked;
 
-                    NoOfColumnsToCheck = numNoOfColumnsToCheck.Value,
-                    ComparingStartRow = numComparingStartRow.Value,
-                    DupliateColumnToCheck = numDupliateColumnToCheck.Value,
-                    ColourFound = txtColourFound.Text,
-                    ColourNotFound = txtColourNotFound.Text,
+            myData.DelModeAorBorC = cmboDelModeAorBorC.Text;
+            myData.HighlightRowsOver = numHighlightRowsOver.Value;
+            // ---------
 
-                    // ---------
-                    TimeSheetRowNo = numTimeSheetRowNo.Value,
-                    TimeSheetGetRowNo = chkTimeSheetGetRowNo.Checked,
+            myData.NoOfColumnsToCheck = numNoOfColumnsToCheck.Value;
+            myData.ComparingStartRow = numComparingStartRow.Value;
+            myData.DupliateColumnToCheck = numDupliateColumnToCheck.Value;
 
-                    // ---------
-                    PingSheetRowNo = numPingSheetRowNo.Value,
-                    ColPingRead = numColPingRead.Value,
-                    ColPingWrite = numColPingWrite.Value
-                };
+            myData.ColourFoundText = txtColourFound.Text;
+            myData.ColourNotFoundText = txtColourNotFound.Text;
 
-                SaveXML.SaveData(info, "D:\\GitHub\\c-\\ToolbarOfFunctions\\ToolbarOfFunctions\\data.xml");
+            myData.ColourFoundColour = ColorTranslator.ToHtml(txtColourFound.ForeColor);
+            myData.ColourNotFoundColour = ColorTranslator.ToHtml(txtColourNotFound.ForeColor);
 
-            }
-            catch (Exception ex)
-            {
-                CommonExcelClasses.MsgBox(ex.Message);
-            }
+            // ---------
+            myData.TimeSheetRowNo = numTimeSheetRowNo.Value;
+            myData.TimeSheetGetRowNo = chkTimeSheetGetRowNo.Checked;
 
-            // btnApply.Tag = "Apply";
-            // this.Hide();
+            // ---------
+            myData.PingSheetRowNo = numPingSheetRowNo.Value;
+            myData.ColPingRead = numColPingRead.Value;
+            myData.ColPingWrite = numColPingWrite.Value;
+
+            SaveXML.SaveData(myData);
+
+            this.Hide();
+
         }
 
-
-        private void btnCancel_Click(object sender, EventArgs e)
+        private void btnColourNotFound_Click(object sender, EventArgs e)
         {
+            if (colorDialog1.ShowDialog() == DialogResult.OK)
+            {
+                txtColourNotFound.ForeColor = colorDialog1.Color;
 
-            // can I dynamically change the text if a button?
+                // if (colorDialog1.Color.IsNamedColor)                {                }
+                txtColourNotFound.Text = colorDialog1.Color.Name;
+            }
 
-            //now set the buttons size if reqd
-            // boolDisplayMessage = myForm.chkLargeButtons.Checked;
+        }
 
-            this.Hide();            
+        private void btnColourFound_Click(object sender, EventArgs e)
+        {
+            if (colorDialog1.ShowDialog() == DialogResult.OK)
+            {
+                txtColourFound.ForeColor = colorDialog1.Color;
+
+                txtColourFound.Text = colorDialog1.Color.Name;
+                // if (colorDialog1.Color.IsNamedColor)                {                }
+            }
+
+
+        }
+
+        private void cmboCompareDifferences_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            checkCompareCombo();
         }
 
 
 
+        private void checkCompareCombo()
+        {
+            bool boolEnabled = false;
 
+            if (cmboCompareDifferences.Text == "Colour")
+            {
+                boolEnabled = true;
+            }
+
+            label8.Enabled = boolEnabled;
+            txtColourFound.Enabled = boolEnabled;
+            btnColourFound.Enabled = boolEnabled;
+            label9.Enabled = boolEnabled;
+            txtColourNotFound.Enabled = boolEnabled;
+            btnColourNotFound.Enabled = boolEnabled;
+
+        }
 
     }
 }

@@ -1,21 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<InformationFromSettingsForm xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<InformationForSettingsForm xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <LargeButtons>true</LargeButtons>
   <HideText>false</HideText>
   <Differences>Colour</Differences>
   <HighLightOrDelete>Delete</HighLightOrDelete>
-  <DisplayTimeTaken>false</DisplayTimeTaken>
-  <ProduceMessageBox>false</ProduceMessageBox>
-  <DelModeAorBorC>Mode: C</DelModeAorBorC>
+  <DisplayTimeTaken>true</DisplayTimeTaken>
+  <ProduceInitialMessageBox>true</ProduceInitialMessageBox>
+  <ProduceCompleteMessageBox>true</ProduceCompleteMessageBox>
+  <DelModeAorBorC>Mode: B</DelModeAorBorC>
   <HighlightRowsOver>24</HighlightRowsOver>
   <NoOfColumnsToCheck>5</NoOfColumnsToCheck>
   <ComparingStartRow>2</ComparingStartRow>
   <DupliateColumnToCheck>1</DupliateColumnToCheck>
-  <ColourFound>red</ColourFound>
-  <ColourNotFound>blue</ColourNotFound>
+  <ColourFoundText>ff80ff00</ColourFoundText>
+  <ColourNotFoundText>ff8000ff</ColourNotFoundText>
+  <ColourFoundColour>#80FF00</ColourFoundColour>
+  <ColourNotFoundColour>#8000FF</ColourNotFoundColour>
   <TimeSheetRowNo>1</TimeSheetRowNo>
   <TimeSheetGetRowNo>true</TimeSheetGetRowNo>
   <PingSheetRowNo>2</PingSheetRowNo>
   <ColPingRead>1</ColPingRead>
   <ColPingWrite>10</ColPingWrite>
-</InformationFromSettingsForm>
+</InformationForSettingsForm>

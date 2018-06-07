@@ -15,13 +15,14 @@ namespace ToolbarOfFunctions
 {
     public class SaveXML
     {
-        public static string strFilename = "D:\\GitHub\\c-\\ToolbarOfFunctions\\ToolbarOfFunctions\\data.xml";
 
-        // public string strFilename = CommonExcelClasses.strFilename;
+        public static string strFileName = "D:\\GitHub\\c-\\ToolbarOfFunctions\\ToolbarOfFunctions\\data.xml";
 
-        // might pout it in here public string strFilename = CommonExcelClasses.strFilename;
+        // public string strFileName = CommonExcelClasses.strFileName;
 
-        public static void SaveData(object obj, string strFileName)
+        // might pout it in here public string strFileName = CommonExcelClasses.strFileName;
+
+        public static void SaveData(object obj)
         {
             try
             {
@@ -35,22 +36,24 @@ namespace ToolbarOfFunctions
             {
                 Console.WriteLine(e.Message);
             }
+
         }
+
 
         public static string readProperty(string strWhichProperty)
         {
 
             string strRetVal = "Could not Find"; ;
             // load data
-            if (File.Exists(strFilename))
+            if (File.Exists(strFileName))
             {
-                XmlSerializer xs = new XmlSerializer(typeof(InformationFromSettingsForm));
-                FileStream read = new FileStream(strFilename, FileMode.Open, FileAccess.Read, FileShare.Read);
-                InformationFromSettingsForm info = (InformationFromSettingsForm)xs.Deserialize(read);
+                XmlSerializer xS = new XmlSerializer(typeof(InformationForSettingsForm));
+                FileStream fsRead = new FileStream(strFileName, FileMode.Open, FileAccess.Read, FileShare.Read);
+                InformationForSettingsForm info = (InformationForSettingsForm)xS.Deserialize(fsRead);
                 if (strWhichProperty == "strCompareOrColour")
                 {
                     strRetVal = info.Differences;
-                    read.Close();
+                    fsRead.Close();
                     return strRetVal;
                 }
 
@@ -60,5 +63,22 @@ namespace ToolbarOfFunctions
 
         }
 
+
+
+        // purpose of this is to load the data into the InformationForSettingsForm class
+        public static InformationForSettingsForm LoadData()
+        {
+            XmlSerializer xS = new XmlSerializer(typeof(InformationForSettingsForm));
+            FileStream fsRead = new FileStream(strFileName, FileMode.Open, FileAccess.Read, FileShare.Read);
+            InformationForSettingsForm infoLocal = (InformationForSettingsForm)xS.Deserialize(fsRead);
+
+            fsRead.Close();
+
+            return infoLocal;
+
+        }
+
+
     }
+
 }
