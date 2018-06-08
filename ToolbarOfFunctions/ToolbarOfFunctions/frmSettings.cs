@@ -39,7 +39,43 @@ namespace ToolbarOfFunctions
 
             chkLargeButtons.Checked = myData.LargeButtons;
             chkHideText.Checked = myData.HideText;
-            cmboCompareDifferences.Text = myData.Differences;
+            // cmboCompareDifferences.Text = myData.CompareOrColour;
+
+            chkLBColorOrCompare.Text = myData.CompareOrColourNew;
+
+            // tick the correct box
+            if (chkLBColorOrCompare.CheckedItems.Count == 0)
+            {
+
+                if (myData.CompareOrColourNew == "Colour")
+                {
+                    chkLBColorOrCompare.SetItemChecked(0, true);
+                }
+                else
+                {
+                    chkLBColorOrCompare.SetItemChecked(1, true);
+                }
+            }
+
+            // - New 
+            chkLBHighLightOrDelete.Text = myData.HighLightOrDeleteNew;
+
+            // tick the correct box
+            if (chkLBHighLightOrDelete.CheckedItems.Count == 0)
+            {
+
+                if (myData.HighLightOrDeleteNew == "Highlight")
+                {
+                    chkLBHighLightOrDelete.SetItemChecked(0, true);
+                }
+                else
+                {
+                    chkLBHighLightOrDelete.SetItemChecked(1, true);
+                }
+            }
+
+            // -New eof
+
 
             cmboHighLightOrDelete.Text = myData.HighLightOrDelete;
             chkDisplayTimeTaken.Checked = myData.DisplayTimeTaken;
@@ -58,8 +94,12 @@ namespace ToolbarOfFunctions
             txtColourFound.Text = myData.ColourFoundText;
             txtColourNotFound.Text = myData.ColourNotFoundText;
 
-            txtColourFound.ForeColor = ColorTranslator.FromHtml(myData.ColourFoundColour);
-            txtColourNotFound.ForeColor = ColorTranslator.FromHtml(myData.ColourNotFoundColour);
+            txtColourFound.ForeColor = ColorTranslator.FromHtml(myData.ColourFore_Found);
+            txtColourNotFound.ForeColor = ColorTranslator.FromHtml(myData.ColourFore_NotFound);
+
+            txtColourFound.BackColor = ColorTranslator.FromHtml(myData.ColourBack_Found);
+            txtColourNotFound.BackColor = ColorTranslator.FromHtml(myData.ColourBack_NotFound);
+
 
             // ---------
             numTimeSheetRowNo.Value = myData.TimeSheetRowNo;
@@ -70,12 +110,16 @@ namespace ToolbarOfFunctions
             numColPingRead.Value = myData.ColPingRead;
             numColPingWrite.Value = myData.ColPingWrite;
 
+            chkTestCode.Checked = myData.TestCode;
+
+            /*
             if (cmboCompareDifferences.Items.Count != 2)
             {
                 cmboCompareDifferences.Items.Add("Colour");
                 cmboCompareDifferences.Items.Add("Clear");
                 // cmboCompareDifferences.SelectedIndex = 0;
             }
+            */
 
 
             if (cmboHighLightOrDelete.Items.Count != 2)
@@ -103,9 +147,13 @@ namespace ToolbarOfFunctions
         {
             myData.LargeButtons = chkLargeButtons.Checked;
             myData.HideText = chkHideText.Checked;
-            myData.Differences = cmboCompareDifferences.Text;
+
+            // myData.CompareOrColour = cmboCompareDifferences.Text;
+            myData.CompareOrColourNew = chkLBColorOrCompare.Text;               // new item
 
             myData.HighLightOrDelete = cmboHighLightOrDelete.Text;
+            myData.HighLightOrDeleteNew = chkLBHighLightOrDelete.Text;          // new item
+
             myData.DisplayTimeTaken = chkDisplayTimeTaken.Checked;
 
             myData.ProduceInitialMessageBox = chkProduceInitialMessageBox.Checked;
@@ -122,8 +170,11 @@ namespace ToolbarOfFunctions
             myData.ColourFoundText = txtColourFound.Text;
             myData.ColourNotFoundText = txtColourNotFound.Text;
 
-            myData.ColourFoundColour = ColorTranslator.ToHtml(txtColourFound.ForeColor);
-            myData.ColourNotFoundColour = ColorTranslator.ToHtml(txtColourNotFound.ForeColor);
+            myData.ColourFore_Found = ColorTranslator.ToHtml(txtColourFound.ForeColor);
+            myData.ColourFore_NotFound = ColorTranslator.ToHtml(txtColourNotFound.ForeColor);
+
+            myData.ColourBack_Found = ColorTranslator.ToHtml(txtColourFound.BackColor);
+            myData.ColourBack_NotFound = ColorTranslator.ToHtml(txtColourNotFound.BackColor);
 
             // ---------
             myData.TimeSheetRowNo = numTimeSheetRowNo.Value;
@@ -133,6 +184,9 @@ namespace ToolbarOfFunctions
             myData.PingSheetRowNo = numPingSheetRowNo.Value;
             myData.ColPingRead = numColPingRead.Value;
             myData.ColPingWrite = numColPingWrite.Value;
+
+            //---- misc
+            myData.TestCode = chkTestCode.Checked;
 
             SaveXML.SaveData(myData);
 
@@ -174,7 +228,7 @@ namespace ToolbarOfFunctions
         {
             bool boolEnabled = false;
 
-            if (cmboCompareDifferences.Text == "Colour")
+            if (chkLBColorOrCompare.Text == "Colour")
             {
                 boolEnabled = true;
             }
@@ -185,6 +239,7 @@ namespace ToolbarOfFunctions
             label9.Enabled = boolEnabled;
             txtColourNotFound.Enabled = boolEnabled;
             btnColourNotFound.Enabled = boolEnabled;
+
 
         }
 
@@ -211,5 +266,57 @@ namespace ToolbarOfFunctions
             }
 
         }
+
+        private void chkLBColorOrCompare_ItemCheck(object sender, ItemCheckEventArgs e)
+        {
+            if (e.NewValue == CheckState.Checked && chkLBColorOrCompare.CheckedItems.Count > 0)
+            {
+                chkLBColorOrCompare.ItemCheck -= chkLBColorOrCompare_ItemCheck;
+                chkLBColorOrCompare.SetItemChecked(chkLBColorOrCompare.CheckedIndices[0], false);
+                chkLBColorOrCompare.ItemCheck += chkLBColorOrCompare_ItemCheck;
+            }
+
+        }
+
+
+        private void chkLBColorOrCompare_Leave(object sender, EventArgs e)
+        {
+            if (chkLBColorOrCompare.CheckedItems.Count == 0) 
+                chkLBColorOrCompare.SetItemChecked(0, true);
+            
+        }
+
+
+        private void chkLBColorOrCompare_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
+            checkCompareCombo();
+        }
+
+        // ----------
+
+        private void chkLBHighLightOrDelete_ItemCheck(object sender, ItemCheckEventArgs e)
+        {
+            if (e.NewValue == CheckState.Checked && chkLBHighLightOrDelete.CheckedItems.Count > 0)
+            {
+                chkLBHighLightOrDelete.ItemCheck -= chkLBHighLightOrDelete_ItemCheck;
+                chkLBHighLightOrDelete.SetItemChecked(chkLBHighLightOrDelete.CheckedIndices[0], false);
+                chkLBHighLightOrDelete.ItemCheck += chkLBHighLightOrDelete_ItemCheck;
+            }
+
+        }
+
+
+        private void chkLBHighLightOrDelete_Leave(object sender, EventArgs e)
+        {
+            if (chkLBHighLightOrDelete.CheckedItems.Count == 0)
+                chkLBHighLightOrDelete.SetItemChecked(0, true);
+
+        }
+
+
+        // ----------
+
+
     }
+
 }

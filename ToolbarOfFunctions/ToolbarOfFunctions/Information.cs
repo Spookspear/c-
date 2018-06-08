@@ -13,9 +13,12 @@ namespace ToolbarOfFunctions
 
         public bool HideText { get; set; }
 
-        public string Differences { get; set; }
+        public string CompareOrColour { get; set; }
+        public string CompareOrColourNew { get; set; }
 
         public string HighLightOrDelete { get; set; }
+
+        public string HighLightOrDeleteNew { get; set; }
 
         public bool DisplayTimeTaken { get; set; }
 
@@ -36,8 +39,13 @@ namespace ToolbarOfFunctions
         public string ColourFoundText { get; set; }
         public string ColourNotFoundText { get; set; }
 
-        public string ColourFoundColour { get; set; }
-        public string ColourNotFoundColour { get; set; }
+        public string ColourFore_Found { get; set; }
+
+        public string ColourBack_Found { get; set; }
+
+        public string ColourFore_NotFound { get; set; }
+
+        public string ColourBack_NotFound { get; set; }
 
         public decimal TimeSheetRowNo { get; set; }
 
@@ -48,6 +56,10 @@ namespace ToolbarOfFunctions
         public decimal ColPingRead { get; set; }
 
         public decimal ColPingWrite { get; set; }
+
+        public bool TestCode { get; set; }
+
+        
 
     }
 

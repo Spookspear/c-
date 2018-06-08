@@ -52,7 +52,7 @@ namespace ToolbarOfFunctions
                 InformationForSettingsForm info = (InformationForSettingsForm)xS.Deserialize(fsRead);
                 if (strWhichProperty == "strCompareOrColour")
                 {
-                    strRetVal = info.Differences;
+                    strRetVal = info.CompareOrColour;
                     fsRead.Close();
                     return strRetVal;
                 }

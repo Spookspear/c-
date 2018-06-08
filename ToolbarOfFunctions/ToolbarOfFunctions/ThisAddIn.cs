@@ -25,7 +25,8 @@ using Microsoft.VisualStudio.Tools.Applications.Runtime;
 using Microsoft.Office.Tools.Ribbon;
 
 using ToolbarOfFunctions_CommonClasses;
-
+using ToolbarOfFunctions_MyConstants;
+using System.Runtime.InteropServices;
 
 namespace ToolbarOfFunctions
 {
@@ -33,13 +34,15 @@ namespace ToolbarOfFunctions
     {
         internal readonly IntPtr Handle;
 
+        public string LF = MyConstants._LF;
+
         frmSettings frmSettings = new frmSettings();
         InformationForSettingsForm myData = new InformationForSettingsForm();
 
         private void ThisAddIn_Startup(object sender, System.EventArgs e)
         {
 
-            myData = SaveXML.LoadData();
+            // myData = SaveXML.LoadData();
 
         }
 
@@ -252,11 +255,12 @@ namespace ToolbarOfFunctions
             bool boolDisplayInitialMessage = myData.ProduceInitialMessageBox;
             bool boolDisplayCompleteMessage = myData.ProduceCompleteMessageBox;
 
-            Color clrFoundForeColour;
-            Color clrNotFoundForeColour;
 
-            clrFoundForeColour = ColorTranslator.FromHtml(myData.ColourFoundColour);
-            clrNotFoundForeColour = ColorTranslator.FromHtml(myData.ColourNotFoundColour);
+            Color clrFoundForeColour = ColorTranslator.FromHtml(myData.ColourFore_Found);
+            Color clrNotFoundForeColour = ColorTranslator.FromHtml(myData.ColourFore_NotFound);
+
+            Color clrFoundBackColour = ColorTranslator.FromHtml(myData.ColourBack_Found);
+            Color clrNotFoundBackColour = ColorTranslator.FromHtml(myData.ColourBack_NotFound);
 
 
             Excel.Worksheet Wks;   // get current sheet
@@ -281,7 +285,7 @@ namespace ToolbarOfFunctions
                 for (int intSourceRow = intStartRow; intSourceRow <= intLastRow; intSourceRow++)
                 {
                     if (Wks.Cells[intSourceRow, intStartColumToCheck].Value == Wks.Cells[intSourceRow + 1, intStartColumToCheck].Value)
-                        colourCells(Wks, (intSourceRow + 1), "Error",1, clrFoundForeColour,"");
+                        colourCells(Wks, (intSourceRow + 1), "Error", 1, clrFoundForeColour, clrNotFoundBackColour,"TBD", false);
 
                 }
 
@@ -293,162 +297,190 @@ namespace ToolbarOfFunctions
         }
 
 
-        public void compareSheets(Excel.Workbook Wkb)
+        public void compareSheets(Excel.Application xls)
         {
-            // this whole thing needs to be in a try - 1gvb2
-            Excel.Worksheet Wks1;   // get current sheet
-            Excel.Worksheet Wks2;   // get sheet next door
 
-            Wks1 = Wkb.ActiveSheet;
-            Wks2 = Wkb.Sheets[Wks1.Index + 1];
+            Excel.Workbook Wkb = xls.ActiveWorkbook;
 
-            int intSheetLastRow1 = CommonExcelClasses.getLastRow(Wks1);
-            int intSheetLastRow2 = CommonExcelClasses.getLastRow(Wks2);
-            int intStartRow = 2;
-
-            // unsure if this is needed - it is - 1gvb2
+            // read data from settings file
             myData = SaveXML.LoadData();
 
             bool boolDisplayInitialMessage = myData.ProduceInitialMessageBox;
             bool boolDisplayCompleteMessage = myData.ProduceCompleteMessageBox;
             bool booltimeTaken = myData.DisplayTimeTaken;
-            string strCompareOrColour = myData.Differences;
+            string strCompareOrColour = myData.CompareOrColour;
 
-            Color clrFoundForeColour, clrNotFoundForeColour;
+            Color clrColourFore_Found = ColorTranslator.FromHtml(myData.ColourFore_Found);
+            Color clrColourFore_NotFound = ColorTranslator.FromHtml(myData.ColourFore_NotFound);
 
-            clrFoundForeColour = ColorTranslator.FromHtml(myData.ColourFoundColour);
-            clrNotFoundForeColour = ColorTranslator.FromHtml(myData.ColourNotFoundColour);
+            Color clrColourBack_Found = ColorTranslator.FromHtml(myData.ColourBack_Found);
+            Color clrColourBack_NotFound = ColorTranslator.FromHtml(myData.ColourBack_NotFound);
 
+            int intStartRow = 2;
             intStartRow = (int)myData.ComparingStartRow;
 
-            if (intSheetLastRow1 > intStartRow || intSheetLastRow2 > intStartRow)
+            bool boolTestCode = myData.TestCode;
+
+            try
             {
-                // options for process from settings
 
-                // this should be subject to display message
-                // need to add another to dispaly completed message
-                DialogResult dlgResult = DialogResult.Yes;
-                string strMessage;
+                // this whole thing needs to be in a try - 1gvb2
+                Excel.Worksheet Wks1;   // get current sheet
+                Excel.Worksheet Wks2;   // get sheet next door
 
+                Wks1 = Wkb.ActiveSheet;
+                Wks2 = Wkb.Sheets[Wks1.Index + 1];
 
-                if (boolDisplayInitialMessage)
+                int intSheetLastRow1 = CommonExcelClasses.getLastRow(Wks1);
+                int intSheetLastRow2 = CommonExcelClasses.getLastRow(Wks2);
+
+                if (intSheetLastRow1 > intStartRow || intSheetLastRow2 > intStartRow)
                 {
-                    strMessage = "Compare: Worksheet: " + Wks1.Name + 
-                                           " against: " + Wks2.Name + 
-                                                " and " + strCompareOrColour + 
-                                 " ones which are the same? <Starting @ Row:" + intStartRow.ToString() + ">";
+                    DialogResult dlgResult = DialogResult.Yes;
+                    string strMessage;
 
-                    dlgResult = MessageBox.Show(strMessage, "Compare Sheets", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
-                }
-
-                if (dlgResult == DialogResult.Yes)
-                {
-                    Stopwatch sw = new Stopwatch();
-                    sw.Start();
-
-                    int intTargetRow = 0;
-                    int intStartColumToCheck = 1;
-                    int intColScore = 0;
-
-                    string strValue1 = "";
-
-                    int intNoCheckCols = CommonExcelClasses.getLastCol(Wks1);
-
-                    for (int intSourceRow = intStartRow; intSourceRow <= intSheetLastRow1; intSourceRow++)
+                    if (boolDisplayInitialMessage)
                     {
-                        // read in vlaue from sheet 
-                        // maybe I should ready all into arrays - maybe later?
-                        strValue1 = Wks1.Cells[intSourceRow, intStartColumToCheck].Value;
-
-                        intTargetRow = CommonExcelClasses.searchForValue(Wks2, strValue1, intStartColumToCheck);
-
-                        if (intTargetRow > 0)
-                        {
-                            string stringCell1 = ""; string stringCell2 = "";
-
-                            //  start from correct column
-                            for (int intColCount = intStartColumToCheck; intColCount <= intNoCheckCols; intColCount++)
-                            {
-
-                                if (!CommonExcelClasses.isEmptyCell(Wks1.Cells[intSourceRow, intColCount]))
-                                    stringCell1 = Wks1.Cells[intSourceRow, intColCount].Value.ToString();
-
-                                // need to handle nulls properly
-                                if (!CommonExcelClasses.isEmptyCell(Wks2.Cells[intTargetRow, intColCount]))
-                                    stringCell2 = Wks2.Cells[intTargetRow, intColCount].Value.ToString();
-
-                                if (stringCell1 == stringCell2)
-                                    intColScore++;
-                            }
-
-                        }
-
-                        // Score system = if all the same then can blue it
-                        if (intColScore == intNoCheckCols)
-                            colourCells(Wks1, intSourceRow, "OK", intNoCheckCols, clrFoundForeColour, strCompareOrColour);
-                        else
-                            colourCells(Wks1, intSourceRow, "Error", intNoCheckCols, clrNotFoundForeColour, strCompareOrColour);
-
-                        intColScore = 0;
-
-                    }
-
-                    sw.Stop();
-
-                    if (boolDisplayCompleteMessage)
-                    {
-                        strMessage = "";
-                        strMessage = strMessage + "Compare Complete ...";
+                        strMessage = "Compare: " + Wks1.Name + LF +
+                                    " against: " + Wks2.Name + LF +
+                                        " and: " + strCompareOrColour + " ones which are the same" + LF +
+                                       " (starting at row:" + intStartRow.ToString() + ")";
 
                         if (booltimeTaken)
                         {
-                            strMessage = strMessage + "that took " + sw.Elapsed.Milliseconds.ToString() + " Milliseconds" ;
+                            strMessage = strMessage + LF + " and display the time taken";
+                        }
+
+                        strMessage = strMessage + "?";
+
+                        dlgResult = MessageBox.Show(strMessage, "Compare Sheets", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+                    }
+
+                    if (dlgResult == DialogResult.Yes)
+                    {
+                        CommonExcelClasses.turnAppSettings("Off", xls, myData.TestCode);
+
+                        Stopwatch sw = new Stopwatch();
+                        sw.Start();
+
+                        int intTargetRow = 0;
+                        int intStartColumToCheck = 1;
+                        int intColScore = 0;
+
+                        string strValue1 = "";
+
+                        int intNoCheckCols = CommonExcelClasses.getLastCol(Wks1);
+
+                        for (int intSourceRow = intStartRow; intSourceRow <= intSheetLastRow1; intSourceRow++)
+                        {
+                            // read in vlaue from sheet 
+                            // maybe I should ready all into arrays - maybe later?
+                            strValue1 = Wks1.Cells[intSourceRow, intStartColumToCheck].Value;
+
+                            intTargetRow = CommonExcelClasses.searchForValue(Wks2, strValue1, intStartColumToCheck);
+
+                            if (intTargetRow > 0)
+                            {
+                                string stringCell1 = ""; string stringCell2 = "";
+
+                                //  start from correct column
+                                for (int intColCount = intStartColumToCheck; intColCount <= intNoCheckCols; intColCount++)
+                                {
+                                    if (!CommonExcelClasses.isEmptyCell(Wks1.Cells[intSourceRow, intColCount]))
+                                        stringCell1 = Wks1.Cells[intSourceRow, intColCount].Value.ToString();
+
+                                    // need to handle nulls properly
+                                    if (!CommonExcelClasses.isEmptyCell(Wks2.Cells[intTargetRow, intColCount]))
+                                        stringCell2 = Wks2.Cells[intTargetRow, intColCount].Value.ToString();
+
+                                    if (stringCell1 == stringCell2)
+                                        intColScore++;
+                                    
+                                }
+
+                            }
+
+                            // Score system = if all the same then can blue it
+                            if (intColScore == intNoCheckCols)
+                                colourCells(Wks1, intSourceRow, "OK", intNoCheckCols, clrColourFore_Found, clrColourBack_Found, strCompareOrColour, boolTestCode);
+                            else
+                                colourCells(Wks1, intSourceRow, "Error", intNoCheckCols, clrColourFore_NotFound, clrColourBack_NotFound, strCompareOrColour, boolTestCode);
+
+                            intColScore = 0;
 
                         }
 
-                        CommonExcelClasses.MsgBox(strMessage);          // localisation?
+                        sw.Stop();
+
+                        CommonExcelClasses.turnAppSettings("On", xls, myData.TestCode);
+
+                        if (boolDisplayCompleteMessage)
+                        {
+                            strMessage = "";
+                            strMessage = strMessage + "Compare Complete ...";
+
+                            if (booltimeTaken)
+                            {
+                                strMessage = strMessage + "that took " + sw.Elapsed.Milliseconds.ToString() + " Milliseconds";
+
+                            }
+
+                            CommonExcelClasses.MsgBox(strMessage);          // localisation?
+                        }
+
                     }
 
                 }
+                else
+                {
+                    if (boolDisplayCompleteMessage)
+                        CommonExcelClasses.MsgBox("No data to compare ...", "Warning");          // localisation?
+                }
 
-            } 
-            else
+
+                // if (boolTestCode)
+                //    CommonExcelClasses.turnAppSettingsOn();
+
+            }
+            catch (System.Exception excpt)
             {
                 if (boolDisplayCompleteMessage)
-                    CommonExcelClasses.MsgBox("No data to compare ...", "Warning");          // localisation?
-            }
+                {
+                    CommonExcelClasses.MsgBox("Are you on the last sheet?", "Error");
+                }
 
+                Console.WriteLine(excpt.Message);
+            }
         }
 
-        public void colourCells(Excel.Worksheet Wks, int intSourceRow, string strDoWhat, int intNoCheckCols, Color clrWhichColour, string strCompareOrColour)
+        public void colourCells(Excel.Worksheet Wks, int intSourceRow, string strDoWhat, int intNoCheckCols, Color clrWhichColourFore, Color clrWhichColourBack, string strCompareOrColour, bool boolTestCode)
         {
             int intStartColumToCheck = 1;
-            // int intNoCheckCols = 5;
-            // need to pick up the colours - 1gvb2
+
+            Excel.Range xlCell;
 
             for (int intColCount = intStartColumToCheck; intColCount <= intNoCheckCols; intColCount++)
             {
 
-                if (strDoWhat == "Error")
+                if (strDoWhat == "Error" || strCompareOrColour == "Colour")
                 {
-                    Wks.Cells[intSourceRow, intColCount].Font.Color = ColorTranslator.ToOle(clrWhichColour);
+                    xlCell = Wks.Cells[intSourceRow, intColCount];
+                    xlCell.Font.Color = ColorTranslator.ToOle(clrWhichColourFore);
+                    xlCell.Interior.Color = ColorTranslator.ToOle(clrWhichColourBack);
+                    xlCell.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
+                    xlCell.Borders.Color = ColorTranslator.ToOle(Color.LightGray); ;
+                    xlCell.Borders.Weight = 2d;
+                } else {
+                    Wks.Cells[intSourceRow, intColCount].Value2 = null;
                 }
-                else
-                {
-
-                    if (strCompareOrColour == "Colour")
-                    {
-                        if (strDoWhat == "OK")
-                            Wks.Cells[intSourceRow, intColCount].Font.Color = ColorTranslator.ToOle(clrWhichColour);
-                    }
-                    else
-                    {
-                        Wks.Cells[intSourceRow, intColCount].Value2 = null;
-                    }
-                }
-
 
             }
+
+            // Marshal.Release(xlCell);
+            // Release our resources.
+            // Marshal.ReleaseComObject(workbook);
+            // Marshal.ReleaseComObject(workbooks);
+            // Marshal.FinalReleaseComObject(xlCell);
 
         }
 

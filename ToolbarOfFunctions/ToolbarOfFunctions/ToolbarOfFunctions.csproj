@@ -158,6 +158,7 @@
   <ItemGroup>
     <Compile Include="CommonExcel.cs" />
     <Compile Include="clsGraveYard.cs" />
+    <Compile Include="Constants.cs" />
     <Compile Include="FolderBrowserDialogEx.cs" />
     <Compile Include="frmSettings.cs">
       <SubType>Form</SubType>

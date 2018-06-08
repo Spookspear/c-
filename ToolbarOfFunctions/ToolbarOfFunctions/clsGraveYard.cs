@@ -32,6 +32,13 @@ using ToolbarOfFunctions_CommonClasses;
 /* 1gvb1 - can I read thisd from the object?
 InformationFromSettingsForm info = new InformationFromSettingsForm();
 strClearOrColour = info.HighLightOrDelete;
+
+Excel.Range xlCell = Wks.Cells[intSourceRow, intColCount];
+Excel.Borders border = xlCell.Borders;
+border.LineStyle = Excel.XlLineStyle.xlContinuous;
+border.Color = ColorTranslator.ToOle(Color.LightGray);;
+border.Weight = 2d; 
+
 */
 // DialogResult dlgResult = MessageBox.Show("Compare: Worksheet: " + Wks1.Name + " against: " + Wks2.Name + " and " + strClearOrColour + " ones which are the same?", "Compare Sheets", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
 

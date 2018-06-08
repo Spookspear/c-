@@ -2,23 +2,28 @@
 <InformationForSettingsForm xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <LargeButtons>true</LargeButtons>
   <HideText>false</HideText>
-  <Differences>Colour</Differences>
+  <CompareOrColour>Colour</CompareOrColour>
+  <CompareOrColourNew>Clear</CompareOrColourNew>
   <HighLightOrDelete>Delete</HighLightOrDelete>
+  <HighLightOrDeleteNew>Delete</HighLightOrDeleteNew>
   <DisplayTimeTaken>true</DisplayTimeTaken>
-  <ProduceInitialMessageBox>true</ProduceInitialMessageBox>
+  <ProduceInitialMessageBox>false</ProduceInitialMessageBox>
   <ProduceCompleteMessageBox>true</ProduceCompleteMessageBox>
   <DelModeAorBorC>Mode: B</DelModeAorBorC>
   <HighlightRowsOver>24</HighlightRowsOver>
   <NoOfColumnsToCheck>5</NoOfColumnsToCheck>
   <ComparingStartRow>2</ComparingStartRow>
   <DupliateColumnToCheck>1</DupliateColumnToCheck>
-  <ColourFoundText>ffffff80</ColourFoundText>
-  <ColourNotFoundText>ff808040</ColourNotFoundText>
-  <ColourFoundColour>#FFFF80</ColourFoundColour>
-  <ColourNotFoundColour>#808040</ColourNotFoundColour>
+  <ColourFoundText>Blue</ColourFoundText>
+  <ColourNotFoundText>Red</ColourNotFoundText>
+  <ColourFore_Found>Blue</ColourFore_Found>
+  <ColourBack_Found>White</ColourBack_Found>
+  <ColourFore_NotFound>Red</ColourFore_NotFound>
+  <ColourBack_NotFound>White</ColourBack_NotFound>
   <TimeSheetRowNo>1</TimeSheetRowNo>
   <TimeSheetGetRowNo>true</TimeSheetGetRowNo>
   <PingSheetRowNo>2</PingSheetRowNo>
   <ColPingRead>1</ColPingRead>
   <ColPingWrite>10</ColPingWrite>
+  <TestCode>true</TestCode>
 </InformationForSettingsForm>

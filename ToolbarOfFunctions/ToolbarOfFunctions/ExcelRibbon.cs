@@ -8,13 +8,14 @@ using Microsoft.Office.Tools.Ribbon;
 
 using System.Windows.Forms;
 using Excel = Microsoft.Office.Interop.Excel;
-using ToolbarOfFunctions = ToolbarOfFunctions.ThisAddIn;
+// using ToolbarOfFunctions = ToolbarOfFunctions.ThisAddIn;
 using ToolbarOfFunctions_CommonClasses;
-
 using ToolbarOfFunctions;
+
+
+
 using System.Xml.Serialization;
 using System.IO;
-
 
 namespace ToolbarOfFunctions
 {
@@ -30,7 +31,7 @@ namespace ToolbarOfFunctions
         {
             myData = SaveXML.LoadData();
             // strCompareOrColour = SaveXML.readProperty("strCompareOrColour");
-            CommonExcelClasses.ButtonUpdateLabel(btnCompareSheets, "Compare (" + myData.Differences + ")");
+            CommonExcelClasses.ButtonUpdateLabel(btnCompareSheets, "Compare (" + myData.CompareOrColour + ")");
 
         }
 
@@ -47,9 +48,9 @@ namespace ToolbarOfFunctions
 
         private void btnCompareSheets_Click(object sender, RibbonControlEventArgs e)
         {
-            Globals.ThisAddIn.compareSheets(Globals.ThisAddIn.Application.ActiveWorkbook);
+            Globals.ThisAddIn.compareSheets(Globals.ThisAddIn.Application);
         }
-        
+
         private void btnDeleteBlankLinesA_Click(object sender, RibbonControlEventArgs e)
         {
             Globals.ThisAddIn.deleteBlankLines(Globals.ThisAddIn.Application.ActiveWorkbook, "A");
@@ -131,7 +132,7 @@ namespace ToolbarOfFunctions
                     // reload - 1gvb2
                     myData = SaveXML.LoadData();
 
-                    CommonExcelClasses.ButtonUpdateLabel(btnCompareSheets, "Compare (" + myData.Differences + ")");
+                    CommonExcelClasses.ButtonUpdateLabel(btnCompareSheets, "Compare (" + myData.CompareOrColour + ")");
                     CommonExcelClasses.ButtonUpdateLabel(btnZap, "Zap Worksheet");
                     CommonExcelClasses.SplitButtonUpdateLabel(splitButtonDeleteLines, "Delete Blank Lines");
                     CommonExcelClasses.ButtonUpdateLabel(btnDeleteBlankLinesA, "Mode: A");

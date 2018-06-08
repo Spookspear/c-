@@ -30,7 +30,7 @@ using ToolbarOfFunctions;
 using Microsoft.Office.Core;
 
 using System.Xml.Serialization;
-
+using Microsoft.Office.Interop.Excel;
 
 namespace ToolbarOfFunctions_CommonClasses
 {
@@ -252,6 +252,27 @@ namespace ToolbarOfFunctions_CommonClasses
             Excel.Application application = Globals.ThisAddIn.Application;
             application.Cursor = Excel.XlMousePointer.xlDefault;
         }
+
+
+        public static void turnAppSettings(string strDoWhat, Excel.Application xls, bool boolTestCode)
+        {
+            bool boolOn = true;
+
+            if (strDoWhat == "Off")
+                boolOn = false;
+
+            xls.EnableEvents = boolOn;
+            xls.ScreenUpdating = boolOn;
+
+            if (boolOn)
+                 xls.Calculation = XlCalculation.xlCalculationAutomatic;
+            else
+                xls.Calculation = XlCalculation.xlCalculationManual;
+
+        }
+
+
+
 
     }
 }
