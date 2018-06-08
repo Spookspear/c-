@@ -157,7 +157,6 @@ namespace ToolbarOfFunctions
             if (colorDialog1.ShowDialog() == DialogResult.OK)
             {
                 txtColourFound.ForeColor = colorDialog1.Color;
-
                 txtColourFound.Text = colorDialog1.Color.Name;
                 // if (colorDialog1.Color.IsNamedColor)                {                }
             }
@@ -169,7 +168,6 @@ namespace ToolbarOfFunctions
         {
             checkCompareCombo();
         }
-
 
 
         private void checkCompareCombo()
@@ -190,5 +188,28 @@ namespace ToolbarOfFunctions
 
         }
 
+        private void chkProduceCompleteMessageBox_CheckedChanged(object sender, EventArgs e)
+        {
+            chkDisplayTimeTaken.Enabled = chkProduceCompleteMessageBox.Checked;
+            chkDisplayTimeTaken.Checked = chkProduceCompleteMessageBox.Checked;
+        }
+
+        private void btnColourFoundBack_Click(object sender, EventArgs e)
+        {
+            if (colorDialog1.ShowDialog() == DialogResult.OK)
+            {
+                txtColourFound.BackColor = colorDialog1.Color;
+            }
+
+        }
+
+        private void btnColourNotFoundBack_Click(object sender, EventArgs e)
+        {
+            if (colorDialog1.ShowDialog() == DialogResult.OK)
+            {
+                txtColourNotFound.BackColor = colorDialog1.Color;
+            }
+
+        }
     }
 }

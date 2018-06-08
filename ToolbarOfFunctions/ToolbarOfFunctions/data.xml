@@ -12,10 +12,10 @@
   <NoOfColumnsToCheck>5</NoOfColumnsToCheck>
   <ComparingStartRow>2</ComparingStartRow>
   <DupliateColumnToCheck>1</DupliateColumnToCheck>
-  <ColourFoundText>ff80ff00</ColourFoundText>
-  <ColourNotFoundText>ff8000ff</ColourNotFoundText>
-  <ColourFoundColour>#80FF00</ColourFoundColour>
-  <ColourNotFoundColour>#8000FF</ColourNotFoundColour>
+  <ColourFoundText>ffffff80</ColourFoundText>
+  <ColourNotFoundText>ff808040</ColourNotFoundText>
+  <ColourFoundColour>#FFFF80</ColourFoundColour>
+  <ColourNotFoundColour>#808040</ColourNotFoundColour>
   <TimeSheetRowNo>1</TimeSheetRowNo>
   <TimeSheetGetRowNo>true</TimeSheetGetRowNo>
   <PingSheetRowNo>2</PingSheetRowNo>

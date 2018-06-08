@@ -281,7 +281,7 @@ namespace ToolbarOfFunctions
                 for (int intSourceRow = intStartRow; intSourceRow <= intLastRow; intSourceRow++)
                 {
                     if (Wks.Cells[intSourceRow, intStartColumToCheck].Value == Wks.Cells[intSourceRow + 1, intStartColumToCheck].Value)
-                        colourCells(Wks, (intSourceRow + 1), "Error",1, clrFoundForeColour);
+                        colourCells(Wks, (intSourceRow + 1), "Error",1, clrFoundForeColour,"");
 
                 }
 
@@ -295,7 +295,6 @@ namespace ToolbarOfFunctions
 
         public void compareSheets(Excel.Workbook Wkb)
         {
-
             // this whole thing needs to be in a try - 1gvb2
             Excel.Worksheet Wks1;   // get current sheet
             Excel.Worksheet Wks2;   // get sheet next door
@@ -312,10 +311,10 @@ namespace ToolbarOfFunctions
 
             bool boolDisplayInitialMessage = myData.ProduceInitialMessageBox;
             bool boolDisplayCompleteMessage = myData.ProduceCompleteMessageBox;
+            bool booltimeTaken = myData.DisplayTimeTaken;
             string strCompareOrColour = myData.Differences;
 
-            Color clrFoundForeColour;
-            Color clrNotFoundForeColour;
+            Color clrFoundForeColour, clrNotFoundForeColour;
 
             clrFoundForeColour = ColorTranslator.FromHtml(myData.ColourFoundColour);
             clrNotFoundForeColour = ColorTranslator.FromHtml(myData.ColourNotFoundColour);
@@ -329,11 +328,11 @@ namespace ToolbarOfFunctions
                 // this should be subject to display message
                 // need to add another to dispaly completed message
                 DialogResult dlgResult = DialogResult.Yes;
+                string strMessage;
 
 
                 if (boolDisplayInitialMessage)
                 {
-                    string strMessage;
                     strMessage = "Compare: Worksheet: " + Wks1.Name + 
                                            " against: " + Wks2.Name + 
                                                 " and " + strCompareOrColour + 
@@ -342,7 +341,11 @@ namespace ToolbarOfFunctions
                     dlgResult = MessageBox.Show(strMessage, "Compare Sheets", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
                 }
 
-                if (dlgResult == DialogResult.Yes) {
+                if (dlgResult == DialogResult.Yes)
+                {
+                    Stopwatch sw = new Stopwatch();
+                    sw.Start();
+
                     int intTargetRow = 0;
                     int intStartColumToCheck = 1;
                     int intColScore = 0;
@@ -351,54 +354,60 @@ namespace ToolbarOfFunctions
 
                     int intNoCheckCols = CommonExcelClasses.getLastCol(Wks1);
 
-                        for (int intSourceRow = intStartRow; intSourceRow <= intSheetLastRow1; intSourceRow++)
+                    for (int intSourceRow = intStartRow; intSourceRow <= intSheetLastRow1; intSourceRow++)
+                    {
+                        // read in vlaue from sheet 
+                        // maybe I should ready all into arrays - maybe later?
+                        strValue1 = Wks1.Cells[intSourceRow, intStartColumToCheck].Value;
+
+                        intTargetRow = CommonExcelClasses.searchForValue(Wks2, strValue1, intStartColumToCheck);
+
+                        if (intTargetRow > 0)
                         {
-                            // read in vlaue from sheet 
-                            // maybe I should ready all into arrays - maybe later?
-                            strValue1 = Wks1.Cells[intSourceRow, intStartColumToCheck].Value;
+                            string stringCell1 = ""; string stringCell2 = "";
 
-                            intTargetRow = CommonExcelClasses.searchForValue(Wks2, strValue1, intStartColumToCheck);
-
-                            if (intTargetRow > 0)
+                            //  start from correct column
+                            for (int intColCount = intStartColumToCheck; intColCount <= intNoCheckCols; intColCount++)
                             {
-                                string stringCell1 = ""; string stringCell2 = "";
 
-                                //  start from correct column
-                                for (int intColCount = intStartColumToCheck; intColCount <= intNoCheckCols; intColCount++)
-                                {
+                                if (!CommonExcelClasses.isEmptyCell(Wks1.Cells[intSourceRow, intColCount]))
+                                    stringCell1 = Wks1.Cells[intSourceRow, intColCount].Value.ToString();
 
-                                    if (!CommonExcelClasses.isEmptyCell(Wks1.Cells[intSourceRow, intColCount]))
-                                        stringCell1 = Wks1.Cells[intSourceRow, intColCount].Value.ToString();
+                                // need to handle nulls properly
+                                if (!CommonExcelClasses.isEmptyCell(Wks2.Cells[intTargetRow, intColCount]))
+                                    stringCell2 = Wks2.Cells[intTargetRow, intColCount].Value.ToString();
 
-                                    // need to handle nulls properly
-                                    if (!CommonExcelClasses.isEmptyCell(Wks2.Cells[intTargetRow, intColCount]))
-                                        stringCell2 = Wks2.Cells[intTargetRow, intColCount].Value.ToString();
-
-                                    if (stringCell1 == stringCell2)
-                                        intColScore++;
-                                }
-
+                                if (stringCell1 == stringCell2)
+                                    intColScore++;
                             }
 
+                        }
 
                         // Score system = if all the same then can blue it
-                        if (strCompareOrColour == "Colour") {
-
-                            if (intColScore == intNoCheckCols)
-                                colourCells(Wks1, intSourceRow, "OK", intNoCheckCols, clrFoundForeColour);
-                            else
-                                colourCells(Wks1, intSourceRow, "Error", intNoCheckCols, clrNotFoundForeColour);
-
-                        } else {
-                            colourCells(Wks1, intSourceRow, "Clear", intNoCheckCols, clrFoundForeColour);
-                        }
+                        if (intColScore == intNoCheckCols)
+                            colourCells(Wks1, intSourceRow, "OK", intNoCheckCols, clrFoundForeColour, strCompareOrColour);
+                        else
+                            colourCells(Wks1, intSourceRow, "Error", intNoCheckCols, clrNotFoundForeColour, strCompareOrColour);
 
                         intColScore = 0;
 
-                    }   
+                    }
+
+                    sw.Stop();
 
                     if (boolDisplayCompleteMessage)
-                        CommonExcelClasses.MsgBox("Compare Complete ...");          // localisation?
+                    {
+                        strMessage = "";
+                        strMessage = strMessage + "Compare Complete ...";
+
+                        if (booltimeTaken)
+                        {
+                            strMessage = strMessage + "that took " + sw.Elapsed.Milliseconds.ToString() + " Milliseconds" ;
+
+                        }
+
+                        CommonExcelClasses.MsgBox(strMessage);          // localisation?
+                    }
 
                 }
 
@@ -411,7 +420,7 @@ namespace ToolbarOfFunctions
 
         }
 
-        public void colourCells(Excel.Worksheet Wks, int intSourceRow, string strDoWhat, int intNoCheckCols, Color clrWhichColour)
+        public void colourCells(Excel.Worksheet Wks, int intSourceRow, string strDoWhat, int intNoCheckCols, Color clrWhichColour, string strCompareOrColour)
         {
             int intStartColumToCheck = 1;
             // int intNoCheckCols = 5;
@@ -419,14 +428,25 @@ namespace ToolbarOfFunctions
 
             for (int intColCount = intStartColumToCheck; intColCount <= intNoCheckCols; intColCount++)
             {
-                if (strDoWhat == "OK")
-                    Wks.Cells[intSourceRow, intColCount].Font.Color = ColorTranslator.ToOle(clrWhichColour);
 
                 if (strDoWhat == "Error")
+                {
                     Wks.Cells[intSourceRow, intColCount].Font.Color = ColorTranslator.ToOle(clrWhichColour);
+                }
+                else
+                {
 
-                if (strDoWhat == "Clear")
-                    Wks.Cells[intSourceRow, intColCount].Value2 = null;
+                    if (strCompareOrColour == "Colour")
+                    {
+                        if (strDoWhat == "OK")
+                            Wks.Cells[intSourceRow, intColCount].Font.Color = ColorTranslator.ToOle(clrWhichColour);
+                    }
+                    else
+                    {
+                        Wks.Cells[intSourceRow, intColCount].Value2 = null;
+                    }
+                }
+
 
             }
 

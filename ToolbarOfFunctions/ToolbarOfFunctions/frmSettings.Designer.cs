@@ -70,6 +70,8 @@ namespace ToolbarOfFunctions
             this.label5 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.cmboCompareDifferences = new System.Windows.Forms.ComboBox();
+            this.btnColourFoundBack = new System.Windows.Forms.Button();
+            this.btnColourNotFoundBack = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.numColPingRead)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numColPingWrite)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numPingSheetRowNo)).BeginInit();
@@ -87,7 +89,7 @@ namespace ToolbarOfFunctions
             // 
             this.btnApply.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.btnApply.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnApply.Location = new System.Drawing.Point(436, 466);
+            this.btnApply.Location = new System.Drawing.Point(337, 409);
             this.btnApply.Name = "btnApply";
             this.btnApply.Size = new System.Drawing.Size(117, 27);
             this.btnApply.TabIndex = 38;
@@ -361,6 +363,7 @@ namespace ToolbarOfFunctions
             this.groupBox2.Controls.Add(this.chkDisplayTimeTaken);
             this.groupBox2.Controls.Add(this.chkProduceCompleteMessageBox);
             this.groupBox2.Controls.Add(this.chkProduceInitialMessageBox);
+            this.groupBox2.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.Location = new System.Drawing.Point(12, 12);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(295, 93);
@@ -372,6 +375,8 @@ namespace ToolbarOfFunctions
             // 
             this.chkDisplayTimeTaken.AutoSize = true;
             this.chkDisplayTimeTaken.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.chkDisplayTimeTaken.Checked = true;
+            this.chkDisplayTimeTaken.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkDisplayTimeTaken.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkDisplayTimeTaken.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkDisplayTimeTaken.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -399,6 +404,7 @@ namespace ToolbarOfFunctions
             this.chkProduceCompleteMessageBox.Text = "Display Process Completed Message?";
             this.chkProduceCompleteMessageBox.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.chkProduceCompleteMessageBox.UseVisualStyleBackColor = true;
+            this.chkProduceCompleteMessageBox.CheckedChanged += new System.EventHandler(this.chkProduceCompleteMessageBox_CheckedChanged);
             // 
             // chkProduceInitialMessageBox
             // 
@@ -419,6 +425,8 @@ namespace ToolbarOfFunctions
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.btnColourNotFoundBack);
+            this.groupBox3.Controls.Add(this.btnColourFoundBack);
             this.groupBox3.Controls.Add(this.btnColourFound);
             this.groupBox3.Controls.Add(this.btnColourNotFound);
             this.groupBox3.Controls.Add(this.txtColourNotFound);
@@ -429,39 +437,40 @@ namespace ToolbarOfFunctions
             this.groupBox3.Controls.Add(this.label5);
             this.groupBox3.Controls.Add(this.label1);
             this.groupBox3.Controls.Add(this.cmboCompareDifferences);
+            this.groupBox3.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox3.Location = new System.Drawing.Point(12, 111);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(483, 91);
+            this.groupBox3.Size = new System.Drawing.Size(483, 83);
             this.groupBox3.TabIndex = 42;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Compare Sheets Options";
             // 
             // btnColourFound
             // 
-            this.btnColourFound.Location = new System.Drawing.Point(386, 19);
+            this.btnColourFound.Location = new System.Drawing.Point(342, 20);
             this.btnColourFound.Name = "btnColourFound";
-            this.btnColourFound.Size = new System.Drawing.Size(71, 22);
+            this.btnColourFound.Size = new System.Drawing.Size(47, 22);
             this.btnColourFound.TabIndex = 35;
-            this.btnColourFound.Text = "Colour";
+            this.btnColourFound.Text = "Fore";
             this.btnColourFound.UseVisualStyleBackColor = true;
             this.btnColourFound.Click += new System.EventHandler(this.btnColourFound_Click);
             // 
             // btnColourNotFound
             // 
-            this.btnColourNotFound.Location = new System.Drawing.Point(386, 54);
+            this.btnColourNotFound.Location = new System.Drawing.Point(343, 47);
             this.btnColourNotFound.Name = "btnColourNotFound";
-            this.btnColourNotFound.Size = new System.Drawing.Size(71, 22);
+            this.btnColourNotFound.Size = new System.Drawing.Size(46, 22);
             this.btnColourNotFound.TabIndex = 34;
-            this.btnColourNotFound.Text = "Colour";
+            this.btnColourNotFound.Text = "Fore";
             this.btnColourNotFound.UseVisualStyleBackColor = true;
             this.btnColourNotFound.Click += new System.EventHandler(this.btnColourNotFound_Click);
             // 
             // txtColourNotFound
             // 
             this.txtColourNotFound.ForeColor = System.Drawing.Color.Blue;
-            this.txtColourNotFound.Location = new System.Drawing.Point(319, 53);
+            this.txtColourNotFound.Location = new System.Drawing.Point(282, 49);
             this.txtColourNotFound.Name = "txtColourNotFound";
-            this.txtColourNotFound.Size = new System.Drawing.Size(61, 23);
+            this.txtColourNotFound.Size = new System.Drawing.Size(59, 20);
             this.txtColourNotFound.TabIndex = 33;
             this.txtColourNotFound.Text = "Not Found";
             this.txtColourNotFound.Click += new System.EventHandler(this.btnColourNotFound_Click);
@@ -469,33 +478,33 @@ namespace ToolbarOfFunctions
             // txtColourFound
             // 
             this.txtColourFound.ForeColor = System.Drawing.Color.Red;
-            this.txtColourFound.Location = new System.Drawing.Point(319, 20);
+            this.txtColourFound.Location = new System.Drawing.Point(281, 19);
             this.txtColourFound.Name = "txtColourFound";
-            this.txtColourFound.Size = new System.Drawing.Size(59, 23);
+            this.txtColourFound.Size = new System.Drawing.Size(59, 20);
             this.txtColourFound.TabIndex = 32;
             this.txtColourFound.Text = "Found";
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(173, 53);
+            this.label9.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(173, 52);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(140, 30);
+            this.label9.Size = new System.Drawing.Size(103, 13);
             this.label9.TabIndex = 31;
-            this.label9.Text = "Colour to mark not \r\nfound items:";
+            this.label9.Text = "Not Found items:";
             this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label8
             // 
             this.label8.AutoSize = true;
             this.label8.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.label8.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(194, 15);
+            this.label8.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(196, 23);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(112, 30);
+            this.label8.Size = new System.Drawing.Size(79, 13);
             this.label8.TabIndex = 30;
-            this.label8.Text = "Colour to mark \r\nfound items:";
+            this.label8.Text = "Found items:";
             this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // numComparingStartRow
@@ -503,7 +512,7 @@ namespace ToolbarOfFunctions
             this.numComparingStartRow.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.numComparingStartRow.Location = new System.Drawing.Point(103, 50);
             this.numComparingStartRow.Name = "numComparingStartRow";
-            this.numComparingStartRow.Size = new System.Drawing.Size(64, 23);
+            this.numComparingStartRow.Size = new System.Drawing.Size(64, 20);
             this.numComparingStartRow.TabIndex = 29;
             this.numComparingStartRow.Value = new decimal(new int[] {
             2,
@@ -514,10 +523,10 @@ namespace ToolbarOfFunctions
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.Location = new System.Drawing.Point(6, 52);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(98, 15);
+            this.label5.Size = new System.Drawing.Size(85, 13);
             this.label5.TabIndex = 28;
             this.label5.Text = "Starting Row:";
             // 
@@ -533,20 +542,40 @@ namespace ToolbarOfFunctions
             // 
             // cmboCompareDifferences
             // 
-            this.cmboCompareDifferences.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmboCompareDifferences.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmboCompareDifferences.FormattingEnabled = true;
             this.cmboCompareDifferences.Location = new System.Drawing.Point(103, 20);
             this.cmboCompareDifferences.Name = "cmboCompareDifferences";
-            this.cmboCompareDifferences.Size = new System.Drawing.Size(64, 23);
+            this.cmboCompareDifferences.Size = new System.Drawing.Size(64, 21);
             this.cmboCompareDifferences.TabIndex = 26;
             this.cmboCompareDifferences.Text = "Colour";
             this.cmboCompareDifferences.SelectedIndexChanged += new System.EventHandler(this.cmboCompareDifferences_SelectedIndexChanged);
+            // 
+            // btnColourFoundBack
+            // 
+            this.btnColourFoundBack.Location = new System.Drawing.Point(395, 20);
+            this.btnColourFoundBack.Name = "btnColourFoundBack";
+            this.btnColourFoundBack.Size = new System.Drawing.Size(47, 22);
+            this.btnColourFoundBack.TabIndex = 36;
+            this.btnColourFoundBack.Text = "Back";
+            this.btnColourFoundBack.UseVisualStyleBackColor = true;
+            this.btnColourFoundBack.Click += new System.EventHandler(this.btnColourFoundBack_Click);
+            // 
+            // btnColourNotFoundBack
+            // 
+            this.btnColourNotFoundBack.Location = new System.Drawing.Point(395, 47);
+            this.btnColourNotFoundBack.Name = "btnColourNotFoundBack";
+            this.btnColourNotFoundBack.Size = new System.Drawing.Size(47, 22);
+            this.btnColourNotFoundBack.TabIndex = 37;
+            this.btnColourNotFoundBack.Text = "Back";
+            this.btnColourNotFoundBack.UseVisualStyleBackColor = true;
+            this.btnColourNotFoundBack.Click += new System.EventHandler(this.btnColourNotFoundBack_Click);
             // 
             // frmSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(715, 513);
+            this.ClientSize = new System.Drawing.Size(715, 474);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
@@ -638,5 +667,7 @@ namespace ToolbarOfFunctions
         public System.Windows.Forms.ComboBox cmboCompareDifferences;
         private System.Windows.Forms.Button btnColourNotFound;
         private System.Windows.Forms.Button btnColourFound;
+        private System.Windows.Forms.Button btnColourNotFoundBack;
+        private System.Windows.Forms.Button btnColourFoundBack;
     }
 }
