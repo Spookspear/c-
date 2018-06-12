@@ -246,54 +246,106 @@ namespace ToolbarOfFunctions
 
         internal void dealWithSingleDuplicates(Excel.Workbook Wkb)
         {
-
-            myData = SaveXML.LoadData();
-
             // load relevant details from form
-            // boolDisplayMessage = frmSettings.chkProduceMessageBox.Checked;
+            myData = SaveXML.LoadData();
 
             bool boolDisplayInitialMessage = myData.ProduceInitialMessageBox;
             bool boolDisplayCompleteMessage = myData.ProduceCompleteMessageBox;
+            bool booltimeTaken = myData.DisplayTimeTaken;
+            string strHighLightOrDeleteNew = myData.HighLightOrDeleteNew;
 
-
+            // colours for the highlight option
             Color clrFoundForeColour = ColorTranslator.FromHtml(myData.ColourFore_Found);
-            Color clrNotFoundForeColour = ColorTranslator.FromHtml(myData.ColourFore_NotFound);
-
+            // Color clrNotFoundForeColour = ColorTranslator.FromHtml(myData.ColourFore_NotFound);
             Color clrFoundBackColour = ColorTranslator.FromHtml(myData.ColourBack_Found);
-            Color clrNotFoundBackColour = ColorTranslator.FromHtml(myData.ColourBack_NotFound);
+            // Color clrNotFoundBackColour = ColorTranslator.FromHtml(myData.ColourBack_NotFound);
 
+            decimal intStartRow = myData.ComparingStartRow;
+            decimal intStartColumToCheck = myData.DupliateColumnToCheck;
 
             Excel.Worksheet Wks;   // get current sheet
 
             Wks = Wkb.ActiveSheet;
 
-            int intStartColumToCheck = 1;
-            string strColumnName = CommonExcelClasses.getExcelColumnName(intStartColumToCheck);
+            string strColumnName = CommonExcelClasses.getExcelColumnName((int)intStartColumToCheck);
 
             DialogResult dlgResult = DialogResult.Yes;
 
+            string strMessage;
+
             if (boolDisplayInitialMessage)
             {
-                dlgResult = MessageBox.Show("Duplicate Rows Check on column: " + strColumnName + " - worksheet name: " + Wks.Name, "Duplicate Rows Check", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+
+                strMessage = "Duplicate Rows Check on column: " + strColumnName + LF +
+                             " Worksheet name: " + Wks.Name + 
+                                        " and: " + strHighLightOrDeleteNew + " ones which are the same";
+
+                if (booltimeTaken)
+                {
+                    strMessage = strMessage + LF + " and display the time taken";
+                }
+
+                strMessage = strMessage + "?";
+
+                dlgResult = MessageBox.Show(strMessage, "Duplicate Rows Check", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+
             }
 
             if (dlgResult == DialogResult.Yes)
             {
-                int intStartRow = 1;
 
                 int intLastRow = CommonExcelClasses.getLastRow(Wks);
-                for (int intSourceRow = intStartRow; intSourceRow <= intLastRow; intSourceRow++)
-                {
-                    if (Wks.Cells[intSourceRow, intStartColumToCheck].Value == Wks.Cells[intSourceRow + 1, intStartColumToCheck].Value)
-                        colourCells(Wks, (intSourceRow + 1), "Error", 1, clrFoundForeColour, clrNotFoundBackColour,"TBD", false);
 
+                // start of loop
+                // for (decimal intSourceRow = intStartRow; intSourceRow <= intLastRow; intSourceRow++)
+
+                decimal intSourceRow = intStartRow;
+
+                while (!CommonExcelClasses.isEmptyCell(Wks.Cells[intSourceRow, intStartColumToCheck]))
+                {
+                    // hightlight, delete or clear?
+                    if (Wks.Cells[intSourceRow, intStartColumToCheck].Value == Wks.Cells[intSourceRow + 1, intStartColumToCheck].Value )
+                    {
+                        while (Wks.Cells[intSourceRow, intStartColumToCheck].Value == Wks.Cells[intSourceRow + 1, intStartColumToCheck].Value)
+                        {
+                            if (strHighLightOrDeleteNew == "Highlight")
+                            {
+                                colourCells(Wks, (intSourceRow + 1), "Error", 1, clrFoundForeColour, clrFoundBackColour, false);
+                                intSourceRow++;
+                            }
+                            else if (strHighLightOrDeleteNew == "Delete")
+                            {
+                                Wks.Rows[intSourceRow].Delete();
+                            }
+                            else
+                            {
+                                colourCells(Wks, (intSourceRow ), strHighLightOrDeleteNew, 1, clrFoundForeColour, clrFoundBackColour, false);
+                                intSourceRow++;
+                            }
+
+                            if (CommonExcelClasses.isEmptyCell(Wks.Cells[intSourceRow+1, intStartColumToCheck]))
+                                break;                              
+
+                        }
+
+                        
+                    }
+
+                    intSourceRow++;
                 }
+
+                //}
 
 
                 if (boolDisplayCompleteMessage)
                     CommonExcelClasses.MsgBox("Complete ...");
 
             }
+
+            // free the system - 1gvb1 - not tested
+            Marshal.ReleaseComObject(Wks);
+            Marshal.ReleaseComObject(Wkb);
+
         }
 
 
@@ -402,9 +454,9 @@ namespace ToolbarOfFunctions
 
                             // Score system = if all the same then can blue it
                             if (intColScore == intNoCheckCols)
-                                colourCells(Wks1, intSourceRow, "OK", intNoCheckCols, clrColourFore_Found, clrColourBack_Found, strCompareOrColour, boolTestCode);
+                                colourCells(Wks1, intSourceRow, strCompareOrColour, intNoCheckCols, clrColourFore_Found, clrColourBack_Found, boolTestCode);
                             else
-                                colourCells(Wks1, intSourceRow, "Error", intNoCheckCols, clrColourFore_NotFound, clrColourBack_NotFound, strCompareOrColour, boolTestCode);
+                                colourCells(Wks1, intSourceRow, "Error", intNoCheckCols, clrColourFore_NotFound, clrColourBack_NotFound, boolTestCode);
 
                             intColScore = 0;
 
@@ -453,7 +505,7 @@ namespace ToolbarOfFunctions
             }
         }
 
-        public void colourCells(Excel.Worksheet Wks, int intSourceRow, string strDoWhat, int intNoCheckCols, Color clrWhichColourFore, Color clrWhichColourBack, string strCompareOrColour, bool boolTestCode)
+        public void colourCells(Excel.Worksheet Wks, decimal intSourceRow, string strDoWhat, decimal intNoCheckCols, Color clrWhichColourFore, Color clrWhichColourBack, bool boolTestCode)
         {
             int intStartColumToCheck = 1;
 
@@ -462,7 +514,7 @@ namespace ToolbarOfFunctions
             for (int intColCount = intStartColumToCheck; intColCount <= intNoCheckCols; intColCount++)
             {
 
-                if (strDoWhat == "Error" || strCompareOrColour == "Colour")
+                if (strDoWhat == "Error" || strDoWhat == "Colour")
                 {
                     xlCell = Wks.Cells[intSourceRow, intColCount];
                     xlCell.Font.Color = ColorTranslator.ToOle(clrWhichColourFore);
@@ -492,13 +544,18 @@ namespace ToolbarOfFunctions
             Wks = Wkb.ActiveSheet;
 
             string strResultsCol = "F";
-
             Stopwatch sw = new Stopwatch();
 
-            // record times
-            Wks.Range[strResultsCol + "1"].Value = DateTime.Now;
+            myData = SaveXML.LoadData();
 
-            sw.Start();
+            bool boolRecordTimes = myData.RecordTimes;
+
+            if (boolRecordTimes)
+            {
+                // record times
+                Wks.Range[strResultsCol + "1"].Value = DateTime.Now;
+                sw.Start();
+            }
 
             if (Wks.Name != "InternalParameters")
             {
@@ -523,10 +580,15 @@ namespace ToolbarOfFunctions
                 CommonExcelClasses.MsgBox("Cannot run in worksheet: InternalParameters", "Error");
             }
 
-            sw.Stop();
+            if (boolRecordTimes)
+            {
+                sw.Stop();
 
-            Wks.Range[strResultsCol + "2"].Value = DateTime.Now;
-            Wks.Range[strResultsCol + "3"].Value = sw.Elapsed.Milliseconds;
+                Wks.Range[strResultsCol + "2"].Value = DateTime.Now;
+                Wks.Range[strResultsCol + "3"].Value = sw.Elapsed.Milliseconds;
+            }
+
+
             CommonExcelClasses.MsgBox("Finshed ...");
 
         }

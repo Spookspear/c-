@@ -1,0 +1,13 @@
+D:\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\bin\Release\ToolbarOfFunctions.dll
+D:\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\bin\Release\ToolbarOfFunctions.pdb
+D:\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\bin\Release\ToolbarOfFunctions.dll.manifest
+D:\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\bin\Release\ToolbarOfFunctions.vsto
+D:\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\bin\Release\Microsoft.Office.Tools.Common.v4.0.Utilities.dll
+D:\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\obj\Release\ToolbarOfFunctions.frmSettings.resources
+D:\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\obj\Release\ToolbarOfFunctions.Properties.Resources.resources
+D:\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\obj\Release\ToolbarOfFunctions.ExcelRibbon.resources
+D:\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\obj\Release\ToolbarOfFunctions.csproj.GenerateResource.cache
+D:\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\obj\Release\ToolbarOfFunctions.csproj.CoreCompileInputs.cache
+D:\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\obj\Release\ToolbarOfFunctions.csproj.CopyComplete
+D:\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\obj\Release\ToolbarOfFunctions.dll
+D:\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\obj\Release\ToolbarOfFunctions.pdb

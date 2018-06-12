@@ -39,6 +39,7 @@ namespace ToolbarOfFunctions
         public string ColourFoundText { get; set; }
         public string ColourNotFoundText { get; set; }
 
+
         public string ColourFore_Found { get; set; }
 
         public string ColourBack_Found { get; set; }
@@ -59,7 +60,8 @@ namespace ToolbarOfFunctions
 
         public bool TestCode { get; set; }
 
-        
+        public bool RecordTimes { get; set; }
+
 
     }
 

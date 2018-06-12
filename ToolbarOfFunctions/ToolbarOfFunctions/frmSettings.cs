@@ -68,16 +68,21 @@ namespace ToolbarOfFunctions
                 {
                     chkLBHighLightOrDelete.SetItemChecked(0, true);
                 }
-                else
+                else if (myData.HighLightOrDeleteNew == "Delete")
                 {
                     chkLBHighLightOrDelete.SetItemChecked(1, true);
                 }
+                else if (myData.HighLightOrDeleteNew == "Clear")
+                {
+                    chkLBHighLightOrDelete.SetItemChecked(2, true);
+                }
+
             }
 
             // -New eof
 
 
-            cmboHighLightOrDelete.Text = myData.HighLightOrDelete;
+            // cmboHighLightOrDelete.Text = myData.HighLightOrDelete;
             chkDisplayTimeTaken.Checked = myData.DisplayTimeTaken;
 
             chkProduceInitialMessageBox.Checked = myData.ProduceInitialMessageBox;
@@ -91,8 +96,8 @@ namespace ToolbarOfFunctions
             numComparingStartRow.Value = myData.ComparingStartRow;
             numDupliateColumnToCheck.Value = myData.DupliateColumnToCheck;
 
-            txtColourFound.Text = myData.ColourFoundText;
-            txtColourNotFound.Text = myData.ColourNotFoundText;
+            // txtColourFound.Text = myData.ColourFoundText;
+            // txtColourNotFound.Text = myData.ColourNotFoundText;
 
             txtColourFound.ForeColor = ColorTranslator.FromHtml(myData.ColourFore_Found);
             txtColourNotFound.ForeColor = ColorTranslator.FromHtml(myData.ColourFore_NotFound);
@@ -112,6 +117,8 @@ namespace ToolbarOfFunctions
 
             chkTestCode.Checked = myData.TestCode;
 
+            chkRecordTimes.Checked = myData.RecordTimes;
+
             /*
             if (cmboCompareDifferences.Items.Count != 2)
             {
@@ -119,7 +126,7 @@ namespace ToolbarOfFunctions
                 cmboCompareDifferences.Items.Add("Clear");
                 // cmboCompareDifferences.SelectedIndex = 0;
             }
-            */
+            
 
 
             if (cmboHighLightOrDelete.Items.Count != 2)
@@ -128,7 +135,7 @@ namespace ToolbarOfFunctions
                 cmboHighLightOrDelete.Items.Add("Delete");
                 // cmboHighLightOrDelete.SelectedIndex = 0;
             }
-
+            */
 
             if (cmboDelModeAorBorC.Items.Count != 3)
             {
@@ -151,7 +158,7 @@ namespace ToolbarOfFunctions
             // myData.CompareOrColour = cmboCompareDifferences.Text;
             myData.CompareOrColourNew = chkLBColorOrCompare.Text;               // new item
 
-            myData.HighLightOrDelete = cmboHighLightOrDelete.Text;
+            // myData.HighLightOrDelete = cmboHighLightOrDelete.Text;
             myData.HighLightOrDeleteNew = chkLBHighLightOrDelete.Text;          // new item
 
             myData.DisplayTimeTaken = chkDisplayTimeTaken.Checked;
@@ -167,8 +174,8 @@ namespace ToolbarOfFunctions
             myData.ComparingStartRow = numComparingStartRow.Value;
             myData.DupliateColumnToCheck = numDupliateColumnToCheck.Value;
 
-            myData.ColourFoundText = txtColourFound.Text;
-            myData.ColourNotFoundText = txtColourNotFound.Text;
+            // myData.ColourFoundText = txtColourFound.Text;
+            // myData.ColourNotFoundText = txtColourNotFound.Text;
 
             myData.ColourFore_Found = ColorTranslator.ToHtml(txtColourFound.ForeColor);
             myData.ColourFore_NotFound = ColorTranslator.ToHtml(txtColourNotFound.ForeColor);
@@ -187,6 +194,7 @@ namespace ToolbarOfFunctions
 
             //---- misc
             myData.TestCode = chkTestCode.Checked;
+            myData.RecordTimes = chkRecordTimes.Checked;
 
             SaveXML.SaveData(myData);
 
@@ -196,27 +204,69 @@ namespace ToolbarOfFunctions
 
         private void btnColourNotFound_Click(object sender, EventArgs e)
         {
+
+            // myData = SaveXML.LoadData();
+            // colorDialog1.Color = ColorTranslator.FromHtml(myData.ColourFore_NotFound);
+
+            colorDialog1.Color = txtColourNotFound.ForeColor;
+
             if (colorDialog1.ShowDialog() == DialogResult.OK)
             {
                 txtColourNotFound.ForeColor = colorDialog1.Color;
 
                 // if (colorDialog1.Color.IsNamedColor)                {                }
-                txtColourNotFound.Text = colorDialog1.Color.Name;
+                // txtColourNotFound.Text = colorDialog1.Color.Name;
             }
 
         }
 
         private void btnColourFound_Click(object sender, EventArgs e)
         {
+            // myData = SaveXML.LoadData();
+            // colorDialog1.Color = ColorTranslator.FromHtml(myData.ColourFore_Found);
+
+            colorDialog1.Color = txtColourFound.ForeColor;
+
             if (colorDialog1.ShowDialog() == DialogResult.OK)
             {
                 txtColourFound.ForeColor = colorDialog1.Color;
-                txtColourFound.Text = colorDialog1.Color.Name;
+                // txtColourFound.Text = colorDialog1.Color.Name;
                 // if (colorDialog1.Color.IsNamedColor)                {                }
             }
 
 
         }
+
+
+        private void btnColourFoundBack_Click(object sender, EventArgs e)
+        {
+
+            // myData = SaveXML.LoadData();
+            // colorDialog1.Color = ColorTranslator.FromHtml(myData.ColourBack_Found);
+
+            colorDialog1.Color = txtColourFound.BackColor;
+
+            if (colorDialog1.ShowDialog() == DialogResult.OK)
+            {
+                txtColourFound.BackColor = colorDialog1.Color;
+            }
+
+        }
+
+        private void btnColourNotFoundBack_Click(object sender, EventArgs e)
+        {
+            // myData = SaveXML.LoadData();
+            // colorDialog1.Color = ColorTranslator.FromHtml(myData.ColourBack_NotFound);
+
+            colorDialog1.Color = txtColourNotFound.BackColor;
+
+            if (colorDialog1.ShowDialog() == DialogResult.OK)
+            {
+                txtColourNotFound.BackColor = colorDialog1.Color;
+            }
+
+        }
+
 
         private void cmboCompareDifferences_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -240,6 +290,8 @@ namespace ToolbarOfFunctions
             txtColourNotFound.Enabled = boolEnabled;
             btnColourNotFound.Enabled = boolEnabled;
 
+            btnColourFoundBack.Enabled = boolEnabled;
+            btnColourNotFoundBack.Enabled = boolEnabled;
 
         }
 
@@ -249,23 +301,7 @@ namespace ToolbarOfFunctions
             chkDisplayTimeTaken.Checked = chkProduceCompleteMessageBox.Checked;
         }
 
-        private void btnColourFoundBack_Click(object sender, EventArgs e)
-        {
-            if (colorDialog1.ShowDialog() == DialogResult.OK)
-            {
-                txtColourFound.BackColor = colorDialog1.Color;
-            }
 
-        }
-
-        private void btnColourNotFoundBack_Click(object sender, EventArgs e)
-        {
-            if (colorDialog1.ShowDialog() == DialogResult.OK)
-            {
-                txtColourNotFound.BackColor = colorDialog1.Color;
-            }
-
-        }
 
         private void chkLBColorOrCompare_ItemCheck(object sender, ItemCheckEventArgs e)
         {
@@ -315,6 +351,8 @@ namespace ToolbarOfFunctions
 
 
         // ----------
+
+
 
 
     }

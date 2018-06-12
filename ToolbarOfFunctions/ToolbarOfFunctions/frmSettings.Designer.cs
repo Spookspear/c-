@@ -42,16 +42,10 @@ namespace ToolbarOfFunctions
             this.chkTimeSheetGetRowNo = new System.Windows.Forms.CheckBox();
             this.numTimeSheetRowNo = new System.Windows.Forms.NumericUpDown();
             this.label11 = new System.Windows.Forms.Label();
-            this.numDupliateColumnToCheck = new System.Windows.Forms.NumericUpDown();
-            this.numNoOfColumnsToCheck = new System.Windows.Forms.NumericUpDown();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
             this.numHighlightRowsOver = new System.Windows.Forms.NumericUpDown();
             this.label10 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.cmboDelModeAorBorC = new System.Windows.Forms.ComboBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.cmboHighLightOrDelete = new System.Windows.Forms.ComboBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.chkHideText = new System.Windows.Forms.CheckBox();
             this.chkLargeButtons = new System.Windows.Forms.CheckBox();
@@ -60,6 +54,7 @@ namespace ToolbarOfFunctions
             this.chkProduceCompleteMessageBox = new System.Windows.Forms.CheckBox();
             this.chkProduceInitialMessageBox = new System.Windows.Forms.CheckBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.chkLBColorOrCompare = new System.Windows.Forms.CheckedListBox();
             this.btnColourNotFoundBack = new System.Windows.Forms.Button();
             this.btnColourFoundBack = new System.Windows.Forms.Button();
             this.btnColourFound = new System.Windows.Forms.Button();
@@ -72,26 +67,33 @@ namespace ToolbarOfFunctions
             this.label5 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.chkTestCode = new System.Windows.Forms.CheckBox();
-            this.chkLBColorOrCompare = new System.Windows.Forms.CheckedListBox();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.numDupliateColumnToCheck = new System.Windows.Forms.NumericUpDown();
+            this.label6 = new System.Windows.Forms.Label();
+            this.numNoOfColumnsToCheck = new System.Windows.Forms.NumericUpDown();
+            this.label4 = new System.Windows.Forms.Label();
             this.chkLBHighLightOrDelete = new System.Windows.Forms.CheckedListBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.chkRecordTimes = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.numColPingRead)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numColPingWrite)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numPingSheetRowNo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numTimeSheetRowNo)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numDupliateColumnToCheck)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numNoOfColumnsToCheck)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numHighlightRowsOver)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numComparingStartRow)).BeginInit();
+            this.groupBox4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numDupliateColumnToCheck)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numNoOfColumnsToCheck)).BeginInit();
             this.SuspendLayout();
             // 
             // btnApply
             // 
             this.btnApply.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.btnApply.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnApply.Location = new System.Drawing.Point(289, 354);
+            this.btnApply.Location = new System.Drawing.Point(288, 540);
             this.btnApply.Name = "btnApply";
             this.btnApply.Size = new System.Drawing.Size(100, 23);
             this.btnApply.TabIndex = 38;
@@ -101,7 +103,7 @@ namespace ToolbarOfFunctions
             // 
             // numColPingRead
             // 
-            this.numColPingRead.Location = new System.Drawing.Point(188, 328);
+            this.numColPingRead.Location = new System.Drawing.Point(187, 560);
             this.numColPingRead.Name = "numColPingRead";
             this.numColPingRead.Size = new System.Drawing.Size(52, 20);
             this.numColPingRead.TabIndex = 37;
@@ -113,7 +115,7 @@ namespace ToolbarOfFunctions
             // 
             // numColPingWrite
             // 
-            this.numColPingWrite.Location = new System.Drawing.Point(188, 353);
+            this.numColPingWrite.Location = new System.Drawing.Point(187, 585);
             this.numColPingWrite.Name = "numColPingWrite";
             this.numColPingWrite.Size = new System.Drawing.Size(52, 20);
             this.numColPingWrite.TabIndex = 36;
@@ -125,7 +127,7 @@ namespace ToolbarOfFunctions
             // 
             // numPingSheetRowNo
             // 
-            this.numPingSheetRowNo.Location = new System.Drawing.Point(188, 304);
+            this.numPingSheetRowNo.Location = new System.Drawing.Point(187, 490);
             this.numPingSheetRowNo.Name = "numPingSheetRowNo";
             this.numPingSheetRowNo.Size = new System.Drawing.Size(52, 20);
             this.numPingSheetRowNo.TabIndex = 35;
@@ -139,7 +141,7 @@ namespace ToolbarOfFunctions
             // 
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(69, 354);
+            this.label12.Location = new System.Drawing.Point(68, 586);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(115, 13);
             this.label12.TabIndex = 34;
@@ -149,7 +151,7 @@ namespace ToolbarOfFunctions
             // 
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Consolas", 8.25F);
-            this.label13.Location = new System.Drawing.Point(76, 329);
+            this.label13.Location = new System.Drawing.Point(75, 561);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(109, 13);
             this.label13.TabIndex = 33;
@@ -159,7 +161,7 @@ namespace ToolbarOfFunctions
             // 
             this.label14.AutoSize = true;
             this.label14.Font = new System.Drawing.Font("Consolas", 8.25F);
-            this.label14.Location = new System.Drawing.Point(117, 306);
+            this.label14.Location = new System.Drawing.Point(116, 492);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(67, 13);
             this.label14.TabIndex = 32;
@@ -172,7 +174,7 @@ namespace ToolbarOfFunctions
             this.chkTimeSheetGetRowNo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkTimeSheetGetRowNo.Font = new System.Drawing.Font("Consolas", 8.25F);
             this.chkTimeSheetGetRowNo.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.chkTimeSheetGetRowNo.Location = new System.Drawing.Point(81, 278);
+            this.chkTimeSheetGetRowNo.Location = new System.Drawing.Point(80, 464);
             this.chkTimeSheetGetRowNo.Name = "chkTimeSheetGetRowNo";
             this.chkTimeSheetGetRowNo.Size = new System.Drawing.Size(119, 17);
             this.chkTimeSheetGetRowNo.TabIndex = 28;
@@ -182,7 +184,7 @@ namespace ToolbarOfFunctions
             // 
             // numTimeSheetRowNo
             // 
-            this.numTimeSheetRowNo.Location = new System.Drawing.Point(188, 253);
+            this.numTimeSheetRowNo.Location = new System.Drawing.Point(187, 439);
             this.numTimeSheetRowNo.Maximum = new decimal(new int[] {
             300000,
             0,
@@ -201,59 +203,15 @@ namespace ToolbarOfFunctions
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Consolas", 8.25F);
-            this.label11.Location = new System.Drawing.Point(36, 255);
+            this.label11.Location = new System.Drawing.Point(35, 441);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(145, 13);
             this.label11.TabIndex = 26;
             this.label11.Text = "Timesheet Row Start No:";
             // 
-            // numDupliateColumnToCheck
-            // 
-            this.numDupliateColumnToCheck.Location = new System.Drawing.Point(453, 283);
-            this.numDupliateColumnToCheck.Name = "numDupliateColumnToCheck";
-            this.numDupliateColumnToCheck.Size = new System.Drawing.Size(52, 20);
-            this.numDupliateColumnToCheck.TabIndex = 18;
-            this.numDupliateColumnToCheck.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            // 
-            // numNoOfColumnsToCheck
-            // 
-            this.numNoOfColumnsToCheck.Location = new System.Drawing.Point(453, 228);
-            this.numNoOfColumnsToCheck.Name = "numNoOfColumnsToCheck";
-            this.numNoOfColumnsToCheck.Size = new System.Drawing.Size(52, 20);
-            this.numNoOfColumnsToCheck.TabIndex = 17;
-            this.numNoOfColumnsToCheck.Value = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Consolas", 8.25F);
-            this.label6.Location = new System.Drawing.Point(267, 285);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(181, 13);
-            this.label6.TabIndex = 16;
-            this.label6.Text = "Duplicate Check Start Column:";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Consolas", 8.25F);
-            this.label4.Location = new System.Drawing.Point(301, 230);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(145, 13);
-            this.label4.TabIndex = 14;
-            this.label4.Text = "No Of Columns To Check:";
-            // 
             // numHighlightRowsOver
             // 
-            this.numHighlightRowsOver.Location = new System.Drawing.Point(188, 228);
+            this.numHighlightRowsOver.Location = new System.Drawing.Point(187, 414);
             this.numHighlightRowsOver.Maximum = new decimal(new int[] {
             1024,
             0,
@@ -272,7 +230,7 @@ namespace ToolbarOfFunctions
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(54, 228);
+            this.label10.Location = new System.Drawing.Point(53, 414);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(145, 13);
             this.label10.TabIndex = 33;
@@ -282,7 +240,7 @@ namespace ToolbarOfFunctions
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(22, 197);
+            this.label7.Location = new System.Drawing.Point(33, 305);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(187, 13);
             this.label7.TabIndex = 32;
@@ -292,29 +250,10 @@ namespace ToolbarOfFunctions
             // 
             this.cmboDelModeAorBorC.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmboDelModeAorBorC.FormattingEnabled = true;
-            this.cmboDelModeAorBorC.Location = new System.Drawing.Point(215, 192);
+            this.cmboDelModeAorBorC.Location = new System.Drawing.Point(226, 300);
             this.cmboDelModeAorBorC.Name = "cmboDelModeAorBorC";
             this.cmboDelModeAorBorC.Size = new System.Drawing.Size(139, 23);
             this.cmboDelModeAorBorC.TabIndex = 31;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(260, 263);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(217, 13);
-            this.label3.TabIndex = 29;
-            this.label3.Text = "Highlight or Delete Duplicate rows:";
-            // 
-            // cmboHighLightOrDelete
-            // 
-            this.cmboHighLightOrDelete.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmboHighLightOrDelete.FormattingEnabled = true;
-            this.cmboHighLightOrDelete.Location = new System.Drawing.Point(483, 255);
-            this.cmboHighLightOrDelete.Name = "cmboHighLightOrDelete";
-            this.cmboHighLightOrDelete.Size = new System.Drawing.Size(139, 23);
-            this.cmboHighLightOrDelete.TabIndex = 28;
             // 
             // groupBox1
             // 
@@ -442,14 +381,32 @@ namespace ToolbarOfFunctions
             this.groupBox3.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox3.Location = new System.Drawing.Point(10, 96);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(414, 72);
+            this.groupBox3.Size = new System.Drawing.Size(414, 90);
             this.groupBox3.TabIndex = 42;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Compare Sheets Options";
             // 
+            // chkLBColorOrCompare
+            // 
+            this.chkLBColorOrCompare.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.chkLBColorOrCompare.CheckOnClick = true;
+            this.chkLBColorOrCompare.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkLBColorOrCompare.FormattingEnabled = true;
+            this.chkLBColorOrCompare.Items.AddRange(new object[] {
+            "Colour",
+            "Clear"});
+            this.chkLBColorOrCompare.Location = new System.Drawing.Point(99, 16);
+            this.chkLBColorOrCompare.Name = "chkLBColorOrCompare";
+            this.chkLBColorOrCompare.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.chkLBColorOrCompare.Size = new System.Drawing.Size(63, 32);
+            this.chkLBColorOrCompare.TabIndex = 43;
+            this.chkLBColorOrCompare.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.chkLBColorOrCompare_ItemCheck);
+            this.chkLBColorOrCompare.SelectedIndexChanged += new System.EventHandler(this.chkLBColorOrCompare_SelectedIndexChanged_1);
+            this.chkLBColorOrCompare.Leave += new System.EventHandler(this.chkLBColorOrCompare_Leave);
+            // 
             // btnColourNotFoundBack
             // 
-            this.btnColourNotFoundBack.Location = new System.Drawing.Point(338, 45);
+            this.btnColourNotFoundBack.Location = new System.Drawing.Point(338, 50);
             this.btnColourNotFoundBack.Name = "btnColourNotFoundBack";
             this.btnColourNotFoundBack.Size = new System.Drawing.Size(40, 19);
             this.btnColourNotFoundBack.TabIndex = 37;
@@ -459,7 +416,7 @@ namespace ToolbarOfFunctions
             // 
             // btnColourFoundBack
             // 
-            this.btnColourFoundBack.Location = new System.Drawing.Point(339, 17);
+            this.btnColourFoundBack.Location = new System.Drawing.Point(339, 21);
             this.btnColourFoundBack.Name = "btnColourFoundBack";
             this.btnColourFoundBack.Size = new System.Drawing.Size(40, 19);
             this.btnColourFoundBack.TabIndex = 36;
@@ -469,7 +426,7 @@ namespace ToolbarOfFunctions
             // 
             // btnColourFound
             // 
-            this.btnColourFound.Location = new System.Drawing.Point(293, 17);
+            this.btnColourFound.Location = new System.Drawing.Point(293, 21);
             this.btnColourFound.Name = "btnColourFound";
             this.btnColourFound.Size = new System.Drawing.Size(40, 19);
             this.btnColourFound.TabIndex = 35;
@@ -479,7 +436,7 @@ namespace ToolbarOfFunctions
             // 
             // btnColourNotFound
             // 
-            this.btnColourNotFound.Location = new System.Drawing.Point(293, 45);
+            this.btnColourNotFound.Location = new System.Drawing.Point(293, 50);
             this.btnColourNotFound.Name = "btnColourNotFound";
             this.btnColourNotFound.Size = new System.Drawing.Size(39, 19);
             this.btnColourNotFound.TabIndex = 34;
@@ -489,28 +446,37 @@ namespace ToolbarOfFunctions
             // 
             // txtColourNotFound
             // 
+            this.txtColourNotFound.BackColor = System.Drawing.SystemColors.Window;
+            this.txtColourNotFound.Enabled = false;
             this.txtColourNotFound.ForeColor = System.Drawing.Color.Blue;
-            this.txtColourNotFound.Location = new System.Drawing.Point(217, 46);
+            this.txtColourNotFound.Location = new System.Drawing.Point(217, 49);
             this.txtColourNotFound.Name = "txtColourNotFound";
+            this.txtColourNotFound.ReadOnly = true;
             this.txtColourNotFound.Size = new System.Drawing.Size(70, 20);
             this.txtColourNotFound.TabIndex = 33;
             this.txtColourNotFound.Text = "Not Found";
+            this.txtColourNotFound.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtColourNotFound.Click += new System.EventHandler(this.btnColourNotFound_Click);
             // 
             // txtColourFound
             // 
+            this.txtColourFound.BackColor = System.Drawing.SystemColors.Window;
+            this.txtColourFound.Enabled = false;
             this.txtColourFound.ForeColor = System.Drawing.Color.Red;
-            this.txtColourFound.Location = new System.Drawing.Point(217, 16);
+            this.txtColourFound.Location = new System.Drawing.Point(217, 20);
             this.txtColourFound.Name = "txtColourFound";
+            this.txtColourFound.ReadOnly = true;
             this.txtColourFound.Size = new System.Drawing.Size(70, 20);
             this.txtColourFound.TabIndex = 32;
             this.txtColourFound.Text = "Found";
+            this.txtColourFound.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtColourFound.Click += new System.EventHandler(this.btnColourFound_Click);
             // 
             // label9
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(168, 49);
+            this.label9.Location = new System.Drawing.Point(168, 53);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(43, 13);
             this.label9.TabIndex = 31;
@@ -520,9 +486,8 @@ namespace ToolbarOfFunctions
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.label8.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(168, 20);
+            this.label8.Location = new System.Drawing.Point(168, 24);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(43, 13);
             this.label8.TabIndex = 30;
@@ -532,9 +497,9 @@ namespace ToolbarOfFunctions
             // numComparingStartRow
             // 
             this.numComparingStartRow.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.numComparingStartRow.Location = new System.Drawing.Point(99, 48);
+            this.numComparingStartRow.Location = new System.Drawing.Point(99, 56);
             this.numComparingStartRow.Name = "numComparingStartRow";
-            this.numComparingStartRow.Size = new System.Drawing.Size(48, 20);
+            this.numComparingStartRow.Size = new System.Drawing.Size(63, 20);
             this.numComparingStartRow.TabIndex = 29;
             this.numComparingStartRow.Value = new decimal(new int[] {
             2,
@@ -546,7 +511,7 @@ namespace ToolbarOfFunctions
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(9, 48);
+            this.label5.Location = new System.Drawing.Point(9, 56);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(85, 13);
             this.label5.TabIndex = 28;
@@ -569,7 +534,7 @@ namespace ToolbarOfFunctions
             this.chkTestCode.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkTestCode.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkTestCode.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.chkTestCode.Location = new System.Drawing.Point(483, 29);
+            this.chkTestCode.Location = new System.Drawing.Point(288, 379);
             this.chkTestCode.Name = "chkTestCode";
             this.chkTestCode.Size = new System.Drawing.Size(77, 17);
             this.chkTestCode.TabIndex = 39;
@@ -577,45 +542,116 @@ namespace ToolbarOfFunctions
             this.chkTestCode.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.chkTestCode.UseVisualStyleBackColor = true;
             // 
-            // chkLBColorOrCompare
+            // groupBox4
             // 
-            this.chkLBColorOrCompare.CheckOnClick = true;
-            this.chkLBColorOrCompare.Font = new System.Drawing.Font("Consolas", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkLBColorOrCompare.FormattingEnabled = true;
-            this.chkLBColorOrCompare.Items.AddRange(new object[] {
-            "Colour",
-            "Clear"});
-            this.chkLBColorOrCompare.Location = new System.Drawing.Point(99, 16);
-            this.chkLBColorOrCompare.Name = "chkLBColorOrCompare";
-            this.chkLBColorOrCompare.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.chkLBColorOrCompare.Size = new System.Drawing.Size(48, 28);
-            this.chkLBColorOrCompare.TabIndex = 43;
-            this.chkLBColorOrCompare.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.chkLBColorOrCompare_ItemCheck);
-            this.chkLBColorOrCompare.SelectedIndexChanged += new System.EventHandler(this.chkLBColorOrCompare_SelectedIndexChanged_1);
-            this.chkLBColorOrCompare.Leave += new System.EventHandler(this.chkLBColorOrCompare_Leave);
+            this.groupBox4.Controls.Add(this.numDupliateColumnToCheck);
+            this.groupBox4.Controls.Add(this.label6);
+            this.groupBox4.Controls.Add(this.numNoOfColumnsToCheck);
+            this.groupBox4.Controls.Add(this.label4);
+            this.groupBox4.Controls.Add(this.chkLBHighLightOrDelete);
+            this.groupBox4.Controls.Add(this.label3);
+            this.groupBox4.Location = new System.Drawing.Point(17, 201);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(406, 93);
+            this.groupBox4.TabIndex = 45;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Duplicate Rows Options";
+            // 
+            // numDupliateColumnToCheck
+            // 
+            this.numDupliateColumnToCheck.Location = new System.Drawing.Point(320, 19);
+            this.numDupliateColumnToCheck.Name = "numDupliateColumnToCheck";
+            this.numDupliateColumnToCheck.Size = new System.Drawing.Size(52, 20);
+            this.numDupliateColumnToCheck.TabIndex = 52;
+            this.numDupliateColumnToCheck.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Consolas", 8.25F);
+            this.label6.Location = new System.Drawing.Point(229, 21);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(85, 13);
+            this.label6.TabIndex = 51;
+            this.label6.Text = "Start Column:";
+            // 
+            // numNoOfColumnsToCheck
+            // 
+            this.numNoOfColumnsToCheck.Location = new System.Drawing.Point(321, 49);
+            this.numNoOfColumnsToCheck.Name = "numNoOfColumnsToCheck";
+            this.numNoOfColumnsToCheck.Size = new System.Drawing.Size(52, 20);
+            this.numNoOfColumnsToCheck.TabIndex = 50;
+            this.numNoOfColumnsToCheck.Value = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Consolas", 8.25F);
+            this.label4.Location = new System.Drawing.Point(169, 51);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(145, 13);
+            this.label4.TabIndex = 49;
+            this.label4.Text = "No Of Columns To Check:";
             // 
             // chkLBHighLightOrDelete
             // 
+            this.chkLBHighLightOrDelete.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.chkLBHighLightOrDelete.CheckOnClick = true;
-            this.chkLBHighLightOrDelete.Font = new System.Drawing.Font("Consolas", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkLBHighLightOrDelete.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkLBHighLightOrDelete.FormattingEnabled = true;
             this.chkLBHighLightOrDelete.Items.AddRange(new object[] {
             "Highlight",
-            "Delete"});
-            this.chkLBHighLightOrDelete.Location = new System.Drawing.Point(628, 255);
+            "Delete",
+            "Clear"});
+            this.chkLBHighLightOrDelete.Location = new System.Drawing.Point(75, 26);
             this.chkLBHighLightOrDelete.Name = "chkLBHighLightOrDelete";
             this.chkLBHighLightOrDelete.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.chkLBHighLightOrDelete.Size = new System.Drawing.Size(61, 28);
-            this.chkLBHighLightOrDelete.TabIndex = 44;
+            this.chkLBHighLightOrDelete.Size = new System.Drawing.Size(80, 47);
+            this.chkLBHighLightOrDelete.TabIndex = 46;
             this.chkLBHighLightOrDelete.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.chkLBHighLightOrDelete_ItemCheck);
             this.chkLBHighLightOrDelete.Leave += new System.EventHandler(this.chkLBHighLightOrDelete_Leave);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(18, 26);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(55, 13);
+            this.label3.TabIndex = 45;
+            this.label3.Text = "Do what?";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // chkRecordTimes
+            // 
+            this.chkRecordTimes.AutoSize = true;
+            this.chkRecordTimes.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.chkRecordTimes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.chkRecordTimes.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkRecordTimes.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.chkRecordTimes.Location = new System.Drawing.Point(288, 342);
+            this.chkRecordTimes.Name = "chkRecordTimes";
+            this.chkRecordTimes.Size = new System.Drawing.Size(95, 17);
+            this.chkRecordTimes.TabIndex = 46;
+            this.chkRecordTimes.Text = "Record Times";
+            this.chkRecordTimes.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.chkRecordTimes.UseVisualStyleBackColor = true;
             // 
             // frmSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(712, 431);
-            this.Controls.Add(this.chkLBHighLightOrDelete);
+            this.ClientSize = new System.Drawing.Size(481, 677);
+            this.Controls.Add(this.chkRecordTimes);
+            this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.chkTestCode);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
@@ -632,14 +668,8 @@ namespace ToolbarOfFunctions
             this.Controls.Add(this.label14);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.cmboDelModeAorBorC);
-            this.Controls.Add(this.numDupliateColumnToCheck);
             this.Controls.Add(this.label10);
-            this.Controls.Add(this.numNoOfColumnsToCheck);
-            this.Controls.Add(this.label6);
             this.Controls.Add(this.numHighlightRowsOver);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.cmboHighLightOrDelete);
             this.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.DoubleBuffered = true;
             this.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -653,8 +683,6 @@ namespace ToolbarOfFunctions
             ((System.ComponentModel.ISupportInitialize)(this.numColPingWrite)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numPingSheetRowNo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numTimeSheetRowNo)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numDupliateColumnToCheck)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numNoOfColumnsToCheck)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numHighlightRowsOver)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -663,6 +691,10 @@ namespace ToolbarOfFunctions
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numComparingStartRow)).EndInit();
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numDupliateColumnToCheck)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numNoOfColumnsToCheck)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -679,16 +711,10 @@ namespace ToolbarOfFunctions
         public System.Windows.Forms.CheckBox chkTimeSheetGetRowNo;
         private System.Windows.Forms.NumericUpDown numTimeSheetRowNo;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.NumericUpDown numDupliateColumnToCheck;
-        private System.Windows.Forms.NumericUpDown numNoOfColumnsToCheck;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.NumericUpDown numHighlightRowsOver;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.ComboBox cmboDelModeAorBorC;
-        private System.Windows.Forms.Label label3;
-        public System.Windows.Forms.ComboBox cmboHighLightOrDelete;
         private System.Windows.Forms.Button btnApply;
         private System.Windows.Forms.GroupBox groupBox1;
         public System.Windows.Forms.CheckBox chkHideText;
@@ -711,6 +737,13 @@ namespace ToolbarOfFunctions
         private System.Windows.Forms.Button btnColourFoundBack;
         public System.Windows.Forms.CheckBox chkTestCode;
         private System.Windows.Forms.CheckedListBox chkLBColorOrCompare;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.NumericUpDown numDupliateColumnToCheck;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.NumericUpDown numNoOfColumnsToCheck;
+        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.CheckedListBox chkLBHighLightOrDelete;
+        private System.Windows.Forms.Label label3;
+        public System.Windows.Forms.CheckBox chkRecordTimes;
     }
 }
