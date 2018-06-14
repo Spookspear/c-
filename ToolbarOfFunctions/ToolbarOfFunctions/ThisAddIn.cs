@@ -256,9 +256,7 @@ namespace ToolbarOfFunctions
 
             // colours for the highlight option
             Color clrFoundForeColour = ColorTranslator.FromHtml(myData.ColourFore_Found);
-            // Color clrNotFoundForeColour = ColorTranslator.FromHtml(myData.ColourFore_NotFound);
             Color clrFoundBackColour = ColorTranslator.FromHtml(myData.ColourBack_Found);
-            // Color clrNotFoundBackColour = ColorTranslator.FromHtml(myData.ColourBack_NotFound);
 
             decimal intStartRow = myData.ComparingStartRow;
             decimal intStartColumToCheck = myData.DupliateColumnToCheck;
@@ -272,6 +270,11 @@ namespace ToolbarOfFunctions
             DialogResult dlgResult = DialogResult.Yes;
 
             string strMessage;
+
+            int intLastRow = CommonExcelClasses.getLastRow(Wks);
+
+            // start of loop
+            decimal intSourceRow = intStartRow;
 
             if (boolDisplayInitialMessage)
             {
@@ -287,6 +290,9 @@ namespace ToolbarOfFunctions
 
                 strMessage = strMessage + "?";
 
+                // remove formatting - format black and white
+                formatCells(Wks, intSourceRow, intLastRow, intStartColumToCheck, "Normal");
+
                 dlgResult = MessageBox.Show(strMessage, "Duplicate Rows Check", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
 
             }
@@ -294,13 +300,8 @@ namespace ToolbarOfFunctions
             if (dlgResult == DialogResult.Yes)
             {
 
-                int intLastRow = CommonExcelClasses.getLastRow(Wks);
 
                 // start of loop
-                // for (decimal intSourceRow = intStartRow; intSourceRow <= intLastRow; intSourceRow++)
-
-                decimal intSourceRow = intStartRow;
-
                 while (!CommonExcelClasses.isEmptyCell(Wks.Cells[intSourceRow, intStartColumToCheck]))
                 {
                     // hightlight, delete or clear?
@@ -348,6 +349,23 @@ namespace ToolbarOfFunctions
 
         }
 
+        // will pass to comon functions 
+
+        public void formatCells(Excel.Worksheet Wks, decimal intSourceRow, decimal intLastRow, decimal intStartColumToCheck, string strDoWhat)
+        {
+
+            for (intSourceRow = 2; intSourceRow <= intLastRow; intSourceRow++)
+            {
+                Excel.Range xlCell;
+                xlCell = Wks.Cells[intSourceRow, intStartColumToCheck];
+                xlCell.Font.Color = ColorTranslator.FromHtml("Black");
+                xlCell.Interior.Color = ColorTranslator.FromHtml("White");
+                xlCell.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
+                xlCell.Borders.Color = ColorTranslator.ToOle(Color.LightGray); ;
+                xlCell.Borders.Weight = 2d;
+            }
+
+        }
 
         public void compareSheets(Excel.Application xls)
         {

@@ -5,7 +5,7 @@
   <CompareOrColour>Colour</CompareOrColour>
   <CompareOrColourNew>Colour</CompareOrColourNew>
   <HighLightOrDelete>Delete</HighLightOrDelete>
-  <HighLightOrDeleteNew>Clear</HighLightOrDeleteNew>
+  <HighLightOrDeleteNew>Highlight</HighLightOrDeleteNew>
   <DisplayTimeTaken>true</DisplayTimeTaken>
   <ProduceInitialMessageBox>true</ProduceInitialMessageBox>
   <ProduceCompleteMessageBox>true</ProduceCompleteMessageBox>
@@ -16,10 +16,10 @@
   <DupliateColumnToCheck>1</DupliateColumnToCheck>
   <ColourFoundText>Blue</ColourFoundText>
   <ColourNotFoundText>Red</ColourNotFoundText>
-  <ColourFore_Found>Blue</ColourFore_Found>
-  <ColourBack_Found>Green</ColourBack_Found>
-  <ColourFore_NotFound>Blue</ColourFore_NotFound>
-  <ColourBack_NotFound>#CACA00</ColourBack_NotFound>
+  <ColourFore_Found>Yellow</ColourFore_Found>
+  <ColourBack_Found>#004080</ColourBack_Found>
+  <ColourFore_NotFound>Red</ColourFore_NotFound>
+  <ColourBack_NotFound>#400000</ColourBack_NotFound>
   <TimeSheetRowNo>1</TimeSheetRowNo>
   <TimeSheetGetRowNo>true</TimeSheetGetRowNo>
   <PingSheetRowNo>2</PingSheetRowNo>
