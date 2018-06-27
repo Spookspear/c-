@@ -271,6 +271,27 @@ namespace ToolbarOfFunctions_CommonClasses
 
         }
 
+        public static void formatCells(Excel.Worksheet Wks, decimal intStartRow, decimal intLastRow, decimal intStartColum, decimal intNumColums, string strDoWhat)
+        {
+
+            // need to loop for cols - 1gvb2
+            decimal intRowCount;
+
+            for (intRowCount = intStartRow; intRowCount <= intLastRow; intRowCount++)
+            {
+                for (decimal intColCount = intStartColum; intColCount <= intNumColums; intColCount++)
+                {
+                    Excel.Range xlCell;
+                    xlCell = Wks.Cells[intRowCount, intColCount];
+                    xlCell.Font.Color = ColorTranslator.FromHtml("Black");
+                    xlCell.Interior.Color = ColorTranslator.FromHtml("White");
+                    xlCell.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
+                    xlCell.Borders.Color = ColorTranslator.ToOle(Color.LightGray); ;
+                    xlCell.Borders.Weight = 2d;
+                }
+            }
+
+        }
 
 
 

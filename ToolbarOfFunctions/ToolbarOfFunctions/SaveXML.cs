@@ -22,6 +22,7 @@ namespace ToolbarOfFunctions
 
         // might pout it in here public string strFileName = CommonExcelClasses.strFileName;
 
+            /*
         public static void SaveData(object obj)
         {
             try
@@ -39,7 +40,10 @@ namespace ToolbarOfFunctions
 
         }
 
+            */
 
+
+        /*
         public static string readProperty(string strWhichProperty)
         {
 
@@ -63,7 +67,9 @@ namespace ToolbarOfFunctions
 
         }
 
+        */
 
+        /*
 
         // purpose of this is to load the data into the InformationForSettingsForm class
         public static InformationForSettingsForm LoadData()
@@ -77,6 +83,9 @@ namespace ToolbarOfFunctions
             return infoLocal;
 
         }
+
+    */
+
 
 
     }

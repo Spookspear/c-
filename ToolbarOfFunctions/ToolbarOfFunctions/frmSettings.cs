@@ -33,21 +33,18 @@ namespace ToolbarOfFunctions
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            
-            // InformationForSettingsForm myData = new InformationForSettingsForm();
-            myData = SaveXML.LoadData();
+            myData = myData.LoadMyData();               // read data from settings file
 
             chkLargeButtons.Checked = myData.LargeButtons;
             chkHideText.Checked = myData.HideText;
-            // cmboCompareDifferences.Text = myData.CompareOrColour;
 
-            chkLBColorOrCompare.Text = myData.CompareOrColourNew;
+            chkLBColorOrCompare.Text = myData.CompareOrColour;
 
             // tick the correct box
             if (chkLBColorOrCompare.CheckedItems.Count == 0)
             {
 
-                if (myData.CompareOrColourNew == "Colour")
+                if (myData.CompareOrColour == "Colour")
                 {
                     chkLBColorOrCompare.SetItemChecked(0, true);
                 }
@@ -58,31 +55,29 @@ namespace ToolbarOfFunctions
             }
 
             // - New 
-            chkLBHighLightOrDelete.Text = myData.HighLightOrDeleteNew;
+            chkLBColourOrDelete.Text = myData.ColourOrDelete;
 
             // tick the correct box
-            if (chkLBHighLightOrDelete.CheckedItems.Count == 0)
+            if (chkLBColourOrDelete.CheckedItems.Count == 0)
             {
 
-                if (myData.HighLightOrDeleteNew == "Highlight")
+                if (myData.ColourOrDelete == "Colour")
                 {
-                    chkLBHighLightOrDelete.SetItemChecked(0, true);
+                    chkLBColourOrDelete.SetItemChecked(0, true);
                 }
-                else if (myData.HighLightOrDeleteNew == "Delete")
+                else if (myData.ColourOrDelete == "Delete")
                 {
-                    chkLBHighLightOrDelete.SetItemChecked(1, true);
+                    chkLBColourOrDelete.SetItemChecked(1, true);
                 }
-                else if (myData.HighLightOrDeleteNew == "Clear")
+                else if (myData.ColourOrDelete == "Clear")
                 {
-                    chkLBHighLightOrDelete.SetItemChecked(2, true);
+                    chkLBColourOrDelete.SetItemChecked(2, true);
                 }
 
             }
 
             // -New eof
 
-
-            // cmboHighLightOrDelete.Text = myData.HighLightOrDelete;
             chkDisplayTimeTaken.Checked = myData.DisplayTimeTaken;
 
             chkProduceInitialMessageBox.Checked = myData.ProduceInitialMessageBox;
@@ -105,7 +100,6 @@ namespace ToolbarOfFunctions
             txtColourFound.BackColor = ColorTranslator.FromHtml(myData.ColourBack_Found);
             txtColourNotFound.BackColor = ColorTranslator.FromHtml(myData.ColourBack_NotFound);
 
-
             // ---------
             numTimeSheetRowNo.Value = myData.TimeSheetRowNo;
             chkTimeSheetGetRowNo.Checked = myData.TimeSheetGetRowNo;
@@ -119,30 +113,11 @@ namespace ToolbarOfFunctions
 
             chkRecordTimes.Checked = myData.RecordTimes;
 
-            /*
-            if (cmboCompareDifferences.Items.Count != 2)
-            {
-                cmboCompareDifferences.Items.Add("Colour");
-                cmboCompareDifferences.Items.Add("Clear");
-                // cmboCompareDifferences.SelectedIndex = 0;
-            }
-            
-
-
-            if (cmboHighLightOrDelete.Items.Count != 2)
-            {
-                cmboHighLightOrDelete.Items.Add("Highlight");
-                cmboHighLightOrDelete.Items.Add("Delete");
-                // cmboHighLightOrDelete.SelectedIndex = 0;
-            }
-            */
-
             if (cmboDelModeAorBorC.Items.Count != 3)
             {
                 cmboDelModeAorBorC.Items.Add("Mode: A");
                 cmboDelModeAorBorC.Items.Add("Mode: B");
                 cmboDelModeAorBorC.Items.Add("Mode: C");
-                // cmboDelModeAorBorC.SelectedIndex = 0;
 
             }
 
@@ -155,11 +130,8 @@ namespace ToolbarOfFunctions
             myData.LargeButtons = chkLargeButtons.Checked;
             myData.HideText = chkHideText.Checked;
 
-            // myData.CompareOrColour = cmboCompareDifferences.Text;
-            myData.CompareOrColourNew = chkLBColorOrCompare.Text;               // new item
-
-            // myData.HighLightOrDelete = cmboHighLightOrDelete.Text;
-            myData.HighLightOrDeleteNew = chkLBHighLightOrDelete.Text;          // new item
+            myData.CompareOrColour = chkLBColorOrCompare.Text;               // new item
+            myData.ColourOrDelete = chkLBColourOrDelete.Text;          // new item
 
             myData.DisplayTimeTaken = chkDisplayTimeTaken.Checked;
 
@@ -173,9 +145,6 @@ namespace ToolbarOfFunctions
             myData.NoOfColumnsToCheck = numNoOfColumnsToCheck.Value;
             myData.ComparingStartRow = numComparingStartRow.Value;
             myData.DupliateColumnToCheck = numDupliateColumnToCheck.Value;
-
-            // myData.ColourFoundText = txtColourFound.Text;
-            // myData.ColourNotFoundText = txtColourNotFound.Text;
 
             myData.ColourFore_Found = ColorTranslator.ToHtml(txtColourFound.ForeColor);
             myData.ColourFore_NotFound = ColorTranslator.ToHtml(txtColourNotFound.ForeColor);
@@ -196,7 +165,7 @@ namespace ToolbarOfFunctions
             myData.TestCode = chkTestCode.Checked;
             myData.RecordTimes = chkRecordTimes.Checked;
 
-            SaveXML.SaveData(myData);
+            InformationForSettingsForm.SaveData(myData);
 
             this.Hide();
 
@@ -330,22 +299,22 @@ namespace ToolbarOfFunctions
 
         // ----------
 
-        private void chkLBHighLightOrDelete_ItemCheck(object sender, ItemCheckEventArgs e)
+        private void chkLBColourOrDelete_ItemCheck(object sender, ItemCheckEventArgs e)
         {
-            if (e.NewValue == CheckState.Checked && chkLBHighLightOrDelete.CheckedItems.Count > 0)
+            if (e.NewValue == CheckState.Checked && chkLBColourOrDelete.CheckedItems.Count > 0)
             {
-                chkLBHighLightOrDelete.ItemCheck -= chkLBHighLightOrDelete_ItemCheck;
-                chkLBHighLightOrDelete.SetItemChecked(chkLBHighLightOrDelete.CheckedIndices[0], false);
-                chkLBHighLightOrDelete.ItemCheck += chkLBHighLightOrDelete_ItemCheck;
+                chkLBColourOrDelete.ItemCheck -= chkLBColourOrDelete_ItemCheck;
+                chkLBColourOrDelete.SetItemChecked(chkLBColourOrDelete.CheckedIndices[0], false);
+                chkLBColourOrDelete.ItemCheck += chkLBColourOrDelete_ItemCheck;
             }
 
         }
 
 
-        private void chkLBHighLightOrDelete_Leave(object sender, EventArgs e)
+        private void chkLBColourOrDelete_Leave(object sender, EventArgs e)
         {
-            if (chkLBHighLightOrDelete.CheckedItems.Count == 0)
-                chkLBHighLightOrDelete.SetItemChecked(0, true);
+            if (chkLBColourOrDelete.CheckedItems.Count == 0)
+                chkLBColourOrDelete.SetItemChecked(0, true);
 
         }
 
