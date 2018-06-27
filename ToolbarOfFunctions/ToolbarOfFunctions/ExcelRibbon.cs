@@ -21,20 +21,19 @@ namespace ToolbarOfFunctions
 {
     public partial class ExcelRibbon
     {
-        public bool boolDisplayMessage, boolLargeButton, boolHideText;
-        public string strCompareOrColour;
+        public bool boolDisplayMessage, boolLargeButton, boolHideText, boolHideSeperator;
+        // public string strCompareOrColour;
 
         frmSettings frmSettings = new frmSettings();
         InformationForSettingsForm myData = new InformationForSettingsForm();
 
         private void Ribbon1_Load(object sender, RibbonUIEventArgs e)
         {
-            myData = SaveXML.LoadData();
-            // strCompareOrColour = SaveXML.readProperty("strCompareOrColour");
-            CommonExcelClasses.ButtonUpdateLabel(btnCompareSheets, "Compare (" + myData.CompareOrColour + ")");
+            myData = myData.LoadMyData();               // read data from settings file
+            CommonExcelClasses.ButtonUpdateLabel(btnCompareSheets, "Compare: (" + myData.CompareOrColour + ")");
+            CommonExcelClasses.ButtonUpdateLabel(btnDealWithSingleDuplicates, "Duplicates (Cols: Single): (" + myData.ColourOrDelete + ")");
 
         }
-
 
         private void btnZap_Click(object sender, RibbonControlEventArgs e)
         {
@@ -83,6 +82,7 @@ namespace ToolbarOfFunctions
                 boolDisplayMessage = frmSettings.chkProduceInitialMessageBox.Checked;
                 boolLargeButton = frmSettings.chkLargeButtons.Checked;
                 boolHideText = frmSettings.chkHideText.Checked;
+                boolHideSeperator = frmSettings.chkHideSeperator.Checked;
 
                 CommonExcelClasses.ButtonSetSize(btnSettings, boolLargeButton);
                 CommonExcelClasses.ButtonSetSize(btnReadFolders, boolLargeButton);
@@ -103,6 +103,12 @@ namespace ToolbarOfFunctions
                 CommonExcelClasses.ButtonSetSize(btnWriteTimeSheet, boolLargeButton);
                 CommonExcelClasses.ButtonSetSize(btnPingServers, boolLargeButton);
 
+                separator1.Visible = boolHideSeperator;
+                separator2.Visible = boolHideSeperator;
+                separator3.Visible = boolHideSeperator;
+                separator4.Visible = boolHideSeperator;
+                separator5.Visible = boolHideSeperator;
+                separator6.Visible = boolHideSeperator;
 
                 if (boolHideText) {
                     CommonExcelClasses.ButtonUpdateLabel(btnSettings, "");
@@ -128,18 +134,17 @@ namespace ToolbarOfFunctions
 
                     CommonExcelClasses.ButtonUpdateLabel(btnSettings, "Settings");
                     CommonExcelClasses.ButtonUpdateLabel(btnReadFolders, "Read Folders");
-                    
-                    // reload - 1gvb2
-                    myData = SaveXML.LoadData();
 
-                    CommonExcelClasses.ButtonUpdateLabel(btnCompareSheets, "Compare (" + myData.CompareOrColour + ")");
+                    myData = myData.LoadMyData();               // read data from settings file
+
+                    CommonExcelClasses.ButtonUpdateLabel(btnCompareSheets, "Compare: (" + myData.CompareOrColour + ")");
                     CommonExcelClasses.ButtonUpdateLabel(btnZap, "Zap Worksheet");
                     CommonExcelClasses.SplitButtonUpdateLabel(splitButtonDeleteLines, "Delete Blank Lines");
                     CommonExcelClasses.ButtonUpdateLabel(btnDeleteBlankLinesA, "Mode: A");
                     CommonExcelClasses.ButtonUpdateLabel(btnDeleteBlankLinesB, "Mode: B");
                     CommonExcelClasses.ButtonUpdateLabel(btnDeleteBlankLinesC, "Mode: C");
 
-                    CommonExcelClasses.ButtonUpdateLabel(btnDealWithSingleDuplicates, "Duplicates (Cols: Single):");
+                    CommonExcelClasses.ButtonUpdateLabel(btnDealWithSingleDuplicates, "Duplicates (Cols: Single): (" + myData.ColourOrDelete + ")");
                     CommonExcelClasses.ButtonUpdateLabel(btnDealWithManyDuplicates, "Duplicates (Cols: Many)");
                     CommonExcelClasses.ButtonUpdateLabel(btnLoadADGroupIntoSpreadsheet, "AD Group Members");
                     CommonExcelClasses.ButtonUpdateLabel(btnLoadADGroupIntoSpreadsheetActiveCell, "AD Members - Active Cell");
@@ -155,7 +160,7 @@ namespace ToolbarOfFunctions
 
         public void btnDealWithSingleDuplicates_Click(object sender, RibbonControlEventArgs e)
         {
-            Globals.ThisAddIn.dealWithSingleDuplicates(Globals.ThisAddIn.Application.ActiveWorkbook);
+            Globals.ThisAddIn.dealWithSingleDuplicates(Globals.ThisAddIn.Application);
 
         }
 

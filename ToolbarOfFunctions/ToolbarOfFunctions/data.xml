@@ -3,12 +3,10 @@
   <LargeButtons>true</LargeButtons>
   <HideText>false</HideText>
   <CompareOrColour>Colour</CompareOrColour>
-  <CompareOrColourNew>Colour</CompareOrColourNew>
-  <HighLightOrDelete>Delete</HighLightOrDelete>
-  <HighLightOrDeleteNew>Highlight</HighLightOrDeleteNew>
-  <DisplayTimeTaken>true</DisplayTimeTaken>
+  <ColourOrDelete>Colour</ColourOrDelete>
+  <DisplayTimeTaken>false</DisplayTimeTaken>
   <ProduceInitialMessageBox>true</ProduceInitialMessageBox>
-  <ProduceCompleteMessageBox>true</ProduceCompleteMessageBox>
+  <ProduceCompleteMessageBox>false</ProduceCompleteMessageBox>
   <DelModeAorBorC>Mode: C</DelModeAorBorC>
   <HighlightRowsOver>24</HighlightRowsOver>
   <NoOfColumnsToCheck>1</NoOfColumnsToCheck>
@@ -17,14 +15,15 @@
   <ColourFoundText>Blue</ColourFoundText>
   <ColourNotFoundText>Red</ColourNotFoundText>
   <ColourFore_Found>Yellow</ColourFore_Found>
-  <ColourBack_Found>#004080</ColourBack_Found>
-  <ColourFore_NotFound>Red</ColourFore_NotFound>
-  <ColourBack_NotFound>#400000</ColourBack_NotFound>
+  <ColourBack_Found>#408080</ColourBack_Found>
+  <ColourFore_NotFound>White</ColourFore_NotFound>
+  <ColourBack_NotFound>Maroon</ColourBack_NotFound>
   <TimeSheetRowNo>1</TimeSheetRowNo>
   <TimeSheetGetRowNo>true</TimeSheetGetRowNo>
   <PingSheetRowNo>2</PingSheetRowNo>
   <ColPingRead>1</ColPingRead>
   <ColPingWrite>10</ColPingWrite>
-  <TestCode>true</TestCode>
+  <TestCode>false</TestCode>
   <RecordTimes>false</RecordTimes>
+  <HideSeperator>false</HideSeperator>
 </InformationForSettingsForm>

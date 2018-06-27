@@ -72,9 +72,10 @@ namespace ToolbarOfFunctions
             this.label6 = new System.Windows.Forms.Label();
             this.numNoOfColumnsToCheck = new System.Windows.Forms.NumericUpDown();
             this.label4 = new System.Windows.Forms.Label();
-            this.chkLBHighLightOrDelete = new System.Windows.Forms.CheckedListBox();
+            this.chkLBColourOrDelete = new System.Windows.Forms.CheckedListBox();
             this.label3 = new System.Windows.Forms.Label();
             this.chkRecordTimes = new System.Windows.Forms.CheckBox();
+            this.chkHideSeperator = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.numColPingRead)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numColPingWrite)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numPingSheetRowNo)).BeginInit();
@@ -257,6 +258,7 @@ namespace ToolbarOfFunctions
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.chkHideSeperator);
             this.groupBox1.Controls.Add(this.chkHideText);
             this.groupBox1.Controls.Add(this.chkLargeButtons);
             this.groupBox1.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -274,7 +276,7 @@ namespace ToolbarOfFunctions
             this.chkHideText.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkHideText.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkHideText.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.chkHideText.Location = new System.Drawing.Point(19, 39);
+            this.chkHideText.Location = new System.Drawing.Point(16, 36);
             this.chkHideText.Name = "chkHideText";
             this.chkHideText.Size = new System.Drawing.Size(125, 17);
             this.chkHideText.TabIndex = 38;
@@ -321,7 +323,7 @@ namespace ToolbarOfFunctions
             this.chkDisplayTimeTaken.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkDisplayTimeTaken.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkDisplayTimeTaken.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.chkDisplayTimeTaken.Location = new System.Drawing.Point(136, 59);
+            this.chkDisplayTimeTaken.Location = new System.Drawing.Point(137, 59);
             this.chkDisplayTimeTaken.Name = "chkDisplayTimeTaken";
             this.chkDisplayTimeTaken.Size = new System.Drawing.Size(137, 17);
             this.chkDisplayTimeTaken.TabIndex = 42;
@@ -548,7 +550,7 @@ namespace ToolbarOfFunctions
             this.groupBox4.Controls.Add(this.label6);
             this.groupBox4.Controls.Add(this.numNoOfColumnsToCheck);
             this.groupBox4.Controls.Add(this.label4);
-            this.groupBox4.Controls.Add(this.chkLBHighLightOrDelete);
+            this.groupBox4.Controls.Add(this.chkLBColourOrDelete);
             this.groupBox4.Controls.Add(this.label3);
             this.groupBox4.Location = new System.Drawing.Point(17, 201);
             this.groupBox4.Name = "groupBox4";
@@ -601,23 +603,23 @@ namespace ToolbarOfFunctions
             this.label4.TabIndex = 49;
             this.label4.Text = "No Of Columns To Check:";
             // 
-            // chkLBHighLightOrDelete
+            // chkLBColourOrDelete
             // 
-            this.chkLBHighLightOrDelete.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.chkLBHighLightOrDelete.CheckOnClick = true;
-            this.chkLBHighLightOrDelete.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkLBHighLightOrDelete.FormattingEnabled = true;
-            this.chkLBHighLightOrDelete.Items.AddRange(new object[] {
-            "Highlight",
+            this.chkLBColourOrDelete.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.chkLBColourOrDelete.CheckOnClick = true;
+            this.chkLBColourOrDelete.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkLBColourOrDelete.FormattingEnabled = true;
+            this.chkLBColourOrDelete.Items.AddRange(new object[] {
+            "Colour",
             "Delete",
             "Clear"});
-            this.chkLBHighLightOrDelete.Location = new System.Drawing.Point(75, 26);
-            this.chkLBHighLightOrDelete.Name = "chkLBHighLightOrDelete";
-            this.chkLBHighLightOrDelete.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.chkLBHighLightOrDelete.Size = new System.Drawing.Size(80, 47);
-            this.chkLBHighLightOrDelete.TabIndex = 46;
-            this.chkLBHighLightOrDelete.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.chkLBHighLightOrDelete_ItemCheck);
-            this.chkLBHighLightOrDelete.Leave += new System.EventHandler(this.chkLBHighLightOrDelete_Leave);
+            this.chkLBColourOrDelete.Location = new System.Drawing.Point(75, 26);
+            this.chkLBColourOrDelete.Name = "chkLBColourOrDelete";
+            this.chkLBColourOrDelete.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.chkLBColourOrDelete.Size = new System.Drawing.Size(80, 47);
+            this.chkLBColourOrDelete.TabIndex = 46;
+            this.chkLBColourOrDelete.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.chkLBColourOrDelete_ItemCheck);
+            this.chkLBColourOrDelete.Leave += new System.EventHandler(this.chkLBColourOrDelete_Leave);
             // 
             // label3
             // 
@@ -644,6 +646,21 @@ namespace ToolbarOfFunctions
             this.chkRecordTimes.Text = "Record Times";
             this.chkRecordTimes.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.chkRecordTimes.UseVisualStyleBackColor = true;
+            // 
+            // chkHideSeperator
+            // 
+            this.chkHideSeperator.AutoSize = true;
+            this.chkHideSeperator.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.chkHideSeperator.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.chkHideSeperator.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkHideSeperator.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.chkHideSeperator.Location = new System.Drawing.Point(22, 55);
+            this.chkHideSeperator.Name = "chkHideSeperator";
+            this.chkHideSeperator.Size = new System.Drawing.Size(119, 17);
+            this.chkHideSeperator.TabIndex = 39;
+            this.chkHideSeperator.Text = "Hide Seperators:";
+            this.chkHideSeperator.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.chkHideSeperator.UseVisualStyleBackColor = true;
             // 
             // frmSettings
             // 
@@ -742,8 +759,9 @@ namespace ToolbarOfFunctions
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.NumericUpDown numNoOfColumnsToCheck;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.CheckedListBox chkLBHighLightOrDelete;
+        private System.Windows.Forms.CheckedListBox chkLBColourOrDelete;
         private System.Windows.Forms.Label label3;
         public System.Windows.Forms.CheckBox chkRecordTimes;
+        public System.Windows.Forms.CheckBox chkHideSeperator;
     }
 }
