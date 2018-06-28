@@ -68,6 +68,19 @@ namespace ToolbarOfFunctions
 
         }
 
+        public void btnDealWithSingleDuplicates_Click(object sender, RibbonControlEventArgs e)
+        {
+            Globals.ThisAddIn.dealWithSingleDuplicates(Globals.ThisAddIn.Application);
+
+        }
+
+
+        private void btnDealWithManyDuplicates_Click(object sender, RibbonControlEventArgs e)
+        {           
+
+            Globals.ThisAddIn.dealWithManyDuplicates(Globals.ThisAddIn.Application);
+        }
+
         private void splitButtonDeleteLines_Click(object sender, RibbonControlEventArgs e)
         {
             btnDeleteBlankLinesB_Click(sender, e);
@@ -155,12 +168,6 @@ namespace ToolbarOfFunctions
 
                 }
             }
-
-        }
-
-        public void btnDealWithSingleDuplicates_Click(object sender, RibbonControlEventArgs e)
-        {
-            Globals.ThisAddIn.dealWithSingleDuplicates(Globals.ThisAddIn.Application);
 
         }
 

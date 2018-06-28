@@ -4,12 +4,12 @@
   <HideText>false</HideText>
   <CompareOrColour>Colour</CompareOrColour>
   <ColourOrDelete>Colour</ColourOrDelete>
-  <DisplayTimeTaken>false</DisplayTimeTaken>
+  <DisplayTimeTaken>true</DisplayTimeTaken>
   <ProduceInitialMessageBox>true</ProduceInitialMessageBox>
-  <ProduceCompleteMessageBox>false</ProduceCompleteMessageBox>
-  <DelModeAorBorC>Mode: C</DelModeAorBorC>
+  <ProduceCompleteMessageBox>true</ProduceCompleteMessageBox>
+  <DelModeAorBorC>Mode: B</DelModeAorBorC>
   <HighlightRowsOver>24</HighlightRowsOver>
-  <NoOfColumnsToCheck>1</NoOfColumnsToCheck>
+  <NoOfColumnsToCheck>5</NoOfColumnsToCheck>
   <ComparingStartRow>2</ComparingStartRow>
   <DupliateColumnToCheck>1</DupliateColumnToCheck>
   <ColourFoundText>Blue</ColourFoundText>

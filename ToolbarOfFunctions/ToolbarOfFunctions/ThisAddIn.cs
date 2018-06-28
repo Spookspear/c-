@@ -298,8 +298,7 @@ namespace ToolbarOfFunctions
                     // remove formatting - format black and white but only if no was selected
                     if (dlgResult == DialogResult.No)
                     {
-                        int intLastCol = CommonExcelClasses.getLastCol(Wks);
-                   
+                        int intLastCol = CommonExcelClasses.getLastCol(Wks);                   
                         CommonExcelClasses.formatCells(Wks, intSourceRow, intLastRow, 1, CommonExcelClasses.getLastCol(Wks), "Normal");
                     }
 
@@ -311,8 +310,12 @@ namespace ToolbarOfFunctions
                     Stopwatch sw = new Stopwatch();
                     sw.Start();
 
+                    decimal curNoRecords = 0;
+
+
                     CommonExcelClasses.turnAppSettings("Off", xls, myData.TestCode);
                     // start of loop
+                    // 1gvb1 - this is the wrong way up and is doing the oppisite of what is needed / what IO want
                     while (!CommonExcelClasses.isEmptyCell(Wks.Cells[intSourceRow, intStartColumToCheck]))
                     {
                         // hightlight, delete or clear?
@@ -324,15 +327,18 @@ namespace ToolbarOfFunctions
                                 {
                                     colourCells(Wks, (intSourceRow + 1), "Error", 1, clrFoundForeColour, clrFoundBackColour, false);
                                     intSourceRow++;
+                                    curNoRecords++;
                                 }
                                 else if (strColourOrDelete == "Delete")
                                 {
                                     Wks.Rows[intSourceRow].Delete();
+                                    curNoRecords++;
                                 }
                                 else
                                 {
                                     colourCells(Wks, (intSourceRow ), strColourOrDelete, 1, clrFoundForeColour, clrFoundBackColour, false);
                                     intSourceRow++;
+                                    curNoRecords++;
                                 }
 
                                 if (CommonExcelClasses.isEmptyCell(Wks.Cells[intSourceRow+1, intStartColumToCheck]))
@@ -356,7 +362,8 @@ namespace ToolbarOfFunctions
 
                         if (booltimeTaken)
                         {
-                            strMessage = strMessage + LF + "that took " + sw.Elapsed.Milliseconds.ToString() + " Milliseconds";
+                            strMessage = strMessage + LF + "that took " + sw.Elapsed.Milliseconds.ToString() + " Milliseconds" + LF;
+                            strMessage = strMessage + LF + "And handled: " + curNoRecords.ToString() + " duplicates";
 
                         }
                         CommonExcelClasses.MsgBox(strMessage);
@@ -379,6 +386,160 @@ namespace ToolbarOfFunctions
                 Console.WriteLine(excpt.Message);
             }
         }
+
+
+
+        internal void dealWithManyDuplicates(Excel.Application xls)
+        {
+            myData = myData.LoadMyData();               // read data from settings file
+
+            bool boolDisplayInitialMessage = myData.ProduceInitialMessageBox;
+            bool boolDisplayCompleteMessage = myData.ProduceCompleteMessageBox;
+            bool booltimeTaken = myData.DisplayTimeTaken;
+            string strColourOrDelete = myData.ColourOrDelete;
+
+            // colours for the Colour or delete option
+            Color clrFoundForeColour = ColorTranslator.FromHtml(myData.ColourFore_Found);
+            Color clrFoundBackColour = ColorTranslator.FromHtml(myData.ColourBack_Found);
+
+            decimal intStartRow = myData.ComparingStartRow;
+            decimal intColumToCheck = myData.DupliateColumnToCheck;
+            decimal intNoCheckCols = myData.NoOfColumnsToCheck;          // will replacce with last row? or option on settings
+
+            try
+            {
+                Excel.Workbook Wkb = xls.ActiveWorkbook;
+                Excel.Worksheet Wks;   // get current sheet
+
+                Wks = Wkb.ActiveSheet;
+
+                string strColumnName = CommonExcelClasses.getExcelColumnName((int)intColumToCheck);
+
+                DialogResult dlgResult = DialogResult.Yes;
+
+                string strMessage;
+
+
+                // start of loop
+                int intLastRow = CommonExcelClasses.getLastRow(Wks);
+                decimal intSourceRow = intStartRow;
+                decimal intLastCol = CommonExcelClasses.getLastCol(Wks);
+
+                if (boolDisplayInitialMessage)
+                {
+                    strMessage = "";
+                    strMessage = strMessage + "Worksheet: " + Wks.Name + LF;
+                    strMessage = strMessage + "Column: " + strColumnName + LF;
+                    strMessage = strMessage + "and: " + strColourOrDelete + " ones which are the same";
+
+                    if (booltimeTaken)
+                    {
+                        strMessage = strMessage + LF + " and display the time taken";
+                    }
+
+                    strMessage = strMessage + "?";
+
+                    dlgResult = MessageBox.Show(strMessage, "Duplicate Rows Check", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+
+                    // just for all cols this once
+                    // remove formatting - format black and white but only if no was selected
+                    if (dlgResult == DialogResult.No)
+                    {
+                        CommonExcelClasses.formatCells(Wks, intSourceRow, intLastRow, 1, CommonExcelClasses.getLastCol(Wks), "Normal");
+                    }
+
+                }
+
+                if (dlgResult == DialogResult.Yes)
+                {
+
+                    Stopwatch sw = new Stopwatch();
+                    sw.Start();
+
+                    decimal intStartCol = 1;
+                    decimal intSourceCol = 1;
+                    decimal curNoRecords = 0;                    
+
+                    // CommonExcelClasses.turnAppSettings("Off", xls, myData.TestCode);
+                    // start of loop
+                    while (!CommonExcelClasses.isEmptyCell(Wks.Cells[intSourceRow, intColumToCheck]))
+                    {
+                        // col loop here
+                        for (intSourceCol = intStartCol; intSourceCol <= intLastCol; intSourceCol++)
+                        {
+
+                            if (Wks.Cells[intSourceRow, intSourceCol].Value != Wks.Cells[intSourceRow + 1, intSourceCol].Value)
+                            {
+                                break;
+
+                            }
+
+                        }
+
+                        // if all columns were the same
+                        if (intSourceCol == (intColumToCheck + intNoCheckCols))
+                        {
+                            curNoRecords++;
+
+                            if (strColourOrDelete == "Colour")
+                            {
+                                colourCells(Wks, (intSourceRow + 1), "Error", intNoCheckCols, clrFoundForeColour, clrFoundBackColour, false);
+                                intSourceRow++;
+                            }
+                            else if (strColourOrDelete == "Delete")
+                            {
+                                Wks.Rows[intSourceRow].Delete();
+                            }
+                            else
+                            {
+                                colourCells(Wks, (intSourceRow), strColourOrDelete, intNoCheckCols, clrFoundForeColour, clrFoundBackColour, false);
+                                intSourceRow++;
+                            }
+
+                            if (CommonExcelClasses.isEmptyCell(Wks.Cells[intSourceRow + 1, intColumToCheck]))
+                                break;
+
+                        }
+
+                            intSourceRow++;
+                    }
+
+                    sw.Stop();
+
+                    // CommonExcelClasses.turnAppSettings("On", xls, myData.TestCode);
+
+                    if (boolDisplayCompleteMessage)
+                    {
+
+                        strMessage = "Complete ...";
+
+                        if (booltimeTaken)
+                        {
+                            strMessage = strMessage + LF + "that took " + sw.Elapsed.Milliseconds.ToString() + " Milliseconds" + LF;
+                            strMessage = strMessage + LF + "And handled: " + curNoRecords.ToString() + " duplicates";
+
+                        }
+                        CommonExcelClasses.MsgBox(strMessage);
+                    }
+
+                }
+
+                // free the system - 1gvb1 - not tested
+                Marshal.ReleaseComObject(Wks);
+                Marshal.ReleaseComObject(Wkb);
+
+            }
+            catch (System.Exception excpt)
+            {
+                if (boolDisplayCompleteMessage)
+                {
+                    CommonExcelClasses.MsgBox("There was an error?", "Error");
+                }
+
+                Console.WriteLine(excpt.Message);
+            }
+        }
+
 
         internal void compareSheets(Excel.Application xls)
         {            
