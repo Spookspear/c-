@@ -263,6 +263,7 @@
             this.btnWriteTimeSheet.Label = "Update timesheet";
             this.btnWriteTimeSheet.Name = "btnWriteTimeSheet";
             this.btnWriteTimeSheet.ShowImage = true;
+            this.btnWriteTimeSheet.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnWriteTimeSheet_Click);
             // 
             // btnPingServers
             // 

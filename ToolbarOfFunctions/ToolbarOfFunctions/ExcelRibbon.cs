@@ -32,6 +32,7 @@ namespace ToolbarOfFunctions
             myData = myData.LoadMyData();               // read data from settings file
             CommonExcelClasses.ButtonUpdateLabel(btnCompareSheets, "Compare: (" + myData.CompareOrColour + ")");
             CommonExcelClasses.ButtonUpdateLabel(btnDealWithSingleDuplicates, "Duplicates (Cols: Single): (" + myData.ColourOrDelete + ")");
+            CommonExcelClasses.ButtonUpdateLabel(btnDealWithManyDuplicates, "Duplicates (Cols: Many): (" + myData.ColourOrDelete + ")");
 
         }
 
@@ -71,9 +72,12 @@ namespace ToolbarOfFunctions
         public void btnDealWithSingleDuplicates_Click(object sender, RibbonControlEventArgs e)
         {
             Globals.ThisAddIn.dealWithSingleDuplicates(Globals.ThisAddIn.Application);
-
         }
 
+        private void btnWriteTimeSheet_Click(object sender, RibbonControlEventArgs e)
+        {
+            Globals.ThisAddIn.updateTimeSheet(Globals.ThisAddIn.Application);
+        }
 
         private void btnDealWithManyDuplicates_Click(object sender, RibbonControlEventArgs e)
         {           
@@ -158,7 +162,8 @@ namespace ToolbarOfFunctions
                     CommonExcelClasses.ButtonUpdateLabel(btnDeleteBlankLinesC, "Mode: C");
 
                     CommonExcelClasses.ButtonUpdateLabel(btnDealWithSingleDuplicates, "Duplicates (Cols: Single): (" + myData.ColourOrDelete + ")");
-                    CommonExcelClasses.ButtonUpdateLabel(btnDealWithManyDuplicates, "Duplicates (Cols: Many)");
+                    CommonExcelClasses.ButtonUpdateLabel(btnDealWithManyDuplicates, "Duplicates (Cols: Many): (" + myData.ColourOrDelete + ")");
+                    // CommonExcelClasses.ButtonUpdateLabel(btnDealWithManyDuplicates, "Duplicates (Cols: Many)");
                     CommonExcelClasses.ButtonUpdateLabel(btnLoadADGroupIntoSpreadsheet, "AD Group Members");
                     CommonExcelClasses.ButtonUpdateLabel(btnLoadADGroupIntoSpreadsheetActiveCell, "AD Members - Active Cell");
                     CommonExcelClasses.ButtonUpdateLabel(btnReadUsersGroupMembership, "Users AD Membership");

@@ -3,7 +3,7 @@
   <LargeButtons>true</LargeButtons>
   <HideText>false</HideText>
   <CompareOrColour>Colour</CompareOrColour>
-  <ColourOrDelete>Colour</ColourOrDelete>
+  <ColourOrDelete>Delete</ColourOrDelete>
   <DisplayTimeTaken>true</DisplayTimeTaken>
   <ProduceInitialMessageBox>true</ProduceInitialMessageBox>
   <ProduceCompleteMessageBox>true</ProduceCompleteMessageBox>
@@ -14,10 +14,10 @@
   <DupliateColumnToCheck>1</DupliateColumnToCheck>
   <ColourFoundText>Blue</ColourFoundText>
   <ColourNotFoundText>Red</ColourNotFoundText>
-  <ColourFore_Found>Yellow</ColourFore_Found>
-  <ColourBack_Found>#408080</ColourBack_Found>
-  <ColourFore_NotFound>White</ColourFore_NotFound>
-  <ColourBack_NotFound>Maroon</ColourBack_NotFound>
+  <ColourFore_Found>Blue</ColourFore_Found>
+  <ColourBack_Found>White</ColourBack_Found>
+  <ColourFore_NotFound>Black</ColourFore_NotFound>
+  <ColourBack_NotFound>White</ColourBack_NotFound>
   <TimeSheetRowNo>1</TimeSheetRowNo>
   <TimeSheetGetRowNo>true</TimeSheetGetRowNo>
   <PingSheetRowNo>2</PingSheetRowNo>

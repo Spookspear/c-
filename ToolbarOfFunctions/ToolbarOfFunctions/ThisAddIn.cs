@@ -28,6 +28,12 @@ using ToolbarOfFunctions_CommonClasses;
 using ToolbarOfFunctions_MyConstants;
 using System.Runtime.InteropServices;
 
+using System.Data.SqlTypes;
+
+
+// using System.DirectoryServices;
+// using System.DirectoryServices.ActiveDirectory
+
 namespace ToolbarOfFunctions
 {
     public partial class ThisAddIn
@@ -313,9 +319,10 @@ namespace ToolbarOfFunctions
                     decimal curNoRecords = 0;
 
 
-                    CommonExcelClasses.turnAppSettings("Off", xls, myData.TestCode);
+                    // CommonExcelClasses.turnAppSettings("Off", xls, myData.TestCode);
                     // start of loop
-                    // 1gvb1 - this is the wrong way up and is doing the oppisite of what is needed / what IO want
+                    // 1gvb1 - this is the wrong way up and is doing the oppisite of what is needed / what I want
+                    // or somehting need to step through
                     while (!CommonExcelClasses.isEmptyCell(Wks.Cells[intSourceRow, intStartColumToCheck]))
                     {
                         // hightlight, delete or clear?
@@ -327,19 +334,18 @@ namespace ToolbarOfFunctions
                                 {
                                     colourCells(Wks, (intSourceRow + 1), "Error", 1, clrFoundForeColour, clrFoundBackColour, false);
                                     intSourceRow++;
-                                    curNoRecords++;
                                 }
                                 else if (strColourOrDelete == "Delete")
                                 {
                                     Wks.Rows[intSourceRow].Delete();
-                                    curNoRecords++;
                                 }
                                 else
                                 {
                                     colourCells(Wks, (intSourceRow ), strColourOrDelete, 1, clrFoundForeColour, clrFoundBackColour, false);
                                     intSourceRow++;
-                                    curNoRecords++;
                                 }
+
+                                curNoRecords++;
 
                                 if (CommonExcelClasses.isEmptyCell(Wks.Cells[intSourceRow+1, intStartColumToCheck]))
                                     break;                              
@@ -353,7 +359,7 @@ namespace ToolbarOfFunctions
 
                     sw.Stop();
 
-                    CommonExcelClasses.turnAppSettings("On", xls, myData.TestCode);
+                    // CommonExcelClasses.turnAppSettings("On", xls, myData.TestCode);
 
                     if (boolDisplayCompleteMessage)
                     {
@@ -458,7 +464,10 @@ namespace ToolbarOfFunctions
 
                     decimal intStartCol = 1;
                     decimal intSourceCol = 1;
-                    decimal curNoRecords = 0;                    
+                    decimal curNoRecords = 0;
+
+                    decimal[] arrRows = new decimal[100];
+                    int intRowArrayPointer = 0;
 
                     // CommonExcelClasses.turnAppSettings("Off", xls, myData.TestCode);
                     // start of loop
@@ -467,13 +476,10 @@ namespace ToolbarOfFunctions
                         // col loop here
                         for (intSourceCol = intStartCol; intSourceCol <= intLastCol; intSourceCol++)
                         {
-
                             if (Wks.Cells[intSourceRow, intSourceCol].Value != Wks.Cells[intSourceRow + 1, intSourceCol].Value)
                             {
                                 break;
-
                             }
-
                         }
 
                         // if all columns were the same
@@ -484,27 +490,52 @@ namespace ToolbarOfFunctions
                             if (strColourOrDelete == "Colour")
                             {
                                 colourCells(Wks, (intSourceRow + 1), "Error", intNoCheckCols, clrFoundForeColour, clrFoundBackColour, false);
-                                intSourceRow++;
+                                
                             }
                             else if (strColourOrDelete == "Delete")
                             {
                                 Wks.Rows[intSourceRow].Delete();
+                                intSourceRow--;
                             }
                             else
                             {
-                                colourCells(Wks, (intSourceRow), strColourOrDelete, intNoCheckCols, clrFoundForeColour, clrFoundBackColour, false);
-                                intSourceRow++;
+                                arrRows[intRowArrayPointer] = (intSourceRow + 1);
+                                intRowArrayPointer++;
+
+                                // save row numbers to array to clear after
+                                // colourCells(Wks, (intSourceRow + 1), strColourOrDelete, intNoCheckCols, clrFoundForeColour, clrFoundBackColour, false);
+
                             }
 
                             if (CommonExcelClasses.isEmptyCell(Wks.Cells[intSourceRow + 1, intColumToCheck]))
                                 break;
 
+
+
                         }
 
-                            intSourceRow++;
+                        intSourceRow++;
+
+                    }
+
+                    // ok now have an array
+                    if (strColourOrDelete == "Clear")
+                    {
+                        for (int i = arrRows.GetLowerBound(0); i <= arrRows.GetUpperBound(0); i++)
+                        {
+                            if (arrRows[i] > 0)
+                            {
+                                colourCells(Wks, arrRows[i], strColourOrDelete, intNoCheckCols, clrFoundForeColour, clrFoundBackColour, false);
+                            }
+                            else
+                                break;
+                        }
+
+
                     }
 
                     sw.Stop();
+
 
                     // CommonExcelClasses.turnAppSettings("On", xls, myData.TestCode);
 
@@ -698,6 +729,178 @@ namespace ToolbarOfFunctions
 
                 Console.WriteLine(excpt.Message);
             }
+        }
+
+
+        internal void updateTimeSheet(Excel.Application xls)
+        {
+
+            // need to loop entire workbook
+            Excel.Workbook Wkb = xls.ActiveWorkbook;
+
+            Excel.Worksheet Wks;
+            // Excel.Range xlCell;
+
+            Wks = Wkb.ActiveSheet;
+
+            // will define start row later
+            decimal intLastRow = CommonExcelClasses.getLastRow(Wks);
+            int intExaminCol = CommonExcelClasses.getExcelColumnNumber("N");
+            int intRowCount = 1;
+
+            // CommonExcelClasses.MsgBox(intExaminCol.ToString());
+
+            while (intRowCount <= intLastRow)
+            {
+                if (intRowCount < 25)
+                {
+                    if (!CommonExcelClasses.isEmptyCell(Wks.Cells[intRowCount, intExaminCol]))
+                    {
+                        // is it a valid day
+                        if (dayCheck(Wks.Cells[intRowCount, intExaminCol].Value.ToString()))
+                        {
+                            CommonExcelClasses.MsgBox("It was a day");
+
+                            decimal intStartOfWeekRow = intRowCount;
+                            string strDay = Wks.Cells[intRowCount, intExaminCol].Value.ToString();
+
+                            // jump down 1 row
+                            intRowCount++;
+
+                            while (Wks.Cells[intRowCount, intExaminCol].Value.ToString() == strDay)
+                            {
+
+                                // Call sortHours(Wks, intRowCount, intStartOfWeekRow)
+
+                                sortHours(Wks, intRowCount, intStartOfWeekRow);
+
+                                intRowCount++;
+
+                            }
+
+                        }
+                    }
+                }
+                else
+                {
+                    break;
+                }
+
+                intRowCount++;
+
+            }
+
+        }
+
+        public void sortHours(Excel.Worksheet Wks, decimal intRowCount, decimal intStartOfWeekRow)
+        {
+            string strSearchCat = Wks.Cells[intRowCount, 17].Value.ToString();
+
+            if (strSearchCat == "!NON WORKING")
+            {
+                Wks.Cells[intRowCount, 19].Value = "";
+            }
+            else
+            {
+                // need to put hours sum in if not there
+                if (Wks.Cells[intRowCount, 19].Value == 0) {
+
+                    string strTotalRange = "P" + intRowCount + "-O" + intRowCount;
+                    string strTotalRangeSum = "=SUM(" + strTotalRange + ")";
+
+                    Wks.Cells[intRowCount, 19].Value = strTotalRangeSum;
+                }
+
+                string strRange = "A" + intRowCount.ToString() + ":" + "M" + intRowCount.ToString();
+                Excel.Range xlCell;
+
+                xlCell = Wks.get_Range(strRange);
+                xlCell.ClearContents();
+
+
+                strSearchCat = transformCat(strSearchCat);
+
+                if (strSearchCat.Length > 0)
+                {
+                    // int intTargetCol = CommonExcelClasses.searchForValue(Wks, strSearchCat, intStartOfWeekRow, "Whole", False)
+                    // searchForValueInHeaderCol
+
+                    CommonExcelClasses.MsgBox("Will not look for value in column header - to write function");
+
+                }
+
+
+
+            }
+
+
+        }
+
+        public string transformCat(string strSearchCat)
+        {
+
+            if (strSearchCat != "!NON WORKING") {
+
+                switch (strSearchCat)
+                {
+                    case "Treasury":
+                        strSearchCat = "GT";
+                        break;
+                    case "SAP":
+                        strSearchCat = "UK Apps";
+                        break;
+                    case "ProArc":
+                        strSearchCat = "UK Apps";
+                        break;
+                    case "Maximo":
+                        strSearchCat = "UK Apps";
+                        break;
+                    case "SNow":
+                        strSearchCat = "System";
+                        break;
+                    case "Trello":
+                        strSearchCat = "General";
+                        break;
+                    case "Personal":
+                        strSearchCat = "OOO";
+                        break;
+                    case "!Holiday":
+                        strSearchCat = "OOO";
+                        break;
+                }
+            }
+
+            return strSearchCat;
+        }
+
+        public bool dayCheck(string strValue)
+        {
+            bool boolRetVal = false;
+
+            if ( strValue.Length > 0 )
+            {
+                if ( strValue.Length == 19 )
+                {
+                    if (CommonExcelClasses.IsDate(strValue))
+                    {
+                        string strDayOfWeek = FormatedDateString(DateTime.Parse(strValue), "dddd");
+                        boolRetVal = (strDayOfWeek == "Monday" || strDayOfWeek == "Tuesday" || strDayOfWeek == "Wednesday" || strDayOfWeek == "Thursday" || strDayOfWeek == "Friday");
+                    }
+                }
+            }
+
+            return boolRetVal;
+        }
+
+
+        public static string FormatedDateString(DateTime dateTime, string strFormat)
+        {
+            //return dateTime.ToString("dd/MM/yyyy ");
+
+            if (dateTime == SqlDateTime.MinValue.Value)
+                return string.Empty;
+            else
+                return dateTime.ToString(strFormat);
         }
 
         public void colourCells(Excel.Worksheet Wks, decimal intSourceRow, string strDoWhat, decimal intNoCheckCols, Color clrWhichColourFore, Color clrWhichColourBack, bool boolTestCode)

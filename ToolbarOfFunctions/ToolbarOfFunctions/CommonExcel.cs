@@ -61,6 +61,25 @@ namespace ToolbarOfFunctions_CommonClasses
             }
         }
 
+
+        public static bool IsDate(object Expression)
+        {
+            if (Expression != null)
+            {
+                if (Expression is DateTime)
+                {
+                    return true;
+                }
+                if (Expression is string)
+                {
+                    DateTime time1;
+                    return DateTime.TryParse((string)Expression, out time1);
+                    // return DateTime.TryParse((string)Expression, out DateTime time1);
+                }
+            }
+            return false;
+        }
+
         public static void SplitButtonSetSize(RibbonSplitButton rbnSplitButton, bool boolLargeButton)
         {
             if (boolLargeButton)
@@ -229,6 +248,21 @@ namespace ToolbarOfFunctions_CommonClasses
                 dividend = (int)((dividend - modulo) / 26);
             }
             return columnName;
+        }
+
+
+        public static int getExcelColumnNumber(string strLetter)
+        {
+            strLetter = strLetter.ToUpper();
+            int intOutNum = 0;
+
+            for (int i = 0; i < strLetter.Length; i++)
+            {
+                intOutNum *= 26;
+                intOutNum += (strLetter[i] - 'A' + 1);
+            }
+            return intOutNum;
+
         }
 
         public static int getLastCol(Excel.Worksheet Wks)
