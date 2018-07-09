@@ -111,7 +111,7 @@ namespace ToolbarOfFunctions
 
             chkTestCode.Checked = myData.TestCode;
 
-            chkRecordTimes.Checked = myData.RecordTimes;
+            chkTurnOffScreenValidation.Checked = myData.TurnOffScreenValidation;
 
             if (cmboDelModeAorBorC.Items.Count != 3)
             {
@@ -122,6 +122,9 @@ namespace ToolbarOfFunctions
             }
 
             checkCompareCombo();
+
+            chkClearFormatting.Checked = myData.ClearFormatting;
+
 
         }
 
@@ -163,7 +166,11 @@ namespace ToolbarOfFunctions
 
             //---- misc
             myData.TestCode = chkTestCode.Checked;
-            myData.RecordTimes = chkRecordTimes.Checked;
+            // myData.RecordTimes = chkRecordTimes.Checked;
+
+            myData.TurnOffScreenValidation = chkTurnOffScreenValidation.Checked;
+
+            myData.ClearFormatting = chkClearFormatting.Checked;
 
             InformationForSettingsForm.SaveData(myData);
 

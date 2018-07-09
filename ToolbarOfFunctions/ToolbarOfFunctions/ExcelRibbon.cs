@@ -79,6 +79,11 @@ namespace ToolbarOfFunctions
             Globals.ThisAddIn.updateTimeSheet(Globals.ThisAddIn.Application);
         }
 
+        private void btnLoadADGroupIntoSpreadsheetActiveCell_Click(object sender, RibbonControlEventArgs e)
+        {
+            Globals.ThisAddIn.loadADGroupIntoSpreadsheetActiveCell(Globals.ThisAddIn.Application);
+        }
+
         private void btnDealWithManyDuplicates_Click(object sender, RibbonControlEventArgs e)
         {           
 

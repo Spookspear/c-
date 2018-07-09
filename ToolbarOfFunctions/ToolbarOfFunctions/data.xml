@@ -3,7 +3,7 @@
   <LargeButtons>true</LargeButtons>
   <HideText>false</HideText>
   <CompareOrColour>Colour</CompareOrColour>
-  <ColourOrDelete>Delete</ColourOrDelete>
+  <ColourOrDelete>Colour</ColourOrDelete>
   <DisplayTimeTaken>true</DisplayTimeTaken>
   <ProduceInitialMessageBox>true</ProduceInitialMessageBox>
   <ProduceCompleteMessageBox>true</ProduceCompleteMessageBox>
@@ -14,11 +14,11 @@
   <DupliateColumnToCheck>1</DupliateColumnToCheck>
   <ColourFoundText>Blue</ColourFoundText>
   <ColourNotFoundText>Red</ColourNotFoundText>
-  <ColourFore_Found>Blue</ColourFore_Found>
-  <ColourBack_Found>White</ColourBack_Found>
-  <ColourFore_NotFound>Black</ColourFore_NotFound>
-  <ColourBack_NotFound>White</ColourBack_NotFound>
-  <TimeSheetRowNo>1</TimeSheetRowNo>
+  <ColourFore_Found>#FF0080</ColourFore_Found>
+  <ColourBack_Found>#FFFFBF</ColourBack_Found>
+  <ColourFore_NotFound>#C6FFC7</ColourFore_NotFound>
+  <ColourBack_NotFound>#CFA9FA</ColourBack_NotFound>
+  <TimeSheetRowNo>437</TimeSheetRowNo>
   <TimeSheetGetRowNo>true</TimeSheetGetRowNo>
   <PingSheetRowNo>2</PingSheetRowNo>
   <ColPingRead>1</ColPingRead>
@@ -26,4 +26,6 @@
   <TestCode>false</TestCode>
   <RecordTimes>false</RecordTimes>
   <HideSeperator>false</HideSeperator>
+  <TurnOffScreenValidation>true</TurnOffScreenValidation>
+  <ClearFormatting>true</ClearFormatting>
 </InformationForSettingsForm>

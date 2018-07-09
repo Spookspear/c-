@@ -28,11 +28,9 @@ using ToolbarOfFunctions_CommonClasses;
 using ToolbarOfFunctions_MyConstants;
 using System.Runtime.InteropServices;
 
-using System.Data.SqlTypes;
+// using System.Data.SqlTypes;
 
-
-// using System.DirectoryServices;
-// using System.DirectoryServices.ActiveDirectory
+using System.DirectoryServices;
 
 namespace ToolbarOfFunctions
 {
@@ -42,19 +40,26 @@ namespace ToolbarOfFunctions
 
         public string LF = MyConstants._LF;
 
+        public int C_COL_CATEGORY = 17;
+        public int C_COL_TOTAL = 19;
+        public int C_COL_DATE = 14;
+        
+
         frmSettings frmSettings = new frmSettings();
         InformationForSettingsForm myData = new InformationForSettingsForm();
 
         private void ThisAddIn_Startup(object sender, System.EventArgs e)
         {
-
             // myData = SaveXML.LoadData();
-
         }
+
 
         private void ThisAddIn_Shutdown(object sender, System.EventArgs e) { }
 
-        // Clear the workbook
+
+        /// <summary>
+        /// Clear the workbook
+        /// </summary>
         public void zapWorksheet(Excel.Workbook Wkb, int intFirstRow = 2)
         {
             Excel.Worksheet Wks;
@@ -62,27 +67,20 @@ namespace ToolbarOfFunctions
 
             Wks = Wkb.ActiveSheet;
 
-            // int intFirstRow = 2;
             int intLastRow = CommonExcelClasses.getLastRow(Wks);
             xlCell = Wks.get_Range("A" + intFirstRow + ":A" + intLastRow);
 
             if (Wks.Name != "InternalParameters")
-            {
-                if (intLastRow > intFirstRow)
-                {
+                if (intLastRow > intFirstRow)                
                     xlCell.EntireRow.Delete(Excel.XlDirection.xlUp);
-                }
-            }
             else
-            {
                 CommonExcelClasses.MsgBox("Cannot run in worksheet: InternalParameters", "Error");
-            }
 
         }
 
+
         public void readFolders(Excel.Workbook Wkb)
         {
-
             Excel.Worksheet Wks;            // instantiate worksheet object
             Wks = Wkb.ActiveSheet;          // point to active sheet
 
@@ -127,9 +125,7 @@ namespace ToolbarOfFunctions
                 if (cfbd.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
                 {
 
-                    Stopwatch sw = new Stopwatch();
-                    sw.Start();
-                    // Wks.Range[strWhichColumn + "1"].Value = DateTime.Now;
+                    DateTime dteStart = DateTime.Now;
 
                     int gintFileCount = 2;
 
@@ -142,8 +138,10 @@ namespace ToolbarOfFunctions
                     writeHeaders(Wks, "FILES", boolExtraDetails);
                     Wks.Columns.AutoFit();
 
-                    // Wks.Range[strWhichColumn + "2"].Value = DateTime.Now;
-                    Wks.Range[strWhichColumn + "1"].Value = sw.Elapsed.Milliseconds;
+                    DateTime dteEnd = DateTime.Now;
+                    int milliSeconds = (int)((TimeSpan)(dteEnd - dteStart)).TotalMilliseconds;
+
+                    Wks.Range[strWhichColumn + "1"].Value = milliSeconds + " milliSeconds";
 
                 }
             }
@@ -153,6 +151,12 @@ namespace ToolbarOfFunctions
         }
 
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Wks"></param>
+        /// <param name="strDoWhat"></param>
+        /// <param name="boolExtraDetails"></param>
         public void writeHeaders(Excel.Worksheet Wks, string strDoWhat, bool boolExtraDetails)
         {
             string strHead;
@@ -172,12 +176,14 @@ namespace ToolbarOfFunctions
 
         }
 
+
         public static DialogResult askGetExtraDetails()
         {
             DialogResult dlgResult = MessageBox.Show("Populate extract detail columns?", "Question", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
 
             return dlgResult;
         }
+
 
         public static void getExtraDetails(string file, Excel.Worksheet Wks, int gintFileCount)
         {
@@ -198,13 +204,11 @@ namespace ToolbarOfFunctions
 
 
             if (strFileVersioninfo != "0.0.0.0")
-            {
                 Wks.Cells[gintFileCount, 4].value = strFileVersioninfo;
-            }
-
 
             Wks.Cells[gintFileCount, 5].value = oFileInfo.Name;                                 // File Name Extracted
         }
+
 
         public static void directorySearch(string root, Excel.Worksheet Wks, int gintFileCount, bool boolExtraDetails, bool isRootItrated)
         {
@@ -214,8 +218,7 @@ namespace ToolbarOfFunctions
                 var rootDirectoryFiles = Directory.GetFiles(root);
                 foreach (var file in rootDirectoryFiles)
                 {
-
-                    Console.WriteLine(file);
+                    // Console.WriteLine(file);
                     Wks.Cells[gintFileCount, 1].value = file.ToString();
 
                     if (boolExtraDetails)
@@ -250,14 +253,22 @@ namespace ToolbarOfFunctions
         }
 
 
+        /// <summary>
+        /// dealWithSingleDuplicates
+        /// Loops down a single column looking for duplicates
+        /// </summary>
         internal void dealWithSingleDuplicates(Excel.Application xls)
         {
+
+            #region [Declare and instantiate variables for process]
             myData = myData.LoadMyData();               // read data from settings file
 
             bool boolDisplayInitialMessage = myData.ProduceInitialMessageBox;
             bool boolDisplayCompleteMessage = myData.ProduceCompleteMessageBox;
             bool booltimeTaken = myData.DisplayTimeTaken;
             string strColourOrDelete = myData.ColourOrDelete;
+            bool boolTurnOffScreen = myData.TurnOffScreenValidation;
+            bool boolClearFormatting = myData.ClearFormatting;
 
             // colours for the Colour or delete option
             Color clrFoundForeColour = ColorTranslator.FromHtml(myData.ColourFore_Found);
@@ -266,14 +277,18 @@ namespace ToolbarOfFunctions
             decimal intStartRow = myData.ComparingStartRow;
             decimal intStartColumToCheck = myData.DupliateColumnToCheck;
 
+            #endregion
+
             try
             {
+
+                #region [Declare and instantiate variables for worksheet/book]
                 Excel.Workbook Wkb = xls.ActiveWorkbook;
                 Excel.Worksheet Wks;   // get current sheet
 
                 Wks = Wkb.ActiveSheet;
 
-                string strColumnName = CommonExcelClasses.getExcelColumnName((int)intStartColumToCheck);
+                string strColumnName = CommonExcelClasses.getExcelColumnLetter((int)intStartColumToCheck);
 
                 DialogResult dlgResult = DialogResult.Yes;
 
@@ -283,7 +298,9 @@ namespace ToolbarOfFunctions
 
                 // start of loop
                 decimal intSourceRow = intStartRow;
+                #endregion 
 
+                #region [Display a Message?]
                 if (boolDisplayInitialMessage)
                 {
                     strMessage = "";
@@ -300,29 +317,33 @@ namespace ToolbarOfFunctions
 
                     dlgResult = MessageBox.Show(strMessage, "Duplicate Rows Check", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
 
-                    // just for all cols this once
                     // remove formatting - format black and white but only if no was selected
                     if (dlgResult == DialogResult.No)
                     {
-                        int intLastCol = CommonExcelClasses.getLastCol(Wks);                   
-                        CommonExcelClasses.formatCells(Wks, intSourceRow, intLastRow, 1, CommonExcelClasses.getLastCol(Wks), "Normal");
+                        if (boolClearFormatting) { 
+                            // int intLastCol = CommonExcelClasses.getLastCol(Wks);                   
+                            // CommonExcelClasses.formatCells(Wks, intSourceRow, intLastRow, 1, CommonExcelClasses.getLastCol(Wks), "Normal");
+                            CommonExcelClasses.clearFormattingRange(Wks);
+
+                        }
                     }
 
                 }
+                #endregion
 
+                #region [Start of work]
                 if (dlgResult == DialogResult.Yes)
                 {
 
-                    Stopwatch sw = new Stopwatch();
-                    sw.Start();
+                    DateTime dteStart = DateTime.Now;
 
                     decimal curNoRecords = 0;
 
 
-                    // CommonExcelClasses.turnAppSettings("Off", xls, myData.TestCode);
-                    // start of loop
-                    // 1gvb1 - this is the wrong way up and is doing the oppisite of what is needed / what I want
-                    // or somehting need to step through
+                    if (boolTurnOffScreen)
+                        CommonExcelClasses.turnAppSettings("Off", xls, myData.TestCode);
+
+                    #region [Start of loop]
                     while (!CommonExcelClasses.isEmptyCell(Wks.Cells[intSourceRow, intStartColumToCheck]))
                     {
                         // hightlight, delete or clear?
@@ -332,7 +353,7 @@ namespace ToolbarOfFunctions
                             {
                                 if (strColourOrDelete == "Colour")
                                 {
-                                    colourCells(Wks, (intSourceRow + 1), "Error", 1, clrFoundForeColour, clrFoundBackColour, false);
+                                    CommonExcelClasses.colourCells(Wks, (intSourceRow + 1), "Error", 1, clrFoundForeColour, clrFoundBackColour, false);
                                     intSourceRow++;
                                 }
                                 else if (strColourOrDelete == "Delete")
@@ -341,7 +362,7 @@ namespace ToolbarOfFunctions
                                 }
                                 else
                                 {
-                                    colourCells(Wks, (intSourceRow ), strColourOrDelete, 1, clrFoundForeColour, clrFoundBackColour, false);
+                                    CommonExcelClasses.colourCells(Wks, (intSourceRow ), strColourOrDelete, 1, clrFoundForeColour, clrFoundBackColour, false);
                                     intSourceRow++;
                                 }
 
@@ -356,11 +377,14 @@ namespace ToolbarOfFunctions
 
                         intSourceRow++;
                     }
+                    #endregion [Start of loop]
 
-                    sw.Stop();
+                    
 
-                    // CommonExcelClasses.turnAppSettings("On", xls, myData.TestCode);
+                    if (boolTurnOffScreen)
+                        CommonExcelClasses.turnAppSettings("On", xls, myData.TestCode);
 
+                    #region [Display Complete Message]
                     if (boolDisplayCompleteMessage)
                     {
 
@@ -368,41 +392,51 @@ namespace ToolbarOfFunctions
 
                         if (booltimeTaken)
                         {
-                            strMessage = strMessage + LF + "that took " + sw.Elapsed.Milliseconds.ToString() + " Milliseconds" + LF;
+                            DateTime dteEnd = DateTime.Now;
+                            int milliSeconds = (int)((TimeSpan)(dteEnd - dteStart)).TotalMilliseconds;
+
+                            strMessage = strMessage + "that took {TotalMilliseconds} " + milliSeconds + LF;
                             strMessage = strMessage + LF + "And handled: " + curNoRecords.ToString() + " duplicates";
 
                         }
                         CommonExcelClasses.MsgBox(strMessage);
                     }
+                    #endregion
 
                 }
+                #endregion [Start of work]
 
-                // free the system - 1gvb1 - not tested
+                #region [Release memory]
                 Marshal.ReleaseComObject(Wks);
                 Marshal.ReleaseComObject(Wkb);
+                #endregion
 
             }
             catch (System.Exception excpt)
             {
                 if (boolDisplayCompleteMessage)
-                {
                     CommonExcelClasses.MsgBox("There was an error?", "Error");
-                }
 
                 Console.WriteLine(excpt.Message);
             }
         }
 
 
-
+        /// <summary>
+        /// dealWithManyDuplicates
+        /// Loops down many columns looking for duplicates
+        /// </summary>
         internal void dealWithManyDuplicates(Excel.Application xls)
         {
+            #region [Declare and instantiate variables for process]
             myData = myData.LoadMyData();               // read data from settings file
 
             bool boolDisplayInitialMessage = myData.ProduceInitialMessageBox;
             bool boolDisplayCompleteMessage = myData.ProduceCompleteMessageBox;
             bool booltimeTaken = myData.DisplayTimeTaken;
             string strColourOrDelete = myData.ColourOrDelete;
+            bool boolTurnOffScreen = myData.TurnOffScreenValidation;
+            bool boolClearFormatting = myData.ClearFormatting;
 
             // colours for the Colour or delete option
             Color clrFoundForeColour = ColorTranslator.FromHtml(myData.ColourFore_Found);
@@ -411,15 +445,17 @@ namespace ToolbarOfFunctions
             decimal intStartRow = myData.ComparingStartRow;
             decimal intColumToCheck = myData.DupliateColumnToCheck;
             decimal intNoCheckCols = myData.NoOfColumnsToCheck;          // will replacce with last row? or option on settings
+            #endregion
 
             try
             {
+                #region [Declare and instantiate variables for worksheet/book]
                 Excel.Workbook Wkb = xls.ActiveWorkbook;
                 Excel.Worksheet Wks;   // get current sheet
 
                 Wks = Wkb.ActiveSheet;
 
-                string strColumnName = CommonExcelClasses.getExcelColumnName((int)intColumToCheck);
+                string strColumnName = CommonExcelClasses.getExcelColumnLetter((int)intColumToCheck);
 
                 DialogResult dlgResult = DialogResult.Yes;
 
@@ -430,7 +466,9 @@ namespace ToolbarOfFunctions
                 int intLastRow = CommonExcelClasses.getLastRow(Wks);
                 decimal intSourceRow = intStartRow;
                 decimal intLastCol = CommonExcelClasses.getLastCol(Wks);
+                #endregion
 
+                #region [Display a Message?]
                 if (boolDisplayInitialMessage)
                 {
                     strMessage = "";
@@ -450,17 +488,19 @@ namespace ToolbarOfFunctions
                     // just for all cols this once
                     // remove formatting - format black and white but only if no was selected
                     if (dlgResult == DialogResult.No)
-                    {
-                        CommonExcelClasses.formatCells(Wks, intSourceRow, intLastRow, 1, CommonExcelClasses.getLastCol(Wks), "Normal");
-                    }
+                        if (boolClearFormatting)
+                        {
+                            //CommonExcelClasses.formatCells(Wks, intSourceRow, intLastRow, 1, CommonExcelClasses.getLastCol(Wks), "Normal");
+                            CommonExcelClasses.clearFormattingRange(Wks);
+                        }
 
                 }
+                #endregion
 
+                #region [Start of work]
                 if (dlgResult == DialogResult.Yes)
                 {
-
-                    Stopwatch sw = new Stopwatch();
-                    sw.Start();
+                    DateTime dteStart = DateTime.Now;
 
                     decimal intStartCol = 1;
                     decimal intSourceCol = 1;
@@ -469,8 +509,10 @@ namespace ToolbarOfFunctions
                     decimal[] arrRows = new decimal[100];
                     int intRowArrayPointer = 0;
 
-                    // CommonExcelClasses.turnAppSettings("Off", xls, myData.TestCode);
-                    // start of loop
+                    if (boolTurnOffScreen)
+                        CommonExcelClasses.turnAppSettings("Off", xls, myData.TestCode);
+
+                    #region {start of loop into array}
                     while (!CommonExcelClasses.isEmptyCell(Wks.Cells[intSourceRow, intColumToCheck]))
                     {
                         // col loop here
@@ -489,7 +531,7 @@ namespace ToolbarOfFunctions
 
                             if (strColourOrDelete == "Colour")
                             {
-                                colourCells(Wks, (intSourceRow + 1), "Error", intNoCheckCols, clrFoundForeColour, clrFoundBackColour, false);
+                                CommonExcelClasses.colourCells(Wks, (intSourceRow + 1), "Error", intNoCheckCols, clrFoundForeColour, clrFoundBackColour, false);
                                 
                             }
                             else if (strColourOrDelete == "Delete")
@@ -517,15 +559,17 @@ namespace ToolbarOfFunctions
                         intSourceRow++;
 
                     }
+                    #endregion
 
                     // ok now have an array
+                    #region [Deal with result array]
                     if (strColourOrDelete == "Clear")
                     {
                         for (int i = arrRows.GetLowerBound(0); i <= arrRows.GetUpperBound(0); i++)
                         {
                             if (arrRows[i] > 0)
                             {
-                                colourCells(Wks, arrRows[i], strColourOrDelete, intNoCheckCols, clrFoundForeColour, clrFoundBackColour, false);
+                                CommonExcelClasses.colourCells(Wks, arrRows[i], strColourOrDelete, intNoCheckCols, clrFoundForeColour, clrFoundBackColour, false);
                             }
                             else
                                 break;
@@ -534,10 +578,11 @@ namespace ToolbarOfFunctions
 
                     }
 
-                    sw.Stop();
+                    #endregion
 
-
-                    // CommonExcelClasses.turnAppSettings("On", xls, myData.TestCode);
+                    #region [Say complete?]
+                    if (boolTurnOffScreen)
+                        CommonExcelClasses.turnAppSettings("On", xls, myData.TestCode);
 
                     if (boolDisplayCompleteMessage)
                     {
@@ -546,18 +591,25 @@ namespace ToolbarOfFunctions
 
                         if (booltimeTaken)
                         {
-                            strMessage = strMessage + LF + "that took " + sw.Elapsed.Milliseconds.ToString() + " Milliseconds" + LF;
+
+                            DateTime dteEnd = DateTime.Now;
+                            int milliSeconds = (int)((TimeSpan)(dteEnd - dteStart)).TotalMilliseconds;
+
+                            strMessage = strMessage + "that took {TotalMilliseconds} " + milliSeconds + LF;
                             strMessage = strMessage + LF + "And handled: " + curNoRecords.ToString() + " duplicates";
 
                         }
                         CommonExcelClasses.MsgBox(strMessage);
                     }
+                    #endregion 
 
                 }
+                #endregion
 
-                // free the system - 1gvb1 - not tested
+                #region [Release memory]
                 Marshal.ReleaseComObject(Wks);
                 Marshal.ReleaseComObject(Wkb);
+                #endregion
 
             }
             catch (System.Exception excpt)
@@ -571,16 +623,18 @@ namespace ToolbarOfFunctions
             }
         }
 
-
+        // left here - 1gvb9
         internal void compareSheets(Excel.Application xls)
-        {            
-            
+        {
+            #region [Declare and instantiate variables for process]
             myData = myData.LoadMyData();               // read data from settings file
 
             bool boolDisplayInitialMessage = myData.ProduceInitialMessageBox;
             bool boolDisplayCompleteMessage = myData.ProduceCompleteMessageBox;
             bool booltimeTaken = myData.DisplayTimeTaken;
             string strCompareOrColour = myData.CompareOrColour;
+            bool boolTurnOffScreen = myData.TurnOffScreenValidation;
+            bool boolClearFormatting = myData.ClearFormatting;
 
             Color clrColourFore_Found = ColorTranslator.FromHtml(myData.ColourFore_Found);
             Color clrColourFore_NotFound = ColorTranslator.FromHtml(myData.ColourFore_NotFound);
@@ -592,8 +646,11 @@ namespace ToolbarOfFunctions
 
             bool boolTestCode = myData.TestCode;
 
+            #endregion
+
             try
             {
+                #region [Declare and instantiate variables]
                 Excel.Workbook Wkb = xls.ActiveWorkbook;
                 Excel.Worksheet Wks1;   // get current sheet
                 Excel.Worksheet Wks2;   // get sheet next door
@@ -603,12 +660,16 @@ namespace ToolbarOfFunctions
 
                 int intSheetLastRow1 = CommonExcelClasses.getLastRow(Wks1);
                 int intSheetLastRow2 = CommonExcelClasses.getLastRow(Wks2);
+                #endregion
 
+                #region [Declare and instantiate variables for worksheet/book]
                 if (intSheetLastRow1 >= intStartRow || intSheetLastRow2 >= intStartRow)
                 {
+
+                    #region [Ask to display a Message?]
                     DialogResult dlgResult = DialogResult.Yes;
                     string strMessage;
-
+                                        
                     if (boolDisplayInitialMessage)
                     {
                         strMessage = "Compare: " + Wks1.Name + LF +
@@ -625,20 +686,27 @@ namespace ToolbarOfFunctions
 
                         dlgResult = MessageBox.Show(strMessage, "Compare Sheets", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
                     }
+                  
 
                     int intLastCol = CommonExcelClasses.getLastCol(Wks1);
 
-                    CommonExcelClasses.turnAppSettings("Off", xls, myData.TestCode);
+                    if (boolTurnOffScreen)
+                        CommonExcelClasses.turnAppSettings("Off", xls, myData.TestCode);
 
                     // remove formatting - format black and white but only if no was selected
                     if (dlgResult == DialogResult.No)
-                        CommonExcelClasses.formatCells(Wks1, intStartRow, intSheetLastRow1, 1, intLastCol, "Normal");
+                        if (boolClearFormatting)
+                        {
+                            // CommonExcelClasses.formatCells(Wks1, intStartRow, intSheetLastRow1, 1, intLastCol, "Normal");
+                            CommonExcelClasses.clearFormattingRange(Wks1);
+                        }
 
+                    #endregion
+
+                    #region [Start of work]
                     if (dlgResult == DialogResult.Yes)
                     {
-
-                        Stopwatch sw = new Stopwatch();
-                        sw.Start();
+                        DateTime dteStart = DateTime.Now;
 
                         int intTargetRow = 0;
                         int intStartColumToCheck = 1;
@@ -677,18 +745,19 @@ namespace ToolbarOfFunctions
 
                             // Score system = if all the same then can blue it
                             if (intColScore == intLastCol)
-                                colourCells(Wks1, intSourceRow, strCompareOrColour, intLastCol, clrColourFore_Found, clrColourBack_Found, boolTestCode);
+                                CommonExcelClasses.colourCells(Wks1, intSourceRow, strCompareOrColour, intLastCol, clrColourFore_Found, clrColourBack_Found, boolTestCode);
                             else
-                                colourCells(Wks1, intSourceRow, "Error", intLastCol, clrColourFore_NotFound, clrColourBack_NotFound, boolTestCode);
+                                CommonExcelClasses.colourCells(Wks1, intSourceRow, "Error", intLastCol, clrColourFore_NotFound, clrColourBack_NotFound, boolTestCode);
 
                             intColScore = 0;
 
                         }
 
-                        sw.Stop();
+                        if (boolTurnOffScreen)
+                            CommonExcelClasses.turnAppSettings("On", xls, myData.TestCode);
+                        #endregion
 
-                        // CommonExcelClasses.turnAppSettings("On", xls, myData.TestCode);
-
+                        #region [Display Complete Message]
                         if (boolDisplayCompleteMessage)
                         {
                             strMessage = "";
@@ -696,15 +765,20 @@ namespace ToolbarOfFunctions
 
                             if (booltimeTaken)
                             {
-                                strMessage = strMessage + "that took " + sw.Elapsed.Milliseconds.ToString() + " Milliseconds";
+
+                                DateTime dteEnd = DateTime.Now;
+                                int milliSeconds = (int)((TimeSpan)(dteEnd - dteStart)).TotalMilliseconds;
+
+                                strMessage = strMessage + "that took {TotalMilliseconds} " + milliSeconds;
 
                             }
 
                             CommonExcelClasses.MsgBox(strMessage);          // localisation?
                         }
+                        #endregion
 
                     }
-
+                   
                 }
                 else
                 {
@@ -712,12 +786,17 @@ namespace ToolbarOfFunctions
                         CommonExcelClasses.MsgBox("No data to compare ...", "Warning");          // localisation?
                 }
 
-                CommonExcelClasses.turnAppSettings("On", xls, myData.TestCode);
 
-                // free the system - 1gvb1 - not tested
+                if (boolTurnOffScreen)
+                    CommonExcelClasses.turnAppSettings("On", xls, myData.TestCode);
+
+                #endregion
+
+                #region [Release memory]
                 Marshal.ReleaseComObject(Wks1);
                 Marshal.ReleaseComObject(Wks2);
                 Marshal.ReleaseComObject(Wkb);
+                #endregion
 
             }
             catch (System.Exception excpt)
@@ -734,111 +813,292 @@ namespace ToolbarOfFunctions
 
         internal void updateTimeSheet(Excel.Application xls)
         {
+            #region [Declare and instantiate variables for process]
+            myData = myData.LoadMyData();               // read data from settings file
+            bool boolDisplayInitialMessage = myData.ProduceInitialMessageBox;
+            bool boolDisplayCompleteMessage = myData.ProduceCompleteMessageBox;
+            bool booltimeTaken = myData.DisplayTimeTaken;
+            bool boolTurnOffScreen = myData.TurnOffScreenValidation;
+            bool boolSaveLastRowNo = myData.TimeSheetGetRowNo;
+            decimal intRowCount = myData.TimeSheetRowNo;
+            #endregion
 
-            // need to loop entire workbook
-            Excel.Workbook Wkb = xls.ActiveWorkbook;
-
-            Excel.Worksheet Wks;
-            // Excel.Range xlCell;
-
-            Wks = Wkb.ActiveSheet;
-
-            // will define start row later
-            decimal intLastRow = CommonExcelClasses.getLastRow(Wks);
-            int intExaminCol = CommonExcelClasses.getExcelColumnNumber("N");
-            int intRowCount = 1;
-
-            // CommonExcelClasses.MsgBox(intExaminCol.ToString());
-
-            while (intRowCount <= intLastRow)
+            try
             {
-                if (intRowCount < 25)
+                #region [Declare and instantiate variables for worksheet/book]
+                // need to loop entire workbook
+                Excel.Workbook Wkb = xls.ActiveWorkbook;
+                Excel.Worksheet Wks;
+
+                Wks = Wkb.ActiveSheet;
+
+                // will define start row later
+                decimal intLastRow = CommonExcelClasses.getLastRow(Wks);
+                int intExaminCol = CommonExcelClasses.getExcelColumnNumber("N");
+
+                string strMessage;
+                DialogResult dlgResult = DialogResult.Yes;
+                #endregion
+
+                #region [Display a Message?]
+                if (boolDisplayInitialMessage)
                 {
-                    if (!CommonExcelClasses.isEmptyCell(Wks.Cells[intRowCount, intExaminCol]))
+                    strMessage = "Correct: " + Wks.Name + LF +
+                                   " (starting at row:" + intRowCount.ToString() + ")";
+
+                    if (booltimeTaken)
                     {
-                        // is it a valid day
-                        if (dayCheck(Wks.Cells[intRowCount, intExaminCol].Value.ToString()))
+                        strMessage = strMessage + LF + " and display the time taken";
+                    }
+
+                    strMessage = strMessage + "?";
+
+                    dlgResult = MessageBox.Show(strMessage, "Correct Timesheet", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+                }
+                #endregion
+                
+                #region [Start of work]
+                if (dlgResult == DialogResult.Yes)
+                {
+                    DateTime dteStart = DateTime.Now;
+
+                    // might put this under an option
+                    if (boolTurnOffScreen)
+                        CommonExcelClasses.turnAppSettings("Off", xls, myData.TestCode);
+
+                    #region [Start of loop]
+                    while (intRowCount <= intLastRow)
+                    {
+                        if (!CommonExcelClasses.isEmptyCell(Wks.Cells[intRowCount, intExaminCol]))
                         {
-                            CommonExcelClasses.MsgBox("It was a day");
-
-                            decimal intStartOfWeekRow = intRowCount;
-                            string strDay = Wks.Cells[intRowCount, intExaminCol].Value.ToString();
-
-                            // jump down 1 row
-                            intRowCount++;
-
-                            while (Wks.Cells[intRowCount, intExaminCol].Value.ToString() == strDay)
+                            if (boolSaveLastRowNo)
+                                startOfWeekCheck(Wks, intRowCount, myData.TimeSheetRowNo);
+                            
+                            // is it a valid day
+                            if (CommonExcelClasses.dayCheck(Wks.Cells[intRowCount, intExaminCol].Value.ToString()))
                             {
+                                decimal intStartOfWeekRow = intRowCount;
+                                string strDay = Wks.Cells[intRowCount, intExaminCol].Value.ToString();
 
-                                // Call sortHours(Wks, intRowCount, intStartOfWeekRow)
-
-                                sortHours(Wks, intRowCount, intStartOfWeekRow);
-
+                                // jump down 1 row
                                 intRowCount++;
 
+                                while (Wks.Cells[intRowCount, intExaminCol].Value.ToString() == strDay)
+                                {
+                                    sortHours(Wks, intRowCount, intStartOfWeekRow);
+                                    fixDateCol(Wks, intRowCount, intStartOfWeekRow);
+                                    intRowCount++;
+                                }
+
+                                intRowCount--;
+
+                                repairTimeRecording(Wks, intStartOfWeekRow + 1, intRowCount);
+
+                                // this will add validation to the entire date section / range
+                                CommonExcelClasses.addValidationToColumn(Wks, "Q", intStartOfWeekRow + 1, intRowCount, "=rangeCategory");
                             }
+                        }
+
+                        intRowCount++;
+
+                    }
+
+                    #endregion
+                    
+                    #endregion
+
+                    #region [Display Complete Message]
+                    if (boolDisplayCompleteMessage)
+                    {
+                        strMessage = "";
+                        strMessage = strMessage + "Process Complete ...";
+
+                        if (booltimeTaken)
+                        {
+                            DateTime dteEnd = DateTime.Now;
+                            int milliSeconds = (int)((TimeSpan)(dteEnd - dteStart)).TotalMilliseconds;
+
+                            strMessage = strMessage + "that took {TotalMilliseconds} " + milliSeconds;
 
                         }
+
+                        CommonExcelClasses.MsgBox(strMessage);          // localisation?
                     }
                 }
-                else
-                {
-                    break;
-                }
+                if (boolTurnOffScreen)
+                    CommonExcelClasses.turnAppSettings("On", xls, myData.TestCode);
+                #endregion
+                
+                #region [Release memory]
+                Marshal.ReleaseComObject(Wks);
+                Marshal.ReleaseComObject(Wkb);
+                #endregion
 
-                intRowCount++;
 
             }
+            catch (System.Exception excpt)
+            {
+                if (boolDisplayCompleteMessage)
+                {
+                    CommonExcelClasses.MsgBox("Ther was an error - around row number" + intRowCount.ToString(), "Error");
+                    CommonExcelClasses.turnAppSettings("On", xls, myData.TestCode);
+                }
+
+                Console.WriteLine(excpt.Message);
+            }
+        }
+
+
+        public void startOfWeekCheck(Excel.Worksheet Wks, decimal intRowCount, decimal intTimeSheetRowNo)
+        {
+            if (Wks.Cells[intRowCount, 14].Value.ToString() == "Date")
+            {
+                if (Wks.Cells[intRowCount, 2].Value.ToString() == "Week")
+                {
+                    if (intRowCount != intTimeSheetRowNo)
+                    {                        
+                        myData.TimeSheetRowNo = intRowCount;                // set the value 
+                        InformationForSettingsForm.SaveData(myData);
+                    }
+
+                }
+            }
+        }
+
+        /*
+        public void addValidationToColumn(Excel.Worksheet Wks, string strCol, decimal intStartRow, decimal intEndRow, string strFormula)
+        {
+            Excel.Range xlCell;
+            string strRange = strCol + intStartRow.ToString() + ":" + strCol + intEndRow.ToString();
+
+            xlCell = Wks.get_Range(strRange);
+            xlCell.Validation.Delete();
+            xlCell.Validation.Add(XlDVType.xlValidateList, XlDVAlertStyle.xlValidAlertStop, Formula1: strFormula);
+
+            xlCell.Validation.InCellDropdown = true;
+            xlCell.Validation.ErrorTitle = "Error in Validation";
+            xlCell.Validation.ErrorMessage = "Please select value from list";
+
+            // do I want to release this?
+            Marshal.ReleaseComObject(xlCell);
+
+        }
+        */
+
+        // repairs sums at bottom of cols A->M then S:
+        public void repairTimeRecording(Excel.Worksheet Wks, decimal intRowStart, decimal intRowEnd)
+        {
+
+            decimal intCol_Start = CommonExcelClasses.getExcelColumnNumber("A");
+            decimal intCol_End = CommonExcelClasses.getExcelColumnNumber("M");
+
+            // string strDeltaCol, strDeltaRange, strSumString;
+            string strDeltaCol;
+            string strSumString;
+            decimal intDeltaA;
+
+            for (intDeltaA = intCol_Start; intDeltaA <= intCol_End; intDeltaA++)
+            {
+                strDeltaCol = CommonExcelClasses.getExcelColumnLetter((int)intDeltaA);
+
+                strSumString = CommonExcelClasses.createFormula(strDeltaCol, intRowStart, intRowEnd);
+                
+                Wks.Cells[intRowEnd + 1, intDeltaA].Value = strSumString;
+            }
+
+            // ' finally do S
+            intDeltaA = 19;
+            strDeltaCol = CommonExcelClasses.getExcelColumnLetter((int)intDeltaA);
+
+            strSumString = CommonExcelClasses.createFormula("S", intRowStart, intRowEnd);
+            Wks.Cells[intRowEnd + 1, intDeltaA].Value = strSumString;
 
         }
 
+
+        public void fixDateCol(Excel.Worksheet Wks, decimal intRowCount, decimal intStartOfWeekRow)
+        {
+            // 1st
+            // string strDateCol = CommonExcelClasses.getExcelColumnLetter(C_COL_DATE);
+            // string strRangeDateCol = "=" + strDateCol + intStartOfWeekRow;
+            // Wks.Cells[intRowCount, C_COL_CATEGORY].Value = strRangeDateCol;
+
+            // 2nd
+            Wks.Cells[intRowCount, C_COL_DATE].Value = "=" + CommonExcelClasses.getExcelColumnLetter(C_COL_DATE) + intStartOfWeekRow;
+
+        }
+
+
         public void sortHours(Excel.Worksheet Wks, decimal intRowCount, decimal intStartOfWeekRow)
         {
-            string strSearchCat = Wks.Cells[intRowCount, 17].Value.ToString();
+            string strSearchCat = Wks.Cells[intRowCount, C_COL_CATEGORY].Value.Trim().ToString();
+
+            // put it back trimmed?
+            Wks.Cells[intRowCount, C_COL_CATEGORY].Value = strSearchCat.Trim();
+
+            Excel.Range xlCell;
 
             if (strSearchCat == "!NON WORKING")
             {
-                Wks.Cells[intRowCount, 19].Value = "";
-            }
-            else
-            {
-                // need to put hours sum in if not there
-                if (Wks.Cells[intRowCount, 19].Value == 0) {
+                Wks.Cells[intRowCount, C_COL_TOTAL].Value = "";
 
+            } else {
+
+                // need to put hours sum in if not there
+                if (Wks.Cells[intRowCount, C_COL_TOTAL].Value == 0)
+                {
                     string strTotalRange = "P" + intRowCount + "-O" + intRowCount;
                     string strTotalRangeSum = "=SUM(" + strTotalRange + ")";
 
-                    Wks.Cells[intRowCount, 19].Value = strTotalRangeSum;
+                    Wks.Cells[intRowCount, C_COL_TOTAL].Value = strTotalRangeSum;
                 }
 
                 string strRange = "A" + intRowCount.ToString() + ":" + "M" + intRowCount.ToString();
-                Excel.Range xlCell;
-
                 xlCell = Wks.get_Range(strRange);
                 xlCell.ClearContents();
-
 
                 strSearchCat = transformCat(strSearchCat);
 
                 if (strSearchCat.Length > 0)
                 {
-                    // int intTargetCol = CommonExcelClasses.searchForValue(Wks, strSearchCat, intStartOfWeekRow, "Whole", False)
-                    // searchForValueInHeaderCol
+                    decimal intTargetCol = searchForValueInHeaderCol(Wks, strSearchCat.Trim(), intStartOfWeekRow);
 
-                    CommonExcelClasses.MsgBox("Will not look for value in column header - to write function");
+                    if (intTargetCol > 0)
+                    {
+                        strRange = "=S" + intRowCount.ToString();
+                        Wks.Cells[intRowCount, intTargetCol].Value = strRange;
+                    } else
+                    {
+                        CommonExcelClasses.MsgBox("undefined - check (probably could not find category) ","Error");
+                    }
 
-                }
-
-
+                } 
 
             }
 
+        }
+
+
+        public decimal searchForValueInHeaderCol(Excel.Worksheet Wks, string strSearchValue, decimal intWhichScanRow)
+        {
+            decimal intColNo = 0;
+
+            for (intColNo = 1; intColNo <= 14; intColNo++)
+            {
+                // check no space
+                if (!CommonExcelClasses.isEmptyCell(Wks.Cells[intWhichScanRow, intColNo]))
+                    if (Wks.Cells[intWhichScanRow, intColNo].Value.ToUpper() == strSearchValue.ToUpper())
+                        break;
+
+            }
+
+            return intColNo;
 
         }
 
+
         public string transformCat(string strSearchCat)
         {
-
             if (strSearchCat != "!NON WORKING") {
 
                 switch (strSearchCat)
@@ -873,86 +1133,23 @@ namespace ToolbarOfFunctions
             return strSearchCat;
         }
 
-        public bool dayCheck(string strValue)
-        {
-            bool boolRetVal = false;
-
-            if ( strValue.Length > 0 )
-            {
-                if ( strValue.Length == 19 )
-                {
-                    if (CommonExcelClasses.IsDate(strValue))
-                    {
-                        string strDayOfWeek = FormatedDateString(DateTime.Parse(strValue), "dddd");
-                        boolRetVal = (strDayOfWeek == "Monday" || strDayOfWeek == "Tuesday" || strDayOfWeek == "Wednesday" || strDayOfWeek == "Thursday" || strDayOfWeek == "Friday");
-                    }
-                }
-            }
-
-            return boolRetVal;
-        }
-
-
-        public static string FormatedDateString(DateTime dateTime, string strFormat)
-        {
-            //return dateTime.ToString("dd/MM/yyyy ");
-
-            if (dateTime == SqlDateTime.MinValue.Value)
-                return string.Empty;
-            else
-                return dateTime.ToString(strFormat);
-        }
-
-        public void colourCells(Excel.Worksheet Wks, decimal intSourceRow, string strDoWhat, decimal intNoCheckCols, Color clrWhichColourFore, Color clrWhichColourBack, bool boolTestCode)
-        {
-            int intStartColumToCheck = 1;
-
-            Excel.Range xlCell;
-
-            for (int intColCount = intStartColumToCheck; intColCount <= intNoCheckCols; intColCount++)
-            {
-
-                if (strDoWhat == "Error" || strDoWhat == "Colour")
-                {
-                    xlCell = Wks.Cells[intSourceRow, intColCount];
-                    xlCell.Font.Color = ColorTranslator.ToOle(clrWhichColourFore);
-                    xlCell.Interior.Color = ColorTranslator.ToOle(clrWhichColourBack);
-                    xlCell.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
-                    xlCell.Borders.Color = ColorTranslator.ToOle(Color.LightGray); ;
-                    xlCell.Borders.Weight = 2d;
-                } else {
-                    Wks.Cells[intSourceRow, intColCount].Value2 = null;
-                }
-
-            }
-
-            // Marshal.Release(xlCell);
-            // Release our resources.
-            // Marshal.ReleaseComObject(workbook);
-            // Marshal.ReleaseComObject(workbooks);
-            // Marshal.FinalReleaseComObject(xlCell);
-
-        }
-
-
-
         public void deleteBlankLines(Excel.Workbook Wkb, string strMode)
         {
             Excel.Worksheet Wks;
             Wks = Wkb.ActiveSheet;
 
             string strResultsCol = "F";
-            Stopwatch sw = new Stopwatch();
 
             myData = myData.LoadMyData();               // read data from settings file
 
             bool boolRecordTimes = myData.RecordTimes;
+            DateTime dteStart = DateTime.Now;
 
             if (boolRecordTimes)
             {
                 // record times
-                Wks.Range[strResultsCol + "1"].Value = DateTime.Now;
-                sw.Start();
+
+                Wks.Range[strResultsCol + "1"].Value = dteStart;
             }
 
             if (Wks.Name != "InternalParameters")
@@ -980,10 +1177,11 @@ namespace ToolbarOfFunctions
 
             if (boolRecordTimes)
             {
-                sw.Stop();
+                DateTime dteEnd = DateTime.Now;
+                int milliSeconds = (int)((TimeSpan)(dteEnd - dteStart)).TotalMilliseconds;
 
-                Wks.Range[strResultsCol + "2"].Value = DateTime.Now;
-                Wks.Range[strResultsCol + "3"].Value = sw.Elapsed.Milliseconds;
+                Wks.Range[strResultsCol + "2"].Value = dteEnd ;
+                Wks.Range[strResultsCol + "3"].Value = milliSeconds;
             }
 
 
@@ -1028,6 +1226,7 @@ namespace ToolbarOfFunctions
             }
         }
 
+
         private void delLinesModeB(Excel.Worksheet Wks)
         {
 
@@ -1046,7 +1245,7 @@ namespace ToolbarOfFunctions
                 int intRowLast = CommonExcelClasses.getLastRow(Wks);
                 int intColLast = CommonExcelClasses.getLastCol(Wks);
 
-                string strLastCol = CommonExcelClasses.getExcelColumnName(intColLast);
+                string strLastCol = CommonExcelClasses.getExcelColumnLetter(intColLast);
 
                 int intRowToStartFrom = 1;
                 int intColScore = 0;
@@ -1105,6 +1304,7 @@ namespace ToolbarOfFunctions
 
         }
 
+
         private void delLinesModeC(Excel.Worksheet worksheet)
         {
             // Excel.Application excel = new Excel.Application();
@@ -1124,7 +1324,6 @@ namespace ToolbarOfFunctions
                 {
                     foreach (string f in Directory.GetFiles(d))
                     {
-
                         Console.WriteLine(f);
 
                         Wks.Cells[gintFileCount, 1].value = f.ToString();
@@ -1139,8 +1338,7 @@ namespace ToolbarOfFunctions
             }
 
         }
-
-
+        
 
         #region VSTO generated code
 

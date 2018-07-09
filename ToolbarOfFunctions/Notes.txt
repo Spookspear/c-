@@ -1,3 +1,74 @@
+DateTime dteStart = DateTime.Now;
+                            if (booltimeTaken)
+                            {
+
+                                DateTime dteEnd = DateTime.Now;
+                                int milliSeconds = (int)((TimeSpan)(dteEnd - dteStart)).TotalMilliseconds;
+
+                                strMessage = strMessage + "that took {TotalMilliseconds} " + milliSeconds;
+
+                            }
+
+							
+
+
+
+                    Stopwatch sw = new Stopwatch();
+                    DateTime dteStart = DateTime.Now;
+
+                    if (stringTimingType == "StopWatch")
+                        sw.Start();
+						
+						
+
+
+						
+
+                            string strTotalTime;
+
+                            if (stringTimingType == "StopWatch")
+                            {
+                                
+                                sw.Stop();
+                                strTotalTime = sw.Elapsed.Milliseconds.ToString() + " Milliseconds";
+                            }
+                            else
+                            {
+                                DateTime dteEnd = DateTime.Now;
+                                TimeSpan dteTotalTime = dteEnd.Subtract(dteStart);
+                                strTotalTime = dteTotalTime.ToString() + " Milliseconds";
+                            }
+
+                            strMessage = strMessage + LF + "that took " + strTotalTime + LF;
+                            strMessage = strMessage + LF + "And handled: " + curNoRecords.ToString() + " duplicates";
+							
+							
+
+
+
+#region [Declare and instantiate variables for process]
+#region [Declare and instantiate variables for worksheet/book]
+#region [Display a Message?]
+#region [Start of work]
+#region [Start of loop]
+#region [Release memory]
+
+myData.ClearFormatting = chkClearFormatting.Checked;
+
+
+
+#region [Start of loop]
+
+#endregion
+
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+
+
+
 bool booltimeTaken = myData.DisplayTimeTaken;
 
 if (booltimeTaken)
@@ -12,13 +83,13 @@ sw.Stop();
 
 if (booltimeTaken)
 {
-	strMessage = strMessage + "that took " + sw.Elapsed.Milliseconds.ToString() + " Milliseconds";
+    strMessage = strMessage + "that took " + sw.Elapsed.Milliseconds.ToString() + " Milliseconds";
 
 }
 
 
  strMessage = "Duplicate Rows Check on column: " + strColumnName + LF +
-                                 " Worksheet name: " + Wks.Name + 
+                                 " Worksheet name: " + Wks.Name +
                                             " and: " + strColourOrDelete + " ones which are the same";
 
                     if (booltimeTaken)
@@ -27,8 +98,8 @@ if (booltimeTaken)
                     }
 
                     strMessage = strMessage + "?";
-					
-					
+
+
 
 strMessage = "Compare: " + Wks1.Name + LF +
                                     " against: " + Wks2.Name + LF +
@@ -38,16 +109,16 @@ strMessage = "Compare: " + Wks1.Name + LF +
                         if (booltimeTaken)
                         {
                             strMessage = strMessage + LF + " and display the time taken";
-                        }					
+                        }
 
 
         internal void compareSheets(Excel.Application xls)
         {
 
             Excel.Workbook Wkb = xls.ActiveWorkbook;
-			
-					            CommonExcelClasses.ButtonUpdateLabel(btnCompareSheets, "Compare: (" + myData.CompareOrColour + ")");
+
+                                CommonExcelClasses.ButtonUpdateLabel(btnCompareSheets, "Compare: (" + myData.CompareOrColour + ")");
             CommonExcelClasses.ButtonUpdateLabel(btnDealWithSingleDuplicates, "Duplicates (Cols: Single): (" + myData.ColourOrDelete + ")");
-			
+
             CommonExcelClasses.ButtonUpdateLabel(btnCompareSheets, "Compare: (" + myData.CompareOrColour + ")");
-            CommonExcelClasses.ButtonUpdateLabel(btnDealWithSingleDuplicates, "Duplicates (Cols: Single): (" + myData.ColourOrDelete + ")");			
+            CommonExcelClasses.ButtonUpdateLabel(btnDealWithSingleDuplicates, "Duplicates (Cols: Single): (" + myData.ColourOrDelete + ")");

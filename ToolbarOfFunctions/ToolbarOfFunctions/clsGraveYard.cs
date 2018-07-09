@@ -78,6 +78,38 @@ namespace ToolbarOfFunctions_Graveyard
             // MessageBox.Show(activeWorksheetName);
             // setCursorToWaiting();
 
+
+
+            /*
+            string strTotalTime_StopWatch = "";
+            string strTotalTime_EndMinusNow = "";
+
+            if (boolTimingStopWatch)
+            {
+                strTotalTime_StopWatch = sw.Elapsed.Milliseconds.ToString() + " Milliseconds";
+            }
+
+            if (boolTimingEndMinusNow)
+            {
+                DateTime dteEnd = DateTime.Now;
+                TimeSpan dteTotalTime = dteEnd.Subtract(dteStart);
+                strTotalTime_EndMinusNow = dteTotalTime.Milliseconds.ToString() + " Milliseconds";
+            }
+
+            DateTime second = DateTime.Now;
+            int milliSeconds = (int)((TimeSpan)(second - first)).TotalMilliseconds;
+
+
+            strMessage = strMessage + "that took" + LF + LF;
+
+            strMessage = strMessage + "{Stop Watch} " + strTotalTime_StopWatch + LF;
+            strMessage = strMessage + "{End Minus Now} " + strTotalTime_EndMinusNow + LF;
+
+            strMessage = strMessage + "{TotalMilliseconds} " + milliSeconds;
+            */
+
+
+
         }
 
         private static void deleteEmptyRowsCols(Excel.Worksheet worksheet)

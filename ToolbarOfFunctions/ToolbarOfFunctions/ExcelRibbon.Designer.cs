@@ -232,6 +232,7 @@
             this.btnLoadADGroupIntoSpreadsheetActiveCell.Label = "AD Members - Active Cell";
             this.btnLoadADGroupIntoSpreadsheetActiveCell.Name = "btnLoadADGroupIntoSpreadsheetActiveCell";
             this.btnLoadADGroupIntoSpreadsheetActiveCell.ShowImage = true;
+            this.btnLoadADGroupIntoSpreadsheetActiveCell.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnLoadADGroupIntoSpreadsheetActiveCell_Click);
             // 
             // btnReadUsersGroupMembership
             // 

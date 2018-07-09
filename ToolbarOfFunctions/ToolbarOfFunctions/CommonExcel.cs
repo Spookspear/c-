@@ -32,6 +32,11 @@ using Microsoft.Office.Core;
 using System.Xml.Serialization;
 using Microsoft.Office.Interop.Excel;
 
+using System.Runtime.InteropServices;
+using System.Data.SqlTypes;
+
+
+
 namespace ToolbarOfFunctions_CommonClasses
 {
     public class CommonExcelClasses
@@ -72,9 +77,9 @@ namespace ToolbarOfFunctions_CommonClasses
                 }
                 if (Expression is string)
                 {
-                    DateTime time1;
-                    return DateTime.TryParse((string)Expression, out time1);
-                    // return DateTime.TryParse((string)Expression, out DateTime time1);
+                    // DateTime time1;
+                    // return DateTime.TryParse((string)Expression, out time1);
+                    return DateTime.TryParse((string)Expression, out DateTime time1);
                 }
             }
             return false;
@@ -235,7 +240,7 @@ namespace ToolbarOfFunctions_CommonClasses
             }
         }
 
-        public static string getExcelColumnName(int columnNumber)
+        public static string getExcelColumnLetter(int columnNumber)
         {
             int dividend = columnNumber;
             string columnName = String.Empty;
@@ -327,7 +332,129 @@ namespace ToolbarOfFunctions_CommonClasses
 
         }
 
+        public static void clearFormattingRange(Excel.Worksheet Wks)
+        {
+            // as I have the worksheet it can all be done here            
+            string strRange = "A1:" + getExcelColumnLetter(getLastCol(Wks)) + getLastRow(Wks);
 
+            // this will format the entire range supplied
+            Excel.Range xlCell;
+            xlCell = Wks.get_Range(strRange);
+            xlCell.Font.Color = ColorTranslator.FromHtml("Black");
+            xlCell.Interior.Color = ColorTranslator.FromHtml("White");
+            xlCell.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
+            xlCell.Borders.Color = ColorTranslator.ToOle(Color.LightGray); ;
+            xlCell.Borders.Weight = 2d;
+
+        }
+
+
+        public static void addValidationToColumn(Excel.Worksheet Wks, string strCol, decimal intStartRow, decimal intEndRow, string strFormula)
+        {
+            Excel.Range xlCell;
+            string strRange = strCol + intStartRow.ToString() + ":" + strCol + intEndRow.ToString();
+
+            xlCell = Wks.get_Range(strRange);
+            xlCell.Validation.Delete();
+            xlCell.Validation.Add(XlDVType.xlValidateList, XlDVAlertStyle.xlValidAlertStop, Formula1: strFormula);
+
+            xlCell.Validation.InCellDropdown = true;
+            xlCell.Validation.ErrorTitle = "Error in Validation";
+            xlCell.Validation.ErrorMessage = "Please select value from list";
+
+            // do I want to release this?
+            Marshal.ReleaseComObject(xlCell);
+            // Marshal.ReleaseComObject(Wks);
+
+        }
+
+
+        public static string createFormula(string strDeltaCol, decimal intRowStart, decimal intRowEnd)
+        {
+            string strDeltaRange, strSumString;
+
+            strDeltaRange = strDeltaCol + intRowStart.ToString() + ":" + strDeltaCol + intRowEnd.ToString();
+            strSumString = "=SUM(" + strDeltaRange + ")";
+
+            return strSumString;
+
+        }
+
+        public static bool dayCheck(string strValue)
+        {
+            bool boolRetVal = false;
+
+            if (strValue.Length > 0)
+            {
+                if (strValue.Length == 19)
+                {
+                    //if (CommonExcelClasses.IsDate(strValue))
+                    if (CommonExcelClasses.IsDate(strValue))
+                    {
+                        string strDayOfWeek = FormatDate(DateTime.Parse(strValue), "dddd");
+                        boolRetVal = (strDayOfWeek == "Monday" || strDayOfWeek == "Tuesday" || strDayOfWeek == "Wednesday" || strDayOfWeek == "Thursday" || strDayOfWeek == "Friday");
+                    }
+                }
+            }
+
+            return boolRetVal;
+        }
+
+        public static string FormatDate(DateTime dateTime, string strFormat)
+        {
+            //return dateTime.ToString("dd/MM/yyyy ");
+
+            if (dateTime == SqlDateTime.MinValue.Value)
+                return string.Empty;
+            else
+                return dateTime.ToString(strFormat);
+        }
+
+        /// <summary>
+        /// tbd - 1gvb2
+        /// </summary>
+        /// <param name="Wks"></param>
+        /// <param name="intSourceRow"></param>
+        /// <param name="strDoWhat"></param>
+        /// <param name="intNoCheckCols"></param>
+        /// <param name="clrWhichColourFore"></param>
+        /// <param name="clrWhichColourBack"></param>
+        /// <param name="boolTestCode"></param>
+        public static void colourCells(Excel.Worksheet Wks, decimal intSourceRow, string strDoWhat, decimal intNoCheckCols, Color clrWhichColourFore, Color clrWhichColourBack, bool boolTestCode)
+        {
+            int intStartColumToCheck = 1;
+
+            Excel.Range xlCell;
+
+            for (int intColCount = intStartColumToCheck; intColCount <= intNoCheckCols; intColCount++)
+            {
+                xlCell = Wks.Cells[intSourceRow, intColCount];
+
+                if (strDoWhat == "Error" || strDoWhat == "Colour")
+                {
+                    // xlCell = Wks.Cells[intSourceRow, intColCount];
+                    xlCell.Font.Color = ColorTranslator.ToOle(clrWhichColourFore);
+                    xlCell.Interior.Color = ColorTranslator.ToOle(clrWhichColourBack);
+                    xlCell.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
+                    xlCell.Borders.Color = ColorTranslator.ToOle(Color.LightGray); ;
+                    xlCell.Borders.Weight = 2d;
+                }
+                else
+                {
+                    // Wks.Cells[intSourceRow, intColCount].Value2 = null;
+                    xlCell.Value2 = null;
+                }
+
+                Marshal.ReleaseComObject(xlCell);
+            }
+
+            // Marshal.Release(xlCell);
+            // Release our resources.
+            // Marshal.ReleaseComObject(Wks);
+            // Marshal.ReleaseComObject(workbooks);
+            // Marshal.FinalReleaseComObject(xlCell);
+
+        }
 
     }
 }

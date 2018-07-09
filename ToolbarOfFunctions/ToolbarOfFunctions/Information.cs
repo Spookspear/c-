@@ -65,7 +65,11 @@ namespace ToolbarOfFunctions
         public bool RecordTimes { get; set; }
 
         public bool HideSeperator { get; set; }
-        
+
+        public bool TurnOffScreenValidation { get; set; }
+
+        public bool ClearFormatting { get; set; }
+
         public static void SaveData(object obj)
         {
             try
