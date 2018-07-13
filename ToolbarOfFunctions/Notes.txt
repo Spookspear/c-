@@ -1,3 +1,25 @@
+See if I can use WinNT://
+same as VBA
+Should connection string be in settings?
+
+Put password an username under test code - see if they are actually needed
+turn vars into string
+
+
+
+// read worksheet into array
+var myArray = (object[,])valueRange.Value2;
+
+
+// read it back
+var arrayCount = myArray.GetLength(0);
+var columnCount = GetTheColumnCountHere();
+valueRange = valueRange.get_Resize(arrayCount, columnCount);
+valueRange.set_Value(Excel.XlRangeValueDataType.xlRangeValueDefault, myArray);
+
+
+
+
 DateTime dteStart = DateTime.Now;
                             if (booltimeTaken)
                             {
@@ -9,7 +31,7 @@ DateTime dteStart = DateTime.Now;
 
                             }
 
-							
+
 
 
 
@@ -18,17 +40,17 @@ DateTime dteStart = DateTime.Now;
 
                     if (stringTimingType == "StopWatch")
                         sw.Start();
-						
-						
 
 
-						
+
+
+
 
                             string strTotalTime;
 
                             if (stringTimingType == "StopWatch")
                             {
-                                
+
                                 sw.Stop();
                                 strTotalTime = sw.Elapsed.Milliseconds.ToString() + " Milliseconds";
                             }
@@ -41,8 +63,8 @@ DateTime dteStart = DateTime.Now;
 
                             strMessage = strMessage + LF + "that took " + strTotalTime + LF;
                             strMessage = strMessage + LF + "And handled: " + curNoRecords.ToString() + " duplicates";
-							
-							
+
+
 
 
 

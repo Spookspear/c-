@@ -14,10 +14,10 @@
   <DupliateColumnToCheck>1</DupliateColumnToCheck>
   <ColourFoundText>Blue</ColourFoundText>
   <ColourNotFoundText>Red</ColourNotFoundText>
-  <ColourFore_Found>#FF0080</ColourFore_Found>
-  <ColourBack_Found>#FFFFBF</ColourBack_Found>
-  <ColourFore_NotFound>#C6FFC7</ColourFore_NotFound>
-  <ColourBack_NotFound>#CFA9FA</ColourBack_NotFound>
+  <ColourFore_Found>Black</ColourFore_Found>
+  <ColourBack_Found>White</ColourBack_Found>
+  <ColourFore_NotFound>Red</ColourFore_NotFound>
+  <ColourBack_NotFound>Yellow</ColourBack_NotFound>
   <TimeSheetRowNo>437</TimeSheetRowNo>
   <TimeSheetGetRowNo>true</TimeSheetGetRowNo>
   <PingSheetRowNo>2</PingSheetRowNo>

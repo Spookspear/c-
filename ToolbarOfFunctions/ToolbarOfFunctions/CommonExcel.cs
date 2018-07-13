@@ -36,7 +36,6 @@ using System.Runtime.InteropServices;
 using System.Data.SqlTypes;
 
 
-
 namespace ToolbarOfFunctions_CommonClasses
 {
     public class CommonExcelClasses
@@ -85,6 +84,7 @@ namespace ToolbarOfFunctions_CommonClasses
             return false;
         }
 
+
         public static void SplitButtonSetSize(RibbonSplitButton rbnSplitButton, bool boolLargeButton)
         {
             if (boolLargeButton)
@@ -92,7 +92,6 @@ namespace ToolbarOfFunctions_CommonClasses
             else
                 rbnSplitButton.ControlSize = RibbonControlSize.RibbonControlSizeRegular;
         }
-
         
 
         public static void MsgBox(string strMessage, string strWhichIcon = "Information")
@@ -137,6 +136,7 @@ namespace ToolbarOfFunctions_CommonClasses
 
         }
 
+
         private static bool WorksheetExist(Excel.Workbook Wkb, string strSheetName)
         {
             bool found = false;
@@ -155,6 +155,7 @@ namespace ToolbarOfFunctions_CommonClasses
 
             return found;
         }
+
 
         public static int searchForValue(Excel.Worksheet Wks2, string searchString, int intStartColumToCheck)
         {
@@ -190,6 +191,7 @@ namespace ToolbarOfFunctions_CommonClasses
 
         }
 
+
         public static void deleteEmptyRows(Excel.Worksheet Wks)
         {
             Excel.Range xlTargetCells = Wks.UsedRange;
@@ -219,6 +221,7 @@ namespace ToolbarOfFunctions_CommonClasses
             return lstEmptyRows.OrderByDescending(x => x).ToList();
         }
 
+
         private static bool isRowEmpty(object[,] allValues, int rowIndex, int intTotalCols)
         {
             for (int i = 1; i < intTotalCols; i++)
@@ -231,6 +234,7 @@ namespace ToolbarOfFunctions_CommonClasses
             return true;
         }
 
+
         private static void deleteRows(List<int> rowsToDelete, Excel.Worksheet worksheet)
         {
             // the rows are sorted high to low - so index's wont shift
@@ -239,6 +243,7 @@ namespace ToolbarOfFunctions_CommonClasses
                 worksheet.Rows[rowIndex].Delete();
             }
         }
+
 
         public static string getExcelColumnLetter(int columnNumber)
         {
@@ -270,21 +275,25 @@ namespace ToolbarOfFunctions_CommonClasses
 
         }
 
+
         public static int getLastCol(Excel.Worksheet Wks)
         {
             return Wks.Cells.SpecialCells(Excel.XlCellType.xlCellTypeLastCell, Type.Missing).Column;
         }
+
 
         public static int getLastRow(Excel.Worksheet Wks)
         {
             return Wks.Cells.SpecialCells(Excel.XlCellType.xlCellTypeLastCell, Type.Missing).Row;
         }
 
+
         private static void setCursorToWaiting()
         {
             Excel.Application application = Globals.ThisAddIn.Application;
             application.Cursor = Excel.XlMousePointer.xlWait;
         }
+
 
         private static void setCursorToDefault()
         {
@@ -310,6 +319,7 @@ namespace ToolbarOfFunctions_CommonClasses
 
         }
 
+
         public static void formatCells(Excel.Worksheet Wks, decimal intStartRow, decimal intLastRow, decimal intStartColum, decimal intNumColums, string strDoWhat)
         {
 
@@ -327,17 +337,25 @@ namespace ToolbarOfFunctions_CommonClasses
                     xlCell.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
                     xlCell.Borders.Color = ColorTranslator.ToOle(Color.LightGray); ;
                     xlCell.Borders.Weight = 2d;
+
+                    // 1gvb2 - this is not tested
+                    #region [release memory]
+                    Marshal.ReleaseComObject(xlCell);
+                    #endregion
                 }
             }
 
         }
 
+
         public static void clearFormattingRange(Excel.Worksheet Wks)
         {
-            // as I have the worksheet it can all be done here            
-            string strRange = "A1:" + getExcelColumnLetter(getLastCol(Wks)) + getLastRow(Wks);
 
-            // this will format the entire range supplied
+            #region [Define range dynamically]
+            string strRange = "A1:" + getExcelColumnLetter(getLastCol(Wks)) + getLastRow(Wks);
+            #endregion
+
+            #region [format the entire range supplied]
             Excel.Range xlCell;
             xlCell = Wks.get_Range(strRange);
             xlCell.Font.Color = ColorTranslator.FromHtml("Black");
@@ -345,15 +363,70 @@ namespace ToolbarOfFunctions_CommonClasses
             xlCell.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
             xlCell.Borders.Color = ColorTranslator.ToOle(Color.LightGray); ;
             xlCell.Borders.Weight = 2d;
+            #endregion
+
+            #region [release memory]
+            Marshal.ReleaseComObject(xlCell);
+            #endregion
+        }
+
+        public static void sortSheet(Excel.Worksheet Wks, int intColNo)
+        {
+            // this will sort the sheet on the 1st column
+            #region [Define range dynamically]
+            string strRange = "A2:" + getExcelColumnLetter(getLastCol(Wks)) + getLastRow(Wks);
+            #endregion
+
+
+            Excel.Range Sheet = Wks.get_Range(strRange);
+            Sheet.Sort(
+                Sheet.Columns[intColNo], Excel.XlSortOrder.xlAscending,
+                Type.Missing, Type.Missing, Excel.XlSortOrder.xlAscending,
+                Type.Missing, Excel.XlSortOrder.xlAscending,
+                Excel.XlYesNoGuess.xlNo, Type.Missing, Type.Missing,
+                Excel.XlSortOrientation.xlSortColumns,
+                Excel.XlSortMethod.xlPinYin,
+                Excel.XlSortDataOption.xlSortNormal,
+                Excel.XlSortDataOption.xlSortNormal,
+                Excel.XlSortDataOption.xlSortNormal
+                
+                );
 
         }
 
+        public static void sortSheetWorking(Excel.Worksheet Wks)
+        {
+            // this will sort the sheet on the 1st column
+            #region [Define range dynamically]
+            string strRange = "A2:" + getExcelColumnLetter(getLastCol(Wks)) + getLastRow(Wks);
+            #endregion
+
+
+            Excel.Range Sheet = Wks.get_Range(strRange);
+            Sheet.Sort(
+                Sheet.Columns[1], Excel.XlSortOrder.xlAscending,
+                Sheet.Columns[2], Type.Missing, Excel.XlSortOrder.xlAscending,
+                Type.Missing, Excel.XlSortOrder.xlAscending,
+                Excel.XlYesNoGuess.xlNo, Type.Missing, Type.Missing,
+                Excel.XlSortOrientation.xlSortColumns,
+                Excel.XlSortMethod.xlPinYin,
+                Excel.XlSortDataOption.xlSortNormal,
+                Excel.XlSortDataOption.xlSortNormal,
+                Excel.XlSortDataOption.xlSortNormal
+
+                );
+
+        }
 
         public static void addValidationToColumn(Excel.Worksheet Wks, string strCol, decimal intStartRow, decimal intEndRow, string strFormula)
         {
-            Excel.Range xlCell;
-            string strRange = strCol + intStartRow.ToString() + ":" + strCol + intEndRow.ToString();
 
+            #region [Define range from passed in parameters]
+            string strRange = strCol + intStartRow.ToString() + ":" + strCol + intEndRow.ToString();
+            #endregion
+
+            #region [format the entire range supplied]
+            Excel.Range xlCell;
             xlCell = Wks.get_Range(strRange);
             xlCell.Validation.Delete();
             xlCell.Validation.Add(XlDVType.xlValidateList, XlDVAlertStyle.xlValidAlertStop, Formula1: strFormula);
@@ -361,10 +434,11 @@ namespace ToolbarOfFunctions_CommonClasses
             xlCell.Validation.InCellDropdown = true;
             xlCell.Validation.ErrorTitle = "Error in Validation";
             xlCell.Validation.ErrorMessage = "Please select value from list";
+            #endregion
 
-            // do I want to release this?
+            #region [release memory]
             Marshal.ReleaseComObject(xlCell);
-            // Marshal.ReleaseComObject(Wks);
+            #endregion
 
         }
 
@@ -379,6 +453,7 @@ namespace ToolbarOfFunctions_CommonClasses
             return strSumString;
 
         }
+
 
         public static bool dayCheck(string strValue)
         {
@@ -400,6 +475,7 @@ namespace ToolbarOfFunctions_CommonClasses
             return boolRetVal;
         }
 
+
         public static string FormatDate(DateTime dateTime, string strFormat)
         {
             //return dateTime.ToString("dd/MM/yyyy ");
@@ -410,16 +486,7 @@ namespace ToolbarOfFunctions_CommonClasses
                 return dateTime.ToString(strFormat);
         }
 
-        /// <summary>
-        /// tbd - 1gvb2
-        /// </summary>
-        /// <param name="Wks"></param>
-        /// <param name="intSourceRow"></param>
-        /// <param name="strDoWhat"></param>
-        /// <param name="intNoCheckCols"></param>
-        /// <param name="clrWhichColourFore"></param>
-        /// <param name="clrWhichColourBack"></param>
-        /// <param name="boolTestCode"></param>
+
         public static void colourCells(Excel.Worksheet Wks, decimal intSourceRow, string strDoWhat, decimal intNoCheckCols, Color clrWhichColourFore, Color clrWhichColourBack, bool boolTestCode)
         {
             int intStartColumToCheck = 1;

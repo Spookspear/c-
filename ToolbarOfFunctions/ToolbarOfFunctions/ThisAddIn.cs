@@ -71,8 +71,10 @@ namespace ToolbarOfFunctions
             xlCell = Wks.get_Range("A" + intFirstRow + ":A" + intLastRow);
 
             if (Wks.Name != "InternalParameters")
-                if (intLastRow > intFirstRow)                
+            {
+                if (intLastRow > intFirstRow)
                     xlCell.EntireRow.Delete(Excel.XlDirection.xlUp);
+            }
             else
                 CommonExcelClasses.MsgBox("Cannot run in worksheet: InternalParameters", "Error");
 
@@ -136,7 +138,7 @@ namespace ToolbarOfFunctions
                     directorySearch(cfbd.SelectedPath.ToString(), Wks, gintFileCount, boolExtraDetails, false);
 
                     writeHeaders(Wks, "FILES", boolExtraDetails);
-                    Wks.Columns.AutoFit();
+                    
 
                     DateTime dteEnd = DateTime.Now;
                     int milliSeconds = (int)((TimeSpan)(dteEnd - dteStart)).TotalMilliseconds;
@@ -159,20 +161,32 @@ namespace ToolbarOfFunctions
         /// <param name="boolExtraDetails"></param>
         public void writeHeaders(Excel.Worksheet Wks, string strDoWhat, bool boolExtraDetails)
         {
-            string strHead;
+            string strHead = "";
 
-            if (boolExtraDetails)
-                strHead = "File Name;Date Last Accessed;Size;Version;File Name Extracted;";
-            else
-                strHead = "FileName;;;;;";
+            if (strDoWhat == "FILES")
+            {
+                if (boolExtraDetails)
+                    strHead = "File Name;Date Last Accessed;Size;Version;File Name Extracted;";
+                else
+                    strHead = "FileName;;;;;";
+
+            }
+            else if (strDoWhat == "ADGroups")
+            {
+                strHead = "Group Name;Group Description;IsSecurityGroup;Scope";
+            }
+            else if (strDoWhat == "ADUsers")
+            {
+                strHead = "Name;Full Name;Description;AccountDisabled";
+            }
 
             string[] strWords = strHead.Split(';');
 
-            if (strDoWhat == "FILES")
-                for (int i = 0; i <= strWords.GetUpperBound(0); i++)
+            for (int i = 0; i <= strWords.GetUpperBound(0); i++)
                     Wks.Cells[1, (i + 1)].value = strWords[i];
 
             Wks.Range["A1:E1"].Font.Bold = true;
+            Wks.Columns.AutoFit();
 
         }
 
@@ -320,12 +334,9 @@ namespace ToolbarOfFunctions
                     // remove formatting - format black and white but only if no was selected
                     if (dlgResult == DialogResult.No)
                     {
-                        if (boolClearFormatting) { 
-                            // int intLastCol = CommonExcelClasses.getLastCol(Wks);                   
-                            // CommonExcelClasses.formatCells(Wks, intSourceRow, intLastRow, 1, CommonExcelClasses.getLastCol(Wks), "Normal");
+                        if (boolClearFormatting) 
                             CommonExcelClasses.clearFormattingRange(Wks);
-
-                        }
+                        
                     }
 
                 }
@@ -489,10 +500,7 @@ namespace ToolbarOfFunctions
                     // remove formatting - format black and white but only if no was selected
                     if (dlgResult == DialogResult.No)
                         if (boolClearFormatting)
-                        {
-                            //CommonExcelClasses.formatCells(Wks, intSourceRow, intLastRow, 1, CommonExcelClasses.getLastCol(Wks), "Normal");
                             CommonExcelClasses.clearFormattingRange(Wks);
-                        }
 
                 }
                 #endregion
@@ -696,10 +704,7 @@ namespace ToolbarOfFunctions
                     // remove formatting - format black and white but only if no was selected
                     if (dlgResult == DialogResult.No)
                         if (boolClearFormatting)
-                        {
-                            // CommonExcelClasses.formatCells(Wks1, intStartRow, intSheetLastRow1, 1, intLastCol, "Normal");
                             CommonExcelClasses.clearFormattingRange(Wks1);
-                        }
 
                     #endregion
 

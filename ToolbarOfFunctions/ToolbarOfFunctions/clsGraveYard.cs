@@ -39,6 +39,12 @@ border.LineStyle = Excel.XlLineStyle.xlContinuous;
 border.Color = ColorTranslator.ToOle(Color.LightGray);;
 border.Weight = 2d; 
 
+
+                // string connectionUsername = "GBI01";
+            // string connectionPassword = "Broken109";
+            // var princContext = new PrincipalContext(ContextType.Domain, host, container, connectionUsername, connectionPassword);
+
+
 */
 // DialogResult dlgResult = MessageBox.Show("Compare: Worksheet: " + Wks1.Name + " against: " + Wks2.Name + " and " + strClearOrColour + " ones which are the same?", "Compare Sheets", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
 

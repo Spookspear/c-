@@ -84,6 +84,18 @@ namespace ToolbarOfFunctions
             Globals.ThisAddIn.loadADGroupIntoSpreadsheetActiveCell(Globals.ThisAddIn.Application);
         }
 
+        private void btnReadUsersGroupMembership_Click(object sender, RibbonControlEventArgs e)
+        {
+            Globals.ThisAddIn.readUsersGroupMembership(Globals.ThisAddIn.Application);
+            
+
+        }
+
+        private void btnLoadADGroupIntoSpreadsheet_Click(object sender, RibbonControlEventArgs e)
+        {
+            Globals.ThisAddIn.readGroupMembership(Globals.ThisAddIn.Application);
+        }
+
         private void btnDealWithManyDuplicates_Click(object sender, RibbonControlEventArgs e)
         {           
 
