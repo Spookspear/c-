@@ -1,3 +1,33 @@
+string strMessage;
+strMessage = "Get Group Membership for Active Directory User: "; 
+
+if (strDoWhat == "SheetName") {                
+
+	strUserName = Wks.Name;
+	strMessage = strMessage + strUserName + LF + "into this worksheet";
+
+} else {
+
+	Excel.Range xlCell = xls.ActiveCell;
+	strUserName = xlCell.Value.ToString();
+	CommonExcelClasses.MsgBox("Read the active cell:" + strUserName);
+
+	strMessage = strMessage + strUserName + LF + "into new worksheet";
+
+}
+
+if (strDoWhat == "SheetName")
+{
+	CommonExcelClasses.zapWorksheet(Wks);
+} else {
+	Wks = Wkb.Worksheets.Add(Type.Missing, Wkb.Worksheets[Wkb.Worksheets.Count], 1, XlSheetType.xlWorksheet);
+	Wks.Name = strUserName;
+}
+
+
+
+
+
 See if I can use WinNT://
 same as VBA
 Should connection string be in settings?
@@ -144,3 +174,18 @@ strMessage = "Compare: " + Wks1.Name + LF +
 
             CommonExcelClasses.ButtonUpdateLabel(btnCompareSheets, "Compare: (" + myData.CompareOrColour + ")");
             CommonExcelClasses.ButtonUpdateLabel(btnDealWithSingleDuplicates, "Duplicates (Cols: Single): (" + myData.ColourOrDelete + ")");
+			
+			
+try
+{
+
+}
+            catch (Exception excpt)
+            {
+                CommonExcelClasses.MsgBox("There was a problem: " + excpt.Message + " was the variable a Group?");
+                Console.WriteLine(excpt.Message);
+
+                throw;
+            }
+
+	

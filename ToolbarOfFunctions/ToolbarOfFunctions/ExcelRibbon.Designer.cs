@@ -54,10 +54,10 @@
             this.btnDeleteBlankLinesC = this.Factory.CreateRibbonButton();
             this.btnDealWithSingleDuplicates = this.Factory.CreateRibbonButton();
             this.btnDealWithManyDuplicates = this.Factory.CreateRibbonButton();
+            this.btnReadUsersGroupMembership = this.Factory.CreateRibbonButton();
+            this.btnReadUsersGroupMembershipActiveCell = this.Factory.CreateRibbonButton();
             this.btnLoadADGroupIntoSpreadsheet = this.Factory.CreateRibbonButton();
             this.btnLoadADGroupIntoSpreadsheetActiveCell = this.Factory.CreateRibbonButton();
-            this.btnReadUsersGroupMembership = this.Factory.CreateRibbonButton();
-            this.btnReadUsers = this.Factory.CreateRibbonButton();
             this.btnWriteTimeSheet = this.Factory.CreateRibbonButton();
             this.btnPingServers = this.Factory.CreateRibbonButton();
             this.MYTOOLBAR.SuspendLayout();
@@ -84,10 +84,10 @@
             this.customToolbar.Items.Add(this.btnDealWithSingleDuplicates);
             this.customToolbar.Items.Add(this.btnDealWithManyDuplicates);
             this.customToolbar.Items.Add(this.separator5);
-            this.customToolbar.Items.Add(this.btnLoadADGroupIntoSpreadsheet);
             this.customToolbar.Items.Add(this.btnReadUsersGroupMembership);
+            this.customToolbar.Items.Add(this.btnReadUsersGroupMembershipActiveCell);
+            this.customToolbar.Items.Add(this.btnLoadADGroupIntoSpreadsheet);
             this.customToolbar.Items.Add(this.btnLoadADGroupIntoSpreadsheetActiveCell);
-            this.customToolbar.Items.Add(this.btnReadUsers);
             this.customToolbar.Items.Add(this.separator6);
             this.customToolbar.Items.Add(this.btnWriteTimeSheet);
             this.customToolbar.Items.Add(this.btnPingServers);
@@ -221,44 +221,45 @@
             this.btnDealWithManyDuplicates.ShowImage = true;
             this.btnDealWithManyDuplicates.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnDealWithManyDuplicates_Click);
             // 
+            // btnReadUsersGroupMembership
+            // 
+            this.btnReadUsersGroupMembership.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this.btnReadUsersGroupMembership.Description = "Active Directory User Members - Sheet Name";
+            this.btnReadUsersGroupMembership.Image = ((System.Drawing.Image)(resources.GetObject("btnReadUsersGroupMembership.Image")));
+            this.btnReadUsersGroupMembership.Label = "Users - SheetName";
+            this.btnReadUsersGroupMembership.Name = "btnReadUsersGroupMembership";
+            this.btnReadUsersGroupMembership.ShowImage = true;
+            this.btnReadUsersGroupMembership.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnReadUsersGroupMembershipSheetName_Click);
+            // 
+            // btnReadUsersGroupMembershipActiveCell
+            // 
+            this.btnReadUsersGroupMembershipActiveCell.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this.btnReadUsersGroupMembershipActiveCell.Description = "Active Directory Group Members - Active Cell";
+            this.btnReadUsersGroupMembershipActiveCell.Image = ((System.Drawing.Image)(resources.GetObject("btnReadUsersGroupMembershipActiveCell.Image")));
+            this.btnReadUsersGroupMembershipActiveCell.Label = "Users - Active Cell";
+            this.btnReadUsersGroupMembershipActiveCell.Name = "btnReadUsersGroupMembershipActiveCell";
+            this.btnReadUsersGroupMembershipActiveCell.ShowImage = true;
+            this.btnReadUsersGroupMembershipActiveCell.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnReadUsersGroupMembershipActiveCell_Click);
+            // 
             // btnLoadADGroupIntoSpreadsheet
             // 
             this.btnLoadADGroupIntoSpreadsheet.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
             this.btnLoadADGroupIntoSpreadsheet.Description = "Active Directory Group Members - Sheet Name";
             this.btnLoadADGroupIntoSpreadsheet.Image = ((System.Drawing.Image)(resources.GetObject("btnLoadADGroupIntoSpreadsheet.Image")));
-            this.btnLoadADGroupIntoSpreadsheet.Label = "AD Groups - Sheet Name";
+            this.btnLoadADGroupIntoSpreadsheet.Label = "Groups - SheetName";
             this.btnLoadADGroupIntoSpreadsheet.Name = "btnLoadADGroupIntoSpreadsheet";
             this.btnLoadADGroupIntoSpreadsheet.ShowImage = true;
-            this.btnLoadADGroupIntoSpreadsheet.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnLoadADGroupIntoSpreadsheet_Click);
+            this.btnLoadADGroupIntoSpreadsheet.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnReadGroupUsersMembershipSheetName_Click);
             // 
             // btnLoadADGroupIntoSpreadsheetActiveCell
             // 
             this.btnLoadADGroupIntoSpreadsheetActiveCell.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
             this.btnLoadADGroupIntoSpreadsheetActiveCell.Description = "Active Directory Group Members - Active Cell";
             this.btnLoadADGroupIntoSpreadsheetActiveCell.Image = ((System.Drawing.Image)(resources.GetObject("btnLoadADGroupIntoSpreadsheetActiveCell.Image")));
-            this.btnLoadADGroupIntoSpreadsheetActiveCell.Label = "AD Groups - Active Cell";
+            this.btnLoadADGroupIntoSpreadsheetActiveCell.Label = "Groups - Active Cell";
             this.btnLoadADGroupIntoSpreadsheetActiveCell.Name = "btnLoadADGroupIntoSpreadsheetActiveCell";
             this.btnLoadADGroupIntoSpreadsheetActiveCell.ShowImage = true;
-            this.btnLoadADGroupIntoSpreadsheetActiveCell.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnLoadADGroupIntoSpreadsheetActiveCell_Click);
-            // 
-            // btnReadUsersGroupMembership
-            // 
-            this.btnReadUsersGroupMembership.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
-            this.btnReadUsersGroupMembership.Description = "Active Directory User Members - Sheet Name";
-            this.btnReadUsersGroupMembership.Image = ((System.Drawing.Image)(resources.GetObject("btnReadUsersGroupMembership.Image")));
-            this.btnReadUsersGroupMembership.Label = "AD Users - Sheet Name";
-            this.btnReadUsersGroupMembership.Name = "btnReadUsersGroupMembership";
-            this.btnReadUsersGroupMembership.ShowImage = true;
-            this.btnReadUsersGroupMembership.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnReadUsersGroupMembership_Click);
-            // 
-            // btnReadUsers
-            // 
-            this.btnReadUsers.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
-            this.btnReadUsers.Description = "Active Directory Group Members - Active Cell";
-            this.btnReadUsers.Image = ((System.Drawing.Image)(resources.GetObject("btnReadUsers.Image")));
-            this.btnReadUsers.Label = "AD Users - Active Cell";
-            this.btnReadUsers.Name = "btnReadUsers";
-            this.btnReadUsers.ShowImage = true;
+            this.btnLoadADGroupIntoSpreadsheetActiveCell.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnReadGroupUsersMembershipActiveCell_Click);
             // 
             // btnWriteTimeSheet
             // 
@@ -310,7 +311,7 @@
         internal Microsoft.Office.Tools.Ribbon.RibbonButton btnLoadADGroupIntoSpreadsheet;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton btnLoadADGroupIntoSpreadsheetActiveCell;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton btnReadUsersGroupMembership;
-        internal Microsoft.Office.Tools.Ribbon.RibbonButton btnReadUsers;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton btnReadUsersGroupMembershipActiveCell;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton btnWriteTimeSheet;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton btnPingServers;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton btnSettings;

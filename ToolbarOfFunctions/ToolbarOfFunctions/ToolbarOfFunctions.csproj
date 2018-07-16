@@ -182,7 +182,6 @@
     can be found.
   -->
   <ItemGroup>
-    <Compile Include="ActiveDirectory.cs" />
     <Compile Include="CommonExcel.cs" />
     <Compile Include="clsGraveYard.cs" />
     <Compile Include="Constants.cs" />

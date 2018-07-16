@@ -38,7 +38,8 @@ namespace ToolbarOfFunctions
 
         private void btnZap_Click(object sender, RibbonControlEventArgs e)
         {
-            Globals.ThisAddIn.zapWorksheet(Globals.ThisAddIn.Application.ActiveWorkbook);
+            // Globals.ThisAddIn.zapWorksheet(Globals.ThisAddIn.Application.ActiveWorkbook.ActiveSheet);
+            CommonExcelClasses.zapWorksheet(Globals.ThisAddIn.Application.ActiveWorkbook.ActiveSheet);
         }
 
         private void btnReadFolders_Click(object sender, RibbonControlEventArgs e)
@@ -79,22 +80,6 @@ namespace ToolbarOfFunctions
             Globals.ThisAddIn.updateTimeSheet(Globals.ThisAddIn.Application);
         }
 
-        private void btnLoadADGroupIntoSpreadsheetActiveCell_Click(object sender, RibbonControlEventArgs e)
-        {
-            Globals.ThisAddIn.loadADGroupIntoSpreadsheetActiveCell(Globals.ThisAddIn.Application);
-        }
-
-        private void btnReadUsersGroupMembership_Click(object sender, RibbonControlEventArgs e)
-        {
-            Globals.ThisAddIn.readUsersGroupMembership(Globals.ThisAddIn.Application);
-            
-
-        }
-
-        private void btnLoadADGroupIntoSpreadsheet_Click(object sender, RibbonControlEventArgs e)
-        {
-            Globals.ThisAddIn.readGroupMembership(Globals.ThisAddIn.Application);
-        }
 
         private void btnDealWithManyDuplicates_Click(object sender, RibbonControlEventArgs e)
         {           
@@ -133,7 +118,7 @@ namespace ToolbarOfFunctions
                 CommonExcelClasses.ButtonSetSize(btnLoadADGroupIntoSpreadsheet, boolLargeButton);
                 CommonExcelClasses.ButtonSetSize(btnLoadADGroupIntoSpreadsheetActiveCell, boolLargeButton);
                 CommonExcelClasses.ButtonSetSize(btnReadUsersGroupMembership, boolLargeButton);
-                CommonExcelClasses.ButtonSetSize(btnReadUsers, boolLargeButton);
+                CommonExcelClasses.ButtonSetSize(btnReadUsersGroupMembershipActiveCell, boolLargeButton);
                 CommonExcelClasses.ButtonSetSize(btnWriteTimeSheet, boolLargeButton);
                 CommonExcelClasses.ButtonSetSize(btnPingServers, boolLargeButton);
 
@@ -160,7 +145,7 @@ namespace ToolbarOfFunctions
                     CommonExcelClasses.ButtonUpdateLabel(btnLoadADGroupIntoSpreadsheet, "");
                     CommonExcelClasses.ButtonUpdateLabel(btnLoadADGroupIntoSpreadsheetActiveCell, "");
                     CommonExcelClasses.ButtonUpdateLabel(btnReadUsersGroupMembership, "");
-                    CommonExcelClasses.ButtonUpdateLabel(btnReadUsers, "");
+                    CommonExcelClasses.ButtonUpdateLabel(btnReadUsersGroupMembershipActiveCell, "");
                     CommonExcelClasses.ButtonUpdateLabel(btnWriteTimeSheet, "");
                     CommonExcelClasses.ButtonUpdateLabel(btnPingServers, "");
 
@@ -184,7 +169,7 @@ namespace ToolbarOfFunctions
                     CommonExcelClasses.ButtonUpdateLabel(btnLoadADGroupIntoSpreadsheet, "AD Group Members");
                     CommonExcelClasses.ButtonUpdateLabel(btnLoadADGroupIntoSpreadsheetActiveCell, "AD Members - Active Cell");
                     CommonExcelClasses.ButtonUpdateLabel(btnReadUsersGroupMembership, "Users AD Membership");
-                    CommonExcelClasses.ButtonUpdateLabel(btnReadUsers, "Details from AD Name");
+                    CommonExcelClasses.ButtonUpdateLabel(btnReadUsersGroupMembershipActiveCell, "Details from AD Name");
                     CommonExcelClasses.ButtonUpdateLabel(btnWriteTimeSheet, "Update timesheet");
                     CommonExcelClasses.ButtonUpdateLabel(btnPingServers, "Ping Servers");
 
@@ -192,6 +177,34 @@ namespace ToolbarOfFunctions
             }
 
         }
+
+
+
+
+        private void btnReadUsersGroupMembershipSheetName_Click(object sender, RibbonControlEventArgs e)         {
+            // 1st button
+            Globals.ThisAddIn.readUsersGroupMembershipIntoWorksheet(Globals.ThisAddIn.Application, "SheetName");
+        }
+
+
+        private void btnReadUsersGroupMembershipActiveCell_Click(object sender, RibbonControlEventArgs e) {
+            // 2nd button
+            Globals.ThisAddIn.readUsersGroupMembershipIntoWorksheet(Globals.ThisAddIn.Application, "ActiveCell");
+        }
+
+        
+        private void btnReadGroupUsersMembershipSheetName_Click(object sender, RibbonControlEventArgs e) {
+            // 3rd button
+            Globals.ThisAddIn.readGroupUsersMembershipIntoWorksheet(Globals.ThisAddIn.Application, "SheetName");
+        }
+
+
+        private void btnReadGroupUsersMembershipActiveCell_Click(object sender, RibbonControlEventArgs e) {
+            // 4th button
+            Globals.ThisAddIn.readGroupUsersMembershipIntoWorksheet(Globals.ThisAddIn.Application, "ActiveCell");
+        }
+
+
 
     }
 

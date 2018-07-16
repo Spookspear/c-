@@ -14,11 +14,11 @@
   <DupliateColumnToCheck>1</DupliateColumnToCheck>
   <ColourFoundText>Blue</ColourFoundText>
   <ColourNotFoundText>Red</ColourNotFoundText>
-  <ColourFore_Found>Black</ColourFore_Found>
-  <ColourBack_Found>White</ColourBack_Found>
+  <ColourFore_Found>Lime</ColourFore_Found>
+  <ColourBack_Found>Black</ColourBack_Found>
   <ColourFore_NotFound>Red</ColourFore_NotFound>
   <ColourBack_NotFound>Yellow</ColourBack_NotFound>
-  <TimeSheetRowNo>437</TimeSheetRowNo>
+  <TimeSheetRowNo>4519</TimeSheetRowNo>
   <TimeSheetGetRowNo>true</TimeSheetGetRowNo>
   <PingSheetRowNo>2</PingSheetRowNo>
   <ColPingRead>1</ColPingRead>
@@ -26,6 +26,6 @@
   <TestCode>false</TestCode>
   <RecordTimes>false</RecordTimes>
   <HideSeperator>false</HideSeperator>
-  <TurnOffScreenValidation>true</TurnOffScreenValidation>
+  <TurnOffScreenValidation>false</TurnOffScreenValidation>
   <ClearFormatting>true</ClearFormatting>
 </InformationForSettingsForm>

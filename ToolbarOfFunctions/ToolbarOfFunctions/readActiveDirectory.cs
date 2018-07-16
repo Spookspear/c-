@@ -41,15 +41,7 @@ namespace ToolbarOfFunctions
 {
     public partial class ThisAddIn
     {
-
-        public void loadADGroupIntoSpreadsheetActiveCell(Excel.Application xls)
-        {
-            CommonExcelClasses.MsgBox("loadADGroupIntoSpreadsheetActiveCell - is what this will do");
-
-
-        }
-
-        public void readGroupMembership(Excel.Application xls)
+        public void readGroupUsersMembershipIntoWorksheet(Excel.Application xls, string strDoWhat)
         {
             #region [Declare and instantiate variables for process]
             myData = myData.LoadMyData();               // read data from settings file
@@ -68,19 +60,30 @@ namespace ToolbarOfFunctions
             Excel.Worksheet Wks;   // get current sheet
 
             Wks = Wkb.ActiveSheet;
-
+            string strMessage = "Get Membership of Active Directory Group: ";
             string strGroupName = Wks.Name;
+
+            if (strDoWhat == "ActiveSheet")
+            {
+                strGroupName = Wks.Name;
+                strMessage = strMessage + strGroupName + LF + "into this worksheet";
+
+            } else
+            {
+                Excel.Range xlCell = xls.ActiveCell;
+                strGroupName = xlCell.Value.ToString();
+                strMessage = strMessage + strGroupName + LF + "into new worksheet";
+
+            }
 
             #endregion
 
             #region [Ask to display a Message?]
             DialogResult dlgResult = DialogResult.Yes;
-            string strMessage;
+           
 
             if (boolDisplayInitialMessage)
             {
-                strMessage = "Get active Directory Details for: " + strGroupName;
-
                 if (booltimeTaken)
                     strMessage = strMessage + LF + " and display the time taken";
 
@@ -99,8 +102,20 @@ namespace ToolbarOfFunctions
 
                 DateTime dteStart = DateTime.Now;
 
-                zapWorksheet(Wkb);
-                readGroupUserMembership(Wks, strGroupName);
+
+                if (strDoWhat == "SheetName")
+                {
+                    CommonExcelClasses.zapWorksheet(Wks);
+                }
+                else
+                {
+                    Wks = Wkb.Worksheets.Add(Type.Missing, Wkb.Worksheets[Wkb.Worksheets.Count], 1, XlSheetType.xlWorksheet);
+                    Wks.Name = strGroupName;
+
+                }
+
+
+                getGroupUserMembership(Wks, strGroupName);
                 
                 writeHeaders(Wks, "ADUsers", false);
                 CommonExcelClasses.sortSheet(Wks,2);
@@ -135,122 +150,125 @@ namespace ToolbarOfFunctions
             }
             #endregion
 
-
+            
         }
 
 
-        public void readGroupUserMembership(Excel.Worksheet Wks, string strGroupName)
+        public void getGroupUserMembership(Excel.Worksheet Wks, string strGroupName)
         {
-            myData = myData.LoadMyData();               // read data from settings file
 
-            bool boolTestCode = myData.TestCode;
-
-            // can I used the same code for both?
-
-            // Connection information
-            // var connectionString = "LDAP://domain.com/DC=domain,DC=com";
-            string connectionString = "LDAP://subsea7.net/DC=subsea7,DC=net";
-
-            // Split the LDAP Uri
-            var uri = new Uri(connectionString);
-            var host = uri.Host;
-            var container = uri.Segments.Count() >= 1 ? uri.Segments[1] : "";
-
-            int intRow = 2;
-            int intCol = 1;
-
-            var princContext = new PrincipalContext(ContextType.Domain, host, container);
-
-            if (boolTestCode)
+            try
             {
-                // Create context to connect to AD
+                myData = myData.LoadMyData();               // read data from settings file
 
-                // Get group
-                GroupPrincipal qbeGroup = new GroupPrincipal(princContext, strGroupName);
-                PrincipalSearcher srch = new PrincipalSearcher(qbeGroup);
+                bool boolTestCode = myData.TestCode;
 
+                // can I used the same code for both?
 
-                // find all matches
-                foreach (var found in srch.FindAll())
+                // Connection information
+                // var connectionString = "LDAP://domain.com/DC=domain,DC=com";
+                string connectionString = "LDAP://subsea7.net/DC=subsea7,DC=net";
+
+                // Split the LDAP Uri
+                var uri = new Uri(connectionString);
+                var host = uri.Host;
+                var container = uri.Segments.Count() >= 1 ? uri.Segments[1] : "";
+
+                int intRow = 2;
+                int intCol = 1;
+
+                var princContext = new PrincipalContext(ContextType.Domain, host, container);
+
+                if (boolTestCode)
                 {
-                    if (found is GroupPrincipal foundGroup)
+                    // Create context to connect to AD
+
+                    // Get group
+                    GroupPrincipal qbeGroup = new GroupPrincipal(princContext, strGroupName);
+                    PrincipalSearcher srch = new PrincipalSearcher(qbeGroup);
+
+
+                    // find all matches
+                    foreach (var found in srch.FindAll())
+                    {
+                        if (found is GroupPrincipal foundGroup)
+                        {
+                            // iterate over members
+                            foreach (Principal user in foundGroup.GetMembers())
+                            {
+                                intCol = 1;
+
+                                Wks.Cells[intRow, intCol].Value = user.SamAccountName;
+                                intCol++;
+
+                                Wks.Cells[intRow, intCol].Value = user.DisplayName;
+                                intCol++;
+
+                                Wks.Cells[intRow, intCol].Value = user.Description;
+                                intCol++;
+
+
+                                intRow++;
+
+                            }
+
+                        }
+
+                    }
+                }
+                else
+                {
+
+                    // PrincipalContext princContext = new PrincipalContext(ContextType.Domain);
+                    GroupPrincipal group = GroupPrincipal.FindByIdentity(princContext, strGroupName);
+                    if (group != null)
                     {
                         // iterate over members
-                        foreach (Principal user in foundGroup.GetMembers())
+                        foreach (Principal p in group.GetMembers())
                         {
-                            intCol = 1;
+                            Console.WriteLine("{0}: {1}", p.StructuralObjectClass, p.DisplayName);
 
-                            Wks.Cells[intRow, intCol].Value = user.SamAccountName;
-                            intCol++;
+                            // do whatever you need to do to those members
+                            if (p is UserPrincipal User)
+                            {
 
-                            Wks.Cells[intRow, intCol].Value = user.DisplayName;
-                            intCol++;
+                                intCol = 1;
 
-                            Wks.Cells[intRow, intCol].Value = user.Description;
-                            intCol++;
+                                Wks.Cells[intRow, intCol].Value = User.SamAccountName;
+                                intCol++;
 
+                                Wks.Cells[intRow, intCol].Value = User.DisplayName;
+                                intCol++;
 
-                            intRow++;
+                                Wks.Cells[intRow, intCol].Value = User.Description;
+                                intCol++;
 
+                                Wks.Cells[intRow, intCol].Value = User.IsAccountLockedOut();
+                                intCol++;
+
+                                intRow++;
+
+                            }
                         }
+
 
                     }
 
                 }
+
             }
-            else
+            catch (Exception excpt)
             {
+                CommonExcelClasses.MsgBox("There was a problem: " + excpt.Message + " was the variable a Group?");
+                Console.WriteLine(excpt.Message);
 
-                // PrincipalContext princContext = new PrincipalContext(ContextType.Domain);
-                GroupPrincipal group = GroupPrincipal.FindByIdentity(princContext, strGroupName);
-                if (group != null)
-                {
-                    // iterate over members
-                    foreach (Principal p in group.GetMembers())
-                    {
-                        Console.WriteLine("{0}: {1}", p.StructuralObjectClass, p.DisplayName);
-
-                        // do whatever you need to do to those members
-                        if (p is UserPrincipal User)
-                        {
-
-                            intCol = 1;
-
-                            Wks.Cells[intRow, intCol].Value = User.SamAccountName;
-                            intCol++;
-
-                            Wks.Cells[intRow, intCol].Value = User.DisplayName;
-                            intCol++;
-
-                            Wks.Cells[intRow, intCol].Value = User.Description;
-                            intCol++;
-
-                            Wks.Cells[intRow, intCol].Value = User.IsAccountLockedOut();
-                            intCol++;
-
-                            intRow++;
-
-                        }
-                    }
-
-
-                }
-
+                throw;
             }
-
 
         }
 
-        public void readUsersGroupMembership(Excel.Application xls)
+        public void readUsersGroupMembershipIntoWorksheet(Excel.Application xls, string strDoWhat)
         {
-
-            // vb code
-            /*  Application.ScreenUpdating = False
-                Call ZapWorkSheet(ActiveSheet, 1)           - DONE 
-                Call readGroupMembership(ActiveSheet)       - DONE 
-                Call writeHeaders(ActiveSheet, "USERS")     - DONE 
-                Call sortSheet(ActiveSheet)
-             */
 
             #region [Declare and instantiate variables for process]
             myData = myData.LoadMyData();               // read data from settings file
@@ -266,21 +284,34 @@ namespace ToolbarOfFunctions
             #region [Declare and instantiate variables for worksheet/book]
             // get worksheet name
             Excel.Workbook Wkb = xls.ActiveWorkbook;
-            Excel.Worksheet Wks;   // get current sheet
+            Excel.Worksheet Wks;
+            Wks = Wkb.ActiveSheet;          // get current sheet
 
-            Wks = Wkb.ActiveSheet;
+            string strUserName;
 
-            string strUserName = Wks.Name;
+            string strMessage; 
+            strMessage = "Get Group Membership for User: "; 
+
+            if (strDoWhat == "SheetName") {                
+
+                strUserName = Wks.Name;
+                strMessage = strMessage + strUserName + LF + "into this worksheet";
+
+            } else {
+
+                Excel.Range xlCell = xls.ActiveCell;
+                strUserName = xlCell.Value.ToString();
+                strMessage = strMessage + strUserName + LF + "into new worksheet";
+
+            }
 
             #endregion
 
             #region [Ask to display a Message?]
             DialogResult dlgResult = DialogResult.Yes;
-            string strMessage;
 
             if (boolDisplayInitialMessage)
             {
-                strMessage = "Get active Directory Details for: " + strUserName;
 
                 if (booltimeTaken)
                     strMessage = strMessage + LF + " and display the time taken";
@@ -300,8 +331,18 @@ namespace ToolbarOfFunctions
 
                 DateTime dteStart = DateTime.Now;
 
-                zapWorksheet(Wkb);
-                readUsersGroupMembership(Wks, strUserName);
+                if (strDoWhat == "SheetName")
+                {
+                    CommonExcelClasses.zapWorksheet(Wks);
+                } else {
+
+                    // do a loop here checking for a free or unused name
+            
+                    Wks = Wkb.Worksheets.Add(Type.Missing, Wkb.Worksheets[Wkb.Worksheets.Count], 1, XlSheetType.xlWorksheet);
+                    Wks.Name = strUserName;
+                }
+
+                getUsersGroupMembership(Wks, strUserName);
                 writeHeaders(Wks, "ADGroups", false);
                 CommonExcelClasses.sortSheet(Wks,1);
 
@@ -328,10 +369,6 @@ namespace ToolbarOfFunctions
                 }
                 #endregion
 
-
-
-
-
             }
             #endregion
 
@@ -339,125 +376,63 @@ namespace ToolbarOfFunctions
 
         }
 
-        public void readUsersGroupMembership(Excel.Worksheet Wks, string strUserName)
+        public void getUsersGroupMembership(Excel.Worksheet Wks, string strUserName)
         {
-
-            myData = myData.LoadMyData();               // read data from settings file
-
-            bool boolTestCode = myData.TestCode;
-
-            // Connection information
-            // var connectionString = "LDAP://domain.com/DC=domain,DC=com";
-            string connectionString = "LDAP://subsea7.net/DC=subsea7,DC=net";
-
-            // Split the LDAP Uri
-            var uri = new Uri(connectionString);
-            var host = uri.Host;
-            var container = uri.Segments.Count() >= 1 ? uri.Segments[1] : "";
-
-            // Create context to connect to AD
-            var princContext = new PrincipalContext(ContextType.Domain, host, container);
-
-            // Get User
-            UserPrincipal user = UserPrincipal.FindByIdentity(princContext, IdentityType.SamAccountName, strUserName);
-
-            int intRow = 2;
-            int intCol = 1;
-            // Browse user's groups
-            foreach (GroupPrincipal group in user.GetGroups())
-            {
-                intCol = 1;
-
-                Wks.Cells[intRow, intCol].Value = group.Name;
-                intCol++;
-
-                Wks.Cells[intRow, intCol].Value = group.Description;
-                intCol++;
-
-                Wks.Cells[intRow, intCol].Value = group.IsSecurityGroup;
-                intCol++;
-
-                Wks.Cells[intRow, intCol].Value = group.GroupScope.ToString();
-                intCol++;
-
-                intRow++;
-
-                Console.Out.WriteLine(group.Name);
-
-            }
-        }
-
-        public void readGroupMembership_001(Excel.Worksheet Wks, string strUserName)
-        {
-            Console.WriteLine("ListAllGroupsViaTokenGroups:");
-
-            List<string> result = new List<string>();
-
             try
             {
-                // result = ListAllGroupsViaTokenGroups("GBI01", "subsea7.net");
+                myData = myData.LoadMyData();               // read data from settings file
+
+                bool boolTestCode = myData.TestCode;
+
+                // Connection information
+                // var connectionString = "LDAP://domain.com/DC=domain,DC=com";
+                string connectionString = "LDAP://subsea7.net/DC=subsea7,DC=net";
+
+                // Split the LDAP Uri
+                var uri = new Uri(connectionString);
+                var host = uri.Host;
+                var container = uri.Segments.Count() >= 1 ? uri.Segments[1] : "";
+
+                // Create context to connect to AD
+                var princContext = new PrincipalContext(ContextType.Domain, host, container);
+
+                // Get User
+                UserPrincipal user = UserPrincipal.FindByIdentity(princContext, IdentityType.SamAccountName, strUserName);
 
                 int intRow = 2;
-
-                foreach (var group in result)
+                int intCol = 1;
+                // Browse user's groups
+                foreach (GroupPrincipal group in user.GetGroups())
                 {
-                    Console.WriteLine(group);
-                    // WRITE OUT TO SHEET
-                    Wks.Cells[intRow, 1].Value = group;
+                    intCol = 1;
+
+                    Wks.Cells[intRow, intCol].Value = group.Name;
+                    intCol++;
+
+                    Wks.Cells[intRow, intCol].Value = group.Description;
+                    intCol++;
+
+                    Wks.Cells[intRow, intCol].Value = group.IsSecurityGroup;
+                    intCol++;
+
+                    Wks.Cells[intRow, intCol].Value = group.GroupScope.ToString();
+                    intCol++;
 
                     intRow++;
 
+                    Console.Out.WriteLine(group.Name);
 
                 }
-            }
-            catch (Exception exc)
-            {
-                Console.WriteLine(exc.Message);
-            }
 
-            Console.Read();
-
-
-        }
-
-        private static List<string> ListAllGroupsViaTokenGroups(string username, string domainName)
-        {
-            List<string> result = new List<string>();
-
-            int i = 0;
-
-            try
-            {
-                using (PrincipalContext domainContext = new PrincipalContext(ContextType.Domain, domainName))
-                using (var searcher = new DirectorySearcher(new DirectoryEntry("LDAP://" + domainContext.Name)))
-                {
-                    searcher.Filter = String.Format("(&(objectClass=user)(sAMAccountName={0}))", username);
-                    SearchResult sr = searcher.FindOne();
-
-                    DirectoryEntry user = sr.GetDirectoryEntry();
-
-                    // access to other user properties, via user.Properties["..."]
-
-                    user.RefreshCache(new string[] { "tokenGroups" });
-
-                    for (i = 0; i < user.Properties["tokenGroups"].Count; i++)
-                    {
-                        SecurityIdentifier sid = new SecurityIdentifier((byte[])user.Properties["tokenGroups"][i], 0);
-                        NTAccount nt = (NTAccount)sid.Translate(typeof(NTAccount));
-
-                        result.Add(nt.Translate(typeof(NTAccount)).ToString() + " (" + sid.ToString() + ")");
-                    }
-                }
-
-                return result;
             }
             catch (Exception excpt)
             {
-                CommonExcelClasses.MsgBox("There was a problem: " + excpt.Message + " line: " + i.ToString(), "Error");
+                CommonExcelClasses.MsgBox("There was a problem: " + excpt.Message + " was the variable a User?");
                 Console.WriteLine(excpt.Message);
 
                 throw;
             }
+
         }
 
     }

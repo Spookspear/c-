@@ -57,28 +57,7 @@ namespace ToolbarOfFunctions
         private void ThisAddIn_Shutdown(object sender, System.EventArgs e) { }
 
 
-        /// <summary>
-        /// Clear the workbook
-        /// </summary>
-        public void zapWorksheet(Excel.Workbook Wkb, int intFirstRow = 2)
-        {
-            Excel.Worksheet Wks;
-            Excel.Range xlCell;
 
-            Wks = Wkb.ActiveSheet;
-
-            int intLastRow = CommonExcelClasses.getLastRow(Wks);
-            xlCell = Wks.get_Range("A" + intFirstRow + ":A" + intLastRow);
-
-            if (Wks.Name != "InternalParameters")
-            {
-                if (intLastRow > intFirstRow)
-                    xlCell.EntireRow.Delete(Excel.XlDirection.xlUp);
-            }
-            else
-                CommonExcelClasses.MsgBox("Cannot run in worksheet: InternalParameters", "Error");
-
-        }
 
 
         public void readFolders(Excel.Workbook Wkb)
@@ -132,7 +111,7 @@ namespace ToolbarOfFunctions
                     int gintFileCount = 2;
 
                     // zap the sheet before we start
-                    zapWorksheet(Wkb, 1);
+                    CommonExcelClasses.zapWorksheet(Wks, 1);
 
                     // string strPath = cfbd.SelectedPath;
                     directorySearch(cfbd.SelectedPath.ToString(), Wks, gintFileCount, boolExtraDetails, false);
@@ -425,9 +404,7 @@ namespace ToolbarOfFunctions
             }
             catch (System.Exception excpt)
             {
-                if (boolDisplayCompleteMessage)
-                    CommonExcelClasses.MsgBox("There was an error?", "Error");
-
+                CommonExcelClasses.MsgBox("There was an error?", "Error");
                 Console.WriteLine(excpt.Message);
             }
         }
@@ -622,11 +599,7 @@ namespace ToolbarOfFunctions
             }
             catch (System.Exception excpt)
             {
-                if (boolDisplayCompleteMessage)
-                {
-                    CommonExcelClasses.MsgBox("There was an error?", "Error");
-                }
-
+                CommonExcelClasses.MsgBox("There was an error?", "Error");
                 Console.WriteLine(excpt.Message);
             }
         }
@@ -806,11 +779,7 @@ namespace ToolbarOfFunctions
             }
             catch (System.Exception excpt)
             {
-                if (boolDisplayCompleteMessage)
-                {
-                    CommonExcelClasses.MsgBox("Are you on the last sheet?", "Error");
-                }
-
+                CommonExcelClasses.MsgBox("Are you on the last sheet?", "Error");
                 Console.WriteLine(excpt.Message);
             }
         }
@@ -943,11 +912,8 @@ namespace ToolbarOfFunctions
             }
             catch (System.Exception excpt)
             {
-                if (boolDisplayCompleteMessage)
-                {
-                    CommonExcelClasses.MsgBox("Ther was an error - around row number" + intRowCount.ToString(), "Error");
-                    CommonExcelClasses.turnAppSettings("On", xls, myData.TestCode);
-                }
+                CommonExcelClasses.MsgBox("Ther was an error - around row number" + intRowCount.ToString(), "Error");
+                CommonExcelClasses.turnAppSettings("On", xls, myData.TestCode);
 
                 Console.WriteLine(excpt.Message);
             }

@@ -156,6 +156,27 @@ namespace ToolbarOfFunctions_CommonClasses
             return found;
         }
 
+        /// <summary>
+        /// Clear the workbook
+        /// </summary>
+        public static void zapWorksheet(Excel.Worksheet Wks, int intFirstRow = 2)
+        {
+            Excel.Range xlCell;
+
+            // Wks = Wkb.ActiveSheet;
+
+            int intLastRow = CommonExcelClasses.getLastRow(Wks);
+            xlCell = Wks.get_Range("A" + intFirstRow + ":A" + intLastRow);
+
+            if (Wks.Name != "InternalParameters")
+            {
+                if (intLastRow > intFirstRow)
+                    xlCell.EntireRow.Delete(Excel.XlDirection.xlUp);
+            }
+            else
+                CommonExcelClasses.MsgBox("Cannot run in worksheet: InternalParameters", "Error");
+
+        }
 
         public static int searchForValue(Excel.Worksheet Wks2, string searchString, int intStartColumToCheck)
         {

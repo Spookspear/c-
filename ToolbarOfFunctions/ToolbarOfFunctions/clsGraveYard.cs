@@ -347,4 +347,46 @@ namespace ToolbarOfFunctions_Graveyard
     // Excel.XlEnableCancelKey key = XlEnableCancelKey.xlErrorHandler;
     // Globals.ThisAddIn.Application.SendKeys("{ESC}");
 
+    /*
+private static List<string> ListAllGroupsViaTokenGroups(string username, string domainName)
+{
+    List<string> result = new List<string>();
+
+    int i = 0;
+
+    try
+    {
+        using (PrincipalContext domainContext = new PrincipalContext(ContextType.Domain, domainName))
+        using (var searcher = new DirectorySearcher(new DirectoryEntry("LDAP://" + domainContext.Name)))
+        {
+            searcher.Filter = String.Format("(&(objectClass=user)(sAMAccountName={0}))", username);
+            SearchResult sr = searcher.FindOne();
+
+            DirectoryEntry user = sr.GetDirectoryEntry();
+
+            // access to other user properties, via user.Properties["..."]
+
+            user.RefreshCache(new string[] { "tokenGroups" });
+
+            for (i = 0; i < user.Properties["tokenGroups"].Count; i++)
+            {
+                SecurityIdentifier sid = new SecurityIdentifier((byte[])user.Properties["tokenGroups"][i], 0);
+                NTAccount nt = (NTAccount)sid.Translate(typeof(NTAccount));
+
+                result.Add(nt.Translate(typeof(NTAccount)).ToString() + " (" + sid.ToString() + ")");
+            }
+        }
+
+        return result;
+    }
+    catch (Exception excpt)
+    {
+        CommonExcelClasses.MsgBox("There was a problem: " + excpt.Message + " line: " + i.ToString(), "Error");
+        Console.WriteLine(excpt.Message);
+
+        throw;
+    }
+}
+
+*/
 }
