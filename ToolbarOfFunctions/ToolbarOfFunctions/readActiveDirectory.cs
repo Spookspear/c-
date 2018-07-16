@@ -336,8 +336,7 @@ namespace ToolbarOfFunctions
                     CommonExcelClasses.zapWorksheet(Wks);
                 } else {
 
-                    // do a loop here checking for a free or unused name
-            
+                    // do a loop here checking for a free or unused name            
                     Wks = Wkb.Worksheets.Add(Type.Missing, Wkb.Worksheets[Wkb.Worksheets.Count], 1, XlSheetType.xlWorksheet);
                     Wks.Name = strUserName;
                 }
