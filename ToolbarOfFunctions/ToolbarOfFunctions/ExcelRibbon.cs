@@ -100,6 +100,16 @@ namespace ToolbarOfFunctions
 
         }
 
+        private void btnReadUsersGroupMembership_Click(object sender, RibbonControlEventArgs e)
+        {
+
+        }
+
+        private void btnReadUsers_Click(object sender, RibbonControlEventArgs e)
+        {
+
+        }
+
         public void btnDealWithSingleDuplicates_Click(object sender, RibbonControlEventArgs e)
         {
             Globals.ThisAddIn.dealWithSingleDuplicates(Globals.ThisAddIn.Application.ActiveWorkbook);

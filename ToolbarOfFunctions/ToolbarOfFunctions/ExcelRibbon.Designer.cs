@@ -37,7 +37,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ExcelRibbon));
             this.MYTOOLBAR = this.Factory.CreateRibbonTab();
             this.customToolbar = this.Factory.CreateRibbonGroup();
-            this.folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.btnSettings = this.Factory.CreateRibbonButton();
             this.btnReadFolders = this.Factory.CreateRibbonButton();
             this.btnCompareSheets = this.Factory.CreateRibbonButton();
@@ -54,6 +53,7 @@
             this.btnReadUsers = this.Factory.CreateRibbonButton();
             this.btnWriteTimeSheet = this.Factory.CreateRibbonButton();
             this.btnPingServers = this.Factory.CreateRibbonButton();
+            this.folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.MYTOOLBAR.SuspendLayout();
             this.customToolbar.SuspendLayout();
             this.SuspendLayout();
@@ -208,6 +208,7 @@
             this.btnReadUsersGroupMembership.Label = "Users AD Membership";
             this.btnReadUsersGroupMembership.Name = "btnReadUsersGroupMembership";
             this.btnReadUsersGroupMembership.ShowImage = true;
+            this.btnReadUsersGroupMembership.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnReadUsersGroupMembership_Click);
             // 
             // btnReadUsers
             // 
@@ -217,6 +218,7 @@
             this.btnReadUsers.Label = "Details from AD Name";
             this.btnReadUsers.Name = "btnReadUsers";
             this.btnReadUsers.ShowImage = true;
+            this.btnReadUsers.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnReadUsers_Click);
             // 
             // btnWriteTimeSheet
             // 
