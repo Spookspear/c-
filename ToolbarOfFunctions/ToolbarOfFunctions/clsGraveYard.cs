@@ -26,6 +26,28 @@ using System.Data;
 // using ToolbarOfFunctions;
 using ToolbarOfFunctions_CommonClasses;
 
+// string strClearOrColour = "Colour";     // need to get this from somewhere
+// strClearOrColour = (string)frmSettings.cmboCompareDifferences.SelectedItem;  // read from settings
+// string strClearOrColour = SaveXML.readProperty("strCompareOrColour");    // read from function, that gets data from class
+/* 1gvb1 - can I read thisd from the object?
+InformationFromSettingsForm info = new InformationFromSettingsForm();
+strClearOrColour = info.HighLightOrDelete;
+
+Excel.Range xlCell = Wks.Cells[intSourceRow, intColCount];
+Excel.Borders border = xlCell.Borders;
+border.LineStyle = Excel.XlLineStyle.xlContinuous;
+border.Color = ColorTranslator.ToOle(Color.LightGray);;
+border.Weight = 2d; 
+
+
+                // string connectionUsername = "GBI01";
+            // string connectionPassword = "Broken109";
+            // var princContext = new PrincipalContext(ContextType.Domain, host, container, connectionUsername, connectionPassword);
+
+
+*/
+// DialogResult dlgResult = MessageBox.Show("Compare: Worksheet: " + Wks1.Name + " against: " + Wks2.Name + " and " + strClearOrColour + " ones which are the same?", "Compare Sheets", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+
 
 namespace ToolbarOfFunctions_Graveyard
 {
@@ -61,6 +83,38 @@ namespace ToolbarOfFunctions_Graveyard
             // MessageBox.Show(activeWorksheet.Name);
             // MessageBox.Show(activeWorksheetName);
             // setCursorToWaiting();
+
+
+
+            /*
+            string strTotalTime_StopWatch = "";
+            string strTotalTime_EndMinusNow = "";
+
+            if (boolTimingStopWatch)
+            {
+                strTotalTime_StopWatch = sw.Elapsed.Milliseconds.ToString() + " Milliseconds";
+            }
+
+            if (boolTimingEndMinusNow)
+            {
+                DateTime dteEnd = DateTime.Now;
+                TimeSpan dteTotalTime = dteEnd.Subtract(dteStart);
+                strTotalTime_EndMinusNow = dteTotalTime.Milliseconds.ToString() + " Milliseconds";
+            }
+
+            DateTime second = DateTime.Now;
+            int milliSeconds = (int)((TimeSpan)(second - first)).TotalMilliseconds;
+
+
+            strMessage = strMessage + "that took" + LF + LF;
+
+            strMessage = strMessage + "{Stop Watch} " + strTotalTime_StopWatch + LF;
+            strMessage = strMessage + "{End Minus Now} " + strTotalTime_EndMinusNow + LF;
+
+            strMessage = strMessage + "{TotalMilliseconds} " + milliSeconds;
+            */
+
+
 
         }
 
@@ -293,4 +347,46 @@ namespace ToolbarOfFunctions_Graveyard
     // Excel.XlEnableCancelKey key = XlEnableCancelKey.xlErrorHandler;
     // Globals.ThisAddIn.Application.SendKeys("{ESC}");
 
+    /*
+private static List<string> ListAllGroupsViaTokenGroups(string username, string domainName)
+{
+    List<string> result = new List<string>();
+
+    int i = 0;
+
+    try
+    {
+        using (PrincipalContext domainContext = new PrincipalContext(ContextType.Domain, domainName))
+        using (var searcher = new DirectorySearcher(new DirectoryEntry("LDAP://" + domainContext.Name)))
+        {
+            searcher.Filter = String.Format("(&(objectClass=user)(sAMAccountName={0}))", username);
+            SearchResult sr = searcher.FindOne();
+
+            DirectoryEntry user = sr.GetDirectoryEntry();
+
+            // access to other user properties, via user.Properties["..."]
+
+            user.RefreshCache(new string[] { "tokenGroups" });
+
+            for (i = 0; i < user.Properties["tokenGroups"].Count; i++)
+            {
+                SecurityIdentifier sid = new SecurityIdentifier((byte[])user.Properties["tokenGroups"][i], 0);
+                NTAccount nt = (NTAccount)sid.Translate(typeof(NTAccount));
+
+                result.Add(nt.Translate(typeof(NTAccount)).ToString() + " (" + sid.ToString() + ")");
+            }
+        }
+
+        return result;
+    }
+    catch (Exception excpt)
+    {
+        CommonExcelClasses.MsgBox("There was a problem: " + excpt.Message + " line: " + i.ToString(), "Error");
+        Console.WriteLine(excpt.Message);
+
+        throw;
+    }
+}
+
+*/
 }
