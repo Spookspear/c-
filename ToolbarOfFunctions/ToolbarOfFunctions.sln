@@ -5,6 +5,14 @@ VisualStudioVersion = 15.0.27703.2000
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToolbarOfFunctions", "ToolbarOfFunctions\ToolbarOfFunctions.csproj", "{2B9D6A6D-47D7-43BB-8606-9BF145BF35A8}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4D15A9F7-51D3-4703-BC3C-5554C35654F7}"
+	ProjectSection(SolutionItems) = preProject
+		ToolbarOfFunctions\ClassDiagram1.cd = ToolbarOfFunctions\ClassDiagram1.cd
+		ToolbarOfFunctions\clsGraveYard.cs = ToolbarOfFunctions\clsGraveYard.cs
+		ToolbarOfFunctions\CommonExcel.cs = ToolbarOfFunctions\CommonExcel.cs
+		ToolbarOfFunctions\FolderBrowserDialogEx.cs = ToolbarOfFunctions\FolderBrowserDialogEx.cs
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

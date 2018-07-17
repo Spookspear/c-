@@ -1,0 +1,59 @@
+bool boolDisplayInitialMessage = myData.ProduceInitialMessageBox;
+bool boolDisplayCompleteMessage = myData.ProduceCompleteMessageBox;
+bool booltimeTaken = myData.DisplayTimeTaken;
+
+DialogResult dlgResult = DialogResult.Yes;
+string strMessage;
+
+if (boolDisplayInitialMessage)
+{
+    strMessage = "Compare: " + Wks1.Name + LF +
+                " against: " + Wks2.Name + LF +
+                    " and: " + strCompareOrColour + " ones which are the same" + LF +
+                   " (starting at row:" + intStartRow.ToString() + ")";
+
+    if (booltimeTaken)
+    {
+        strMessage = strMessage + LF + " and display the time taken";
+    }
+
+    strMessage = strMessage + "?";
+
+    dlgResult = MessageBox.Show(strMessage, "Compare Sheets", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+}
+
+int intLastCol = CommonExcelClasses.getLastCol(Wks1);
+
+CommonExcelClasses.turnAppSettings("Off", xls, myData.TestCode);
+
+// remove formatting - format black and white but only if no was selected
+if (dlgResult == DialogResult.No)
+    CommonExcelClasses.formatCells(Wks1, intStartRow, intSheetLastRow1, 1, intLastCol, "Normal");
+
+if (dlgResult == DialogResult.Yes)
+{
+
+    Stopwatch sw = new Stopwatch();
+    sw.Start();
+
+
+
+
+    sw.Stop();
+
+    // CommonExcelClasses.turnAppSettings("On", xls, myData.TestCode);
+
+    if (boolDisplayCompleteMessage)
+    {
+        strMessage = "";
+        strMessage = strMessage + "Compare Complete ...";
+
+        if (booltimeTaken)
+        {
+            strMessage = strMessage + "that took " + sw.Elapsed.Milliseconds.ToString() + " Milliseconds";
+
+        }
+
+        CommonExcelClasses.MsgBox(strMessage);          // localisation?
+    }
+

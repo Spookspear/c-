@@ -1,0 +1,191 @@
+string strMessage;
+strMessage = "Get Group Membership for Active Directory User: "; 
+
+if (strDoWhat == "SheetName") {                
+
+	strUserName = Wks.Name;
+	strMessage = strMessage + strUserName + LF + "into this worksheet";
+
+} else {
+
+	Excel.Range xlCell = xls.ActiveCell;
+	strUserName = xlCell.Value.ToString();
+	CommonExcelClasses.MsgBox("Read the active cell:" + strUserName);
+
+	strMessage = strMessage + strUserName + LF + "into new worksheet";
+
+}
+
+if (strDoWhat == "SheetName")
+{
+	CommonExcelClasses.zapWorksheet(Wks);
+} else {
+	Wks = Wkb.Worksheets.Add(Type.Missing, Wkb.Worksheets[Wkb.Worksheets.Count], 1, XlSheetType.xlWorksheet);
+	Wks.Name = strUserName;
+}
+
+
+
+
+
+See if I can use WinNT://
+same as VBA
+Should connection string be in settings?
+
+Put password an username under test code - see if they are actually needed
+turn vars into string
+
+
+
+// read worksheet into array
+var myArray = (object[,])valueRange.Value2;
+
+
+// read it back
+var arrayCount = myArray.GetLength(0);
+var columnCount = GetTheColumnCountHere();
+valueRange = valueRange.get_Resize(arrayCount, columnCount);
+valueRange.set_Value(Excel.XlRangeValueDataType.xlRangeValueDefault, myArray);
+
+
+
+
+DateTime dteStart = DateTime.Now;
+                            if (booltimeTaken)
+                            {
+
+                                DateTime dteEnd = DateTime.Now;
+                                int milliSeconds = (int)((TimeSpan)(dteEnd - dteStart)).TotalMilliseconds;
+
+                                strMessage = strMessage + "that took {TotalMilliseconds} " + milliSeconds;
+
+                            }
+
+
+
+
+
+                    Stopwatch sw = new Stopwatch();
+                    DateTime dteStart = DateTime.Now;
+
+                    if (stringTimingType == "StopWatch")
+                        sw.Start();
+
+
+
+
+
+
+                            string strTotalTime;
+
+                            if (stringTimingType == "StopWatch")
+                            {
+
+                                sw.Stop();
+                                strTotalTime = sw.Elapsed.Milliseconds.ToString() + " Milliseconds";
+                            }
+                            else
+                            {
+                                DateTime dteEnd = DateTime.Now;
+                                TimeSpan dteTotalTime = dteEnd.Subtract(dteStart);
+                                strTotalTime = dteTotalTime.ToString() + " Milliseconds";
+                            }
+
+                            strMessage = strMessage + LF + "that took " + strTotalTime + LF;
+                            strMessage = strMessage + LF + "And handled: " + curNoRecords.ToString() + " duplicates";
+
+
+
+
+
+#region [Declare and instantiate variables for process]
+#region [Declare and instantiate variables for worksheet/book]
+#region [Display a Message?]
+#region [Start of work]
+#region [Start of loop]
+#region [Release memory]
+
+myData.ClearFormatting = chkClearFormatting.Checked;
+
+
+
+#region [Start of loop]
+
+#endregion
+
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+
+
+
+bool booltimeTaken = myData.DisplayTimeTaken;
+
+if (booltimeTaken)
+{
+strMessage = strMessage + LF + " and display the time taken";
+}
+
+Stopwatch sw = new Stopwatch();
+sw.Start();
+... stuff
+sw.Stop();
+
+if (booltimeTaken)
+{
+    strMessage = strMessage + "that took " + sw.Elapsed.Milliseconds.ToString() + " Milliseconds";
+
+}
+
+
+ strMessage = "Duplicate Rows Check on column: " + strColumnName + LF +
+                                 " Worksheet name: " + Wks.Name +
+                                            " and: " + strColourOrDelete + " ones which are the same";
+
+                    if (booltimeTaken)
+                    {
+                        strMessage = strMessage + LF + " and display the time taken";
+                    }
+
+                    strMessage = strMessage + "?";
+
+
+
+strMessage = "Compare: " + Wks1.Name + LF +
+                                    " against: " + Wks2.Name + LF +
+                                        " and: " + strCompareOrColour + " ones which are the same" + LF +
+                                       " (starting at row:" + intStartRow.ToString() + ")";
+
+                        if (booltimeTaken)
+                        {
+                            strMessage = strMessage + LF + " and display the time taken";
+                        }
+
+
+        internal void compareSheets(Excel.Application xls)
+        {
+
+            Excel.Workbook Wkb = xls.ActiveWorkbook;
+
+                                CommonExcelClasses.ButtonUpdateLabel(btnCompareSheets, "Compare: (" + myData.CompareOrColour + ")");
+            CommonExcelClasses.ButtonUpdateLabel(btnDealWithSingleDuplicates, "Duplicates (Cols: Single): (" + myData.ColourOrDelete + ")");
+
+            CommonExcelClasses.ButtonUpdateLabel(btnCompareSheets, "Compare: (" + myData.CompareOrColour + ")");
+            CommonExcelClasses.ButtonUpdateLabel(btnDealWithSingleDuplicates, "Duplicates (Cols: Single): (" + myData.ColourOrDelete + ")");
+			
+			
+try
+{
+
+}
+            catch (Exception excpt)
+            {
+                CommonExcelClasses.MsgBox("There was a problem: " + excpt.Message + " was the variable a Group?");
+                Console.WriteLine(excpt.Message);
+
+                throw;
+            }
+
+	
