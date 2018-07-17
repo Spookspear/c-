@@ -1,0 +1,54 @@
+namespace ExcelAddInFilter
+{
+    public interface IPreTranslateMessage
+    {
+        bool PreTranslateMessage(ref System.Windows.Forms.Message message);
+    }
+
+    public class Filter : System.Windows.Forms.IMessageFilter
+    {
+        public virtual bool PreFilterMessage(ref System.Windows.Forms.Message m)
+        {
+            System.Windows.Forms.Control c = System.Windows.Forms.Control.FromChildHandle(m.HWnd);
+            IPreTranslateMessage ptm = c as IPreTranslateMessage;
+            if (c != null)
+                return ptm.PreTranslateMessage(ref m);
+            return false;
+        }
+    }
+
+    public class TestControl : System.Windows.Forms.TextBox, IPreTranslateMessage
+    {
+        public virtual bool PreTranslateMessage(ref System.Windows.Forms.Message message)
+        {
+            if (message.Msg == 0x100 /*WM_KEYDOWN*/)
+                System.Diagnostics.Debug.WriteLine("TestControl got WM_KEYDOWN");
+            return false;
+        }
+    }
+
+  public partial class ThisAddIn
+  {
+        private System.Windows.Forms.Form m_Form = null;
+    private void ThisAddIn_Startup(object sender, System.EventArgs e)
+    {
+            System.Windows.Forms.Application.AddMessageFilter(new Filter());
+            //Test control on Form
+            m_Form = new System.Windows.Forms.Form();
+            m_Form.Controls.Add(new TestControl());
+            m_Form.Show();
+            //Test control in CTP
+            var usercontrol = new System.Windows.Forms.UserControl();
+            usercontrol.Controls.Add(new TestControl());
+            var ctp = this.CustomTaskPanes.Add(usercontrol, "Bottom");
+            ctp.Visible = true;
+            ctp.DockPosition = Office.MsoCTPDockPosition.msoCTPDockPositionBottom;
+    }
+
+    private void ThisAddIn_Shutdown(object sender, System.EventArgs e)
+    {
+    }
+
+    //VSTO generated code skipped
+  }
+}
