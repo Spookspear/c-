@@ -37,29 +37,29 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ExcelRibbon));
             this.MYTOOLBAR = this.Factory.CreateRibbonTab();
             this.customToolbar = this.Factory.CreateRibbonGroup();
-            this.separator1 = this.Factory.CreateRibbonSeparator();
-            this.separator2 = this.Factory.CreateRibbonSeparator();
-            this.separator3 = this.Factory.CreateRibbonSeparator();
-            this.separator4 = this.Factory.CreateRibbonSeparator();
-            this.separator5 = this.Factory.CreateRibbonSeparator();
-            this.separator6 = this.Factory.CreateRibbonSeparator();
-            this.folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.btnSettings = this.Factory.CreateRibbonButton();
+            this.separator1 = this.Factory.CreateRibbonSeparator();
             this.btnReadFolders = this.Factory.CreateRibbonButton();
             this.btnCompareSheets = this.Factory.CreateRibbonButton();
+            this.separator2 = this.Factory.CreateRibbonSeparator();
             this.btnZap = this.Factory.CreateRibbonButton();
+            this.separator3 = this.Factory.CreateRibbonSeparator();
             this.splitButtonDeleteLines = this.Factory.CreateRibbonSplitButton();
             this.btnDeleteBlankLinesA = this.Factory.CreateRibbonButton();
             this.btnDeleteBlankLinesB = this.Factory.CreateRibbonButton();
             this.btnDeleteBlankLinesC = this.Factory.CreateRibbonButton();
+            this.separator4 = this.Factory.CreateRibbonSeparator();
             this.btnDealWithSingleDuplicates = this.Factory.CreateRibbonButton();
             this.btnDealWithManyDuplicates = this.Factory.CreateRibbonButton();
+            this.separator5 = this.Factory.CreateRibbonSeparator();
             this.btnReadUsersGroupMembership = this.Factory.CreateRibbonButton();
             this.btnReadUsersGroupMembershipActiveCell = this.Factory.CreateRibbonButton();
             this.btnLoadADGroupIntoSpreadsheet = this.Factory.CreateRibbonButton();
             this.btnLoadADGroupIntoSpreadsheetActiveCell = this.Factory.CreateRibbonButton();
+            this.separator6 = this.Factory.CreateRibbonSeparator();
             this.btnWriteTimeSheet = this.Factory.CreateRibbonButton();
             this.btnPingServers = this.Factory.CreateRibbonButton();
+            this.folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.MYTOOLBAR.SuspendLayout();
             this.customToolbar.SuspendLayout();
             this.SuspendLayout();
@@ -94,30 +94,6 @@
             this.customToolbar.Label = "Custom Toolbar";
             this.customToolbar.Name = "customToolbar";
             // 
-            // separator1
-            // 
-            this.separator1.Name = "separator1";
-            // 
-            // separator2
-            // 
-            this.separator2.Name = "separator2";
-            // 
-            // separator3
-            // 
-            this.separator3.Name = "separator3";
-            // 
-            // separator4
-            // 
-            this.separator4.Name = "separator4";
-            // 
-            // separator5
-            // 
-            this.separator5.Name = "separator5";
-            // 
-            // separator6
-            // 
-            this.separator6.Name = "separator6";
-            // 
             // btnSettings
             // 
             this.btnSettings.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
@@ -127,6 +103,10 @@
             this.btnSettings.Name = "btnSettings";
             this.btnSettings.ShowImage = true;
             this.btnSettings.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnSettings_Click);
+            // 
+            // separator1
+            // 
+            this.separator1.Name = "separator1";
             // 
             // btnReadFolders
             // 
@@ -148,6 +128,10 @@
             this.btnCompareSheets.ShowImage = true;
             this.btnCompareSheets.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnCompareSheets_Click);
             // 
+            // separator2
+            // 
+            this.separator2.Name = "separator2";
+            // 
             // btnZap
             // 
             this.btnZap.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
@@ -157,6 +141,10 @@
             this.btnZap.Name = "btnZap";
             this.btnZap.ShowImage = true;
             this.btnZap.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnZap_Click);
+            // 
+            // separator3
+            // 
+            this.separator3.Name = "separator3";
             // 
             // splitButtonDeleteLines
             // 
@@ -201,6 +189,10 @@
             this.btnDeleteBlankLinesC.ShowImage = true;
             this.btnDeleteBlankLinesC.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnDeleteBlankLinesC_Click);
             // 
+            // separator4
+            // 
+            this.separator4.Name = "separator4";
+            // 
             // btnDealWithSingleDuplicates
             // 
             this.btnDealWithSingleDuplicates.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
@@ -221,6 +213,10 @@
             this.btnDealWithManyDuplicates.ShowImage = true;
             this.btnDealWithManyDuplicates.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnDealWithManyDuplicates_Click);
             // 
+            // separator5
+            // 
+            this.separator5.Name = "separator5";
+            // 
             // btnReadUsersGroupMembership
             // 
             this.btnReadUsersGroupMembership.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
@@ -236,7 +232,7 @@
             this.btnReadUsersGroupMembershipActiveCell.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
             this.btnReadUsersGroupMembershipActiveCell.Description = "Active Directory Group Members - Active Cell";
             this.btnReadUsersGroupMembershipActiveCell.Image = ((System.Drawing.Image)(resources.GetObject("btnReadUsersGroupMembershipActiveCell.Image")));
-            this.btnReadUsersGroupMembershipActiveCell.Label = "Users - Active Cell";
+            this.btnReadUsersGroupMembershipActiveCell.Label = "User (Groups) - Active Cell";
             this.btnReadUsersGroupMembershipActiveCell.Name = "btnReadUsersGroupMembershipActiveCell";
             this.btnReadUsersGroupMembershipActiveCell.ShowImage = true;
             this.btnReadUsersGroupMembershipActiveCell.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnReadUsersGroupMembershipActiveCell_Click);
@@ -256,10 +252,14 @@
             this.btnLoadADGroupIntoSpreadsheetActiveCell.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
             this.btnLoadADGroupIntoSpreadsheetActiveCell.Description = "Active Directory Group Members - Active Cell";
             this.btnLoadADGroupIntoSpreadsheetActiveCell.Image = ((System.Drawing.Image)(resources.GetObject("btnLoadADGroupIntoSpreadsheetActiveCell.Image")));
-            this.btnLoadADGroupIntoSpreadsheetActiveCell.Label = "Groups - Active Cell";
+            this.btnLoadADGroupIntoSpreadsheetActiveCell.Label = "Groups (Users) - Active Cell";
             this.btnLoadADGroupIntoSpreadsheetActiveCell.Name = "btnLoadADGroupIntoSpreadsheetActiveCell";
             this.btnLoadADGroupIntoSpreadsheetActiveCell.ShowImage = true;
             this.btnLoadADGroupIntoSpreadsheetActiveCell.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnReadGroupUsersMembershipActiveCell_Click);
+            // 
+            // separator6
+            // 
+            this.separator6.Name = "separator6";
             // 
             // btnWriteTimeSheet
             // 

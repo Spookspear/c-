@@ -109,8 +109,26 @@ namespace ToolbarOfFunctions
                 }
                 else
                 {
-                    Wks = Wkb.Worksheets.Add(Type.Missing, Wkb.Worksheets[Wkb.Worksheets.Count], 1, XlSheetType.xlWorksheet);
-                    Wks.Name = strGroupName;
+
+                    int i = 1;
+
+                    string strSheetName = strGroupName;
+                    while (CommonExcelClasses.WorksheetExist(Wkb, strSheetName))
+                    {
+                        // for (int i = 1; i <= 10; i++)
+
+                        strSheetName = strGroupName + "-0" + i.ToString();
+                        i++;
+
+                    }
+                    if (!CommonExcelClasses.WorksheetExist(Wkb, strSheetName))
+                    {
+
+                        // do a loop here checking for a free or unused name            
+                        Wks = Wkb.Worksheets.Add(Type.Missing, Wkb.Worksheets[Wkb.Worksheets.Count], 1, XlSheetType.xlWorksheet);
+                        Wks.Name = strSheetName;
+                        Wks.Select(true);
+                    }
 
                 }
 
@@ -156,6 +174,7 @@ namespace ToolbarOfFunctions
 
         public void getGroupUserMembership(Excel.Worksheet Wks, string strGroupName)
         {
+            CommonExcelClasses.setCursorToWaiting();
 
             try
             {
@@ -265,6 +284,8 @@ namespace ToolbarOfFunctions
                 throw;
             }
 
+            CommonExcelClasses.setCursorToDefault();
+
         }
 
         public void readUsersGroupMembershipIntoWorksheet(Excel.Application xls, string strDoWhat)
@@ -336,9 +357,26 @@ namespace ToolbarOfFunctions
                     CommonExcelClasses.zapWorksheet(Wks);
                 } else {
 
-                    // do a loop here checking for a free or unused name            
-                    Wks = Wkb.Worksheets.Add(Type.Missing, Wkb.Worksheets[Wkb.Worksheets.Count], 1, XlSheetType.xlWorksheet);
-                    Wks.Name = strUserName;
+                    int i = 1;
+
+                    string strSheetName = strUserName;
+
+                    while (CommonExcelClasses.WorksheetExist(Wkb, strSheetName))
+                    {
+                        // for (int i = 1; i <= 10; i++)
+
+                        strSheetName = strUserName + "-0" + i.ToString();
+                        i++;
+                        
+                    }
+                    if (!CommonExcelClasses.WorksheetExist(Wkb, strSheetName)) {
+
+                        // do a loop here checking for a free or unused name            
+                        Wks = Wkb.Worksheets.Add(Type.Missing, Wkb.Worksheets[Wkb.Worksheets.Count], 1, XlSheetType.xlWorksheet);
+                        Wks.Name = strSheetName;
+                        Wks.Select(true);
+                    }
+
                 }
 
                 getUsersGroupMembership(Wks, strUserName);
@@ -377,8 +415,12 @@ namespace ToolbarOfFunctions
 
         public void getUsersGroupMembership(Excel.Worksheet Wks, string strUserName)
         {
+            CommonExcelClasses.setCursorToWaiting();
+
             try
             {
+
+
                 myData = myData.LoadMyData();               // read data from settings file
 
                 bool boolTestCode = myData.TestCode;
@@ -431,6 +473,8 @@ namespace ToolbarOfFunctions
 
                 throw;
             }
+
+            CommonExcelClasses.setCursorToDefault();
 
         }
 

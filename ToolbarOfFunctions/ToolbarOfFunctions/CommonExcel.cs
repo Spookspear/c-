@@ -137,14 +137,14 @@ namespace ToolbarOfFunctions_CommonClasses
         }
 
 
-        private static bool WorksheetExist(Excel.Workbook Wkb, string strSheetName)
+        public static bool WorksheetExist(Excel.Workbook Wkb, string strSheetName)
         {
             bool found = false;
 
             foreach (Excel.Worksheet Wks in Wkb.Sheets)
             {
 
-                MsgBox("inside WorksheetExist() - ws Name " + Wks.Name.ToLower());
+                // MsgBox("inside WorksheetExist() - ws Name " + Wks.Name.ToLower());
 
                 if (Wks.Name.ToLower() == strSheetName.ToLower())
                 {
@@ -309,14 +309,14 @@ namespace ToolbarOfFunctions_CommonClasses
         }
 
 
-        private static void setCursorToWaiting()
+        public static void setCursorToWaiting()
         {
             Excel.Application application = Globals.ThisAddIn.Application;
             application.Cursor = Excel.XlMousePointer.xlWait;
         }
 
 
-        private static void setCursorToDefault()
+        public static void setCursorToDefault()
         {
             Excel.Application application = Globals.ThisAddIn.Application;
             application.Cursor = Excel.XlMousePointer.xlDefault;
@@ -438,6 +438,23 @@ namespace ToolbarOfFunctions_CommonClasses
                 );
 
         }
+
+
+        /* public static Boolean sheetExists(Excel.Workbook Wkb, string strName)
+        {
+            bool boolFound = false;
+            foreach (Excel.Worksheet sheet in Wkb.Sheets)
+            {
+                if (sheet.Name == strName)
+                {
+                    boolFound = true;
+                    break; // Exit the loop now
+                }
+            }
+            return boolFound;
+        }  */
+
+
 
         public static void addValidationToColumn(Excel.Worksheet Wks, string strCol, decimal intStartRow, decimal intEndRow, string strFormula)
         {

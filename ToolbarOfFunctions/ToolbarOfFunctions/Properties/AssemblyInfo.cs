@@ -11,7 +11,7 @@ using System.Security;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Subsea 7")]
 [assembly: AssemblyProduct("ToolbarOfFunctions")]
-[assembly: AssemblyCopyright("Copyright © Subsea 7 2018")]
+[assembly: AssemblyCopyright("Copyright Grant Bishop Subsea 7 2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
