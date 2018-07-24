@@ -213,9 +213,7 @@ namespace DaveChambers.FolderBrowserDialogEx
 				{
 					Win32.GetWindowRect(hEdit, out rcEdit);
 					Win32.ScreenToClient(hEdit, ref rcEdit);
-				}
-				else
-				{
+				} else {
 					Win32.ShowWindow(hEdit, Win32.SW_HIDE);
 				}
 			}

@@ -349,9 +349,7 @@ namespace ToolbarOfFunctions
                                 else if (strColourOrDelete == "Delete")
                                 {
                                     Wks.Rows[intSourceRow].Delete();
-                                }
-                                else
-                                {
+                                } else {
                                     CommonExcelClasses.colourCells(Wks, (intSourceRow ), strColourOrDelete, 1, clrFoundForeColour, clrFoundBackColour, false);
                                     intSourceRow++;
                                 }
@@ -523,9 +521,7 @@ namespace ToolbarOfFunctions
                             {
                                 Wks.Rows[intSourceRow].Delete();
                                 intSourceRow--;
-                            }
-                            else
-                            {
+                            } else {
                                 arrRows[intRowArrayPointer] = (intSourceRow + 1);
                                 intRowArrayPointer++;
 
@@ -619,6 +615,8 @@ namespace ToolbarOfFunctions
 
             Color clrColourFore_Found = ColorTranslator.FromHtml(myData.ColourFore_Found);
             Color clrColourFore_NotFound = ColorTranslator.FromHtml(myData.ColourFore_NotFound);
+            bool boolFontBold_Found = myData.ColourBold_Found;
+            bool boolFontBold_NotFound = myData.ColourBold_NotFound;
 
             Color clrColourBack_Found = ColorTranslator.FromHtml(myData.ColourBack_Found);
             Color clrColourBack_NotFound = ColorTranslator.FromHtml(myData.ColourBack_NotFound);
@@ -757,9 +755,7 @@ namespace ToolbarOfFunctions
 
                     }
                    
-                }
-                else
-                {
+                } else {
                     if (boolDisplayCompleteMessage)
                         CommonExcelClasses.MsgBox("No data to compare ...", "Warning");          // localisation?
                 }
@@ -936,26 +932,6 @@ namespace ToolbarOfFunctions
             }
         }
 
-        /*
-        public void addValidationToColumn(Excel.Worksheet Wks, string strCol, decimal intStartRow, decimal intEndRow, string strFormula)
-        {
-            Excel.Range xlCell;
-            string strRange = strCol + intStartRow.ToString() + ":" + strCol + intEndRow.ToString();
-
-            xlCell = Wks.get_Range(strRange);
-            xlCell.Validation.Delete();
-            xlCell.Validation.Add(XlDVType.xlValidateList, XlDVAlertStyle.xlValidAlertStop, Formula1: strFormula);
-
-            xlCell.Validation.InCellDropdown = true;
-            xlCell.Validation.ErrorTitle = "Error in Validation";
-            xlCell.Validation.ErrorMessage = "Please select value from list";
-
-            // do I want to release this?
-            Marshal.ReleaseComObject(xlCell);
-
-        }
-        */
-
         // repairs sums at bottom of cols A->M then S:
         public void repairTimeRecording(Excel.Worksheet Wks, decimal intRowStart, decimal intRowEnd)
         {
@@ -1002,10 +978,12 @@ namespace ToolbarOfFunctions
 
         public void sortHours(Excel.Worksheet Wks, decimal intRowCount, decimal intStartOfWeekRow)
         {
-            string strSearchCat = Wks.Cells[intRowCount, C_COL_CATEGORY].Value.Trim().ToString();
-
-            // put it back trimmed?
-            Wks.Cells[intRowCount, C_COL_CATEGORY].Value = strSearchCat.Trim();
+            string strSearchCat = "";
+            if (!CommonExcelClasses.isEmptyCell(Wks.Cells[intRowCount, C_COL_CATEGORY]))
+            {
+                strSearchCat = Wks.Cells[intRowCount, C_COL_CATEGORY].Value.Trim().ToString();          // get the category
+                Wks.Cells[intRowCount, C_COL_CATEGORY].Value = strSearchCat.Trim();                     // put it back trimmed?
+            }
 
             Excel.Range xlCell;
 
@@ -1038,8 +1016,7 @@ namespace ToolbarOfFunctions
                     {
                         strRange = "=S" + intRowCount.ToString();
                         Wks.Cells[intRowCount, intTargetCol].Value = strRange;
-                    } else
-                    {
+                    } else {
                         CommonExcelClasses.MsgBox("undefined - check (probably could not find category) ","Error");
                     }
 
@@ -1140,9 +1117,7 @@ namespace ToolbarOfFunctions
                     delLinesModeC(Wks);
                 }
 
-            }
-            else
-            {
+            } else {
                 CommonExcelClasses.MsgBox("Cannot run in worksheet: InternalParameters", "Error");
             }
 

@@ -1,41 +1,35 @@
 ﻿#pragma warning disable IDE1006 // Naming Styles
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-// using System.Xml.Linq;
-using Excel = Microsoft.Office.Interop.Excel;
-using Office = Microsoft.Office.Core;
-
 using System.Windows.Forms;
-using Microsoft.Office.Tools.Excel;
-using Microsoft.Office.Interop.Excel;
-
 using System.IO;            // for Directory function
 using System.Diagnostics;   // .FileVersionInfo
 using System.Drawing;       // for colours
 
-using DaveChambers.FolderBrowserDialogEx;
-
-using System.ComponentModel;
-using System.Data;
-
-using Microsoft.VisualStudio.Tools.Applications.Runtime;
-using Microsoft.Office.Tools.Ribbon;
+using Excel = Microsoft.Office.Interop.Excel;
+using Microsoft.Office.Interop.Excel;
 
 using ToolbarOfFunctions_CommonClasses;
-using ToolbarOfFunctions_MyConstants;
-using System.Runtime.InteropServices;
-
-// using System.Data.SqlTypes;
-
 using System.DirectoryServices.AccountManagement;
 
-using System.DirectoryServices;
-using System.DirectoryServices.Protocols;
-using System.DirectoryServices.ActiveDirectory;
-using System.Security.Principal;
+// using System.Collections.Generic;
+// using System.Text;
+// using System.Xml.Linq;
+// using Office = Microsoft.Office.Core;
+// using Microsoft.Office.Tools.Excel;
+// using DaveChambers.FolderBrowserDialogEx;
+// using System.ComponentModel;
+// using System.Data;
+// using Microsoft.VisualStudio.Tools.Applications.Runtime;
+// using Microsoft.Office.Tools.Ribbon;
+// using ToolbarOfFunctions_MyConstants;
+// using System.Runtime.InteropServices;
+// using System.Data.SqlTypes;
+// using System.DirectoryServices;
+// using System.DirectoryServices.Protocols;
+// using System.DirectoryServices.ActiveDirectory;
+// using System.Security.Principal;
 
 namespace ToolbarOfFunctions
 {
@@ -68,8 +62,7 @@ namespace ToolbarOfFunctions
                 strGroupName = Wks.Name;
                 strMessage = strMessage + strGroupName + LF + "into this worksheet";
 
-            } else
-            {
+            } else {
                 Excel.Range xlCell = xls.ActiveCell;
                 strGroupName = xlCell.Value.ToString();
                 strMessage = strMessage + strGroupName + LF + "into new worksheet";
@@ -106,9 +99,7 @@ namespace ToolbarOfFunctions
                 if (strDoWhat == "SheetName")
                 {
                     CommonExcelClasses.zapWorksheet(Wks);
-                }
-                else
-                {
+                } else {
 
                     int i = 1;
 
@@ -234,9 +225,7 @@ namespace ToolbarOfFunctions
                         }
 
                     }
-                }
-                else
-                {
+                } else {
 
                     // PrincipalContext princContext = new PrincipalContext(ContextType.Domain);
                     GroupPrincipal group = GroupPrincipal.FindByIdentity(princContext, strGroupName);
@@ -420,7 +409,6 @@ namespace ToolbarOfFunctions
             try
             {
 
-
                 myData = myData.LoadMyData();               // read data from settings file
 
                 bool boolTestCode = myData.TestCode;
@@ -470,8 +458,7 @@ namespace ToolbarOfFunctions
             {
                 CommonExcelClasses.MsgBox("There was a problem: " + excpt.Message + " was the variable a User?");
                 Console.WriteLine(excpt.Message);
-
-                throw;
+                // throw;
             }
 
             CommonExcelClasses.setCursorToDefault();

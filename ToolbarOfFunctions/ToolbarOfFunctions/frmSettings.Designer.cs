@@ -30,15 +30,16 @@ namespace ToolbarOfFunctions
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.GroupBox groupBox6;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmSettings));
+            this.numColPingWrite = new System.Windows.Forms.NumericUpDown();
+            this.label12 = new System.Windows.Forms.Label();
+            this.numColPingRead = new System.Windows.Forms.NumericUpDown();
+            this.label13 = new System.Windows.Forms.Label();
+            this.numPingSheetRowNo = new System.Windows.Forms.NumericUpDown();
+            this.label14 = new System.Windows.Forms.Label();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.btnApply = new System.Windows.Forms.Button();
-            this.numColPingRead = new System.Windows.Forms.NumericUpDown();
-            this.numColPingWrite = new System.Windows.Forms.NumericUpDown();
-            this.numPingSheetRowNo = new System.Windows.Forms.NumericUpDown();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
             this.numHighlightRowsOver = new System.Windows.Forms.NumericUpDown();
             this.label10 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
@@ -48,10 +49,14 @@ namespace ToolbarOfFunctions
             this.chkHideText = new System.Windows.Forms.CheckBox();
             this.chkLargeButtons = new System.Windows.Forms.CheckBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.chkClearFormatting = new System.Windows.Forms.CheckBox();
+            this.chkTurnOffScreenValidation = new System.Windows.Forms.CheckBox();
             this.chkDisplayTimeTaken = new System.Windows.Forms.CheckBox();
             this.chkProduceCompleteMessageBox = new System.Windows.Forms.CheckBox();
             this.chkProduceInitialMessageBox = new System.Windows.Forms.CheckBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.chkNotFoundBold = new System.Windows.Forms.CheckBox();
+            this.chkFoundBold = new System.Windows.Forms.CheckBox();
             this.chkLBColorOrCompare = new System.Windows.Forms.CheckedListBox();
             this.btnColourNotFoundBack = new System.Windows.Forms.Button();
             this.btnColourFoundBack = new System.Windows.Forms.Button();
@@ -72,14 +77,14 @@ namespace ToolbarOfFunctions
             this.label4 = new System.Windows.Forms.Label();
             this.chkLBColourOrDelete = new System.Windows.Forms.CheckedListBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.chkTurnOffScreenValidation = new System.Windows.Forms.CheckBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.chkTimeSheetGetRowNo = new System.Windows.Forms.CheckBox();
             this.numTimeSheetRowNo = new System.Windows.Forms.NumericUpDown();
             this.label11 = new System.Windows.Forms.Label();
-            this.chkClearFormatting = new System.Windows.Forms.CheckBox();
-            ((System.ComponentModel.ISupportInitialize)(this.numColPingRead)).BeginInit();
+            this.chkTimeSheetGetRowNo = new System.Windows.Forms.CheckBox();
+            groupBox6 = new System.Windows.Forms.GroupBox();
+            groupBox6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numColPingWrite)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numColPingRead)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numPingSheetRowNo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numHighlightRowsOver)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -93,50 +98,30 @@ namespace ToolbarOfFunctions
             ((System.ComponentModel.ISupportInitialize)(this.numTimeSheetRowNo)).BeginInit();
             this.SuspendLayout();
             // 
-            // btnApply
+            // groupBox6
             // 
-            this.btnApply.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.btnApply.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnApply.Location = new System.Drawing.Point(289, 727);
-            this.btnApply.Name = "btnApply";
-            this.btnApply.Size = new System.Drawing.Size(100, 23);
-            this.btnApply.TabIndex = 38;
-            this.btnApply.Text = "&Apply / Close";
-            this.btnApply.UseVisualStyleBackColor = true;
-            this.btnApply.Click += new System.EventHandler(this.btnApply_Click);
-            // 
-            // numColPingRead
-            // 
-            this.numColPingRead.Location = new System.Drawing.Point(188, 747);
-            this.numColPingRead.Name = "numColPingRead";
-            this.numColPingRead.Size = new System.Drawing.Size(52, 20);
-            this.numColPingRead.TabIndex = 37;
-            this.numColPingRead.Value = new decimal(new int[] {
-            2,
-            0,
-            0,
-            0});
+            groupBox6.Controls.Add(this.numColPingWrite);
+            groupBox6.Controls.Add(this.label12);
+            groupBox6.Controls.Add(this.numColPingRead);
+            groupBox6.Controls.Add(this.label13);
+            groupBox6.Controls.Add(this.numPingSheetRowNo);
+            groupBox6.Controls.Add(this.label14);
+            groupBox6.Location = new System.Drawing.Point(5, 388);
+            groupBox6.Name = "groupBox6";
+            groupBox6.Size = new System.Drawing.Size(452, 81);
+            groupBox6.TabIndex = 49;
+            groupBox6.TabStop = false;
+            groupBox6.Text = "Ping Servers";
             // 
             // numColPingWrite
             // 
-            this.numColPingWrite.Location = new System.Drawing.Point(188, 772);
+            this.numColPingWrite.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.numColPingWrite.Location = new System.Drawing.Point(133, 47);
             this.numColPingWrite.Name = "numColPingWrite";
             this.numColPingWrite.Size = new System.Drawing.Size(52, 20);
-            this.numColPingWrite.TabIndex = 36;
+            this.numColPingWrite.TabIndex = 41;
             this.numColPingWrite.Value = new decimal(new int[] {
             1,
-            0,
-            0,
-            0});
-            // 
-            // numPingSheetRowNo
-            // 
-            this.numPingSheetRowNo.Location = new System.Drawing.Point(190, 721);
-            this.numPingSheetRowNo.Name = "numPingSheetRowNo";
-            this.numPingSheetRowNo.Size = new System.Drawing.Size(52, 20);
-            this.numPingSheetRowNo.TabIndex = 35;
-            this.numPingSheetRowNo.Value = new decimal(new int[] {
-            5,
             0,
             0,
             0});
@@ -145,35 +130,74 @@ namespace ToolbarOfFunctions
             // 
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(69, 773);
+            this.label12.Location = new System.Drawing.Point(14, 48);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(115, 13);
-            this.label12.TabIndex = 34;
+            this.label12.TabIndex = 40;
             this.label12.Text = "Ping Write Column:";
+            // 
+            // numColPingRead
+            // 
+            this.numColPingRead.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.numColPingRead.Location = new System.Drawing.Point(133, 21);
+            this.numColPingRead.Name = "numColPingRead";
+            this.numColPingRead.Size = new System.Drawing.Size(52, 20);
+            this.numColPingRead.TabIndex = 39;
+            this.numColPingRead.Value = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
             // 
             // label13
             // 
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Consolas", 8.25F);
-            this.label13.Location = new System.Drawing.Point(76, 748);
+            this.label13.Location = new System.Drawing.Point(21, 22);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(109, 13);
-            this.label13.TabIndex = 33;
+            this.label13.TabIndex = 38;
             this.label13.Text = "Ping Read Column:";
+            // 
+            // numPingSheetRowNo
+            // 
+            this.numPingSheetRowNo.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.numPingSheetRowNo.Location = new System.Drawing.Point(281, 25);
+            this.numPingSheetRowNo.Name = "numPingSheetRowNo";
+            this.numPingSheetRowNo.Size = new System.Drawing.Size(52, 20);
+            this.numPingSheetRowNo.TabIndex = 37;
+            this.numPingSheetRowNo.Value = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
             // 
             // label14
             // 
             this.label14.AutoSize = true;
             this.label14.Font = new System.Drawing.Font("Consolas", 8.25F);
-            this.label14.Location = new System.Drawing.Point(117, 721);
+            this.label14.Location = new System.Drawing.Point(208, 25);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(67, 13);
-            this.label14.TabIndex = 32;
+            this.label14.TabIndex = 36;
             this.label14.Text = "Start Row:";
+            // 
+            // btnApply
+            // 
+            this.btnApply.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.btnApply.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.btnApply.Location = new System.Drawing.Point(369, 504);
+            this.btnApply.Name = "btnApply";
+            this.btnApply.Size = new System.Drawing.Size(100, 23);
+            this.btnApply.TabIndex = 38;
+            this.btnApply.Text = "&Apply / Close";
+            this.btnApply.UseVisualStyleBackColor = true;
+            this.btnApply.Click += new System.EventHandler(this.btnApply_Click);
             // 
             // numHighlightRowsOver
             // 
-            this.numHighlightRowsOver.Location = new System.Drawing.Point(200, 626);
+            this.numHighlightRowsOver.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.numHighlightRowsOver.Location = new System.Drawing.Point(215, 504);
             this.numHighlightRowsOver.Maximum = new decimal(new int[] {
             1024,
             0,
@@ -192,7 +216,7 @@ namespace ToolbarOfFunctions
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(38, 626);
+            this.label10.Location = new System.Drawing.Point(53, 504);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(145, 13);
             this.label10.TabIndex = 33;
@@ -202,7 +226,7 @@ namespace ToolbarOfFunctions
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(34, 674);
+            this.label7.Location = new System.Drawing.Point(22, 480);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(187, 13);
             this.label7.TabIndex = 32;
@@ -210,9 +234,10 @@ namespace ToolbarOfFunctions
             // 
             // cmboDelModeAorBorC
             // 
+            this.cmboDelModeAorBorC.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.cmboDelModeAorBorC.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmboDelModeAorBorC.FormattingEnabled = true;
-            this.cmboDelModeAorBorC.Location = new System.Drawing.Point(227, 669);
+            this.cmboDelModeAorBorC.Location = new System.Drawing.Point(215, 475);
             this.cmboDelModeAorBorC.Name = "cmboDelModeAorBorC";
             this.cmboDelModeAorBorC.Size = new System.Drawing.Size(139, 23);
             this.cmboDelModeAorBorC.TabIndex = 31;
@@ -223,7 +248,7 @@ namespace ToolbarOfFunctions
             this.groupBox1.Controls.Add(this.chkHideText);
             this.groupBox1.Controls.Add(this.chkLargeButtons);
             this.groupBox1.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(304, 13);
+            this.groupBox1.Location = new System.Drawing.Point(303, 12);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(154, 78);
             this.groupBox1.TabIndex = 40;
@@ -279,16 +304,50 @@ namespace ToolbarOfFunctions
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.chkClearFormatting);
+            this.groupBox2.Controls.Add(this.chkTurnOffScreenValidation);
             this.groupBox2.Controls.Add(this.chkDisplayTimeTaken);
             this.groupBox2.Controls.Add(this.chkProduceCompleteMessageBox);
             this.groupBox2.Controls.Add(this.chkProduceInitialMessageBox);
             this.groupBox2.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox2.Location = new System.Drawing.Point(10, 10);
+            this.groupBox2.Location = new System.Drawing.Point(5, 10);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(287, 81);
+            this.groupBox2.Size = new System.Drawing.Size(292, 126);
             this.groupBox2.TabIndex = 41;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Messages and Warnings";
+            // 
+            // chkClearFormatting
+            // 
+            this.chkClearFormatting.AutoSize = true;
+            this.chkClearFormatting.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.chkClearFormatting.Checked = true;
+            this.chkClearFormatting.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkClearFormatting.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.chkClearFormatting.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkClearFormatting.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.chkClearFormatting.Location = new System.Drawing.Point(70, 104);
+            this.chkClearFormatting.Name = "chkClearFormatting";
+            this.chkClearFormatting.Size = new System.Drawing.Size(203, 17);
+            this.chkClearFormatting.TabIndex = 49;
+            this.chkClearFormatting.Text = "Selecting No Clears formatting";
+            this.chkClearFormatting.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.chkClearFormatting.UseVisualStyleBackColor = true;
+            // 
+            // chkTurnOffScreenValidation
+            // 
+            this.chkTurnOffScreenValidation.AutoSize = true;
+            this.chkTurnOffScreenValidation.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.chkTurnOffScreenValidation.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.chkTurnOffScreenValidation.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkTurnOffScreenValidation.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.chkTurnOffScreenValidation.Location = new System.Drawing.Point(94, 81);
+            this.chkTurnOffScreenValidation.Name = "chkTurnOffScreenValidation";
+            this.chkTurnOffScreenValidation.Size = new System.Drawing.Size(179, 17);
+            this.chkTurnOffScreenValidation.TabIndex = 47;
+            this.chkTurnOffScreenValidation.Text = "Turn off screen validation";
+            this.chkTurnOffScreenValidation.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.chkTurnOffScreenValidation.UseVisualStyleBackColor = true;
             // 
             // chkDisplayTimeTaken
             // 
@@ -299,7 +358,7 @@ namespace ToolbarOfFunctions
             this.chkDisplayTimeTaken.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkDisplayTimeTaken.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkDisplayTimeTaken.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.chkDisplayTimeTaken.Location = new System.Drawing.Point(137, 59);
+            this.chkDisplayTimeTaken.Location = new System.Drawing.Point(136, 58);
             this.chkDisplayTimeTaken.Name = "chkDisplayTimeTaken";
             this.chkDisplayTimeTaken.Size = new System.Drawing.Size(137, 17);
             this.chkDisplayTimeTaken.TabIndex = 42;
@@ -344,6 +403,8 @@ namespace ToolbarOfFunctions
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.chkNotFoundBold);
+            this.groupBox3.Controls.Add(this.chkFoundBold);
             this.groupBox3.Controls.Add(this.chkLBColorOrCompare);
             this.groupBox3.Controls.Add(this.btnColourNotFoundBack);
             this.groupBox3.Controls.Add(this.btnColourFoundBack);
@@ -357,15 +418,46 @@ namespace ToolbarOfFunctions
             this.groupBox3.Controls.Add(this.label5);
             this.groupBox3.Controls.Add(this.label1);
             this.groupBox3.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox3.Location = new System.Drawing.Point(10, 96);
+            this.groupBox3.Location = new System.Drawing.Point(5, 142);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(414, 90);
+            this.groupBox3.Size = new System.Drawing.Size(452, 90);
             this.groupBox3.TabIndex = 42;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Compare Sheets Options";
             // 
+            // chkNotFoundBold
+            // 
+            this.chkNotFoundBold.AutoSize = true;
+            this.chkNotFoundBold.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.chkNotFoundBold.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkNotFoundBold.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.chkNotFoundBold.Location = new System.Drawing.Point(385, 50);
+            this.chkNotFoundBold.Name = "chkNotFoundBold";
+            this.chkNotFoundBold.Size = new System.Drawing.Size(47, 17);
+            this.chkNotFoundBold.TabIndex = 45;
+            this.chkNotFoundBold.Text = "Bold";
+            this.chkNotFoundBold.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.chkNotFoundBold.UseVisualStyleBackColor = true;
+            this.chkNotFoundBold.CheckedChanged += new System.EventHandler(this.chkNotFoundBold_CheckedChanged);
+            // 
+            // chkFoundBold
+            // 
+            this.chkFoundBold.AutoSize = true;
+            this.chkFoundBold.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.chkFoundBold.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkFoundBold.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.chkFoundBold.Location = new System.Drawing.Point(385, 23);
+            this.chkFoundBold.Name = "chkFoundBold";
+            this.chkFoundBold.Size = new System.Drawing.Size(47, 17);
+            this.chkFoundBold.TabIndex = 44;
+            this.chkFoundBold.Text = "Bold";
+            this.chkFoundBold.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.chkFoundBold.UseVisualStyleBackColor = true;
+            this.chkFoundBold.CheckedChanged += new System.EventHandler(this.chkFoundBold_CheckedChanged);
+            // 
             // chkLBColorOrCompare
             // 
+            this.chkLBColorOrCompare.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.chkLBColorOrCompare.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.chkLBColorOrCompare.CheckOnClick = true;
             this.chkLBColorOrCompare.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -474,6 +566,7 @@ namespace ToolbarOfFunctions
             // 
             // numComparingStartRow
             // 
+            this.numComparingStartRow.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.numComparingStartRow.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.numComparingStartRow.Location = new System.Drawing.Point(99, 56);
             this.numComparingStartRow.Name = "numComparingStartRow";
@@ -512,7 +605,7 @@ namespace ToolbarOfFunctions
             this.chkTestCode.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkTestCode.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkTestCode.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.chkTestCode.Location = new System.Drawing.Point(289, 566);
+            this.chkTestCode.Location = new System.Drawing.Point(367, 96);
             this.chkTestCode.Name = "chkTestCode";
             this.chkTestCode.Size = new System.Drawing.Size(77, 17);
             this.chkTestCode.TabIndex = 39;
@@ -528,15 +621,16 @@ namespace ToolbarOfFunctions
             this.groupBox4.Controls.Add(this.label4);
             this.groupBox4.Controls.Add(this.chkLBColourOrDelete);
             this.groupBox4.Controls.Add(this.label3);
-            this.groupBox4.Location = new System.Drawing.Point(17, 201);
+            this.groupBox4.Location = new System.Drawing.Point(5, 238);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(406, 93);
+            this.groupBox4.Size = new System.Drawing.Size(452, 93);
             this.groupBox4.TabIndex = 45;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Duplicate Rows Options";
             // 
             // numDupliateColumnToCheck
             // 
+            this.numDupliateColumnToCheck.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.numDupliateColumnToCheck.Location = new System.Drawing.Point(320, 19);
             this.numDupliateColumnToCheck.Name = "numDupliateColumnToCheck";
             this.numDupliateColumnToCheck.Size = new System.Drawing.Size(52, 20);
@@ -559,6 +653,7 @@ namespace ToolbarOfFunctions
             // 
             // numNoOfColumnsToCheck
             // 
+            this.numNoOfColumnsToCheck.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.numNoOfColumnsToCheck.Location = new System.Drawing.Point(321, 49);
             this.numNoOfColumnsToCheck.Name = "numNoOfColumnsToCheck";
             this.numNoOfColumnsToCheck.Size = new System.Drawing.Size(52, 20);
@@ -581,6 +676,7 @@ namespace ToolbarOfFunctions
             // 
             // chkLBColourOrDelete
             // 
+            this.chkLBColourOrDelete.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.chkLBColourOrDelete.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.chkLBColourOrDelete.CheckOnClick = true;
             this.chkLBColourOrDelete.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -608,50 +704,21 @@ namespace ToolbarOfFunctions
             this.label3.Text = "Do what?";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // chkTurnOffScreenValidation
-            // 
-            this.chkTurnOffScreenValidation.AutoSize = true;
-            this.chkTurnOffScreenValidation.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.chkTurnOffScreenValidation.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.chkTurnOffScreenValidation.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkTurnOffScreenValidation.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.chkTurnOffScreenValidation.Location = new System.Drawing.Point(20, 378);
-            this.chkTurnOffScreenValidation.Name = "chkTurnOffScreenValidation";
-            this.chkTurnOffScreenValidation.Size = new System.Drawing.Size(179, 17);
-            this.chkTurnOffScreenValidation.TabIndex = 46;
-            this.chkTurnOffScreenValidation.Text = "Turn off screen validation";
-            this.chkTurnOffScreenValidation.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.chkTurnOffScreenValidation.UseVisualStyleBackColor = true;
-            // 
             // groupBox5
             // 
             this.groupBox5.Controls.Add(this.numTimeSheetRowNo);
             this.groupBox5.Controls.Add(this.label11);
             this.groupBox5.Controls.Add(this.chkTimeSheetGetRowNo);
-            this.groupBox5.Location = new System.Drawing.Point(17, 311);
+            this.groupBox5.Location = new System.Drawing.Point(5, 337);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(406, 45);
+            this.groupBox5.Size = new System.Drawing.Size(452, 45);
             this.groupBox5.TabIndex = 47;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Time Sheet";
             // 
-            // chkTimeSheetGetRowNo
-            // 
-            this.chkTimeSheetGetRowNo.AutoSize = true;
-            this.chkTimeSheetGetRowNo.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.chkTimeSheetGetRowNo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.chkTimeSheetGetRowNo.Font = new System.Drawing.Font("Consolas", 8.25F);
-            this.chkTimeSheetGetRowNo.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.chkTimeSheetGetRowNo.Location = new System.Drawing.Point(16, 19);
-            this.chkTimeSheetGetRowNo.Name = "chkTimeSheetGetRowNo";
-            this.chkTimeSheetGetRowNo.Size = new System.Drawing.Size(119, 17);
-            this.chkTimeSheetGetRowNo.TabIndex = 29;
-            this.chkTimeSheetGetRowNo.Text = "Get next row No:";
-            this.chkTimeSheetGetRowNo.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.chkTimeSheetGetRowNo.UseVisualStyleBackColor = true;
-            // 
             // numTimeSheetRowNo
             // 
+            this.numTimeSheetRowNo.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.numTimeSheetRowNo.Location = new System.Drawing.Point(348, 19);
             this.numTimeSheetRowNo.Maximum = new decimal(new int[] {
             300000,
@@ -677,43 +744,35 @@ namespace ToolbarOfFunctions
             this.label11.TabIndex = 30;
             this.label11.Text = "Timesheet Row Start No:";
             // 
-            // chkClearFormatting
+            // chkTimeSheetGetRowNo
             // 
-            this.chkClearFormatting.AutoSize = true;
-            this.chkClearFormatting.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.chkClearFormatting.Checked = true;
-            this.chkClearFormatting.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkClearFormatting.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.chkClearFormatting.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkClearFormatting.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.chkClearFormatting.Location = new System.Drawing.Point(227, 378);
-            this.chkClearFormatting.Name = "chkClearFormatting";
-            this.chkClearFormatting.Size = new System.Drawing.Size(203, 17);
-            this.chkClearFormatting.TabIndex = 48;
-            this.chkClearFormatting.Text = "Selecting No Clears formatting";
-            this.chkClearFormatting.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.chkClearFormatting.UseVisualStyleBackColor = true;
+            this.chkTimeSheetGetRowNo.AutoSize = true;
+            this.chkTimeSheetGetRowNo.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.chkTimeSheetGetRowNo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.chkTimeSheetGetRowNo.Font = new System.Drawing.Font("Consolas", 8.25F);
+            this.chkTimeSheetGetRowNo.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.chkTimeSheetGetRowNo.Location = new System.Drawing.Point(16, 19);
+            this.chkTimeSheetGetRowNo.Name = "chkTimeSheetGetRowNo";
+            this.chkTimeSheetGetRowNo.Size = new System.Drawing.Size(119, 17);
+            this.chkTimeSheetGetRowNo.TabIndex = 29;
+            this.chkTimeSheetGetRowNo.Text = "Get next row No:";
+            this.chkTimeSheetGetRowNo.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.chkTimeSheetGetRowNo.UseVisualStyleBackColor = true;
             // 
             // frmSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(481, 923);
-            this.Controls.Add(this.chkClearFormatting);
+            this.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.ClientSize = new System.Drawing.Size(481, 542);
+            this.Controls.Add(groupBox6);
             this.Controls.Add(this.groupBox5);
-            this.Controls.Add(this.chkTurnOffScreenValidation);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.chkTestCode);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnApply);
-            this.Controls.Add(this.numColPingRead);
-            this.Controls.Add(this.numColPingWrite);
-            this.Controls.Add(this.numPingSheetRowNo);
-            this.Controls.Add(this.label12);
-            this.Controls.Add(this.label13);
-            this.Controls.Add(this.label14);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.cmboDelModeAorBorC);
             this.Controls.Add(this.label10);
@@ -727,8 +786,10 @@ namespace ToolbarOfFunctions
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Settings ...";
             this.Load += new System.EventHandler(this.Form1_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.numColPingRead)).EndInit();
+            groupBox6.ResumeLayout(false);
+            groupBox6.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numColPingWrite)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numColPingRead)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numPingSheetRowNo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numHighlightRowsOver)).EndInit();
             this.groupBox1.ResumeLayout(false);
@@ -752,12 +813,6 @@ namespace ToolbarOfFunctions
 
         #endregion
         private System.Windows.Forms.ColorDialog colorDialog1;
-        private System.Windows.Forms.NumericUpDown numColPingRead;
-        private System.Windows.Forms.NumericUpDown numColPingWrite;
-        private System.Windows.Forms.NumericUpDown numPingSheetRowNo;
-        private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.Label label14;
         private System.Windows.Forms.NumericUpDown numHighlightRowsOver;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label7;
@@ -792,11 +847,19 @@ namespace ToolbarOfFunctions
         private System.Windows.Forms.CheckedListBox chkLBColourOrDelete;
         private System.Windows.Forms.Label label3;
         public System.Windows.Forms.CheckBox chkHideSeperator;
-        public System.Windows.Forms.CheckBox chkTurnOffScreenValidation;
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.NumericUpDown numTimeSheetRowNo;
         private System.Windows.Forms.Label label11;
         public System.Windows.Forms.CheckBox chkTimeSheetGetRowNo;
         public System.Windows.Forms.CheckBox chkClearFormatting;
+        public System.Windows.Forms.CheckBox chkTurnOffScreenValidation;
+        private System.Windows.Forms.NumericUpDown numColPingWrite;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.NumericUpDown numColPingRead;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.NumericUpDown numPingSheetRowNo;
+        private System.Windows.Forms.Label label14;
+        public System.Windows.Forms.CheckBox chkNotFoundBold;
+        public System.Windows.Forms.CheckBox chkFoundBold;
     }
 }

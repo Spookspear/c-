@@ -44,9 +44,13 @@ namespace ToolbarOfFunctions
         
         public string ColourFore_Found { get; set; }
 
+        public bool ColourBold_Found { get; set; }
+
         public string ColourBack_Found { get; set; }
 
         public string ColourFore_NotFound { get; set; }
+
+        public bool ColourBold_NotFound { get; set; }
 
         public string ColourBack_NotFound { get; set; }
 

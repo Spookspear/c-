@@ -38,8 +38,25 @@ using System.Data.SqlTypes;
 
 namespace ToolbarOfFunctions_CommonClasses
 {
-    public class CommonExcelClasses
+    public static class CommonExcelClasses
     {
+
+        public static void SwtichToBoldRegularChkBox(this System.Windows.Forms.CheckBox c)
+        {
+            if (c.Font.Style != FontStyle.Bold)
+                c.Font = new System.Drawing.Font(c.Font, FontStyle.Bold);
+            else
+                c.Font = new System.Drawing.Font(c.Font, FontStyle.Regular);
+        }
+
+
+        public static void SwtichToBoldRegularTextBox(this System.Windows.Forms.TextBox c)
+        {
+            if (c.Font.Style != FontStyle.Bold)
+                c.Font = new System.Drawing.Font(c.Font, FontStyle.Bold);
+            else
+                c.Font = new System.Drawing.Font(c.Font, FontStyle.Regular);
+        }
 
         public static void ButtonUpdateLabel(RibbonButton rbnButton, string strText)
         {
@@ -58,9 +75,7 @@ namespace ToolbarOfFunctions_CommonClasses
             if (boolLargeButton)
             {
                 rbnButton.ControlSize = RibbonControlSize.RibbonControlSizeLarge;
-            }
-            else
-            {
+            } else {
                 rbnButton.ControlSize = RibbonControlSize.RibbonControlSizeRegular;
             }
         }
@@ -172,9 +187,11 @@ namespace ToolbarOfFunctions_CommonClasses
             {
                 if (intLastRow > intFirstRow)
                     xlCell.EntireRow.Delete(Excel.XlDirection.xlUp);
-            }
-            else
+
+            } else {
+
                 CommonExcelClasses.MsgBox("Cannot run in worksheet: InternalParameters", "Error");
+            }
 
         }
 
@@ -202,9 +219,7 @@ namespace ToolbarOfFunctions_CommonClasses
             if (resultRange is null)
             {
                 intRetVal = 0;
-            }
-            else
-            {
+            } else {
                 intRetVal = resultRange.Row;
             }
 
@@ -440,22 +455,6 @@ namespace ToolbarOfFunctions_CommonClasses
         }
 
 
-        /* public static Boolean sheetExists(Excel.Workbook Wkb, string strName)
-        {
-            bool boolFound = false;
-            foreach (Excel.Worksheet sheet in Wkb.Sheets)
-            {
-                if (sheet.Name == strName)
-                {
-                    boolFound = true;
-                    break; // Exit the loop now
-                }
-            }
-            return boolFound;
-        }  */
-
-
-
         public static void addValidationToColumn(Excel.Worksheet Wks, string strCol, decimal intStartRow, decimal intEndRow, string strFormula)
         {
 
@@ -527,6 +526,27 @@ namespace ToolbarOfFunctions_CommonClasses
 
         public static void colourCells(Excel.Worksheet Wks, decimal intSourceRow, string strDoWhat, decimal intNoCheckCols, Color clrWhichColourFore, Color clrWhichColourBack, bool boolTestCode)
         {
+
+            #region [Declare and instantiate variables for process]
+            InformationForSettingsForm myData = new InformationForSettingsForm();
+
+            // dont need to pass in can read diretly from the XML
+            // 1gvb2
+
+            myData = myData.LoadMyData();               // read data from settings file
+
+            string strCompareOrColour = myData.CompareOrColour;
+            Color clrColourFore_Found = ColorTranslator.FromHtml(myData.ColourFore_Found);
+            Color clrColourFore_NotFound = ColorTranslator.FromHtml(myData.ColourFore_NotFound);
+            bool boolFontBold_Found = myData.ColourBold_Found;
+            bool boolFontBold_NotFound = myData.ColourBold_NotFound;
+            Color clrColourBack_Found = ColorTranslator.FromHtml(myData.ColourBack_Found);
+            Color clrColourBack_NotFound = ColorTranslator.FromHtml(myData.ColourBack_NotFound);
+            int intStartRow = (int)myData.ComparingStartRow;
+            bool boolTestCode = myData.TestCode;
+            #endregion
+
+
             int intStartColumToCheck = 1;
 
             Excel.Range xlCell;
@@ -543,9 +563,7 @@ namespace ToolbarOfFunctions_CommonClasses
                     xlCell.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
                     xlCell.Borders.Color = ColorTranslator.ToOle(Color.LightGray); ;
                     xlCell.Borders.Weight = 2d;
-                }
-                else
-                {
+                } else {
                     // Wks.Cells[intSourceRow, intColCount].Value2 = null;
                     xlCell.Value2 = null;
                 }

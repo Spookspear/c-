@@ -186,6 +186,10 @@ namespace ToolbarOfFunctions
             Globals.ThisAddIn.readUsersGroupMembershipIntoWorksheet(Globals.ThisAddIn.Application, "SheetName");
         }
 
+        private void btnPingServers_Click(object sender, RibbonControlEventArgs e)
+        {
+            Globals.ThisAddIn.pingServersIntoWorksheet(Globals.ThisAddIn.Application);
+        }
 
         private void btnReadUsersGroupMembershipActiveCell_Click(object sender, RibbonControlEventArgs e) {
             // 2nd button

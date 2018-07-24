@@ -47,9 +47,7 @@ namespace ToolbarOfFunctions
                 if (myData.CompareOrColour == "Colour")
                 {
                     chkLBColorOrCompare.SetItemChecked(0, true);
-                }
-                else
-                {
+                } else {
                     chkLBColorOrCompare.SetItemChecked(1, true);
                 }
             }
@@ -91,14 +89,15 @@ namespace ToolbarOfFunctions
             numComparingStartRow.Value = myData.ComparingStartRow;
             numDupliateColumnToCheck.Value = myData.DupliateColumnToCheck;
 
-            // txtColourFound.Text = myData.ColourFoundText;
-            // txtColourNotFound.Text = myData.ColourNotFoundText;
-
             txtColourFound.ForeColor = ColorTranslator.FromHtml(myData.ColourFore_Found);
             txtColourNotFound.ForeColor = ColorTranslator.FromHtml(myData.ColourFore_NotFound);
 
+            chkFoundBold.Checked = myData.ColourBold_Found;
+
             txtColourFound.BackColor = ColorTranslator.FromHtml(myData.ColourBack_Found);
             txtColourNotFound.BackColor = ColorTranslator.FromHtml(myData.ColourBack_NotFound);
+
+            chkNotFoundBold.Checked = myData.ColourBold_NotFound;
 
             // ---------
             numTimeSheetRowNo.Value = myData.TimeSheetRowNo;
@@ -152,8 +151,12 @@ namespace ToolbarOfFunctions
             myData.ColourFore_Found = ColorTranslator.ToHtml(txtColourFound.ForeColor);
             myData.ColourFore_NotFound = ColorTranslator.ToHtml(txtColourNotFound.ForeColor);
 
+            myData.ColourBold_Found = chkFoundBold.Checked;
+
             myData.ColourBack_Found = ColorTranslator.ToHtml(txtColourFound.BackColor);
             myData.ColourBack_NotFound = ColorTranslator.ToHtml(txtColourNotFound.BackColor);
+
+            myData.ColourBold_NotFound = chkNotFoundBold.Checked;
 
             // ---------
             myData.TimeSheetRowNo = numTimeSheetRowNo.Value;
@@ -325,11 +328,46 @@ namespace ToolbarOfFunctions
 
         }
 
+        private void chkFoundBold_CheckedChanged(object sender, EventArgs e)
+        {
 
-        // ----------
+            chkFoundBold.SwtichToBoldRegularChkBox();
+            txtColourFound.SwtichToBoldRegularTextBox();
 
+            /*
+            // set font to bold
+            if (chkFoundBold.Checked)
+            {
+                txtColourFound.Font = new Font(txtColourFound.Font, FontStyle.Bold);
+                chkFoundBold.Font = new Font(chkFoundBold.Font, FontStyle.Bold);
+            } else {
+                txtColourFound.Font = new Font(txtColourFound.Font, FontStyle.Regular);
+                chkFoundBold.Font = new Font(chkFoundBold.Font, FontStyle.Regular);
 
+            }*/
 
+        }
+
+        private void chkNotFoundBold_CheckedChanged(object sender, EventArgs e)
+        {
+            chkNotFoundBold.SwtichToBoldRegularChkBox();
+            txtColourNotFound.SwtichToBoldRegularTextBox();
+
+            // set font to bold
+            // if (chkNotFoundBold.Checked)
+            // {
+            //CommonExcelClasses.SwtichToBoldRegularChkBox(chkNotFoundBold);
+            //CommonExcelClasses.SwtichToBoldRegularTextBox(txtColourNotFound);
+
+            // txtColourNotFound.Font = new Font(txtColourNotFound.Font, FontStyle.Bold);
+            // chkNotFoundBold.Font = new Font(chkFoundBold.Font, FontStyle.Bold);
+            // }
+            //  else
+            // {
+            // txtColourNotFound.Font = new Font(txtColourNotFound.Font, FontStyle.Regular);
+            // chkNotFoundBold.Font = new Font(chkFoundBold.Font, FontStyle.Regular);
+            
+        }
 
     }
 

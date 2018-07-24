@@ -193,6 +193,7 @@
       <DependentUpon>frmSettings.cs</DependentUpon>
     </Compile>
     <Compile Include="Information.cs" />
+    <Compile Include="pingServers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -255,12 +256,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Ms dos application.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Ribbon.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Ribbon1.xml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Write document1.ico" />

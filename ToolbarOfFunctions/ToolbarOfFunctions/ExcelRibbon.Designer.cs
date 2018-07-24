@@ -279,6 +279,7 @@
             this.btnPingServers.Label = "Ping Servers";
             this.btnPingServers.Name = "btnPingServers";
             this.btnPingServers.ShowImage = true;
+            this.btnPingServers.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnPingServers_Click);
             // 
             // ExcelRibbon
             // 

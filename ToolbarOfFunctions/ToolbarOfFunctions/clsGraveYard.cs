@@ -389,4 +389,19 @@ private static List<string> ListAllGroupsViaTokenGroups(string username, string 
 }
 
 */
+
+    /* public static Boolean sheetExists(Excel.Workbook Wkb, string strName)
+{
+    bool boolFound = false;
+    foreach (Excel.Worksheet sheet in Wkb.Sheets)
+    {
+        if (sheet.Name == strName)
+        {
+            boolFound = true;
+            break; // Exit the loop now
+        }
+    }
+    return boolFound;
+}  */
+
 }
