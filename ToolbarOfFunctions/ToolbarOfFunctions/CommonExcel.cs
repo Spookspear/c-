@@ -527,6 +527,7 @@ namespace ToolbarOfFunctions_CommonClasses
         public static void colourCells(Excel.Worksheet Wks, decimal intSourceRow, string strDoWhat, decimal intNoCheckCols, Color clrWhichColourFore, Color clrWhichColourBack, bool boolTestCode)
         {
 
+            /*
             #region [Declare and instantiate variables for process]
             InformationForSettingsForm myData = new InformationForSettingsForm();
 
@@ -545,7 +546,7 @@ namespace ToolbarOfFunctions_CommonClasses
             int intStartRow = (int)myData.ComparingStartRow;
             bool boolTestCode = myData.TestCode;
             #endregion
-
+            */
 
             int intStartColumToCheck = 1;
 
