@@ -24,10 +24,10 @@
   <TimeSheetGetRowNo>true</TimeSheetGetRowNo>
   <PingSheetRowNo>2</PingSheetRowNo>
   <ColPingRead>1</ColPingRead>
-  <ColPingWrite>10</ColPingWrite>
+  <ColPingWrite>2</ColPingWrite>
   <TestCode>false</TestCode>
   <RecordTimes>false</RecordTimes>
   <HideSeperator>false</HideSeperator>
-  <TurnOffScreenValidation>true</TurnOffScreenValidation>
+  <TurnOffScreenValidation>false</TurnOffScreenValidation>
   <ClearFormatting>true</ClearFormatting>
 </InformationForSettingsForm>

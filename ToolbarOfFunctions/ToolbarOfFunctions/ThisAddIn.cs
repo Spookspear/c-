@@ -665,6 +665,8 @@ namespace ToolbarOfFunctions
 
                         dlgResult = MessageBox.Show(strMessage, "Compare Sheets", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
                     }
+
+
                   
 
                     int intLastCol = CommonExcelClasses.getLastCol(Wks1);
