@@ -331,7 +331,7 @@ namespace ToolbarOfFunctions
         private void chkFoundBold_CheckedChanged(object sender, EventArgs e)
         {
 
-            chkFoundBold.SwtichToBoldRegularChkBox();
+            chkFoundBold.SwitchToBoldRegularChkBox();
             txtColourFound.SwtichToBoldRegularTextBox();
 
             /*
@@ -350,8 +350,11 @@ namespace ToolbarOfFunctions
 
         private void chkNotFoundBold_CheckedChanged(object sender, EventArgs e)
         {
-            chkNotFoundBold.SwtichToBoldRegularChkBox();
+            chkNotFoundBold.SwitchToBoldRegularChkBox();
             txtColourNotFound.SwtichToBoldRegularTextBox();
+
+
+
 
             // set font to bold
             // if (chkNotFoundBold.Checked)
@@ -366,9 +369,13 @@ namespace ToolbarOfFunctions
             // {
             // txtColourNotFound.Font = new Font(txtColourNotFound.Font, FontStyle.Regular);
             // chkNotFoundBold.Font = new Font(chkFoundBold.Font, FontStyle.Regular);
-            
+
         }
 
+        private void groupBox2_Enter(object sender, EventArgs e)
+        {
+
+        }
     }
 
 }

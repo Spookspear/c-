@@ -41,7 +41,8 @@ namespace ToolbarOfFunctions_CommonClasses
     public static class CommonExcelClasses
     {
 
-        public static void SwtichToBoldRegularChkBox(this System.Windows.Forms.CheckBox c)
+        // exstensability
+        public static void SwitchToBoldRegularChkBox(this System.Windows.Forms.CheckBox c)
         {
             if (c.Font.Style != FontStyle.Bold)
                 c.Font = new System.Drawing.Font(c.Font, FontStyle.Bold);

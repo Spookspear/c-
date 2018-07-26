@@ -28,6 +28,6 @@
   <TestCode>false</TestCode>
   <RecordTimes>false</RecordTimes>
   <HideSeperator>false</HideSeperator>
-  <TurnOffScreenValidation>false</TurnOffScreenValidation>
+  <TurnOffScreenValidation>true</TurnOffScreenValidation>
   <ClearFormatting>true</ClearFormatting>
 </InformationForSettingsForm>

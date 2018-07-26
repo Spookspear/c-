@@ -316,17 +316,17 @@ namespace ToolbarOfFunctions
             this.groupBox2.TabIndex = 41;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Messages and Warnings";
+            this.groupBox2.Enter += new System.EventHandler(this.groupBox2_Enter);
             // 
             // chkClearFormatting
             // 
-            this.chkClearFormatting.AutoSize = true;
             this.chkClearFormatting.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.chkClearFormatting.Checked = true;
             this.chkClearFormatting.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkClearFormatting.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkClearFormatting.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkClearFormatting.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.chkClearFormatting.Location = new System.Drawing.Point(70, 104);
+            this.chkClearFormatting.Location = new System.Drawing.Point(75, 100);
             this.chkClearFormatting.Name = "chkClearFormatting";
             this.chkClearFormatting.Size = new System.Drawing.Size(203, 17);
             this.chkClearFormatting.TabIndex = 49;
@@ -336,29 +336,29 @@ namespace ToolbarOfFunctions
             // 
             // chkTurnOffScreenValidation
             // 
-            this.chkTurnOffScreenValidation.AutoSize = true;
             this.chkTurnOffScreenValidation.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.chkTurnOffScreenValidation.Checked = true;
+            this.chkTurnOffScreenValidation.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkTurnOffScreenValidation.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkTurnOffScreenValidation.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkTurnOffScreenValidation.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.chkTurnOffScreenValidation.Location = new System.Drawing.Point(94, 81);
+            this.chkTurnOffScreenValidation.Location = new System.Drawing.Point(99, 79);
             this.chkTurnOffScreenValidation.Name = "chkTurnOffScreenValidation";
             this.chkTurnOffScreenValidation.Size = new System.Drawing.Size(179, 17);
             this.chkTurnOffScreenValidation.TabIndex = 47;
-            this.chkTurnOffScreenValidation.Text = "Turn off screen validation";
+            this.chkTurnOffScreenValidation.Text = "Turn off screen validation?";
             this.chkTurnOffScreenValidation.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.chkTurnOffScreenValidation.UseVisualStyleBackColor = true;
             // 
             // chkDisplayTimeTaken
             // 
-            this.chkDisplayTimeTaken.AutoSize = true;
             this.chkDisplayTimeTaken.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.chkDisplayTimeTaken.Checked = true;
             this.chkDisplayTimeTaken.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkDisplayTimeTaken.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkDisplayTimeTaken.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkDisplayTimeTaken.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.chkDisplayTimeTaken.Location = new System.Drawing.Point(136, 58);
+            this.chkDisplayTimeTaken.Location = new System.Drawing.Point(141, 58);
             this.chkDisplayTimeTaken.Name = "chkDisplayTimeTaken";
             this.chkDisplayTimeTaken.Size = new System.Drawing.Size(137, 17);
             this.chkDisplayTimeTaken.TabIndex = 42;
@@ -368,14 +368,13 @@ namespace ToolbarOfFunctions
             // 
             // chkProduceCompleteMessageBox
             // 
-            this.chkProduceCompleteMessageBox.AutoSize = true;
             this.chkProduceCompleteMessageBox.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.chkProduceCompleteMessageBox.Checked = true;
             this.chkProduceCompleteMessageBox.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkProduceCompleteMessageBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkProduceCompleteMessageBox.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkProduceCompleteMessageBox.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.chkProduceCompleteMessageBox.Location = new System.Drawing.Point(46, 39);
+            this.chkProduceCompleteMessageBox.Location = new System.Drawing.Point(51, 37);
             this.chkProduceCompleteMessageBox.Name = "chkProduceCompleteMessageBox";
             this.chkProduceCompleteMessageBox.Size = new System.Drawing.Size(227, 17);
             this.chkProduceCompleteMessageBox.TabIndex = 41;
@@ -386,14 +385,13 @@ namespace ToolbarOfFunctions
             // 
             // chkProduceInitialMessageBox
             // 
-            this.chkProduceInitialMessageBox.AutoSize = true;
             this.chkProduceInitialMessageBox.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.chkProduceInitialMessageBox.Checked = true;
             this.chkProduceInitialMessageBox.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkProduceInitialMessageBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkProduceInitialMessageBox.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkProduceInitialMessageBox.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.chkProduceInitialMessageBox.Location = new System.Drawing.Point(10, 19);
+            this.chkProduceInitialMessageBox.Location = new System.Drawing.Point(15, 16);
             this.chkProduceInitialMessageBox.Name = "chkProduceInitialMessageBox";
             this.chkProduceInitialMessageBox.Size = new System.Drawing.Size(263, 17);
             this.chkProduceInitialMessageBox.TabIndex = 40;
@@ -763,6 +761,7 @@ namespace ToolbarOfFunctions
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.ClientSize = new System.Drawing.Size(481, 542);
             this.Controls.Add(groupBox6);
@@ -783,6 +782,7 @@ namespace ToolbarOfFunctions
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmSettings";
             this.ShowInTaskbar = false;
+            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Settings ...";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -795,7 +795,6 @@ namespace ToolbarOfFunctions
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numComparingStartRow)).EndInit();
