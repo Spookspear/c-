@@ -39,11 +39,6 @@ namespace ToolbarOfFunctions
             this.numPingSheetRowNo = new System.Windows.Forms.NumericUpDown();
             this.label14 = new System.Windows.Forms.Label();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
-            this.btnApply = new System.Windows.Forms.Button();
-            this.numHighlightRowsOver = new System.Windows.Forms.NumericUpDown();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.cmboDelModeAorBorC = new System.Windows.Forms.ComboBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.chkHideSeperator = new System.Windows.Forms.CheckBox();
             this.chkHideText = new System.Windows.Forms.CheckBox();
@@ -69,7 +64,6 @@ namespace ToolbarOfFunctions
             this.numComparingStartRow = new System.Windows.Forms.NumericUpDown();
             this.label5 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.chkTestCode = new System.Windows.Forms.CheckBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.numDupliateColumnToCheck = new System.Windows.Forms.NumericUpDown();
             this.label6 = new System.Windows.Forms.Label();
@@ -81,12 +75,19 @@ namespace ToolbarOfFunctions
             this.numTimeSheetRowNo = new System.Windows.Forms.NumericUpDown();
             this.label11 = new System.Windows.Forms.Label();
             this.chkTimeSheetGetRowNo = new System.Windows.Forms.CheckBox();
+            this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.cmboDelModeAorBorC = new System.Windows.Forms.ComboBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.numHighlightRowsOver = new System.Windows.Forms.NumericUpDown();
+            this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.btnApply = new System.Windows.Forms.Button();
+            this.chkTestCode = new System.Windows.Forms.CheckBox();
             groupBox6 = new System.Windows.Forms.GroupBox();
             groupBox6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numColPingWrite)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numColPingRead)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numPingSheetRowNo)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numHighlightRowsOver)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -96,6 +97,9 @@ namespace ToolbarOfFunctions
             ((System.ComponentModel.ISupportInitialize)(this.numNoOfColumnsToCheck)).BeginInit();
             this.groupBox5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numTimeSheetRowNo)).BeginInit();
+            this.groupBox7.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numHighlightRowsOver)).BeginInit();
+            this.groupBox8.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox6
@@ -181,66 +185,6 @@ namespace ToolbarOfFunctions
             this.label14.Size = new System.Drawing.Size(67, 13);
             this.label14.TabIndex = 36;
             this.label14.Text = "Start Row:";
-            // 
-            // btnApply
-            // 
-            this.btnApply.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.btnApply.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnApply.Location = new System.Drawing.Point(369, 504);
-            this.btnApply.Name = "btnApply";
-            this.btnApply.Size = new System.Drawing.Size(100, 23);
-            this.btnApply.TabIndex = 38;
-            this.btnApply.Text = "&Apply / Close";
-            this.btnApply.UseVisualStyleBackColor = true;
-            this.btnApply.Click += new System.EventHandler(this.btnApply_Click);
-            // 
-            // numHighlightRowsOver
-            // 
-            this.numHighlightRowsOver.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.numHighlightRowsOver.Location = new System.Drawing.Point(215, 504);
-            this.numHighlightRowsOver.Maximum = new decimal(new int[] {
-            1024,
-            0,
-            0,
-            0});
-            this.numHighlightRowsOver.Name = "numHighlightRowsOver";
-            this.numHighlightRowsOver.Size = new System.Drawing.Size(52, 20);
-            this.numHighlightRowsOver.TabIndex = 34;
-            this.numHighlightRowsOver.Value = new decimal(new int[] {
-            180,
-            0,
-            0,
-            0});
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(53, 504);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(145, 13);
-            this.label10.TabIndex = 33;
-            this.label10.Text = "Highlight lengths over:";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(22, 480);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(187, 13);
-            this.label7.TabIndex = 32;
-            this.label7.Text = "Del blank Lines Mode A, B or C";
-            // 
-            // cmboDelModeAorBorC
-            // 
-            this.cmboDelModeAorBorC.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.cmboDelModeAorBorC.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmboDelModeAorBorC.FormattingEnabled = true;
-            this.cmboDelModeAorBorC.Location = new System.Drawing.Point(215, 475);
-            this.cmboDelModeAorBorC.Name = "cmboDelModeAorBorC";
-            this.cmboDelModeAorBorC.Size = new System.Drawing.Size(139, 23);
-            this.cmboDelModeAorBorC.TabIndex = 31;
             // 
             // groupBox1
             // 
@@ -596,21 +540,6 @@ namespace ToolbarOfFunctions
             this.label1.TabIndex = 27;
             this.label1.Text = "Differences:";
             // 
-            // chkTestCode
-            // 
-            this.chkTestCode.AutoSize = true;
-            this.chkTestCode.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.chkTestCode.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.chkTestCode.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkTestCode.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.chkTestCode.Location = new System.Drawing.Point(367, 96);
-            this.chkTestCode.Name = "chkTestCode";
-            this.chkTestCode.Size = new System.Drawing.Size(77, 17);
-            this.chkTestCode.TabIndex = 39;
-            this.chkTestCode.Text = "Test Code";
-            this.chkTestCode.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.chkTestCode.UseVisualStyleBackColor = true;
-            // 
             // groupBox4
             // 
             this.groupBox4.Controls.Add(this.numDupliateColumnToCheck);
@@ -757,25 +686,120 @@ namespace ToolbarOfFunctions
             this.chkTimeSheetGetRowNo.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.chkTimeSheetGetRowNo.UseVisualStyleBackColor = true;
             // 
+            // groupBox7
+            // 
+            this.groupBox7.Controls.Add(this.chkTestCode);
+            this.groupBox7.Controls.Add(this.label7);
+            this.groupBox7.Controls.Add(this.cmboDelModeAorBorC);
+            this.groupBox7.Controls.Add(this.label10);
+            this.groupBox7.Controls.Add(this.numHighlightRowsOver);
+            this.groupBox7.Location = new System.Drawing.Point(5, 475);
+            this.groupBox7.Name = "groupBox7";
+            this.groupBox7.Size = new System.Drawing.Size(452, 79);
+            this.groupBox7.TabIndex = 50;
+            this.groupBox7.TabStop = false;
+            this.groupBox7.Text = "Misc";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(60, 20);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(187, 13);
+            this.label7.TabIndex = 36;
+            this.label7.Text = "Del blank Lines Mode A, B or C";
+            // 
+            // cmboDelModeAorBorC
+            // 
+            this.cmboDelModeAorBorC.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.cmboDelModeAorBorC.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmboDelModeAorBorC.FormattingEnabled = true;
+            this.cmboDelModeAorBorC.Location = new System.Drawing.Point(253, 15);
+            this.cmboDelModeAorBorC.Name = "cmboDelModeAorBorC";
+            this.cmboDelModeAorBorC.Size = new System.Drawing.Size(139, 23);
+            this.cmboDelModeAorBorC.TabIndex = 35;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Location = new System.Drawing.Point(91, 44);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(145, 13);
+            this.label10.TabIndex = 37;
+            this.label10.Text = "Highlight lengths over:";
+            // 
+            // numHighlightRowsOver
+            // 
+            this.numHighlightRowsOver.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.numHighlightRowsOver.Location = new System.Drawing.Point(253, 44);
+            this.numHighlightRowsOver.Maximum = new decimal(new int[] {
+            1024,
+            0,
+            0,
+            0});
+            this.numHighlightRowsOver.Name = "numHighlightRowsOver";
+            this.numHighlightRowsOver.Size = new System.Drawing.Size(52, 20);
+            this.numHighlightRowsOver.TabIndex = 38;
+            this.numHighlightRowsOver.Value = new decimal(new int[] {
+            180,
+            0,
+            0,
+            0});
+            // 
+            // groupBox8
+            // 
+            this.groupBox8.Controls.Add(this.btnApply);
+            this.groupBox8.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.groupBox8.Location = new System.Drawing.Point(0, 559);
+            this.groupBox8.Name = "groupBox8";
+            this.groupBox8.Size = new System.Drawing.Size(460, 50);
+            this.groupBox8.TabIndex = 51;
+            this.groupBox8.TabStop = false;
+            this.groupBox8.Text = "Foot";
+            // 
+            // btnApply
+            // 
+            this.btnApply.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.btnApply.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.btnApply.Location = new System.Drawing.Point(348, 19);
+            this.btnApply.Name = "btnApply";
+            this.btnApply.Size = new System.Drawing.Size(100, 23);
+            this.btnApply.TabIndex = 39;
+            this.btnApply.Text = "&Apply / Close";
+            this.btnApply.UseVisualStyleBackColor = true;
+            // 
+            // chkTestCode
+            // 
+            this.chkTestCode.AutoSize = true;
+            this.chkTestCode.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.chkTestCode.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.chkTestCode.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkTestCode.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.chkTestCode.Location = new System.Drawing.Point(315, 47);
+            this.chkTestCode.Name = "chkTestCode";
+            this.chkTestCode.Size = new System.Drawing.Size(77, 17);
+            this.chkTestCode.TabIndex = 40;
+            this.chkTestCode.Text = "Test Code";
+            this.chkTestCode.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.chkTestCode.UseVisualStyleBackColor = true;
+            // 
             // frmSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.ClientSize = new System.Drawing.Size(481, 542);
+            this.ClientSize = new System.Drawing.Size(460, 609);
+            this.Controls.Add(this.groupBox8);
+            this.Controls.Add(this.groupBox7);
             this.Controls.Add(groupBox6);
             this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.groupBox4);
-            this.Controls.Add(this.chkTestCode);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.btnApply);
-            this.Controls.Add(this.label7);
-            this.Controls.Add(this.cmboDelModeAorBorC);
-            this.Controls.Add(this.label10);
-            this.Controls.Add(this.numHighlightRowsOver);
             this.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.DoubleBuffered = true;
             this.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -791,7 +815,6 @@ namespace ToolbarOfFunctions
             ((System.ComponentModel.ISupportInitialize)(this.numColPingWrite)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numColPingRead)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numPingSheetRowNo)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numHighlightRowsOver)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -805,18 +828,16 @@ namespace ToolbarOfFunctions
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numTimeSheetRowNo)).EndInit();
+            this.groupBox7.ResumeLayout(false);
+            this.groupBox7.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numHighlightRowsOver)).EndInit();
+            this.groupBox8.ResumeLayout(false);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
         private System.Windows.Forms.ColorDialog colorDialog1;
-        private System.Windows.Forms.NumericUpDown numHighlightRowsOver;
-        private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.ComboBox cmboDelModeAorBorC;
-        private System.Windows.Forms.Button btnApply;
         private System.Windows.Forms.GroupBox groupBox1;
         public System.Windows.Forms.CheckBox chkHideText;
         public System.Windows.Forms.CheckBox chkLargeButtons;
@@ -836,7 +857,6 @@ namespace ToolbarOfFunctions
         private System.Windows.Forms.Button btnColourFound;
         private System.Windows.Forms.Button btnColourNotFoundBack;
         private System.Windows.Forms.Button btnColourFoundBack;
-        public System.Windows.Forms.CheckBox chkTestCode;
         private System.Windows.Forms.CheckedListBox chkLBColorOrCompare;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.NumericUpDown numDupliateColumnToCheck;
@@ -860,5 +880,13 @@ namespace ToolbarOfFunctions
         private System.Windows.Forms.Label label14;
         public System.Windows.Forms.CheckBox chkNotFoundBold;
         public System.Windows.Forms.CheckBox chkFoundBold;
+        private System.Windows.Forms.GroupBox groupBox7;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.ComboBox cmboDelModeAorBorC;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.NumericUpDown numHighlightRowsOver;
+        private System.Windows.Forms.GroupBox groupBox8;
+        private System.Windows.Forms.Button btnApply;
+        public System.Windows.Forms.CheckBox chkTestCode;
     }
 }
