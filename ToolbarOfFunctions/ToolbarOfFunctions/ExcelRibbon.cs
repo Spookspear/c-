@@ -208,7 +208,10 @@ namespace ToolbarOfFunctions
             Globals.ThisAddIn.readGroupUsersMembershipIntoWorksheet(Globals.ThisAddIn.Application, "ActiveCell");
         }
 
-
+        private void btnTestCode_Click(object sender, RibbonControlEventArgs e)
+        {
+            Globals.ThisAddIn.testThreads(Globals.ThisAddIn.Application);
+        }
 
     }
 

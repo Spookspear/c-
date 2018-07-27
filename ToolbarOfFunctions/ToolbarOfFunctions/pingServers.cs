@@ -144,11 +144,6 @@ namespace ToolbarOfFunctions
 
         }
 
-        private dynamic pingThisServer(string strServer)
-        {
-            throw new NotImplementedException();
-        }
-
 
         public static string PingHost(string nameOrAddress)
         {
@@ -176,7 +171,6 @@ namespace ToolbarOfFunctions
 
             return strRetVal;
         }
-
 
         public static string PingHost2(string strServer)
         {

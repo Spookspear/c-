@@ -76,13 +76,13 @@ namespace ToolbarOfFunctions
             this.label11 = new System.Windows.Forms.Label();
             this.chkTimeSheetGetRowNo = new System.Windows.Forms.CheckBox();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.chkTestCode = new System.Windows.Forms.CheckBox();
             this.label7 = new System.Windows.Forms.Label();
             this.cmboDelModeAorBorC = new System.Windows.Forms.ComboBox();
             this.label10 = new System.Windows.Forms.Label();
             this.numHighlightRowsOver = new System.Windows.Forms.NumericUpDown();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
             this.btnApply = new System.Windows.Forms.Button();
-            this.chkTestCode = new System.Windows.Forms.CheckBox();
             groupBox6 = new System.Windows.Forms.GroupBox();
             groupBox6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numColPingWrite)).BeginInit();
@@ -700,15 +700,30 @@ namespace ToolbarOfFunctions
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Misc";
             // 
+            // chkTestCode
+            // 
+            this.chkTestCode.AutoSize = true;
+            this.chkTestCode.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.chkTestCode.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.chkTestCode.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkTestCode.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.chkTestCode.Location = new System.Drawing.Point(315, 47);
+            this.chkTestCode.Name = "chkTestCode";
+            this.chkTestCode.Size = new System.Drawing.Size(77, 17);
+            this.chkTestCode.TabIndex = 40;
+            this.chkTestCode.Text = "Test Code";
+            this.chkTestCode.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.chkTestCode.UseVisualStyleBackColor = true;
+            // 
             // label7
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.Location = new System.Drawing.Point(60, 20);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(187, 13);
+            this.label7.Size = new System.Drawing.Size(163, 13);
             this.label7.TabIndex = 36;
-            this.label7.Text = "Del blank Lines Mode A, B or C";
+            this.label7.Text = "Del blank Lines which Mode";
             // 
             // cmboDelModeAorBorC
             // 
@@ -769,21 +784,7 @@ namespace ToolbarOfFunctions
             this.btnApply.TabIndex = 39;
             this.btnApply.Text = "&Apply / Close";
             this.btnApply.UseVisualStyleBackColor = true;
-            // 
-            // chkTestCode
-            // 
-            this.chkTestCode.AutoSize = true;
-            this.chkTestCode.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.chkTestCode.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.chkTestCode.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkTestCode.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.chkTestCode.Location = new System.Drawing.Point(315, 47);
-            this.chkTestCode.Name = "chkTestCode";
-            this.chkTestCode.Size = new System.Drawing.Size(77, 17);
-            this.chkTestCode.TabIndex = 40;
-            this.chkTestCode.Text = "Test Code";
-            this.chkTestCode.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.chkTestCode.UseVisualStyleBackColor = true;
+            this.btnApply.Click += new System.EventHandler(this.btnApply_Click);
             // 
             // frmSettings
             // 
