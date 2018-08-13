@@ -7,7 +7,7 @@
   <DisplayTimeTaken>true</DisplayTimeTaken>
   <ProduceInitialMessageBox>true</ProduceInitialMessageBox>
   <ProduceCompleteMessageBox>true</ProduceCompleteMessageBox>
-  <DelModeAorBorC>io</DelModeAorBorC>
+  <DelModeAorBorC>Mode: B</DelModeAorBorC>
   <HighlightRowsOver>24</HighlightRowsOver>
   <NoOfColumnsToCheck>5</NoOfColumnsToCheck>
   <ComparingStartRow>2</ComparingStartRow>
@@ -20,7 +20,7 @@
   <ColourFore_NotFound>Red</ColourFore_NotFound>
   <ColourBold_NotFound>true</ColourBold_NotFound>
   <ColourBack_NotFound>White</ColourBack_NotFound>
-  <TimeSheetRowNo>4631</TimeSheetRowNo>
+  <TimeSheetRowNo>4964</TimeSheetRowNo>
   <TimeSheetGetRowNo>true</TimeSheetGetRowNo>
   <PingSheetRowNo>2</PingSheetRowNo>
   <ColPingRead>1</ColPingRead>
@@ -28,6 +28,6 @@
   <TestCode>false</TestCode>
   <RecordTimes>false</RecordTimes>
   <HideSeperator>false</HideSeperator>
-  <TurnOffScreenValidation>false</TurnOffScreenValidation>
+  <TurnOffScreenValidation>true</TurnOffScreenValidation>
   <ClearFormatting>true</ClearFormatting>
 </InformationForSettingsForm>

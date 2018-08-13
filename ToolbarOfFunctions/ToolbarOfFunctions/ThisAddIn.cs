@@ -1119,6 +1119,11 @@ namespace ToolbarOfFunctions
                     delLinesModeC(Wks);
                 }
 
+                if (strMode == "D")
+                {
+                    delLinesModeD(Wks);
+                }
+
             } else {
                 CommonExcelClasses.MsgBox("Cannot run in worksheet: InternalParameters", "Error");
             }
@@ -1262,6 +1267,52 @@ namespace ToolbarOfFunctions
 
         }
 
+
+        private void delLinesModeD(Excel.Worksheet Wks)
+        {
+
+            // var myArray = (object[,])Wks.Value2;
+            // MSExcel.Range range = sheet.GetRange("A1", "F13");
+
+            var valueRange = Wks.UsedRange;
+            var myArray = valueRange.Value;              //the value is boxed two-dimensional array
+
+            var myNewArray = myArray;
+
+
+            // then can zap the sheet
+            // manipulate array
+
+
+            var arrayCount = myArray.GetLength(0);
+            var columnCount = CommonExcelClasses.getLastCol(Wks);
+
+
+            // for(int i = arrRows.GetLowerBound(0); i <= arrRows.GetUpperBound(0); i++)
+            var xD = 0; var yD = 0;
+            for (var x = 0; x < arrayCount; x++)
+            {
+                for (var y=0;y< columnCount; y++)
+                {
+                    myNewArray[xD, yD] = myArray[x, y];
+                    yD++;
+
+                }
+                xD++;
+
+            }
+
+            valueRange = valueRange.get_Resize(arrayCount, columnCount);
+
+            valueRange.set_Value(Excel.XlRangeValueDataType.xlRangeValueDefault, myArray);
+
+
+
+
+
+
+
+        }
 
         static void listSubFoldersAndFiles(string strSubFolderPath, Excel.Worksheet Wks, int gintFileCount)
         {

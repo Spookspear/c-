@@ -37,32 +37,32 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ExcelRibbon));
             this.MYTOOLBAR = this.Factory.CreateRibbonTab();
             this.customToolbar = this.Factory.CreateRibbonGroup();
-            this.btnSettings = this.Factory.CreateRibbonButton();
             this.separator1 = this.Factory.CreateRibbonSeparator();
+            this.separator2 = this.Factory.CreateRibbonSeparator();
+            this.separator3 = this.Factory.CreateRibbonSeparator();
+            this.separator4 = this.Factory.CreateRibbonSeparator();
+            this.separator5 = this.Factory.CreateRibbonSeparator();
+            this.separator6 = this.Factory.CreateRibbonSeparator();
+            this.separator7 = this.Factory.CreateRibbonSeparator();
+            this.folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
+            this.btnSettings = this.Factory.CreateRibbonButton();
             this.btnReadFolders = this.Factory.CreateRibbonButton();
             this.btnCompareSheets = this.Factory.CreateRibbonButton();
-            this.separator2 = this.Factory.CreateRibbonSeparator();
             this.btnZap = this.Factory.CreateRibbonButton();
-            this.separator3 = this.Factory.CreateRibbonSeparator();
             this.splitButtonDeleteLines = this.Factory.CreateRibbonSplitButton();
             this.btnDeleteBlankLinesA = this.Factory.CreateRibbonButton();
             this.btnDeleteBlankLinesB = this.Factory.CreateRibbonButton();
             this.btnDeleteBlankLinesC = this.Factory.CreateRibbonButton();
-            this.separator4 = this.Factory.CreateRibbonSeparator();
+            this.btnDeleteBlankLinesD = this.Factory.CreateRibbonButton();
             this.btnDealWithSingleDuplicates = this.Factory.CreateRibbonButton();
             this.btnDealWithManyDuplicates = this.Factory.CreateRibbonButton();
-            this.separator5 = this.Factory.CreateRibbonSeparator();
             this.btnReadUsersGroupMembership = this.Factory.CreateRibbonButton();
             this.btnReadUsersGroupMembershipActiveCell = this.Factory.CreateRibbonButton();
             this.btnLoadADGroupIntoSpreadsheet = this.Factory.CreateRibbonButton();
             this.btnLoadADGroupIntoSpreadsheetActiveCell = this.Factory.CreateRibbonButton();
-            this.separator6 = this.Factory.CreateRibbonSeparator();
             this.btnWriteTimeSheet = this.Factory.CreateRibbonButton();
             this.btnPingServers = this.Factory.CreateRibbonButton();
-            this.separator7 = this.Factory.CreateRibbonSeparator();
             this.btnTestCode = this.Factory.CreateRibbonButton();
-            this.folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
-            this.btnDeleteBlankLinesD = this.Factory.CreateRibbonButton();
             this.MYTOOLBAR.SuspendLayout();
             this.customToolbar.SuspendLayout();
             this.SuspendLayout();
@@ -99,6 +99,34 @@
             this.customToolbar.Label = "Custom Toolbar";
             this.customToolbar.Name = "customToolbar";
             // 
+            // separator1
+            // 
+            this.separator1.Name = "separator1";
+            // 
+            // separator2
+            // 
+            this.separator2.Name = "separator2";
+            // 
+            // separator3
+            // 
+            this.separator3.Name = "separator3";
+            // 
+            // separator4
+            // 
+            this.separator4.Name = "separator4";
+            // 
+            // separator5
+            // 
+            this.separator5.Name = "separator5";
+            // 
+            // separator6
+            // 
+            this.separator6.Name = "separator6";
+            // 
+            // separator7
+            // 
+            this.separator7.Name = "separator7";
+            // 
             // btnSettings
             // 
             this.btnSettings.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
@@ -108,10 +136,6 @@
             this.btnSettings.Name = "btnSettings";
             this.btnSettings.ShowImage = true;
             this.btnSettings.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnSettings_Click);
-            // 
-            // separator1
-            // 
-            this.separator1.Name = "separator1";
             // 
             // btnReadFolders
             // 
@@ -133,10 +157,6 @@
             this.btnCompareSheets.ShowImage = true;
             this.btnCompareSheets.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnCompareSheets_Click);
             // 
-            // separator2
-            // 
-            this.separator2.Name = "separator2";
-            // 
             // btnZap
             // 
             this.btnZap.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
@@ -146,10 +166,6 @@
             this.btnZap.Name = "btnZap";
             this.btnZap.ShowImage = true;
             this.btnZap.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnZap_Click);
-            // 
-            // separator3
-            // 
-            this.separator3.Name = "separator3";
             // 
             // splitButtonDeleteLines
             // 
@@ -195,9 +211,15 @@
             this.btnDeleteBlankLinesC.ShowImage = true;
             this.btnDeleteBlankLinesC.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnDeleteBlankLinesC_Click);
             // 
-            // separator4
+            // btnDeleteBlankLinesD
             // 
-            this.separator4.Name = "separator4";
+            this.btnDeleteBlankLinesD.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this.btnDeleteBlankLinesD.Image = ((System.Drawing.Image)(resources.GetObject("btnDeleteBlankLinesD.Image")));
+            this.btnDeleteBlankLinesD.Label = "Mode: D";
+            this.btnDeleteBlankLinesD.Name = "btnDeleteBlankLinesD";
+            this.btnDeleteBlankLinesD.ScreenTip = "Wil do in memory";
+            this.btnDeleteBlankLinesD.ShowImage = true;
+            this.btnDeleteBlankLinesD.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnDeleteBlankLinesD_Click);
             // 
             // btnDealWithSingleDuplicates
             // 
@@ -218,10 +240,6 @@
             this.btnDealWithManyDuplicates.Name = "btnDealWithManyDuplicates";
             this.btnDealWithManyDuplicates.ShowImage = true;
             this.btnDealWithManyDuplicates.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnDealWithManyDuplicates_Click);
-            // 
-            // separator5
-            // 
-            this.separator5.Name = "separator5";
             // 
             // btnReadUsersGroupMembership
             // 
@@ -263,10 +281,6 @@
             this.btnLoadADGroupIntoSpreadsheetActiveCell.ShowImage = true;
             this.btnLoadADGroupIntoSpreadsheetActiveCell.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnReadGroupUsersMembershipActiveCell_Click);
             // 
-            // separator6
-            // 
-            this.separator6.Name = "separator6";
-            // 
             // btnWriteTimeSheet
             // 
             this.btnWriteTimeSheet.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
@@ -287,10 +301,6 @@
             this.btnPingServers.ShowImage = true;
             this.btnPingServers.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnPingServers_Click);
             // 
-            // separator7
-            // 
-            this.separator7.Name = "separator7";
-            // 
             // btnTestCode
             // 
             this.btnTestCode.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
@@ -300,15 +310,6 @@
             this.btnTestCode.Name = "btnTestCode";
             this.btnTestCode.ShowImage = true;
             this.btnTestCode.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnTestCode_Click);
-            // 
-            // btnDeleteBlankLinesD
-            // 
-            this.btnDeleteBlankLinesD.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
-            this.btnDeleteBlankLinesD.Image = ((System.Drawing.Image)(resources.GetObject("btnDeleteBlankLinesD.Image")));
-            this.btnDeleteBlankLinesD.Label = "Mode: D";
-            this.btnDeleteBlankLinesD.Name = "btnDeleteBlankLinesD";
-            this.btnDeleteBlankLinesD.ScreenTip = "Wil do in memory";
-            this.btnDeleteBlankLinesD.ShowImage = true;
             // 
             // ExcelRibbon
             // 

@@ -26,6 +26,20 @@ using System.Data;
 // using ToolbarOfFunctions;
 using ToolbarOfFunctions_CommonClasses;
 
+/*
+
+// read worksheet into array
+var myArray = (object[,])valueRange.Value2;
+
+
+// read it back
+var arrayCount = myArray.GetLength(0);
+var columnCount = GetTheColumnCountHere();
+valueRange = valueRange.get_Resize(arrayCount, columnCount);
+valueRange.set_Value(Excel.XlRangeValueDataType.xlRangeValueDefault, myArray);
+*/
+
+
 // string strClearOrColour = "Colour";     // need to get this from somewhere
 // strClearOrColour = (string)frmSettings.cmboCompareDifferences.SelectedItem;  // read from settings
 // string strClearOrColour = SaveXML.readProperty("strCompareOrColour");    // read from function, that gets data from class

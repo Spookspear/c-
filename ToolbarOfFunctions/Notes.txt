@@ -1,27 +1,27 @@
 string strMessage;
-strMessage = "Get Group Membership for Active Directory User: "; 
+strMessage = "Get Group Membership for Active Directory User: ";
 
-if (strDoWhat == "SheetName") {                
+if (strDoWhat == "SheetName") {
 
-	strUserName = Wks.Name;
-	strMessage = strMessage + strUserName + LF + "into this worksheet";
+    strUserName = Wks.Name;
+    strMessage = strMessage + strUserName + LF + "into this worksheet";
 
 } else {
 
-	Excel.Range xlCell = xls.ActiveCell;
-	strUserName = xlCell.Value.ToString();
-	CommonExcelClasses.MsgBox("Read the active cell:" + strUserName);
+    Excel.Range xlCell = xls.ActiveCell;
+    strUserName = xlCell.Value.ToString();
+    CommonExcelClasses.MsgBox("Read the active cell:" + strUserName);
 
-	strMessage = strMessage + strUserName + LF + "into new worksheet";
+    strMessage = strMessage + strUserName + LF + "into new worksheet";
 
 }
 
 if (strDoWhat == "SheetName")
 {
-	CommonExcelClasses.zapWorksheet(Wks);
+    CommonExcelClasses.zapWorksheet(Wks);
 } else {
-	Wks = Wkb.Worksheets.Add(Type.Missing, Wkb.Worksheets[Wkb.Worksheets.Count], 1, XlSheetType.xlWorksheet);
-	Wks.Name = strUserName;
+    Wks = Wkb.Worksheets.Add(Type.Missing, Wkb.Worksheets[Wkb.Worksheets.Count], 1, XlSheetType.xlWorksheet);
+    Wks.Name = strUserName;
 }
 
 
@@ -35,7 +35,7 @@ Should connection string be in settings?
 Put password an username under test code - see if they are actually needed
 turn vars into string
 
-
+/*
 
 // read worksheet into array
 var myArray = (object[,])valueRange.Value2;
@@ -46,6 +46,7 @@ var arrayCount = myArray.GetLength(0);
 var columnCount = GetTheColumnCountHere();
 valueRange = valueRange.get_Resize(arrayCount, columnCount);
 valueRange.set_Value(Excel.XlRangeValueDataType.xlRangeValueDefault, myArray);
+*/
 
 
 
@@ -174,8 +175,8 @@ strMessage = "Compare: " + Wks1.Name + LF +
 
             CommonExcelClasses.ButtonUpdateLabel(btnCompareSheets, "Compare: (" + myData.CompareOrColour + ")");
             CommonExcelClasses.ButtonUpdateLabel(btnDealWithSingleDuplicates, "Duplicates (Cols: Single): (" + myData.ColourOrDelete + ")");
-			
-			
+
+
 try
 {
 
@@ -188,4 +189,3 @@ try
                 throw;
             }
 
-	

@@ -81,7 +81,7 @@ namespace ToolbarOfFunctions
             chkProduceInitialMessageBox.Checked = myData.ProduceInitialMessageBox;
             chkProduceCompleteMessageBox.Checked = myData.ProduceCompleteMessageBox;
 
-            cmboDelModeAorBorC.Text = myData.DelModeAorBorC;
+            cmboDelMode.Text = myData.DelModeAorBorC;
             numHighlightRowsOver.Value = myData.HighlightRowsOver;
             // ---------
 
@@ -112,11 +112,12 @@ namespace ToolbarOfFunctions
 
             chkTurnOffScreenValidation.Checked = myData.TurnOffScreenValidation;
 
-            if (cmboDelModeAorBorC.Items.Count != 3)
+            if (cmboDelMode.Items.Count != 4)
             {
-                cmboDelModeAorBorC.Items.Add("Mode: A");
-                cmboDelModeAorBorC.Items.Add("Mode: B");
-                cmboDelModeAorBorC.Items.Add("Mode: C");
+                cmboDelMode.Items.Add("Mode: A");
+                cmboDelMode.Items.Add("Mode: B");
+                cmboDelMode.Items.Add("Mode: C");
+                cmboDelMode.Items.Add("Mode: D");
 
             }
 
@@ -140,7 +141,7 @@ namespace ToolbarOfFunctions
             myData.ProduceInitialMessageBox = chkProduceInitialMessageBox.Checked;
             myData.ProduceCompleteMessageBox = chkProduceCompleteMessageBox.Checked;
 
-            myData.DelModeAorBorC = cmboDelModeAorBorC.Text;
+            myData.DelModeAorBorC = cmboDelMode.Text;
             myData.HighlightRowsOver = numHighlightRowsOver.Value;
             // ---------
 

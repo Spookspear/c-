@@ -78,7 +78,7 @@ namespace ToolbarOfFunctions
             this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.chkTestCode = new System.Windows.Forms.CheckBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.cmboDelModeAorBorC = new System.Windows.Forms.ComboBox();
+            this.cmboDelMode = new System.Windows.Forms.ComboBox();
             this.label10 = new System.Windows.Forms.Label();
             this.numHighlightRowsOver = new System.Windows.Forms.NumericUpDown();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
@@ -690,7 +690,7 @@ namespace ToolbarOfFunctions
             // 
             this.groupBox7.Controls.Add(this.chkTestCode);
             this.groupBox7.Controls.Add(this.label7);
-            this.groupBox7.Controls.Add(this.cmboDelModeAorBorC);
+            this.groupBox7.Controls.Add(this.cmboDelMode);
             this.groupBox7.Controls.Add(this.label10);
             this.groupBox7.Controls.Add(this.numHighlightRowsOver);
             this.groupBox7.Location = new System.Drawing.Point(5, 475);
@@ -725,15 +725,20 @@ namespace ToolbarOfFunctions
             this.label7.TabIndex = 36;
             this.label7.Text = "Del blank Lines which Mode";
             // 
-            // cmboDelModeAorBorC
+            // cmboDelMode
             // 
-            this.cmboDelModeAorBorC.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.cmboDelModeAorBorC.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmboDelModeAorBorC.FormattingEnabled = true;
-            this.cmboDelModeAorBorC.Location = new System.Drawing.Point(253, 15);
-            this.cmboDelModeAorBorC.Name = "cmboDelModeAorBorC";
-            this.cmboDelModeAorBorC.Size = new System.Drawing.Size(139, 23);
-            this.cmboDelModeAorBorC.TabIndex = 35;
+            this.cmboDelMode.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.cmboDelMode.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmboDelMode.FormattingEnabled = true;
+            this.cmboDelMode.Items.AddRange(new object[] {
+            "Mode: A",
+            "Mode: B",
+            "Mode: C",
+            "Mode: D"});
+            this.cmboDelMode.Location = new System.Drawing.Point(253, 15);
+            this.cmboDelMode.Name = "cmboDelMode";
+            this.cmboDelMode.Size = new System.Drawing.Size(139, 23);
+            this.cmboDelMode.TabIndex = 35;
             // 
             // label10
             // 
@@ -883,7 +888,7 @@ namespace ToolbarOfFunctions
         public System.Windows.Forms.CheckBox chkFoundBold;
         private System.Windows.Forms.GroupBox groupBox7;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.ComboBox cmboDelModeAorBorC;
+        private System.Windows.Forms.ComboBox cmboDelMode;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.NumericUpDown numHighlightRowsOver;
         private System.Windows.Forms.GroupBox groupBox8;

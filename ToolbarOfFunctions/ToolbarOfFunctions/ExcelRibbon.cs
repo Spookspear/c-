@@ -70,6 +70,11 @@ namespace ToolbarOfFunctions
 
         }
 
+        private void btnDeleteBlankLinesD_Click(object sender, RibbonControlEventArgs e)
+        {
+            Globals.ThisAddIn.deleteBlankLines(Globals.ThisAddIn.Application.ActiveWorkbook, "D");
+        }
+
         public void btnDealWithSingleDuplicates_Click(object sender, RibbonControlEventArgs e)
         {
             Globals.ThisAddIn.dealWithSingleDuplicates(Globals.ThisAddIn.Application);
@@ -196,7 +201,8 @@ namespace ToolbarOfFunctions
             Globals.ThisAddIn.readUsersGroupMembershipIntoWorksheet(Globals.ThisAddIn.Application, "ActiveCell");
         }
 
-        
+
+
         private void btnReadGroupUsersMembershipSheetName_Click(object sender, RibbonControlEventArgs e) {
             // 3rd button
             Globals.ThisAddIn.readGroupUsersMembershipIntoWorksheet(Globals.ThisAddIn.Application, "SheetName");
