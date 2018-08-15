@@ -23,18 +23,19 @@ namespace ToolbarOfFunctions
             Excel.Worksheet Wks;            // instantiate worksheet object
             Wks = Wkb.ActiveSheet;          // point to active sheet
 
-            // read in xml here - grab code from elsewhere
+            // read in xml here
             #region [Declare and instantiate variables for process]
             myData = myData.LoadMyData();               // read data from settings file
 
             bool boolDisplayCompleteMessage = myData.ProduceCompleteMessageBox;
             bool booltimeTaken = myData.DisplayTimeTaken;
+            bool boolExtractFileName = myData.ExtractFileName;
+            decimal intColNoForExtractedFile = myData.ColExtractedFile;
 
             string strWhichDate = myData.FileDateTime;
             #endregion
 
             // custom extended class for browsing folders
-
             // am needing a folder full of files that will take a while to load
             // how many files?
             // 
@@ -65,35 +66,22 @@ namespace ToolbarOfFunctions
                 boolExtraDetails = false;
 
             // Excel.XlEnableCancelKey.xlInterrupt
-
             // string strWhichColumn = "F";
 
             if (dlgReadExtraDetails != DialogResult.Cancel)
             {
-
                 if (cfbd.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
                 {
 
                     DateTime dteStart = DateTime.Now;
 
-                    int gintFileCount = 2;
-
                     // zap the sheet before we start
                     CommonExcelClasses.zapWorksheet(Wks, 1);
 
-                    // string strPath = cfbd.SelectedPath;
-                    directorySearch(cfbd.SelectedPath.ToString(), Wks, gintFileCount, boolExtraDetails, false, strWhichDate);
-                    // directorySearch(cfbd.SelectedPath.ToString(), Wks, gintFileCount, boolExtraDetails, true, strWhichDate);
-
-                    // listSubFoldersAndFiles(cfbd.SelectedPath.ToString(), Wks, gintFileCount);
+                    fileScan(cfbd.SelectedPath.ToString(), Wks, boolExtraDetails, strWhichDate, boolExtractFileName, intColNoForExtractedFile);
 
                     writeHeaders(Wks, "FILES", boolExtraDetails, strWhichDate);
 
-                    /*
-                    DateTime dteEnd = DateTime.Now;
-                    int milliSeconds = (int)((TimeSpan)(dteEnd - dteStart)).TotalMilliseconds;
-                    Wks.Range[strWhichColumn + "1"].Value = milliSeconds + " milliSeconds";
-                    */
 
                     #region [Display Complete Message]
                     if (boolDisplayCompleteMessage)
@@ -129,9 +117,8 @@ namespace ToolbarOfFunctions
         }
 
 
-        public static void getExtraDetails(string file, Excel.Worksheet Wks, int gintFileCount, string strWhichDate)
+        public static void getExtraDetails(string file, Excel.Worksheet Wks, int intFileNumber, string strWhichDate, bool boolExtractFileName, decimal intColNoForExtractedFile)
         {
-
             FileInfo oFileInfo = new FileInfo(file);
             FileVersionInfo oFileVersionInfo = FileVersionInfo.GetVersionInfo(file);            // Get file version info LastWriteTime, LastAccessTime
 
@@ -155,9 +142,9 @@ namespace ToolbarOfFunctions
             if (strWhichDate == "LastWriteTimeUtc")
                 dteWhichTime = oFileInfo.LastWriteTimeUtc;
 
-            Wks.Cells[gintFileCount, 2].value = dteWhichTime;
+            Wks.Cells[intFileNumber, 2].value = dteWhichTime;
 
-            Wks.Cells[gintFileCount, 3].value = oFileInfo.Length;                               // Size -- .ToString();
+            Wks.Cells[intFileNumber, 3].value = oFileInfo.Length;                               // Size -- .ToString();
 
             // Wks.Cells[gintFileCount, 4].value = oFileVersionInfo.FileVersion;
             // 0.0.0.0
@@ -170,79 +157,60 @@ namespace ToolbarOfFunctions
 
 
             if (strFileVersioninfo != "0.0.0.0")
-                Wks.Cells[gintFileCount, 4].value = strFileVersioninfo;
+                Wks.Cells[intFileNumber, 4].value = strFileVersioninfo;
 
-            Wks.Cells[gintFileCount, 5].value = oFileInfo.Name;                                 // File Name Extracted
+            if (!boolExtractFileName)
+                Wks.Cells[intFileNumber, intColNoForExtractedFile].value = oFileInfo.Name;                                 // File Name Extracted
+            else
+                Wks.Cells[(intFileNumber), intColNoForExtractedFile].value = extractFileNameOnly(file.ToString());
+
         }
 
-
-        public static void directorySearch(string root, Excel.Worksheet Wks, int gintFileCount, bool boolExtraDetails, bool isRootItrated, string strWhichDate)
+        private static void fileScan(string strPath, Excel.Worksheet Wks, bool boolExtraDetails, string strWhichDate, bool boolExtractFileName, decimal intColNoForExtractedFile)
         {
+            // see if this works first if it does then loop array
 
-            if (!isRootItrated)
+            string searchPattern = "*.*";
+            string[] arrFiles    = Directory.GetFiles(strPath, searchPattern, SearchOption.AllDirectories);
+
+            for (int i = arrFiles.GetLowerBound(0); i <= arrFiles.GetUpperBound(0); i++)
             {
-                var rootDirectoryFiles = Directory.GetFiles(root);
-                foreach (var file in rootDirectoryFiles)
+                // CommonExcelClasses.MsgBox(arrFiles[i]);
+
+                Wks.Cells[(i+2), 1].value = arrFiles[i].ToString();
+
+                if (boolExtraDetails)
+                    getExtraDetails(arrFiles[i], Wks, (i+2), strWhichDate, boolExtractFileName, intColNoForExtractedFile);
+                else
                 {
-                    // Console.WriteLine(file);
-                    Wks.Cells[gintFileCount, 1].value = file.ToString();
-
-                    if (boolExtraDetails)
-                        getExtraDetails(file, Wks, gintFileCount, strWhichDate);
-
-                    gintFileCount++;
-                }
-            }
-
-            // c# code to stop a macro running - 1GVB1: 15-08-2018
-
-            var subDirectories = Directory.GetDirectories(root);
-            // does this need to be var?
-            if (subDirectories?.Any() == true)
-            {
-                foreach (var directory in subDirectories)
-                {
-                    var files = Directory.GetFiles(directory);
-                    foreach (var file in files)
+                    if (boolExtractFileName)
                     {
-
-                        Console.WriteLine(file);
-                        Wks.Cells[gintFileCount, 1].value = file.ToString();
-                        if (boolExtraDetails)
-                            getExtraDetails(file, Wks, gintFileCount, strWhichDate);
-
-                        gintFileCount++;
+                        Wks.Cells[(i + 2), intColNoForExtractedFile].value = extractFileNameOnly(arrFiles[i].ToString());
                     }
-                    directorySearch(directory, Wks, gintFileCount, boolExtraDetails, true, strWhichDate);
                 }
+
             }
+
         }
 
-
-
-        static void listSubFoldersAndFiles(string strSubFolderPath, Excel.Worksheet Wks, int gintFileCount)
+        private static string extractFileNameOnly(string strFileName)
         {
-            // recursive function that will read from the current folder into selected wokrksheet
-            try
-            {
-                foreach (string d in Directory.GetDirectories(strSubFolderPath))
-                {
-                    foreach (string f in Directory.GetFiles(d))
-                    {
-                        Console.WriteLine(f);
+            string strRetVal = strFileName;
+            string strSlash = Convert.ToChar(92).ToString();
+            // string strBuild = "";
 
-                        Wks.Cells[gintFileCount, 1].value = f.ToString();
-                        gintFileCount++;
-                    }
-                    listSubFoldersAndFiles(d, Wks, gintFileCount);
-                }
-            }
-            catch (System.Exception excpt)
+            // takes in path and returns file name only
+            // While InStr(strFileName, "\") > 0
+            //     strFileName = Mid(strFileName, (InStr(1, strFileName, "\", vbTextCompare) + 1))
+            // Wend
+
+            while (strRetVal.Contains(strSlash) )
             {
-                Console.WriteLine(excpt.Message);
+                strRetVal = strRetVal.Substring( strRetVal.IndexOf( strSlash ) +1, (strRetVal.Length-strRetVal.IndexOf(strSlash)-1));
             }
+
+            return strRetVal;
 
         }
-
     }
 }

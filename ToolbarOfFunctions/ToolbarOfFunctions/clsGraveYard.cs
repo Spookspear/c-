@@ -25,7 +25,6 @@ using System.Data;
 
 // using ToolbarOfFunctions;
 using ToolbarOfFunctions_CommonClasses;
-
 /*
 
 // read worksheet into array
@@ -67,6 +66,79 @@ namespace ToolbarOfFunctions_Graveyard
 {
     class classGraveYard
     {
+
+        public static void directorySearch(string root, Excel.Worksheet Wks, int gintFileCount, bool boolExtraDetails, bool isRootItrated, string strWhichDate)
+        {
+
+            /*
+            if (!isRootItrated)
+            {
+                var rootDirectoryFiles = Directory.GetFiles(root);
+                foreach (var file in rootDirectoryFiles)
+                {
+                    // Console.WriteLine(file);
+                    Wks.Cells[gintFileCount, 1].value = file.ToString();
+
+                    if (boolExtraDetails)
+                        getExtraDetails(file, Wks, gintFileCount, strWhichDate);
+
+                    gintFileCount++;
+                }
+            }*/
+
+            // c# code to stop a macro running - 1GVB1: 15-08-2018
+
+            var subDirectories = Directory.GetDirectories(root);
+            // does this need to be var?
+            if (subDirectories?.Any() == true)
+            {
+                foreach (var directory in subDirectories)
+                {
+                    var files = Directory.GetFiles(directory);
+                    foreach (var file in files)
+                    {
+                        Console.WriteLine(file);
+                        Wks.Cells[gintFileCount, 1].value = file.ToString();
+
+                        if (boolExtraDetails)
+                            getExtraDetails(file, Wks, gintFileCount, strWhichDate);
+
+                        gintFileCount++;
+                    }
+                    directorySearch(directory, Wks, gintFileCount, boolExtraDetails, true, strWhichDate);
+                }
+            }
+        }
+
+        private static void getExtraDetails(string file, Excel.Worksheet wks, int gintFileCount, string strWhichDate)
+        {
+            throw new NotImplementedException();
+        }
+
+        static void listSubFoldersAndFiles(string strSubFolderPath, Excel.Worksheet Wks, int gintFileCount)
+        {
+            // recursive function that will read from the current folder into selected wokrksheet
+            try
+            {
+                foreach (string d in Directory.GetDirectories(strSubFolderPath))
+                {
+                    foreach (string f in Directory.GetFiles(d))
+                    {
+                        Console.WriteLine(f);
+
+                        Wks.Cells[gintFileCount, 1].value = f.ToString();
+                        gintFileCount++;
+                    }
+                    listSubFoldersAndFiles(d, Wks, gintFileCount);
+                }
+            }
+            catch (System.Exception excpt)
+            {
+                Console.WriteLine(excpt.Message);
+            }
+
+        }
+
 
         // holds useful code
         // Excel.Application excel = new Excel.Application();

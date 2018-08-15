@@ -85,6 +85,9 @@ namespace ToolbarOfFunctions
             this.numHighlightRowsOver = new System.Windows.Forms.NumericUpDown();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
             this.btnApply = new System.Windows.Forms.Button();
+            this.chkExtractFileName = new System.Windows.Forms.CheckBox();
+            this.numColNoForExtractedName = new System.Windows.Forms.NumericUpDown();
+            this.label15 = new System.Windows.Forms.Label();
             groupBox6 = new System.Windows.Forms.GroupBox();
             groupBox6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numColPingWrite)).BeginInit();
@@ -102,6 +105,7 @@ namespace ToolbarOfFunctions
             this.groupBox7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numHighlightRowsOver)).BeginInit();
             this.groupBox8.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numColNoForExtractedName)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox6
@@ -690,6 +694,9 @@ namespace ToolbarOfFunctions
             // 
             // groupBox7
             // 
+            this.groupBox7.Controls.Add(this.numColNoForExtractedName);
+            this.groupBox7.Controls.Add(this.label15);
+            this.groupBox7.Controls.Add(this.chkExtractFileName);
             this.groupBox7.Controls.Add(this.label2);
             this.groupBox7.Controls.Add(this.cmboWhichDate);
             this.groupBox7.Controls.Add(this.chkTestCode);
@@ -699,7 +706,7 @@ namespace ToolbarOfFunctions
             this.groupBox7.Controls.Add(this.numHighlightRowsOver);
             this.groupBox7.Location = new System.Drawing.Point(5, 459);
             this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(452, 110);
+            this.groupBox7.Size = new System.Drawing.Size(452, 178);
             this.groupBox7.TabIndex = 50;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Misc";
@@ -726,7 +733,7 @@ namespace ToolbarOfFunctions
             "LastAccessTimeUtc",
             "LastWriteTime",
             "LastWriteTimeUtc"});
-            this.cmboWhichDate.Location = new System.Drawing.Point(175, 68);
+            this.cmboWhichDate.Location = new System.Drawing.Point(178, 68);
             this.cmboWhichDate.Name = "cmboWhichDate";
             this.cmboWhichDate.Size = new System.Drawing.Size(139, 23);
             this.cmboWhichDate.TabIndex = 51;
@@ -803,7 +810,7 @@ namespace ToolbarOfFunctions
             // 
             this.groupBox8.Controls.Add(this.btnApply);
             this.groupBox8.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.groupBox8.Location = new System.Drawing.Point(0, 587);
+            this.groupBox8.Location = new System.Drawing.Point(0, 678);
             this.groupBox8.Name = "groupBox8";
             this.groupBox8.Size = new System.Drawing.Size(460, 50);
             this.groupBox8.TabIndex = 51;
@@ -822,13 +829,50 @@ namespace ToolbarOfFunctions
             this.btnApply.UseVisualStyleBackColor = true;
             this.btnApply.Click += new System.EventHandler(this.btnApply_Click);
             // 
+            // chkExtractFileName
+            // 
+            this.chkExtractFileName.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.chkExtractFileName.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.chkExtractFileName.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkExtractFileName.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.chkExtractFileName.Location = new System.Drawing.Point(12, 97);
+            this.chkExtractFileName.Name = "chkExtractFileName";
+            this.chkExtractFileName.Size = new System.Drawing.Size(186, 17);
+            this.chkExtractFileName.TabIndex = 53;
+            this.chkExtractFileName.Text = "Extract FileName from Path?";
+            this.chkExtractFileName.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.chkExtractFileName.UseVisualStyleBackColor = true;
+            // 
+            // numColNoForExtractedName
+            // 
+            this.numColNoForExtractedName.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.numColNoForExtractedName.Location = new System.Drawing.Point(178, 120);
+            this.numColNoForExtractedName.Name = "numColNoForExtractedName";
+            this.numColNoForExtractedName.Size = new System.Drawing.Size(52, 20);
+            this.numColNoForExtractedName.TabIndex = 55;
+            this.numColNoForExtractedName.Value = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Font = new System.Drawing.Font("Consolas", 8.25F);
+            this.label15.Location = new System.Drawing.Point(33, 122);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(139, 13);
+            this.label15.TabIndex = 54;
+            this.label15.Text = "Extracted Name Column:";
+            // 
             // frmSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.ClientSize = new System.Drawing.Size(460, 637);
+            this.ClientSize = new System.Drawing.Size(460, 728);
             this.Controls.Add(this.groupBox8);
             this.Controls.Add(this.groupBox7);
             this.Controls.Add(groupBox6);
@@ -869,6 +913,7 @@ namespace ToolbarOfFunctions
             this.groupBox7.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numHighlightRowsOver)).EndInit();
             this.groupBox8.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.numColNoForExtractedName)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -927,5 +972,8 @@ namespace ToolbarOfFunctions
         public System.Windows.Forms.CheckBox chkTestCode;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox cmboWhichDate;
+        public System.Windows.Forms.CheckBox chkExtractFileName;
+        private System.Windows.Forms.NumericUpDown numColNoForExtractedName;
+        private System.Windows.Forms.Label label15;
     }
 }

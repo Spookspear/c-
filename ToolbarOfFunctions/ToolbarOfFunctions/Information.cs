@@ -76,6 +76,10 @@ namespace ToolbarOfFunctions
 
         public string FileDateTime { get; set; }
 
+        public bool ExtractFileName { get; set; }
+
+        public decimal ColExtractedFile { get; set; }
+
         public static void SaveData(object obj)
         {
             try

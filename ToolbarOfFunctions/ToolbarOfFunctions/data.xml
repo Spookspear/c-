@@ -31,4 +31,6 @@
   <TurnOffScreenValidation>true</TurnOffScreenValidation>
   <ClearFormatting>true</ClearFormatting>
   <FileDateTime>LastWriteTime</FileDateTime>
+  <ExtractFileName>true</ExtractFileName>
+  <ColExtractedFile>5</ColExtractedFile>
 </InformationForSettingsForm>

@@ -125,6 +125,11 @@ namespace ToolbarOfFunctions
 
             cmboWhichDate.Text = myData.FileDateTime;
 
+            chkExtractFileName.Checked = myData.ExtractFileName;
+
+            numColNoForExtractedName.Value = myData.ColExtractedFile;
+
+
         }
 
         private void btnApply_Click(object sender, EventArgs e)
@@ -176,6 +181,8 @@ namespace ToolbarOfFunctions
             myData.ClearFormatting = chkClearFormatting.Checked;
 
             myData.FileDateTime = cmboWhichDate.Text;
+            myData.ExtractFileName = chkExtractFileName.Checked;
+            myData.ColExtractedFile = numColNoForExtractedName.Value;
 
             InformationForSettingsForm.SaveData(myData);
 
