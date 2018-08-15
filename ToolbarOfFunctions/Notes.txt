@@ -1,3 +1,14 @@
+CreationTime
+CreationTimeUtc
+LastAccessTime
+LastAccessTimeUtc
+LastWriteTime
+LastWriteTimeUtc
+
+
+
+
+
 string strMessage;
 strMessage = "Get Group Membership for Active Directory User: ";
 

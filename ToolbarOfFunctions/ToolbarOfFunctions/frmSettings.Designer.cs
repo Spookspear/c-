@@ -76,6 +76,8 @@ namespace ToolbarOfFunctions
             this.label11 = new System.Windows.Forms.Label();
             this.chkTimeSheetGetRowNo = new System.Windows.Forms.CheckBox();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.cmboWhichDate = new System.Windows.Forms.ComboBox();
             this.chkTestCode = new System.Windows.Forms.CheckBox();
             this.label7 = new System.Windows.Forms.Label();
             this.cmboDelMode = new System.Windows.Forms.ComboBox();
@@ -110,7 +112,7 @@ namespace ToolbarOfFunctions
             groupBox6.Controls.Add(this.label13);
             groupBox6.Controls.Add(this.numPingSheetRowNo);
             groupBox6.Controls.Add(this.label14);
-            groupBox6.Location = new System.Drawing.Point(5, 388);
+            groupBox6.Location = new System.Drawing.Point(5, 376);
             groupBox6.Name = "groupBox6";
             groupBox6.Size = new System.Drawing.Size(452, 81);
             groupBox6.TabIndex = 49;
@@ -360,7 +362,7 @@ namespace ToolbarOfFunctions
             this.groupBox3.Controls.Add(this.label5);
             this.groupBox3.Controls.Add(this.label1);
             this.groupBox3.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox3.Location = new System.Drawing.Point(5, 142);
+            this.groupBox3.Location = new System.Drawing.Point(5, 138);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(452, 90);
             this.groupBox3.TabIndex = 42;
@@ -548,7 +550,7 @@ namespace ToolbarOfFunctions
             this.groupBox4.Controls.Add(this.label4);
             this.groupBox4.Controls.Add(this.chkLBColourOrDelete);
             this.groupBox4.Controls.Add(this.label3);
-            this.groupBox4.Location = new System.Drawing.Point(5, 238);
+            this.groupBox4.Location = new System.Drawing.Point(5, 231);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(452, 93);
             this.groupBox4.TabIndex = 45;
@@ -636,7 +638,7 @@ namespace ToolbarOfFunctions
             this.groupBox5.Controls.Add(this.numTimeSheetRowNo);
             this.groupBox5.Controls.Add(this.label11);
             this.groupBox5.Controls.Add(this.chkTimeSheetGetRowNo);
-            this.groupBox5.Location = new System.Drawing.Point(5, 337);
+            this.groupBox5.Location = new System.Drawing.Point(5, 328);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Size = new System.Drawing.Size(452, 45);
             this.groupBox5.TabIndex = 47;
@@ -688,17 +690,46 @@ namespace ToolbarOfFunctions
             // 
             // groupBox7
             // 
+            this.groupBox7.Controls.Add(this.label2);
+            this.groupBox7.Controls.Add(this.cmboWhichDate);
             this.groupBox7.Controls.Add(this.chkTestCode);
             this.groupBox7.Controls.Add(this.label7);
             this.groupBox7.Controls.Add(this.cmboDelMode);
             this.groupBox7.Controls.Add(this.label10);
             this.groupBox7.Controls.Add(this.numHighlightRowsOver);
-            this.groupBox7.Location = new System.Drawing.Point(5, 475);
+            this.groupBox7.Location = new System.Drawing.Point(5, 459);
             this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(452, 79);
+            this.groupBox7.Size = new System.Drawing.Size(452, 110);
             this.groupBox7.TabIndex = 50;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Misc";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(15, 73);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(157, 13);
+            this.label2.TabIndex = 52;
+            this.label2.Text = "Which Date Time from file";
+            // 
+            // cmboWhichDate
+            // 
+            this.cmboWhichDate.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.cmboWhichDate.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmboWhichDate.FormattingEnabled = true;
+            this.cmboWhichDate.Items.AddRange(new object[] {
+            "CreationTime",
+            "CreationTimeUtc",
+            "LastAccessTime",
+            "LastAccessTimeUtc",
+            "LastWriteTime",
+            "LastWriteTimeUtc"});
+            this.cmboWhichDate.Location = new System.Drawing.Point(175, 68);
+            this.cmboWhichDate.Name = "cmboWhichDate";
+            this.cmboWhichDate.Size = new System.Drawing.Size(139, 23);
+            this.cmboWhichDate.TabIndex = 51;
             // 
             // chkTestCode
             // 
@@ -707,7 +738,7 @@ namespace ToolbarOfFunctions
             this.chkTestCode.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkTestCode.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkTestCode.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.chkTestCode.Location = new System.Drawing.Point(315, 47);
+            this.chkTestCode.Location = new System.Drawing.Point(240, 45);
             this.chkTestCode.Name = "chkTestCode";
             this.chkTestCode.Size = new System.Drawing.Size(77, 17);
             this.chkTestCode.TabIndex = 40;
@@ -719,7 +750,7 @@ namespace ToolbarOfFunctions
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(60, 20);
+            this.label7.Location = new System.Drawing.Point(9, 20);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(163, 13);
             this.label7.TabIndex = 36;
@@ -735,7 +766,7 @@ namespace ToolbarOfFunctions
             "Mode: B",
             "Mode: C",
             "Mode: D"});
-            this.cmboDelMode.Location = new System.Drawing.Point(253, 15);
+            this.cmboDelMode.Location = new System.Drawing.Point(178, 13);
             this.cmboDelMode.Name = "cmboDelMode";
             this.cmboDelMode.Size = new System.Drawing.Size(139, 23);
             this.cmboDelMode.TabIndex = 35;
@@ -744,7 +775,7 @@ namespace ToolbarOfFunctions
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(91, 44);
+            this.label10.Location = new System.Drawing.Point(27, 44);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(145, 13);
             this.label10.TabIndex = 37;
@@ -753,7 +784,7 @@ namespace ToolbarOfFunctions
             // numHighlightRowsOver
             // 
             this.numHighlightRowsOver.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.numHighlightRowsOver.Location = new System.Drawing.Point(253, 44);
+            this.numHighlightRowsOver.Location = new System.Drawing.Point(178, 42);
             this.numHighlightRowsOver.Maximum = new decimal(new int[] {
             1024,
             0,
@@ -772,7 +803,7 @@ namespace ToolbarOfFunctions
             // 
             this.groupBox8.Controls.Add(this.btnApply);
             this.groupBox8.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.groupBox8.Location = new System.Drawing.Point(0, 559);
+            this.groupBox8.Location = new System.Drawing.Point(0, 587);
             this.groupBox8.Name = "groupBox8";
             this.groupBox8.Size = new System.Drawing.Size(460, 50);
             this.groupBox8.TabIndex = 51;
@@ -797,7 +828,7 @@ namespace ToolbarOfFunctions
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.ClientSize = new System.Drawing.Size(460, 609);
+            this.ClientSize = new System.Drawing.Size(460, 637);
             this.Controls.Add(this.groupBox8);
             this.Controls.Add(this.groupBox7);
             this.Controls.Add(groupBox6);
@@ -894,5 +925,7 @@ namespace ToolbarOfFunctions
         private System.Windows.Forms.GroupBox groupBox8;
         private System.Windows.Forms.Button btnApply;
         public System.Windows.Forms.CheckBox chkTestCode;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ComboBox cmboWhichDate;
     }
 }

@@ -17,8 +17,8 @@
   <ColourFore_Found>Black</ColourFore_Found>
   <ColourBold_Found>true</ColourBold_Found>
   <ColourBack_Found>White</ColourBack_Found>
-  <ColourFore_NotFound>Red</ColourFore_NotFound>
-  <ColourBold_NotFound>true</ColourBold_NotFound>
+  <ColourFore_NotFound>#FF0080</ColourFore_NotFound>
+  <ColourBold_NotFound>false</ColourBold_NotFound>
   <ColourBack_NotFound>White</ColourBack_NotFound>
   <TimeSheetRowNo>4964</TimeSheetRowNo>
   <TimeSheetGetRowNo>true</TimeSheetGetRowNo>
@@ -30,4 +30,5 @@
   <HideSeperator>false</HideSeperator>
   <TurnOffScreenValidation>true</TurnOffScreenValidation>
   <ClearFormatting>true</ClearFormatting>
+  <FileDateTime>LastWriteTime</FileDateTime>
 </InformationForSettingsForm>

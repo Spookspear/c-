@@ -126,7 +126,7 @@ namespace ToolbarOfFunctions
 
                 getGroupUserMembership(Wks, strGroupName);
                 
-                writeHeaders(Wks, "ADUsers", false);
+                writeHeaders(Wks, "ADUsers", false,"");     // 1gvb2 make last option optional
                 CommonExcelClasses.sortSheet(Wks,2);
 
                 if (boolTurnOffScreen)
@@ -369,7 +369,7 @@ namespace ToolbarOfFunctions
                 }
 
                 getUsersGroupMembership(Wks, strUserName);
-                writeHeaders(Wks, "ADGroups", false);
+                writeHeaders(Wks, "ADGroups", false,"");    // 1gvb2 make last option optional
                 CommonExcelClasses.sortSheet(Wks,1);
 
                 if (boolTurnOffScreen)

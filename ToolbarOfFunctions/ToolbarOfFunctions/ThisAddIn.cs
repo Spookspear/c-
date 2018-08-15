@@ -12,8 +12,7 @@ using System.Windows.Forms;
 using Microsoft.Office.Tools.Excel;
 using Microsoft.Office.Interop.Excel;
 
-using System.IO;            // for Directory function
-using System.Diagnostics;   // .FileVersionInfo
+
 using System.Drawing;       // for colours
 
 using DaveChambers.FolderBrowserDialogEx;
@@ -57,95 +56,20 @@ namespace ToolbarOfFunctions
         private void ThisAddIn_Shutdown(object sender, System.EventArgs e) { }
 
 
-
-
-
-        public void readFolders(Excel.Workbook Wkb)
-        {
-            Excel.Worksheet Wks;            // instantiate worksheet object
-            Wks = Wkb.ActiveSheet;          // point to active sheet
-
-            // custom extended class for browsing folders
-
-            // am needing a folder full of files that will take a while to load
-            // how many files?
-            // 
-            // C:\Temp\manyFiles-01
-            string strPath;
-
-            strPath = "C:\\Temp\\manyFiles-01";
-            // strPath = "c:\\temp\\sfc"""
-
-            FolderBrowserDialogEx cfbd = new FolderBrowserDialogEx()
-            {
-                Title = "Please Select Folder ...",
-                SelectedPath = strPath,
-                ShowEditbox = true,
-                ShowNewFolderButton = false,
-                RootFolder = Environment.SpecialFolder.Desktop,
-                StartPosition = FormStartPosition.CenterScreen
-            };
-
-            // need a yes or no for reading in extra details
-            DialogResult dlgReadExtraDetails = askGetExtraDetails();
-            bool boolExtraDetails = false;
-
-            if (dlgReadExtraDetails == DialogResult.Yes)
-                boolExtraDetails = true;
-
-            if (dlgReadExtraDetails == DialogResult.No)
-                boolExtraDetails = false;
-
-            // Excel.XlEnableCancelKey.xlInterrupt
-
-            string strWhichColumn = "F";
-
-            if (dlgReadExtraDetails != DialogResult.Cancel)
-            {
-
-                if (cfbd.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
-                {
-
-                    DateTime dteStart = DateTime.Now;
-
-                    int gintFileCount = 2;
-
-                    // zap the sheet before we start
-                    CommonExcelClasses.zapWorksheet(Wks, 1);
-
-                    // string strPath = cfbd.SelectedPath;
-                    directorySearch(cfbd.SelectedPath.ToString(), Wks, gintFileCount, boolExtraDetails, false);
-
-                    writeHeaders(Wks, "FILES", boolExtraDetails);
-                    
-
-                    DateTime dteEnd = DateTime.Now;
-                    int milliSeconds = (int)((TimeSpan)(dteEnd - dteStart)).TotalMilliseconds;
-
-                    Wks.Range[strWhichColumn + "1"].Value = milliSeconds + " milliSeconds";
-
-                }
-            }
-
-            // MsgBox("Finished ...");
-
-        }
-
-
         /// <summary>
         /// 
         /// </summary>
         /// <param name="Wks"></param>
         /// <param name="strDoWhat"></param>
         /// <param name="boolExtraDetails"></param>
-        public void writeHeaders(Excel.Worksheet Wks, string strDoWhat, bool boolExtraDetails)
+        public void writeHeaders(Excel.Worksheet Wks, string strDoWhat, bool boolExtraDetails, string strWhichDate)
         {
             string strHead = "";
 
             if (strDoWhat == "FILES")
             {
                 if (boolExtraDetails)
-                    strHead = "File Name;Date Last Accessed;Size;Version;File Name Extracted;";
+                    strHead = "File Name;" + strWhichDate + ";Size;Version;File Name Extracted;";
                 else
                     strHead = "FileName;;;;;";
 
@@ -170,80 +94,6 @@ namespace ToolbarOfFunctions
         }
 
 
-        public static DialogResult askGetExtraDetails()
-        {
-            DialogResult dlgResult = MessageBox.Show("Populate extract detail columns?", "Question", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
-
-            return dlgResult;
-        }
-
-
-        public static void getExtraDetails(string file, Excel.Worksheet Wks, int gintFileCount)
-        {
-
-            FileInfo oFileInfo = new FileInfo(file);
-            FileVersionInfo oFileVersionInfo = FileVersionInfo.GetVersionInfo(file);            // Get file version info LastWriteTime, LastAccessTime
-            Wks.Cells[gintFileCount, 2].value = oFileInfo.LastAccessTime;                        // date
-            Wks.Cells[gintFileCount, 3].value = oFileInfo.Length;                               // Size -- .ToString();
-
-            // Wks.Cells[gintFileCount, 4].value = oFileVersionInfo.FileVersion;
-            // 0.0.0.0
-            // 16.21.0.0
-
-            string strFileVersioninfo = oFileVersionInfo.FileMajorPart.ToString() + "." +
-                                                oFileVersionInfo.FileMinorPart.ToString() + "." +
-                                                oFileVersionInfo.FileBuildPart.ToString() + "." +
-                                                oFileVersionInfo.FilePrivatePart.ToString();
-
-
-            if (strFileVersioninfo != "0.0.0.0")
-                Wks.Cells[gintFileCount, 4].value = strFileVersioninfo;
-
-            Wks.Cells[gintFileCount, 5].value = oFileInfo.Name;                                 // File Name Extracted
-        }
-
-
-        public static void directorySearch(string root, Excel.Worksheet Wks, int gintFileCount, bool boolExtraDetails, bool isRootItrated)
-        {
-
-            if (!isRootItrated)
-            {
-                var rootDirectoryFiles = Directory.GetFiles(root);
-                foreach (var file in rootDirectoryFiles)
-                {
-                    // Console.WriteLine(file);
-                    Wks.Cells[gintFileCount, 1].value = file.ToString();
-
-                    if (boolExtraDetails)
-                        getExtraDetails(file, Wks, gintFileCount);
-
-                    gintFileCount++;
-                }
-            }
-
-            // c# code to stop a macro running
-
-            var subDirectories = Directory.GetDirectories(root);
-            // does this need to be var?
-            if (subDirectories?.Any() == true)
-            {
-                foreach (var directory in subDirectories)
-                {
-                    var files = Directory.GetFiles(directory);
-                    foreach (var file in files)
-                    {
-
-                        Console.WriteLine(file);
-                        Wks.Cells[gintFileCount, 1].value = file.ToString();
-                        if (boolExtraDetails)
-                            getExtraDetails(file, Wks, gintFileCount);
-
-                        gintFileCount++;
-                    }
-                    directorySearch(directory, Wks, gintFileCount, boolExtraDetails, true);
-                }
-            }
-        }
 
 
         /// <summary>
@@ -1307,36 +1157,8 @@ namespace ToolbarOfFunctions
             valueRange.set_Value(Excel.XlRangeValueDataType.xlRangeValueDefault, myArray);
 
 
-
-
-
-
-
         }
 
-        static void listSubFoldersAndFiles(string strSubFolderPath, Excel.Worksheet Wks, int gintFileCount)
-        {
-            // recursive function that will read from the current folder into selected wokrksheet
-            try
-            {
-                foreach (string d in Directory.GetDirectories(strSubFolderPath))
-                {
-                    foreach (string f in Directory.GetFiles(d))
-                    {
-                        Console.WriteLine(f);
-
-                        Wks.Cells[gintFileCount, 1].value = f.ToString();
-                        gintFileCount++;
-                    }
-                    listSubFoldersAndFiles(d, Wks, gintFileCount);
-                }
-            }
-            catch (System.Exception excpt)
-            {
-                Console.WriteLine(excpt.Message);
-            }
-
-        }
         
 
         #region VSTO generated code

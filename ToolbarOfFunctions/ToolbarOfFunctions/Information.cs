@@ -74,6 +74,8 @@ namespace ToolbarOfFunctions
 
         public bool ClearFormatting { get; set; }
 
+        public string FileDateTime { get; set; }
+
         public static void SaveData(object obj)
         {
             try

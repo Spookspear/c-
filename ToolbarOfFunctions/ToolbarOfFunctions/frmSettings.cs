@@ -58,7 +58,6 @@ namespace ToolbarOfFunctions
             // tick the correct box
             if (chkLBColourOrDelete.CheckedItems.Count == 0)
             {
-
                 if (myData.ColourOrDelete == "Colour")
                 {
                     chkLBColourOrDelete.SetItemChecked(0, true);
@@ -118,13 +117,13 @@ namespace ToolbarOfFunctions
                 cmboDelMode.Items.Add("Mode: B");
                 cmboDelMode.Items.Add("Mode: C");
                 cmboDelMode.Items.Add("Mode: D");
-
             }
 
             checkCompareCombo();
 
             chkClearFormatting.Checked = myData.ClearFormatting;
 
+            cmboWhichDate.Text = myData.FileDateTime;
 
         }
 
@@ -175,6 +174,8 @@ namespace ToolbarOfFunctions
             myData.TurnOffScreenValidation = chkTurnOffScreenValidation.Checked;
 
             myData.ClearFormatting = chkClearFormatting.Checked;
+
+            myData.FileDateTime = cmboWhichDate.Text;
 
             InformationForSettingsForm.SaveData(myData);
 
