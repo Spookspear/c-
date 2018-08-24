@@ -491,3 +491,26 @@ private static List<string> ListAllGroupsViaTokenGroups(string username, string 
 }  */
 
 }
+
+/*
+ * 
+
+            if (boolRecordTimes)
+            {/
+                // record times
+
+                Wks.Range[strResultsCol + "1"].Value = dteStart;
+            }
+
+             if (boolRecordTimes)
+            {
+                DateTime dteEnd = DateTime.Now;
+                int milliSeconds = (int)((TimeSpan)(dteEnd - dteStart)).TotalMilliseconds;
+
+                Wks.Range[strResultsCol + "2"].Value = dteEnd ;
+                Wks.Range[strResultsCol + "3"].Value = milliSeconds;
+            }
+
+
+     
+     */

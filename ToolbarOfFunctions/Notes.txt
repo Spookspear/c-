@@ -200,3 +200,13 @@ try
                 throw;
             }
 
+
+
+// time taken code
+            #region [Declare and instantiate variables for process]
+See notes.cs
+
+mode A - 244
+mode B - 215
+mode C - 27
+mode D - not finished

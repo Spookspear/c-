@@ -407,7 +407,7 @@ namespace ToolbarOfFunctions_CommonClasses
             #endregion
         }
 
-        public static void sortSheet(Excel.Worksheet Wks, int intColNo)
+                public static void sortSheet(Excel.Worksheet Wks, int intColNo)
         {
             // this will sort the sheet on the 1st column
             #region [Define range dynamically]

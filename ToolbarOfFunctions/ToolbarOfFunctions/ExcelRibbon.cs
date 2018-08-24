@@ -54,25 +54,25 @@ namespace ToolbarOfFunctions
 
         private void btnDeleteBlankLinesA_Click(object sender, RibbonControlEventArgs e)
         {
-            Globals.ThisAddIn.deleteBlankLines(Globals.ThisAddIn.Application.ActiveWorkbook, "A");
+            Globals.ThisAddIn.deleteBlankLines(Globals.ThisAddIn.Application, "A");
         }
 
 
         private void btnDeleteBlankLinesB_Click(object sender, RibbonControlEventArgs e)
         {
-            Globals.ThisAddIn.deleteBlankLines(Globals.ThisAddIn.Application.ActiveWorkbook, "B");
+            Globals.ThisAddIn.deleteBlankLines(Globals.ThisAddIn.Application, "B");
 
         }
 
         private void btnDeleteBlankLinesC_Click(object sender, RibbonControlEventArgs e)
         {
-            Globals.ThisAddIn.deleteBlankLines(Globals.ThisAddIn.Application.ActiveWorkbook, "C");
+            Globals.ThisAddIn.deleteBlankLines(Globals.ThisAddIn.Application, "C");
 
         }
 
         private void btnDeleteBlankLinesD_Click(object sender, RibbonControlEventArgs e)
         {
-            Globals.ThisAddIn.deleteBlankLines(Globals.ThisAddIn.Application.ActiveWorkbook, "D");
+            Globals.ThisAddIn.deleteBlankLines(Globals.ThisAddIn.Application, "D");
         }
 
         public void btnDealWithSingleDuplicates_Click(object sender, RibbonControlEventArgs e)

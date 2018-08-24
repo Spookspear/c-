@@ -72,7 +72,6 @@ namespace ToolbarOfFunctions
             {
                 if (cfbd.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
                 {
-
                     DateTime dteStart = DateTime.Now;
 
                     // zap the sheet before we start
@@ -81,7 +80,6 @@ namespace ToolbarOfFunctions
                     fileScan(cfbd.SelectedPath.ToString(), Wks, boolExtraDetails, strWhichDate, boolExtractFileName, intColNoForExtractedFile);
 
                     writeHeaders(Wks, "FILES", boolExtraDetails, strWhichDate);
-
 
                     #region [Display Complete Message]
                     if (boolDisplayCompleteMessage)
@@ -108,6 +106,7 @@ namespace ToolbarOfFunctions
             // MsgBox("Finished ...");
 
         }
+
 
         public static DialogResult askGetExtraDetails()
         {
@@ -166,6 +165,7 @@ namespace ToolbarOfFunctions
 
         }
 
+
         private static void fileScan(string strPath, Excel.Worksheet Wks, bool boolExtraDetails, string strWhichDate, bool boolExtractFileName, decimal intColNoForExtractedFile)
         {
             // see if this works first if it does then loop array
@@ -192,6 +192,7 @@ namespace ToolbarOfFunctions
             }
 
         }
+
 
         private static string extractFileNameOnly(string strFileName)
         {

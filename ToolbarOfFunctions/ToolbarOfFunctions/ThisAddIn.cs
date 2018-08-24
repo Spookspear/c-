@@ -459,14 +459,15 @@ namespace ToolbarOfFunctions
             bool boolDisplayInitialMessage = myData.ProduceInitialMessageBox;
             bool boolDisplayCompleteMessage = myData.ProduceCompleteMessageBox;
             bool booltimeTaken = myData.DisplayTimeTaken;
-            string strCompareOrColour = myData.CompareOrColour;
             bool boolTurnOffScreen = myData.TurnOffScreenValidation;
             bool boolClearFormatting = myData.ClearFormatting;
 
-            Color clrColourFore_Found = ColorTranslator.FromHtml(myData.ColourFore_Found);
-            Color clrColourFore_NotFound = ColorTranslator.FromHtml(myData.ColourFore_NotFound);
             bool boolFontBold_Found = myData.ColourBold_Found;
             bool boolFontBold_NotFound = myData.ColourBold_NotFound;
+
+            string strCompareOrColour = myData.CompareOrColour;
+            Color clrColourFore_Found = ColorTranslator.FromHtml(myData.ColourFore_Found);
+            Color clrColourFore_NotFound = ColorTranslator.FromHtml(myData.ColourFore_NotFound);
 
             Color clrColourBack_Found = ColorTranslator.FromHtml(myData.ColourBack_Found);
             Color clrColourBack_NotFound = ColorTranslator.FromHtml(myData.ColourBack_NotFound);
@@ -516,9 +517,6 @@ namespace ToolbarOfFunctions
                         dlgResult = MessageBox.Show(strMessage, "Compare Sheets", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
                     }
 
-
-                  
-
                     int intLastCol = CommonExcelClasses.getLastCol(Wks1);
 
                     if (boolTurnOffScreen)
@@ -544,9 +542,9 @@ namespace ToolbarOfFunctions
 
                         for (int intSourceRow = intStartRow; intSourceRow <= intSheetLastRow1; intSourceRow++)
                         {
-                            // read in vlaue from sheet 
-                            // maybe I should ready all into arrays - maybe later?
-                            strValue1 = Wks1.Cells[intSourceRow, intStartColumToCheck].Value;
+                            // read in vlaue from sheet / maybe I should ready all into arrays - maybe later?
+                            if (!CommonExcelClasses.isEmptyCell(Wks1.Cells[intSourceRow, intStartColumToCheck]))
+                                strValue1 = Wks1.Cells[intSourceRow, intStartColumToCheck].Value.ToString();
 
                             intTargetRow = CommonExcelClasses.searchForValue(Wks2, strValue1, intStartColumToCheck);
 
@@ -627,8 +625,9 @@ namespace ToolbarOfFunctions
             }
             catch (System.Exception excpt)
             {
-                CommonExcelClasses.MsgBox("Are you on the last sheet?", "Error");
+                CommonExcelClasses.MsgBox("Are you on the last sheet? - Message was: " + excpt.Message.ToString(), "Error");
                 Console.WriteLine(excpt.Message);
+                CommonExcelClasses.turnAppSettings("On", xls, myData.TestCode);
             }
         }
 
@@ -933,64 +932,107 @@ namespace ToolbarOfFunctions
             return strSearchCat;
         }
 
-        public void deleteBlankLines(Excel.Workbook Wkb, string strMode)
+        public void deleteBlankLines(Excel.Application xls, string strMode)
         {
-            Excel.Worksheet Wks;
+            // string strResultsCol = "F";
+
+            #region [Declare and instantiate variables]
+            Excel.Workbook Wkb = xls.ActiveWorkbook;
+            Excel.Worksheet Wks;   // get current sheet
             Wks = Wkb.ActiveSheet;
+            #endregion
 
-            string strResultsCol = "F";
-
+            #region [Declare and instantiate variables for process]
             myData = myData.LoadMyData();               // read data from settings file
 
-            bool boolRecordTimes = myData.RecordTimes;
-            DateTime dteStart = DateTime.Now;
+            bool boolDisplayInitialMessage = myData.ProduceInitialMessageBox;
+            bool boolDisplayCompleteMessage = myData.ProduceCompleteMessageBox;
+            bool booltimeTaken = myData.DisplayTimeTaken;
+            bool boolTurnOffScreen = myData.TurnOffScreenValidation;
+            bool boolTestCode = myData.TestCode;
+            #endregion
 
-            if (boolRecordTimes)
+
+            #region [Ask to display a Message?]
+            DialogResult dlgResult = DialogResult.Yes;
+            string strMessage;
+
+            if (boolDisplayInitialMessage)
             {
-                // record times
+                strMessage = "Delete blank Lines from: " + Wks.Name + LF +
+                            " using mode: " + strMode;
 
-                Wks.Range[strResultsCol + "1"].Value = dteStart;
+                if (booltimeTaken)
+                {
+                    strMessage = strMessage + LF + " and display the time taken";
+                }
+
+                strMessage = strMessage + "?";
+
+                dlgResult = MessageBox.Show(strMessage, "Delete Blanks", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
             }
+            #endregion
 
-            if (Wks.Name != "InternalParameters")
+            if (dlgResult == DialogResult.Yes)
             {
-                if (strMode == "A")
+                DateTime dteStart = DateTime.Now;
+
+                if (boolTurnOffScreen)
+                    CommonExcelClasses.turnAppSettings("On", xls, myData.TestCode);
+
+                if (Wks.Name != "InternalParameters")
                 {
-                    delLinesModeA(Wks);
+                    if (strMode == "A")
+                    {
+                        delLinesModeA(Wks);
+                    }
+
+                    if (strMode == "B")
+                    {
+                        delLinesModeB(Wks);
+                    }
+
+                    if (strMode == "C")
+                    {
+                        delLinesModeC(Wks);
+                    }
+
+                    if (strMode == "D")
+                    {
+                        delLinesModeD(Wks);
+                    }
+
+                }
+                else
+                {
+                    CommonExcelClasses.MsgBox("Cannot run in worksheet: InternalParameters", "Error");
                 }
 
-                if (strMode == "B")
-                {
-                    delLinesModeB(Wks);
-                }
 
-                if (strMode == "C")
+                #region [Display Complete Message]
+                if (boolDisplayCompleteMessage)
                 {
-                    delLinesModeC(Wks);
-                }
+                    strMessage = "";
+                    strMessage = strMessage + "Compare Complete ...";
 
-                if (strMode == "D")
-                {
-                    delLinesModeD(Wks);
-                }
+                    if (booltimeTaken)
+                    {
 
-            } else {
-                CommonExcelClasses.MsgBox("Cannot run in worksheet: InternalParameters", "Error");
+                        DateTime dteEnd = DateTime.Now;
+                        int milliSeconds = (int)((TimeSpan)(dteEnd - dteStart)).TotalMilliseconds;
+
+                        strMessage = strMessage + "that took {TotalMilliseconds} " + milliSeconds;
+
+                    }
+
+                    CommonExcelClasses.MsgBox(strMessage);          // localisation?
+                }
+                #endregion
+
             }
-
-            if (boolRecordTimes)
-            {
-                DateTime dteEnd = DateTime.Now;
-                int milliSeconds = (int)((TimeSpan)(dteEnd - dteStart)).TotalMilliseconds;
-
-                Wks.Range[strResultsCol + "2"].Value = dteEnd ;
-                Wks.Range[strResultsCol + "3"].Value = milliSeconds;
-            }
-
-
-            CommonExcelClasses.MsgBox("Finshed ...");
-
         }
+
+
 
 
         private void delLinesModeA(Excel.Worksheet Wks)
