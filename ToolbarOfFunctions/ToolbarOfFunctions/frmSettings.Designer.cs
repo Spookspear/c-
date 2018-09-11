@@ -76,6 +76,9 @@ namespace ToolbarOfFunctions
             this.label11 = new System.Windows.Forms.Label();
             this.chkTimeSheetGetRowNo = new System.Windows.Forms.CheckBox();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.numColNoForExtractedName = new System.Windows.Forms.NumericUpDown();
+            this.label15 = new System.Windows.Forms.Label();
+            this.chkExtractFileName = new System.Windows.Forms.CheckBox();
             this.label2 = new System.Windows.Forms.Label();
             this.cmboWhichDate = new System.Windows.Forms.ComboBox();
             this.chkTestCode = new System.Windows.Forms.CheckBox();
@@ -85,9 +88,8 @@ namespace ToolbarOfFunctions
             this.numHighlightRowsOver = new System.Windows.Forms.NumericUpDown();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
             this.btnApply = new System.Windows.Forms.Button();
-            this.chkExtractFileName = new System.Windows.Forms.CheckBox();
-            this.numColNoForExtractedName = new System.Windows.Forms.NumericUpDown();
-            this.label15 = new System.Windows.Forms.Label();
+            this.numZapSheetStartRow = new System.Windows.Forms.NumericUpDown();
+            this.label16 = new System.Windows.Forms.Label();
             groupBox6 = new System.Windows.Forms.GroupBox();
             groupBox6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numColPingWrite)).BeginInit();
@@ -103,9 +105,10 @@ namespace ToolbarOfFunctions
             this.groupBox5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numTimeSheetRowNo)).BeginInit();
             this.groupBox7.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numColNoForExtractedName)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numHighlightRowsOver)).BeginInit();
             this.groupBox8.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numColNoForExtractedName)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numZapSheetStartRow)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox6
@@ -694,6 +697,8 @@ namespace ToolbarOfFunctions
             // 
             // groupBox7
             // 
+            this.groupBox7.Controls.Add(this.numZapSheetStartRow);
+            this.groupBox7.Controls.Add(this.label16);
             this.groupBox7.Controls.Add(this.numColNoForExtractedName);
             this.groupBox7.Controls.Add(this.label15);
             this.groupBox7.Controls.Add(this.chkExtractFileName);
@@ -710,6 +715,43 @@ namespace ToolbarOfFunctions
             this.groupBox7.TabIndex = 50;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Misc";
+            // 
+            // numColNoForExtractedName
+            // 
+            this.numColNoForExtractedName.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.numColNoForExtractedName.Location = new System.Drawing.Point(178, 120);
+            this.numColNoForExtractedName.Name = "numColNoForExtractedName";
+            this.numColNoForExtractedName.Size = new System.Drawing.Size(52, 20);
+            this.numColNoForExtractedName.TabIndex = 55;
+            this.numColNoForExtractedName.Value = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Font = new System.Drawing.Font("Consolas", 8.25F);
+            this.label15.Location = new System.Drawing.Point(33, 122);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(139, 13);
+            this.label15.TabIndex = 54;
+            this.label15.Text = "Extracted Name Column:";
+            // 
+            // chkExtractFileName
+            // 
+            this.chkExtractFileName.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.chkExtractFileName.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.chkExtractFileName.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkExtractFileName.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.chkExtractFileName.Location = new System.Drawing.Point(12, 97);
+            this.chkExtractFileName.Name = "chkExtractFileName";
+            this.chkExtractFileName.Size = new System.Drawing.Size(186, 17);
+            this.chkExtractFileName.TabIndex = 53;
+            this.chkExtractFileName.Text = "Extract FileName from Path?";
+            this.chkExtractFileName.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.chkExtractFileName.UseVisualStyleBackColor = true;
             // 
             // label2
             // 
@@ -829,42 +871,28 @@ namespace ToolbarOfFunctions
             this.btnApply.UseVisualStyleBackColor = true;
             this.btnApply.Click += new System.EventHandler(this.btnApply_Click);
             // 
-            // chkExtractFileName
+            // numZapSheetStartRow
             // 
-            this.chkExtractFileName.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.chkExtractFileName.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.chkExtractFileName.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkExtractFileName.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.chkExtractFileName.Location = new System.Drawing.Point(12, 97);
-            this.chkExtractFileName.Name = "chkExtractFileName";
-            this.chkExtractFileName.Size = new System.Drawing.Size(186, 17);
-            this.chkExtractFileName.TabIndex = 53;
-            this.chkExtractFileName.Text = "Extract FileName from Path?";
-            this.chkExtractFileName.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.chkExtractFileName.UseVisualStyleBackColor = true;
-            // 
-            // numColNoForExtractedName
-            // 
-            this.numColNoForExtractedName.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.numColNoForExtractedName.Location = new System.Drawing.Point(178, 120);
-            this.numColNoForExtractedName.Name = "numColNoForExtractedName";
-            this.numColNoForExtractedName.Size = new System.Drawing.Size(52, 20);
-            this.numColNoForExtractedName.TabIndex = 55;
-            this.numColNoForExtractedName.Value = new decimal(new int[] {
-            5,
+            this.numZapSheetStartRow.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.numZapSheetStartRow.Location = new System.Drawing.Point(178, 150);
+            this.numZapSheetStartRow.Name = "numZapSheetStartRow";
+            this.numZapSheetStartRow.Size = new System.Drawing.Size(52, 20);
+            this.numZapSheetStartRow.TabIndex = 57;
+            this.numZapSheetStartRow.Value = new decimal(new int[] {
+            1,
             0,
             0,
             0});
             // 
-            // label15
+            // label16
             // 
-            this.label15.AutoSize = true;
-            this.label15.Font = new System.Drawing.Font("Consolas", 8.25F);
-            this.label15.Location = new System.Drawing.Point(33, 122);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(139, 13);
-            this.label15.TabIndex = 54;
-            this.label15.Text = "Extracted Name Column:";
+            this.label16.AutoSize = true;
+            this.label16.Font = new System.Drawing.Font("Consolas", 8.25F);
+            this.label16.Location = new System.Drawing.Point(45, 152);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(127, 13);
+            this.label16.TabIndex = 56;
+            this.label16.Text = "Zap Sheet Start Row:";
             // 
             // frmSettings
             // 
@@ -911,9 +939,10 @@ namespace ToolbarOfFunctions
             ((System.ComponentModel.ISupportInitialize)(this.numTimeSheetRowNo)).EndInit();
             this.groupBox7.ResumeLayout(false);
             this.groupBox7.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numColNoForExtractedName)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numHighlightRowsOver)).EndInit();
             this.groupBox8.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.numColNoForExtractedName)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numZapSheetStartRow)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -975,5 +1004,7 @@ namespace ToolbarOfFunctions
         public System.Windows.Forms.CheckBox chkExtractFileName;
         private System.Windows.Forms.NumericUpDown numColNoForExtractedName;
         private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.NumericUpDown numZapSheetStartRow;
+        private System.Windows.Forms.Label label16;
     }
 }

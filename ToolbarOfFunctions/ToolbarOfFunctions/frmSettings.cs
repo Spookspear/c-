@@ -129,6 +129,7 @@ namespace ToolbarOfFunctions
 
             numColNoForExtractedName.Value = myData.ColExtractedFile;
 
+            numZapSheetStartRow.Value = myData.ZapStartDefaultRow;
 
         }
 
@@ -183,6 +184,8 @@ namespace ToolbarOfFunctions
             myData.FileDateTime = cmboWhichDate.Text;
             myData.ExtractFileName = chkExtractFileName.Checked;
             myData.ColExtractedFile = numColNoForExtractedName.Value;
+
+            myData.ZapStartDefaultRow = numZapSheetStartRow.Value;
 
             InformationForSettingsForm.SaveData(myData);
 

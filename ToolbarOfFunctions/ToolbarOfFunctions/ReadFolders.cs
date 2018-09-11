@@ -77,7 +77,7 @@ namespace ToolbarOfFunctions
                     // zap the sheet before we start
                     CommonExcelClasses.zapWorksheet(Wks, 1);
 
-                    fileScan(cfbd.SelectedPath.ToString(), Wks, boolExtraDetails, strWhichDate, boolExtractFileName, intColNoForExtractedFile);
+                    fileScanToolBarOfFuncs(cfbd.SelectedPath.ToString(), Wks, boolExtraDetails, strWhichDate, boolExtractFileName, intColNoForExtractedFile);
 
                     writeHeaders(Wks, "FILES", boolExtraDetails, strWhichDate);
 
@@ -166,21 +166,21 @@ namespace ToolbarOfFunctions
         }
 
 
-        private static void fileScan(string strPath, Excel.Worksheet Wks, bool boolExtraDetails, string strWhichDate, bool boolExtractFileName, decimal intColNoForExtractedFile)
+        private static void fileScanToolBarOfFuncs(string strPath, Excel.Worksheet Wks, bool boolExtraDetails, string strWhichDate, bool boolExtractFileName, decimal intColNoForExtractedFile)
         {
             // see if this works first if it does then loop array
 
             string searchPattern = "*.*";
-            string[] arrFiles    = Directory.GetFiles(strPath, searchPattern, SearchOption.AllDirectories);
+            string[] arrFiles = Directory.GetFiles(strPath, searchPattern, SearchOption.AllDirectories);
 
             for (int i = arrFiles.GetLowerBound(0); i <= arrFiles.GetUpperBound(0); i++)
             {
                 // CommonExcelClasses.MsgBox(arrFiles[i]);
 
-                Wks.Cells[(i+2), 1].value = arrFiles[i].ToString();
+                Wks.Cells[(i + 2), 1].value = arrFiles[i].ToString();
 
                 if (boolExtraDetails)
-                    getExtraDetails(arrFiles[i], Wks, (i+2), strWhichDate, boolExtractFileName, intColNoForExtractedFile);
+                    getExtraDetails(arrFiles[i], Wks, (i + 2), strWhichDate, boolExtractFileName, intColNoForExtractedFile);
                 else
                 {
                     if (boolExtractFileName)
@@ -205,9 +205,9 @@ namespace ToolbarOfFunctions
             //     strFileName = Mid(strFileName, (InStr(1, strFileName, "\", vbTextCompare) + 1))
             // Wend
 
-            while (strRetVal.Contains(strSlash) )
+            while (strRetVal.Contains(strSlash))
             {
-                strRetVal = strRetVal.Substring( strRetVal.IndexOf( strSlash ) +1, (strRetVal.Length-strRetVal.IndexOf(strSlash)-1));
+                strRetVal = strRetVal.Substring(strRetVal.IndexOf(strSlash) + 1, (strRetVal.Length - strRetVal.IndexOf(strSlash) - 1));
             }
 
             return strRetVal;

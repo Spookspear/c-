@@ -13,23 +13,6 @@ using Microsoft.Office.Interop.Excel;
 using ToolbarOfFunctions_CommonClasses;
 using System.DirectoryServices.AccountManagement;
 
-// using System.Collections.Generic;
-// using System.Text;
-// using System.Xml.Linq;
-// using Office = Microsoft.Office.Core;
-// using Microsoft.Office.Tools.Excel;
-// using DaveChambers.FolderBrowserDialogEx;
-// using System.ComponentModel;
-// using System.Data;
-// using Microsoft.VisualStudio.Tools.Applications.Runtime;
-// using Microsoft.Office.Tools.Ribbon;
-// using ToolbarOfFunctions_MyConstants;
-// using System.Runtime.InteropServices;
-// using System.Data.SqlTypes;
-// using System.DirectoryServices;
-// using System.DirectoryServices.Protocols;
-// using System.DirectoryServices.ActiveDirectory;
-// using System.Security.Principal;
 
 namespace ToolbarOfFunctions
 {

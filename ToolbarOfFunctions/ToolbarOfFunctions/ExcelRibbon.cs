@@ -39,13 +39,16 @@ namespace ToolbarOfFunctions
         private void btnZap_Click(object sender, RibbonControlEventArgs e)
         {
             // Globals.ThisAddIn.zapWorksheet(Globals.ThisAddIn.Application.ActiveWorkbook.ActiveSheet);
-            CommonExcelClasses.zapWorksheet(Globals.ThisAddIn.Application.ActiveWorkbook.ActiveSheet);
+            Globals.ThisAddIn.zapWorksheetCaller(Globals.ThisAddIn.Application);
+
+
+
         }
 
         private void btnReadFolders_Click(object sender, RibbonControlEventArgs e)
         {
             Globals.ThisAddIn.readFolders(Globals.ThisAddIn.Application.ActiveWorkbook);
-        }       
+        }
 
         private void btnCompareSheets_Click(object sender, RibbonControlEventArgs e)
         {
@@ -87,7 +90,7 @@ namespace ToolbarOfFunctions
 
 
         private void btnDealWithManyDuplicates_Click(object sender, RibbonControlEventArgs e)
-        {           
+        {
 
             Globals.ThisAddIn.dealWithManyDuplicates(Globals.ThisAddIn.Application);
         }
@@ -134,7 +137,8 @@ namespace ToolbarOfFunctions
                 separator5.Visible = boolHideSeperator;
                 separator6.Visible = boolHideSeperator;
 
-                if (boolHideText) {
+                if (boolHideText)
+                {
                     CommonExcelClasses.ButtonUpdateLabel(btnSettings, "");
                     CommonExcelClasses.ButtonUpdateLabel(btnReadFolders, "");
                     CommonExcelClasses.ButtonUpdateLabel(btnCompareSheets, "");
@@ -154,7 +158,9 @@ namespace ToolbarOfFunctions
                     CommonExcelClasses.ButtonUpdateLabel(btnWriteTimeSheet, "");
                     CommonExcelClasses.ButtonUpdateLabel(btnPingServers, "");
 
-                } else {
+                }
+                else
+                {
 
                     CommonExcelClasses.ButtonUpdateLabel(btnSettings, "Settings");
                     CommonExcelClasses.ButtonUpdateLabel(btnReadFolders, "Read Folders");
@@ -186,7 +192,8 @@ namespace ToolbarOfFunctions
 
 
 
-        private void btnReadUsersGroupMembershipSheetName_Click(object sender, RibbonControlEventArgs e)         {
+        private void btnReadUsersGroupMembershipSheetName_Click(object sender, RibbonControlEventArgs e)
+        {
             // 1st button
             Globals.ThisAddIn.readUsersGroupMembershipIntoWorksheet(Globals.ThisAddIn.Application, "SheetName");
         }
@@ -196,27 +203,42 @@ namespace ToolbarOfFunctions
             Globals.ThisAddIn.pingServersIntoWorksheet(Globals.ThisAddIn.Application);
         }
 
-        private void btnReadUsersGroupMembershipActiveCell_Click(object sender, RibbonControlEventArgs e) {
+        private void btnReadUsersGroupMembershipActiveCell_Click(object sender, RibbonControlEventArgs e)
+        {
             // 2nd button
             Globals.ThisAddIn.readUsersGroupMembershipIntoWorksheet(Globals.ThisAddIn.Application, "ActiveCell");
         }
 
 
 
-        private void btnReadGroupUsersMembershipSheetName_Click(object sender, RibbonControlEventArgs e) {
+        private void btnReadGroupUsersMembershipSheetName_Click(object sender, RibbonControlEventArgs e)
+        {
             // 3rd button
             Globals.ThisAddIn.readGroupUsersMembershipIntoWorksheet(Globals.ThisAddIn.Application, "SheetName");
         }
 
 
-        private void btnReadGroupUsersMembershipActiveCell_Click(object sender, RibbonControlEventArgs e) {
+        private void btnReadGroupUsersMembershipActiveCell_Click(object sender, RibbonControlEventArgs e)
+        {
             // 4th button
             Globals.ThisAddIn.readGroupUsersMembershipIntoWorksheet(Globals.ThisAddIn.Application, "ActiveCell");
         }
 
         private void btnTestCode_Click(object sender, RibbonControlEventArgs e)
         {
-            Globals.ThisAddIn.testThreads(Globals.ThisAddIn.Application);
+            // Globals.ThisAddIn.testThreads(Globals.ThisAddIn.Application);
+
+            Globals.ThisAddIn.StartOfRiggingProcess(Globals.ThisAddIn.Application);
+
+
+            // Start of rigging
+            // need to read a folder of excel files
+            // into a database
+            // but only once
+            // and if updated
+
+
+
         }
 
     }

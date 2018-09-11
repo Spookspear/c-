@@ -8,10 +8,9 @@ using System.Xml.Linq;
 using Excel = Microsoft.Office.Interop.Excel;
 using Office = Microsoft.Office.Core;
 
-using System.Windows.Forms;
+using System.Windows.Forms;                 // for ok prompt
 using Microsoft.Office.Tools.Excel;
 using Microsoft.Office.Interop.Excel;
-
 
 using System.Drawing;       // for colours
 
@@ -450,6 +449,24 @@ namespace ToolbarOfFunctions
             }
         }
 
+        
+        internal void zapWorksheetCaller(Excel.Application xls)
+        {
+            // this routine will read the start row number from settings
+            #region [Declare and instantiate variables for process]
+            myData = myData.LoadMyData();               // read data from settings file
+
+
+            int intZapStartDefaultRow = ((int)myData.ZapStartDefaultRow + 1);
+
+            #endregion
+
+
+            CommonExcelClasses.zapWorksheet(Globals.ThisAddIn.Application.ActiveWorkbook.ActiveSheet, intZapStartDefaultRow);
+
+
+        }
+
         // left here - 1gvb9
         internal void compareSheets(Excel.Application xls)
         {
@@ -568,7 +585,7 @@ namespace ToolbarOfFunctions
                                 }
 
                             }
-
+                            
                             // Score system = if all the same then can blue it
                             if (intColScore == intLastCol)
                                 CommonExcelClasses.colourCells(Wks1, intSourceRow, strCompareOrColour, intLastCol, clrColourFore_Found, clrColourBack_Found, boolTestCode);

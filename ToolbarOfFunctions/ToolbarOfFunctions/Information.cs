@@ -80,6 +80,8 @@ namespace ToolbarOfFunctions
 
         public decimal ColExtractedFile { get; set; }
 
+        public decimal ZapStartDefaultRow { get; set; }
+
         public static void SaveData(object obj)
         {
             try
