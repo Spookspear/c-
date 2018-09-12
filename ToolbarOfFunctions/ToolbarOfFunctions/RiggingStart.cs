@@ -1,10 +1,13 @@
-﻿using System;
+﻿#pragma warning disable IDE1006 // Naming Styles
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;            // for Directory function
 using System.Windows.Forms;                 // for ok prompt
+using System.Diagnostics;   // .FileVersionInfo
 
 using Excel = Microsoft.Office.Interop.Excel;
 using Microsoft.Office.Interop.Excel;
@@ -33,6 +36,9 @@ namespace ToolbarOfFunctions
         ///     write data to a SQL database
         ///     Read documents from sharepoint / Documentset
         /// </summary>
+        /// 
+        public const string GC_DELIVERY_DETAILS = "Delivery Details:";
+
 
         public void StartOfRiggingProcess(Excel.Application xls)
         {
@@ -58,7 +64,8 @@ namespace ToolbarOfFunctions
             string[] arrFiles = Directory.GetFiles(strPath, searchPattern, SearchOption.TopDirectoryOnly);
 
             // pass this into its own procedure, getting the line number back?
-            string[] arrAddresses = { "A6", "B6", "C6", "E6", "A8", "B8", "C8", "E8" };     // will eventually read this from somewhere
+            // string[] arrAddresses = { "A6", "B6", "C6", "E6", "A8", "B8", "C8", "E8" };     // will eventually read this from somewhere
+            string[] arrAddresses;
 
             #endregion
 
@@ -86,6 +93,7 @@ namespace ToolbarOfFunctions
             #region [Start of work]
             if (dlgResult == DialogResult.Yes)
             {
+
                 DateTime dteStart = DateTime.Now;
                 // open up each sheet - 1st
                 // will move to own sub later
@@ -98,18 +106,32 @@ namespace ToolbarOfFunctions
                     var oXL = new Microsoft.Office.Interop.Excel.Application
                     {
                         Visible = false      // change to false on live
+                        
                     };
 
-                    WksMaster.Cells[(intRowCount + 3), 1].value = arrFiles[intRowCount].ToString();
+                    // chnaged these 2 to Value from value
+                    WksMaster.Cells[(intRowCount + 3), 1].Value = arrFiles[intRowCount].ToString();
+                    WksMaster.Cells[(intRowCount + 3), 2].Value = getFileDate(arrFiles[intRowCount].ToString());
 
-                    Workbook WkbNew = oXL.Workbooks.Open(arrFiles[intRowCount].ToString(), ReadOnly: true);
+                    Workbook WkbToScan = oXL.Workbooks.Open(arrFiles[intRowCount].ToString(), ReadOnly: true);
 
-                    ReadRiggingHeaderIntoWorkbook(WksMaster, WkbNew, intRowCount, arrAddresses);        // Read each workbook
-                    ReadRiggingLinesIntoWorkbook(WksMaster, WkbNew, intRowCount, arrAddresses);         // Read each line
+                    // ReadRiggingHeaderIntoWorkbook(WksMaster, WkbToScan, intRowCount, arrAddresses);          // Read each Header
+
+                    // string[] arrAddresses = { "A6", "B6", "C6", "E6", "A8", "B8", "C8", "E8" };              // will eventually read this from somewhere
+                    arrAddresses = populateAddressHeader();
+                    processAddressloop(WksMaster, WkbToScan, intRowCount, arrAddresses, 3, 3);
+
+                    arrAddresses = prepareParseAddressArrayFooter(WksMaster, WkbToScan, intRowCount);            // Read each Footer
+                    processAddressloop(WksMaster, WkbToScan, intRowCount, arrAddresses, 3, 18);
+
+                    // ReadRiggingLinesIntoWorkbook(WksMaster, WkbToScan, intRowCount, arrAddresses);           // Read each line
 
 
-                    WkbNew.Close(false);
-                    Marshal.FinalReleaseComObject(WkbNew);
+                    // actually need to read it into array
+
+
+                    WkbToScan.Close(false);
+                    Marshal.FinalReleaseComObject(WkbToScan);
 
                 }
                 WksMaster.Columns.AutoFit();
@@ -140,17 +162,79 @@ namespace ToolbarOfFunctions
             
         }
 
-        private void ReadRiggingLinesIntoWorkbook(Excel.Worksheet wksMaster, Workbook wkbNew, int intRowCount, string[] arrAddresses)
+        private string getFileDate(string strFileName)
+        {
+            FileInfo oFileInfo = new FileInfo(strFileName);
+            FileVersionInfo oFileVersionInfo = FileVersionInfo.GetVersionInfo(strFileName);
+
+            return oFileInfo.LastWriteTime.ToString();
+
+        }
+
+        private string[] populateAddressHeader()
+        {
+            string[] arrAddresses = { "A6", "B6", "C6", "E6", "A8", "B8", "C8", "E8" };     // will eventually read this from somewhere
+            return arrAddresses;
+
+
+        }
+
+        private void processAddressloop(Excel.Worksheet wksMaster, Workbook wkbToScan, int intRowCount, string[] arrAddresses, int intOffSetRow, int intOffSetCol)
+        {
+            Excel.Worksheet WksNew = wkbToScan.Worksheets["RR05"];
+            string strAddress = "";
+
+            for (int intaddresses = arrAddresses.GetLowerBound(0); intaddresses <= arrAddresses.GetUpperBound(0); intaddresses++)
+            {
+                // need to handle null cells
+                strAddress = arrAddresses[intaddresses];
+
+                // create a routine that handles nulls and passes back values
+
+                if (!CommonExcelClasses.isEmptyCell(WksNew.get_Range(strAddress)))
+                    wksMaster.Cells[(intRowCount + intOffSetRow), (intOffSetCol + intaddresses)].value = WksNew.get_Range(strAddress);
+
+            }
+
+        }
+
+
+
+        private string[] prepareParseAddressArrayFooter(Excel.Worksheet wksMaster, Workbook wkbToScan, int intRowCount)
+        {
+            int intDAdrRw;
+
+            Excel.Worksheet WksNew = wkbToScan.Worksheets["RR05"];
+
+            intDAdrRw = CommonExcelClasses.searchForValue(WksNew, GC_DELIVERY_DETAILS, 1);
+
+            string[] arrFooterAddr = { "B" + intDAdrRw.ToString() ,           // Bx           Delivery Details       B30
+                                       "B" + (intDAdrRw +2).ToString() ,      // Bx+2         Remarks                B32
+                                       "A" + (intDAdrRw +5).ToString() ,      // Ax+5         ATR WO NO              A35
+                                       "B" + (intDAdrRw +5).ToString() ,      // Bx+5         Vendor                 B35
+                                       "D" + (intDAdrRw +5).ToString()  };    // Dx+5         PO Number              D35
+
+
+            return arrFooterAddr;
+
+            // close and free the memory
+            // Marshal.FinalReleaseComObject(WksNew);
+
+
+        }
+
+
+        private void readRiggingLinesIntoWorkbook(Excel.Worksheet wksMaster, Workbook wkbToScan, int intRowCount, string[] arrAddresses)
         {
 
 
         }
 
-        private void ReadRiggingHeaderIntoWorkbook(Excel.Worksheet wksMaster, Workbook wkbNew, int intRowCount, string[] arrAddresses)
+        private void readRiggingHeaderIntoWorkbook(Excel.Worksheet wksMaster, Workbook wkbToScan, int intRowCount, string[] arrAddresses)
         {
 
             // instantiate the needed sheet
-            Excel.Worksheet WksNew = wkbNew.Worksheets["RR05"];
+            Excel.Worksheet WksNew = wkbToScan.Worksheets["RR05"];
 
             // read cells into worksheet / read in relevant data 
 
@@ -171,9 +255,6 @@ namespace ToolbarOfFunctions
             Marshal.FinalReleaseComObject(WksNew);
 
 
-
-
-
         }
 
         /*
@@ -185,7 +266,7 @@ namespace ToolbarOfFunctions
             return xlCell.ToString();
         } */
 
-        private static void FileScanIntoExcel(string strPath, Excel.Worksheet Wks, bool boolExtraDetails, string strWhichDate, bool boolExtractFileName, decimal intColNoForExtractedFile)
+        private static void fileScanIntoExcel(string strPath, Excel.Worksheet Wks, bool boolExtraDetails, string strWhichDate, bool boolExtractFileName, decimal intColNoForExtractedFile)
         {
             // see if this works first if it does then loop array
             string searchPattern = "*.*";
