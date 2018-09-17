@@ -581,5 +581,19 @@ namespace ToolbarOfFunctions_CommonClasses
 
         }
 
+
+
+        public static DateTime getFileDate(string strFileName)
+        {
+            FileInfo oFileInfo = new FileInfo(strFileName);
+            FileVersionInfo oFileVersionInfo = FileVersionInfo.GetVersionInfo(strFileName);
+
+            return oFileInfo.LastWriteTime;
+
+        }
+
     }
+
+
+
 }

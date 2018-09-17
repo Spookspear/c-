@@ -76,6 +76,8 @@ namespace ToolbarOfFunctions
             this.label11 = new System.Windows.Forms.Label();
             this.chkTimeSheetGetRowNo = new System.Windows.Forms.CheckBox();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.numZapSheetStartRow = new System.Windows.Forms.NumericUpDown();
+            this.label16 = new System.Windows.Forms.Label();
             this.numColNoForExtractedName = new System.Windows.Forms.NumericUpDown();
             this.label15 = new System.Windows.Forms.Label();
             this.chkExtractFileName = new System.Windows.Forms.CheckBox();
@@ -88,8 +90,7 @@ namespace ToolbarOfFunctions
             this.numHighlightRowsOver = new System.Windows.Forms.NumericUpDown();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
             this.btnApply = new System.Windows.Forms.Button();
-            this.numZapSheetStartRow = new System.Windows.Forms.NumericUpDown();
-            this.label16 = new System.Windows.Forms.Label();
+            this.btnTestCode = new System.Windows.Forms.Button();
             groupBox6 = new System.Windows.Forms.GroupBox();
             groupBox6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numColPingWrite)).BeginInit();
@@ -105,10 +106,10 @@ namespace ToolbarOfFunctions
             this.groupBox5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numTimeSheetRowNo)).BeginInit();
             this.groupBox7.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numZapSheetStartRow)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numColNoForExtractedName)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numHighlightRowsOver)).BeginInit();
             this.groupBox8.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numZapSheetStartRow)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox6
@@ -716,6 +717,29 @@ namespace ToolbarOfFunctions
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Misc";
             // 
+            // numZapSheetStartRow
+            // 
+            this.numZapSheetStartRow.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.numZapSheetStartRow.Location = new System.Drawing.Point(178, 150);
+            this.numZapSheetStartRow.Name = "numZapSheetStartRow";
+            this.numZapSheetStartRow.Size = new System.Drawing.Size(52, 20);
+            this.numZapSheetStartRow.TabIndex = 57;
+            this.numZapSheetStartRow.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Font = new System.Drawing.Font("Consolas", 8.25F);
+            this.label16.Location = new System.Drawing.Point(45, 152);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(127, 13);
+            this.label16.TabIndex = 56;
+            this.label16.Text = "Zap Sheet Start Row:";
+            // 
             // numColNoForExtractedName
             // 
             this.numColNoForExtractedName.BackColor = System.Drawing.SystemColors.InactiveCaption;
@@ -850,6 +874,7 @@ namespace ToolbarOfFunctions
             // 
             // groupBox8
             // 
+            this.groupBox8.Controls.Add(this.btnTestCode);
             this.groupBox8.Controls.Add(this.btnApply);
             this.groupBox8.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.groupBox8.Location = new System.Drawing.Point(0, 678);
@@ -871,28 +896,16 @@ namespace ToolbarOfFunctions
             this.btnApply.UseVisualStyleBackColor = true;
             this.btnApply.Click += new System.EventHandler(this.btnApply_Click);
             // 
-            // numZapSheetStartRow
+            // btnTestCode
             // 
-            this.numZapSheetStartRow.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.numZapSheetStartRow.Location = new System.Drawing.Point(178, 150);
-            this.numZapSheetStartRow.Name = "numZapSheetStartRow";
-            this.numZapSheetStartRow.Size = new System.Drawing.Size(52, 20);
-            this.numZapSheetStartRow.TabIndex = 57;
-            this.numZapSheetStartRow.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Font = new System.Drawing.Font("Consolas", 8.25F);
-            this.label16.Location = new System.Drawing.Point(45, 152);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(127, 13);
-            this.label16.TabIndex = 56;
-            this.label16.Text = "Zap Sheet Start Row:";
+            this.btnTestCode.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.btnTestCode.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.btnTestCode.Location = new System.Drawing.Point(204, 19);
+            this.btnTestCode.Name = "btnTestCode";
+            this.btnTestCode.Size = new System.Drawing.Size(100, 23);
+            this.btnTestCode.TabIndex = 40;
+            this.btnTestCode.Text = "&Test Code";
+            this.btnTestCode.UseVisualStyleBackColor = true;
             // 
             // frmSettings
             // 
@@ -939,10 +952,10 @@ namespace ToolbarOfFunctions
             ((System.ComponentModel.ISupportInitialize)(this.numTimeSheetRowNo)).EndInit();
             this.groupBox7.ResumeLayout(false);
             this.groupBox7.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numZapSheetStartRow)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numColNoForExtractedName)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numHighlightRowsOver)).EndInit();
             this.groupBox8.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.numZapSheetStartRow)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1006,5 +1019,6 @@ namespace ToolbarOfFunctions
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.NumericUpDown numZapSheetStartRow;
         private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Button btnTestCode;
     }
 }

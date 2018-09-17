@@ -193,13 +193,16 @@
       <DependentUpon>frmSettings.cs</DependentUpon>
     </Compile>
     <Compile Include="Information.cs" />
+    <Compile Include="OneToMany.cs" />
     <Compile Include="pingServers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="readActiveDirectory.cs" />
     <Compile Include="ReadFolders.cs" />
+    <Compile Include="RiggingDS.cs" />
     <Compile Include="RiggingStart.cs" />
+    <Compile Include="TestClass.cs" />
     <Compile Include="Threads.cs" />
     <Compile Include="Win32.cs" />
     <EmbeddedResource Include="frmSettings.resx">
