@@ -18,6 +18,7 @@ using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ToolbarOfFunctions
 {
@@ -41,11 +42,12 @@ namespace ToolbarOfFunctions
         // and if updated
 
         public const string GC_DELIVERY_DETAILS = "Delivery Details:";
+        public const string GC_ADDITIONAL_ITEMS = "Additional Items (Free Text)";
+
 
 
         public void StartOfRiggingProcess(Excel.Application xls)
         {
-
             #region [Declare and instantiate variables for process]
             myData = myData.LoadMyData();
             bool boolDisplayInitialMessage = myData.ProduceInitialMessageBox;
@@ -92,7 +94,7 @@ namespace ToolbarOfFunctions
 
                 DateTime dteStart = DateTime.Now;
 
-                int intLastRow = CommonExcelClasses.getLastRow(WksMaster);
+                int intLastRow = CommonExcelClasses.getLastRow(WksMaster) + 1;
                 int intNoOfFiles = arrFiles.GetUpperBound(0);
                 int intObjTotal = (intNoOfFiles+1);
 
@@ -102,7 +104,7 @@ namespace ToolbarOfFunctions
 
                 for (int intFileNo = arrFiles.GetLowerBound(0); intFileNo <= arrFiles.GetUpperBound(0); intFileNo++)
                 {
-                    processHeaderAndLinesIntoList(arrFiles[intFileNo].ToString(), intFileNo, lstRiggingHeaderDS, lstRiggingLinesDS);
+                    processHeaderAndLinesIntoList(arrFiles[intFileNo].ToString(), lstRiggingHeaderDS, lstRiggingLinesDS);
 
                 }
 
@@ -135,67 +137,7 @@ namespace ToolbarOfFunctions
         }
 
 
-        private void populateWorksheetFromHeaderAndLinesLists(Worksheet wksMaster, List<RiggingHeaderDS> lstRiggingHeaderDS, int iRow)
-        {
-            // int iRow = 3;
-            int iCol = 1;
-
-            foreach (RiggingHeaderDS h in lstRiggingHeaderDS)
-            {
-
-                wksMaster.Cells[iRow, iCol].value = h.FileName;
-                iCol++;
-                wksMaster.Cells[iRow, iCol].value = h.FileDate;
-                iCol++;
-
-                wksMaster.Cells[iRow, iCol].value = h.ContactPerson;
-                iCol++;
-                wksMaster.Cells[iRow, iCol].value = h.BudgetHolder;
-                iCol++;
-                wksMaster.Cells[iRow, iCol].value = h.VesselLocation;
-                iCol++;
-                wksMaster.Cells[iRow, iCol].value = h.ProjectDepartment;
-                iCol++;
-                wksMaster.Cells[iRow, iCol].value = h.DateRequested;
-                iCol++;
-                wksMaster.Cells[iRow, iCol].value = h.DateRequired;
-                iCol++;
-                wksMaster.Cells[iRow, iCol].value = h.ProjectDuration;
-                iCol++;
-                wksMaster.Cells[iRow, iCol].value = h.SAPCostCode;
-
-                foreach (RiggingLinesDS l in h.lstRiggingLines)
-                {
-                    wksMaster.Cells[iRow, iCol].value = l.HighLevelDesc;
-                    iCol++;
-                    wksMaster.Cells[iRow, iCol].value = l.LowLevelDesc;
-                    iCol++;
-                    wksMaster.Cells[iRow, iCol].value = l.Quantity;
-                    iCol++;
-                    wksMaster.Cells[iRow, iCol].value = l.ItemValue;
-                    iCol++;
-                    wksMaster.Cells[iRow, iCol].value = l.TotalValue;
-                    iCol++;
-                    wksMaster.Cells[iRow, iCol].value = l.TestProcedure;
-                    iCol++;
-                    wksMaster.Cells[iRow, iCol].value = l.GetTotalValue();
-
-                    iRow++;
-                    iCol = 11;
-
-                }
-
-                iRow++;
-                iCol = 1;
-
-            }
-
-        }
-
-
-
-
-        private void processHeaderAndLinesIntoList(string strFileName, int intFileNo, List<RiggingHeaderDS> lstRiggingHeaderDS, List<RiggingLinesDS> lstRiggingLinesDS)
+        private void processHeaderAndLinesIntoList(string strFileName, List<RiggingHeaderDS> lstRiggingHeaderDS, List<RiggingLinesDS> lstRiggingLinesDS)
         {
 
             #region [workbook Stuff]
@@ -211,66 +153,274 @@ namespace ToolbarOfFunctions
 
             Excel.Worksheet WksNew = WkbToScan.Worksheets["RR05"];
             int intDAdrRw = CommonExcelClasses.searchForValue(WksNew, GC_DELIVERY_DETAILS, 1);
-            int intLineStart = 10;
-            //  Number of lines is addresses of: bottom = ((Delivery Details) - 2 := (28 - 9?) := 19
-            int intNoLines = ((intDAdrRw - 2) - (intLineStart - 1));
+            int intLineRowStart = 10;
+            
+            int intNoLines = ((intDAdrRw - 2) - (intLineRowStart - 1));                     //  Number of lines is addresses of: bottom = ((Delivery Details) - 2 := (28 - 9?) := 19
 
             string[] arrAddrHead = populateAddressHeader();
-            string[] arrAddrFoot = prepareParseAddressArrayFooter(intDAdrRw);            // Read each Footer
+            string[] arrAddrFoot = prepareParseAddressArrayFooter(intDAdrRw);               // Read each Footer
 
-            string strRange = "";
-            int intLRow;
+            int intLRow = 0;
             #endregion
 
-            RiggingHeaderDS clsRiggingHeader = new RiggingHeaderDS();
-            RiggingLinesDS clsRiggingLines = new RiggingLinesDS();
+            #region [Header]
 
-            clsRiggingHeader.FileName = strFileName;
-            clsRiggingHeader.FileDate = CommonExcelClasses.getFileDate(strFileName.ToString());
-            clsRiggingHeader.ContactPerson = getExcelValue(WksNew, arrAddrHead[0]);
-            clsRiggingHeader.BudgetHolder = getExcelValue(WksNew, arrAddrHead[1]);
-            clsRiggingHeader.VesselLocation = getExcelValue(WksNew, arrAddrHead[2]);
-            clsRiggingHeader.ProjectDepartment = getExcelValue(WksNew, arrAddrHead[3]);
-            clsRiggingHeader.DateRequested = getExcelValue(WksNew, arrAddrHead[4]);
-            clsRiggingHeader.DateRequired = getExcelValue(WksNew, arrAddrHead[5]);
-            clsRiggingHeader.ProjectDuration = getExcelValue(WksNew, arrAddrHead[6]);
-            clsRiggingHeader.SAPCostCode = getExcelValue(WksNew, arrAddrHead[7]);
-            clsRiggingHeader.DeliveryDetails = getExcelValue(WksNew, arrAddrFoot[0]);
-            clsRiggingHeader.Remarks = getExcelValue(WksNew, arrAddrFoot[1]);
-            clsRiggingHeader.ATRWONO = getExcelValue(WksNew, arrAddrFoot[2]);
-            clsRiggingHeader.Vendor = getExcelValue(WksNew, arrAddrFoot[3]);
-            clsRiggingHeader.PONumber = getExcelValue(WksNew, arrAddrFoot[4]);
+            // add a gui to link the header and lines
 
+            RiggingHeaderDS clsRiggingHeader; 
+            RiggingLinesDS clsRiggingLines;
+
+            clsRiggingHeader = new RiggingHeaderDS
+            {
+                FileName = strFileName,
+                FileDate = CommonExcelClasses.getFileDate(strFileName.ToString()),
+                ContactPerson = getExcelValue(WksNew, arrAddrHead[0]),
+                BudgetHolder = getExcelValue(WksNew, arrAddrHead[1]),
+                VesselLocation = getExcelValue(WksNew, arrAddrHead[2]),
+                ProjectDepartment = getExcelValue(WksNew, arrAddrHead[3]),
+                DateRequested = getExcelValue(WksNew, arrAddrHead[4]),
+                DateRequired = getExcelValue(WksNew, arrAddrHead[5]),
+                ProjectDuration = getExcelValue(WksNew, arrAddrHead[6]),
+                SAPCostCode = getExcelValue(WksNew, arrAddrHead[7]),
+                DeliveryDetails = getExcelValue(WksNew, arrAddrFoot[0]),
+                Remarks = getExcelValue(WksNew, arrAddrFoot[1]),
+                ATRWONO = getExcelValue(WksNew, arrAddrFoot[2]),
+                Vendor = getExcelValue(WksNew, arrAddrFoot[3]),
+                PONumber = getExcelValue(WksNew, arrAddrFoot[4]),
+                LinkToLines = new Guid()
+
+            };
+
+            #endregion
+
+            #region [Line Items]
             lstRiggingLinesDS = new List<RiggingLinesDS>();
 
-            for (int index = 0; index <= intNoLines; index++)
+            // Line Indicator (Main or Additional) line items
+            string strLineMainOrAdditional;
+            strLineMainOrAdditional = "H";
+
+            for (int index = 0; index < intNoLines; index++)
             {
+                intLRow = (index + intLineRowStart);
 
-                intLRow = (index + intLineStart);
-                strRange = "A" + intLRow.ToString();
+                string strCheckRange = "A" + intLRow.ToString() + ":C" + intLRow.ToString();
+                string[] arrAddrLines = populateAddressLines(intLRow);
 
-                clsRiggingLines.HighLevelDesc = getExcelValue(WksNew, strRange);
+                if (!CommonExcelClasses.checkEmptyRange(WksNew, strCheckRange))
+                {
+                    if (getExcelValue(WksNew, arrAddrLines[0]) == GC_ADDITIONAL_ITEMS)
+                    {
+                        strLineMainOrAdditional = "A";
+                        // SwitchMainOrAdditional
+                        // clsRiggingLines.SwitchMainOrAdditional();
+                    }
+                    else
+                    {
+                        clsRiggingLines = new RiggingLinesDS
+                        {
+                            HighLevelDesc = getExcelValue(WksNew, arrAddrLines[0]),
+                            LowLevelDesc = getExcelValue(WksNew, arrAddrLines[1]),
+                            Quantity = getExcelValue(WksNew, arrAddrLines[2]),
+                            ItemValue = getExcelValue(WksNew, arrAddrLines[3]),
+                            TotalValue = getExcelValue(WksNew, arrAddrLines[4]),
+                            TestProcedure = getExcelValue(WksNew, arrAddrLines[5]),
+                            LineOrAdditional = strLineMainOrAdditional,
+                            LinkToHeader = clsRiggingHeader.LinkToLines
+                        };
 
-                strRange = "B" + intLRow.ToString();
-                clsRiggingLines.LowLevelDesc = getExcelValue(WksNew, strRange);
+                        lstRiggingLinesDS.Add(clsRiggingLines);
+                    }
 
-                strRange = "C" + intLRow.ToString();
-                clsRiggingLines.Quantity = getExcelValue(WksNew, strRange);
-
-                strRange = "D" + intLRow.ToString();
-                clsRiggingLines.ItemValue = getExcelValue(WksNew, strRange);
-
-                lstRiggingLinesDS.Add(clsRiggingLines);
-
-                clsRiggingHeader.lstRiggingLines = lstRiggingLinesDS;
-                lstRiggingHeaderDS.Add(clsRiggingHeader);
+                }
 
             }
+            #endregion
+
+            #region [Assign Lines to Header]
+            clsRiggingHeader.lstRiggingLines = lstRiggingLinesDS;
+            lstRiggingHeaderDS.Add(clsRiggingHeader);
+            #endregion
+
+            #region [close the worksheet / workbook]
+            Marshal.FinalReleaseComObject(WksNew);
+            WkbToScan.Close(false);
+            Marshal.FinalReleaseComObject(WkbToScan);
+            #endregion
 
 
         }
 
 
+        private void populateWorksheetFromHeaderAndLinesLists(Worksheet wksMaster, List<RiggingHeaderDS> lstRiggingHeaderDS, int iRow)
+        {
+            foreach (RiggingHeaderDS h in lstRiggingHeaderDS)
+            {
+                #region [Line Items]
+                // int iCol = 11;
+
+                // writeOutRiggingHeader(wksMaster, h, iRow);
+
+
+                foreach (RiggingLinesDS l in h.lstRiggingLines)
+                {
+                    writeOutRiggingHeader(wksMaster, h, iRow);
+                    writeOutRiggingLines(wksMaster, l, iRow);
+
+                    iRow++;
+                    // iCol = 11;
+
+                }
+
+                // iRow++;
+                #endregion
+
+                // iCol = 1;
+
+            }
+
+        }
+
+        private void writeOutRiggingLines(Worksheet wksMaster, RiggingLinesDS l, int iRow)
+        {
+            int iCol = 11;
+
+            wksMaster.Cells[iRow, iCol].value = l.HighLevelDesc;
+            iCol++;
+            wksMaster.Cells[iRow, iCol].value = l.LowLevelDesc;
+            iCol++;
+            wksMaster.Cells[iRow, iCol].value = l.Quantity;
+            iCol++;
+            wksMaster.Cells[iRow, iCol].value = l.ItemValue;
+            iCol++;
+            wksMaster.Cells[iRow, iCol].value = l.TotalValue;
+            iCol++;
+            wksMaster.Cells[iRow, iCol].value = l.TestProcedure;
+            iCol++;
+            wksMaster.Cells[iRow, iCol].value = l.LineOrAdditional;
+
+            iRow++;
+            iCol = 11;
+        }
+
+        private void writeOutRiggingHeader(Worksheet wksMaster, RiggingHeaderDS h, int iRow)
+        {
+
+            int iCol = 1;
+
+            #region [Header]
+            wksMaster.Cells[iRow, iCol].value = h.FileName;
+            iCol++;
+            wksMaster.Cells[iRow, iCol].value = h.FileDate;
+            iCol++;
+            wksMaster.Cells[iRow, iCol].value = h.ContactPerson;
+            iCol++;
+            wksMaster.Cells[iRow, iCol].value = h.BudgetHolder;
+            iCol++;
+            wksMaster.Cells[iRow, iCol].value = h.VesselLocation;
+            iCol++;
+            wksMaster.Cells[iRow, iCol].value = h.ProjectDepartment;
+            iCol++;
+            wksMaster.Cells[iRow, iCol].value = h.DateRequested;
+            iCol++;
+            wksMaster.Cells[iRow, iCol].value = h.DateRequired;
+            iCol++;
+            wksMaster.Cells[iRow, iCol].value = h.ProjectDuration;
+            iCol++;
+            wksMaster.Cells[iRow, iCol].value = h.SAPCostCode;
+            #endregion
+
+            #region [Footer]
+            iCol = 18;
+            wksMaster.Cells[iRow, iCol].value = h.DeliveryDetails;
+            iCol++;
+            wksMaster.Cells[iRow, iCol].value = h.Remarks;
+            iCol++;
+            wksMaster.Cells[iRow, iCol].value = h.ATRWONO;
+            iCol++;
+            wksMaster.Cells[iRow, iCol].value = h.Vendor;
+            iCol++;
+            wksMaster.Cells[iRow, iCol].value = h.PONumber;
+
+            #endregion
+
+        }
+
+        private void populateWorksheetFromHeaderAndLinesListsWorking(Worksheet wksMaster, List<RiggingHeaderDS> lstRiggingHeaderDS, int iRow)
+        {
+            int iCol = 1;
+
+            foreach (RiggingHeaderDS h in lstRiggingHeaderDS)
+            {
+
+                #region [Header]
+                wksMaster.Cells[iRow, iCol].value = h.FileName;
+                iCol++;
+                wksMaster.Cells[iRow, iCol].value = h.FileDate;
+                iCol++;
+                wksMaster.Cells[iRow, iCol].value = h.ContactPerson;
+                iCol++;
+                wksMaster.Cells[iRow, iCol].value = h.BudgetHolder;
+                iCol++;
+                wksMaster.Cells[iRow, iCol].value = h.VesselLocation;
+                iCol++;
+                wksMaster.Cells[iRow, iCol].value = h.ProjectDepartment;
+                iCol++;
+                wksMaster.Cells[iRow, iCol].value = h.DateRequested;
+                iCol++;
+                wksMaster.Cells[iRow, iCol].value = h.DateRequired;
+                iCol++;
+                wksMaster.Cells[iRow, iCol].value = h.ProjectDuration;
+                iCol++;
+                wksMaster.Cells[iRow, iCol].value = h.SAPCostCode;
+                #endregion
+
+                #region [Footer]
+                iCol = 18;
+                wksMaster.Cells[iRow, iCol].value = h.DeliveryDetails;
+                iCol++;
+                wksMaster.Cells[iRow, iCol].value = h.Remarks;
+                iCol++;
+                wksMaster.Cells[iRow, iCol].value = h.ATRWONO;
+                iCol++;
+                wksMaster.Cells[iRow, iCol].value = h.Vendor;
+                iCol++;
+                wksMaster.Cells[iRow, iCol].value = h.PONumber;
+
+                #endregion
+
+                #region [Line Items]
+                iCol = 11;
+
+                foreach (RiggingLinesDS l in h.lstRiggingLines)
+                {
+                    wksMaster.Cells[iRow, iCol].value = l.HighLevelDesc;
+                    iCol++;
+                    wksMaster.Cells[iRow, iCol].value = l.LowLevelDesc;
+                    iCol++;
+                    wksMaster.Cells[iRow, iCol].value = l.Quantity;
+                    iCol++;
+                    wksMaster.Cells[iRow, iCol].value = l.ItemValue;
+                    iCol++;
+                    wksMaster.Cells[iRow, iCol].value = l.TotalValue;
+                    iCol++;
+                    wksMaster.Cells[iRow, iCol].value = l.TestProcedure;
+                    iCol++;
+                    wksMaster.Cells[iRow, iCol].value = l.LineOrAdditional;
+
+                    iRow++;
+                    iCol = 11;
+
+                }
+
+                // iRow++;
+                #endregion
+
+                iCol = 1;
+
+            }
+
+        }
 
 
 
@@ -291,6 +441,26 @@ namespace ToolbarOfFunctions
 
         }
 
+
+
+        private string[] populateAddressLines(int intLRow)
+        {
+
+            string[] arrAddrLines = { "A" + intLRow.ToString(),         // Ax   High Level Description      A10
+                                      "B" + intLRow.ToString() ,        // Bx   Low Level Description       B10
+                                      "C" + intLRow.ToString() ,        // Cx   Quantity                    C10
+                                      "D" + intLRow.ToString() ,        // Dx   Item Value                  D10
+                                      "E" + intLRow.ToString(),         // Ex   Total Value                 E10      
+                                      "F" + intLRow.ToString(),         // Fx   Test Procedure/Legislation  E10      
+                                    };
+
+
+            return arrAddrLines;
+
+
+        }
+
+
         private string[] populateAddressHeader()
         {
             string[] arrAddresses = { "A6", "B6", "C6", "E6", "A8", "B8", "C8", "E8" };     // will eventually read this from somewhere
@@ -302,9 +472,6 @@ namespace ToolbarOfFunctions
 
         private string[] prepareParseAddressArrayFooter(int intDAdrRw)
         {
-
-            // Excel.Worksheet WksNew = wkbToScan.Worksheets["RR05"];
-            // int intDAdrRw = CommonExcelClasses.searchForValue(WksNew, GC_DELIVERY_DETAILS, 1);
 
             string[] arrFooterAddr = { "B" + intDAdrRw.ToString() ,           // Bx           Delivery Details       B30
                                        "B" + (intDAdrRw +2).ToString() ,      // Bx+2         Remarks                B32

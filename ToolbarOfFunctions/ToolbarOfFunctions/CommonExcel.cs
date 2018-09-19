@@ -41,6 +41,13 @@ namespace ToolbarOfFunctions_CommonClasses
     public static class CommonExcelClasses
     {
 
+        const int _ROW1 = 1;
+        const int _ROW2 = 3;
+
+        const int _COL1 = 0;
+        const int _COL2 = 2;
+
+
         // exstensability
         public static void SwitchToBoldRegularChkBox(this System.Windows.Forms.CheckBox c)
         {
@@ -590,6 +597,68 @@ namespace ToolbarOfFunctions_CommonClasses
 
             return oFileInfo.LastWriteTime;
 
+        }
+
+
+        public static bool checkEmptyRange(Worksheet Wks, string strRange)
+        {
+            int[] intArrCoords = getCoordsFromRange(strRange);
+            int intNotEmpty = 0;
+
+            // loop along the Rows
+            for (int x = intArrCoords[_ROW1]; x <= intArrCoords[_ROW2]; x++)
+            {
+                // loop along the Cols
+                for (int y = intArrCoords[_COL1]; y <= intArrCoords[_COL2]; y++)
+                {
+                    if (!CommonExcelClasses.isEmptyCell(Wks.Cells[x, y]))
+                    {
+                        intNotEmpty++;
+                        break;
+                    }
+                }
+
+                if (intNotEmpty > 0)
+                    break;
+
+            }
+
+            return (intNotEmpty == 0);
+
+
+        }
+
+        private static int[] getCoordsFromRange(string strRange)
+        {
+
+            int intSPos = strRange.IndexOf(":");
+
+            string strColAddr1 = strRange.Substring(0, intSPos);
+            string strColAddr2 = strRange.Substring(intSPos + 1);
+
+            // A20:F20 but could be AA20:FF20 - so now need to get 1st occurance of a number
+            int intIdx = strColAddr1.IndexOfAny("0123456789".ToCharArray());
+            int intColAddrLtr1 = CommonExcelClasses.getExcelColumnNumber(strColAddr1.Substring(0, intIdx));
+            int intRowAddrNum1 = Convert.ToInt32(strColAddr1.Substring(intIdx));
+
+            intIdx = strColAddr2.IndexOfAny("0123456789".ToCharArray());
+            int intColAddrLtr2 = CommonExcelClasses.getExcelColumnNumber(strColAddr2.Substring(0, intIdx));
+            int intRowAddrNum2 = Convert.ToInt32(strColAddr2.Substring(intIdx));
+
+            int[] intArrReturn = { intColAddrLtr1, intRowAddrNum1, intColAddrLtr2, intRowAddrNum2 };
+
+            return intArrReturn;
+
+        }
+
+
+        // exstensability
+        public static void SwitchMainOrAdditional(this RiggingLinesDS c)
+        {
+            if (c.LineOrAdditional != "M")
+                c.LineOrAdditional = "M";
+            else
+                c.LineOrAdditional = "A";
         }
 
     }

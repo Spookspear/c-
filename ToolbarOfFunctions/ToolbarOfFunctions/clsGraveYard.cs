@@ -511,6 +511,13 @@ private static List<string> ListAllGroupsViaTokenGroups(string username, string 
                 Wks.Range[strResultsCol + "3"].Value = milliSeconds;
             }
 
+                string strInput = "abcdefhhijklmnopqrstuvwxyz1234567890";
+            int intIdx;
+            intIdx = strInput.IndexOfAny("0123456789".ToCharArray());
+            string substring = strInput.Substring(0, intIdx); // this will give rest of the string.
+            string number = strInput.Substring(intIdx);
+           // string number = new string(substring.TakeWhile(char.IsDigit).ToArray());
+
 
      
      */

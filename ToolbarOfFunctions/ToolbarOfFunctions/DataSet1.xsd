@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="DataSet1" targetNamespace="http://tempuri.org/DataSet1.xsd" xmlns:mstns="http://tempuri.org/DataSet1.xsd" xmlns="http://tempuri.org/DataSet1.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="DataSet1" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="DataSet1" msprop:Generator_UserDSName="DataSet1">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="DataTableRiggingHeader" msprop:Generator_TableClassName="DataTableRiggingHeaderDataTable" msprop:Generator_TableVarName="tableDataTableRiggingHeader" msprop:Generator_TablePropName="DataTableRiggingHeader" msprop:Generator_RowDeletingName="DataTableRiggingHeaderRowDeleting" msprop:Generator_RowChangingName="DataTableRiggingHeaderRowChanging" msprop:Generator_RowEvHandlerName="DataTableRiggingHeaderRowChangeEventHandler" msprop:Generator_RowDeletedName="DataTableRiggingHeaderRowDeleted" msprop:Generator_UserTableName="DataTableRiggingHeader" msprop:Generator_RowChangedName="DataTableRiggingHeaderRowChanged" msprop:Generator_RowEvArgName="DataTableRiggingHeaderRowChangeEvent" msprop:Generator_RowClassName="DataTableRiggingHeaderRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="WorksheetName" msprop:Generator_ColumnVarNameInTable="columnWorksheetName" msprop:Generator_ColumnPropNameInRow="WorksheetName" msprop:Generator_ColumnPropNameInTable="WorksheetNameColumn" msprop:Generator_UserColumnName="WorksheetName" type="xs:string" />
+              <xs:element name="WorkbookDate" msprop:Generator_ColumnVarNameInTable="columnWorkbookDate" msprop:Generator_ColumnPropNameInRow="WorkbookDate" msprop:Generator_ColumnPropNameInTable="WorkbookDateColumn" msprop:Generator_UserColumnName="WorkbookDate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="ContactPerson" msprop:Generator_ColumnVarNameInTable="columnContactPerson" msprop:Generator_ColumnPropNameInRow="ContactPerson" msprop:Generator_ColumnPropNameInTable="ContactPersonColumn" msprop:Generator_UserColumnName="ContactPerson" type="xs:string" minOccurs="0" />
+              <xs:element name="BudgetHolder" msprop:Generator_ColumnVarNameInTable="columnBudgetHolder" msprop:Generator_ColumnPropNameInRow="BudgetHolder" msprop:Generator_ColumnPropNameInTable="BudgetHolderColumn" msprop:Generator_UserColumnName="BudgetHolder" type="xs:string" minOccurs="0" />
+              <xs:element name="VesselLocation" msprop:Generator_ColumnVarNameInTable="columnVesselLocation" msprop:Generator_ColumnPropNameInRow="VesselLocation" msprop:Generator_ColumnPropNameInTable="VesselLocationColumn" msprop:Generator_UserColumnName="VesselLocation" type="xs:string" minOccurs="0" />
+              <xs:element name="ProjectDepartment" msprop:Generator_ColumnVarNameInTable="columnProjectDepartment" msprop:Generator_ColumnPropNameInRow="ProjectDepartment" msprop:Generator_ColumnPropNameInTable="ProjectDepartmentColumn" msprop:Generator_UserColumnName="ProjectDepartment" type="xs:string" minOccurs="0" />
+              <xs:element name="DateRequested" msprop:Generator_ColumnVarNameInTable="columnDateRequested" msprop:Generator_ColumnPropNameInRow="DateRequested" msprop:Generator_ColumnPropNameInTable="DateRequestedColumn" msprop:Generator_UserColumnName="DateRequested" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="ProjectDuration" msprop:Generator_ColumnVarNameInTable="columnProjectDuration" msprop:Generator_ColumnPropNameInRow="ProjectDuration" msprop:Generator_ColumnPropNameInTable="ProjectDurationColumn" msprop:Generator_UserColumnName="ProjectDuration" type="xs:string" minOccurs="0" />
+              <xs:element name="SAPCostCode" msprop:Generator_ColumnVarNameInTable="columnSAPCostCode" msprop:Generator_ColumnPropNameInRow="SAPCostCode" msprop:Generator_ColumnPropNameInTable="SAPCostCodeColumn" msprop:Generator_UserColumnName="SAPCostCode" type="xs:string" minOccurs="0" />
+              <xs:element name="DeliveryDetails" msprop:Generator_ColumnVarNameInTable="columnDeliveryDetails" msprop:Generator_ColumnPropNameInRow="DeliveryDetails" msprop:Generator_ColumnPropNameInTable="DeliveryDetailsColumn" msprop:Generator_UserColumnName="DeliveryDetails" type="xs:string" minOccurs="0" />
+              <xs:element name="Remarks" msprop:Generator_ColumnVarNameInTable="columnRemarks" msprop:Generator_ColumnPropNameInRow="Remarks" msprop:Generator_ColumnPropNameInTable="RemarksColumn" msprop:Generator_UserColumnName="Remarks" type="xs:string" minOccurs="0" />
+              <xs:element name="ATRWONO" msprop:Generator_ColumnVarNameInTable="columnATRWONO" msprop:Generator_ColumnPropNameInRow="ATRWONO" msprop:Generator_ColumnPropNameInTable="ATRWONOColumn" msprop:Generator_UserColumnName="ATRWONO" type="xs:string" minOccurs="0" />
+              <xs:element name="Vendor" msprop:Generator_ColumnVarNameInTable="columnVendor" msprop:Generator_ColumnPropNameInRow="Vendor" msprop:Generator_ColumnPropNameInTable="VendorColumn" msprop:Generator_UserColumnName="Vendor" type="xs:string" minOccurs="0" />
+              <xs:element name="PONumber" msprop:Generator_ColumnVarNameInTable="columnPONumber" msprop:Generator_ColumnPropNameInRow="PONumber" msprop:Generator_ColumnPropNameInTable="PONumberColumn" msprop:Generator_UserColumnName="PONumber" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="DataTableRiggingLines" msprop:Generator_TableClassName="DataTableRiggingLinesDataTable" msprop:Generator_TableVarName="tableDataTableRiggingLines" msprop:Generator_TablePropName="DataTableRiggingLines" msprop:Generator_RowDeletingName="DataTableRiggingLinesRowDeleting" msprop:Generator_RowChangingName="DataTableRiggingLinesRowChanging" msprop:Generator_RowEvHandlerName="DataTableRiggingLinesRowChangeEventHandler" msprop:Generator_RowDeletedName="DataTableRiggingLinesRowDeleted" msprop:Generator_UserTableName="DataTableRiggingLines" msprop:Generator_RowChangedName="DataTableRiggingLinesRowChanged" msprop:Generator_RowEvArgName="DataTableRiggingLinesRowChangeEvent" msprop:Generator_RowClassName="DataTableRiggingLinesRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="HighLevelDescription" msprop:Generator_ColumnVarNameInTable="columnHighLevelDescription" msprop:Generator_ColumnPropNameInRow="HighLevelDescription" msprop:Generator_ColumnPropNameInTable="HighLevelDescriptionColumn" msprop:Generator_UserColumnName="HighLevelDescription" type="xs:string" minOccurs="0" />
+              <xs:element name="LowLevelDescription" msprop:Generator_ColumnVarNameInTable="columnLowLevelDescription" msprop:Generator_ColumnPropNameInRow="LowLevelDescription" msprop:Generator_ColumnPropNameInTable="LowLevelDescriptionColumn" msprop:Generator_UserColumnName="LowLevelDescription" type="xs:string" minOccurs="0" />
+              <xs:element name="Quantity" msprop:Generator_ColumnVarNameInTable="columnQuantity" msprop:Generator_ColumnPropNameInRow="Quantity" msprop:Generator_ColumnPropNameInTable="QuantityColumn" msprop:Generator_UserColumnName="Quantity" type="xs:string" minOccurs="0" />
+              <xs:element name="ItemValue" msprop:Generator_ColumnVarNameInTable="columnItemValue" msprop:Generator_ColumnPropNameInRow="ItemValue" msprop:Generator_ColumnPropNameInTable="ItemValueColumn" msprop:Generator_UserColumnName="ItemValue" type="xs:string" minOccurs="0" />
+              <xs:element name="TotalValue" msprop:Generator_ColumnVarNameInTable="columnTotalValue" msprop:Generator_ColumnPropNameInRow="TotalValue" msprop:Generator_ColumnPropNameInTable="TotalValueColumn" msprop:Generator_UserColumnName="TotalValue" type="xs:string" minOccurs="0" />
+              <xs:element name="TestProcedure" msprop:Generator_ColumnVarNameInTable="columnTestProcedure" msprop:Generator_ColumnPropNameInRow="TestProcedure" msprop:Generator_ColumnPropNameInTable="TestProcedureColumn" msprop:Generator_UserColumnName="TestProcedure" type="xs:string" minOccurs="0" />
+              <xs:element name="LineIndicator" msprop:Generator_ColumnVarNameInTable="columnLineIndicator" msprop:Generator_ColumnPropNameInRow="LineIndicator" msprop:Generator_ColumnPropNameInTable="LineIndicatorColumn" msprop:Generator_UserColumnName="LineIndicator" type="xs:string" minOccurs="0" />
+              <xs:element name="PONumber" msprop:Generator_ColumnVarNameInTable="columnPONumber" msprop:Generator_ColumnPropNameInRow="PONumber" msprop:Generator_ColumnPropNameInTable="PONumberColumn" msprop:Generator_UserColumnName="PONumber" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="DataTableRiggingHeader_DataTableRiggingLines" msdata:parent="DataTableRiggingHeader" msdata:child="DataTableRiggingLines" msdata:parentkey="PONumber" msdata:childkey="PONumber" msprop:Generator_UserChildTable="DataTableRiggingLines" msprop:Generator_ChildPropName="GetDataTableRiggingLinesRows" msprop:Generator_UserRelationName="DataTableRiggingHeader_DataTableRiggingLines" msprop:Generator_ParentPropName="DataTableRiggingHeaderRow" msprop:Generator_RelationVarName="relationDataTableRiggingHeader_DataTableRiggingLines" msprop:Generator_UserParentTable="DataTableRiggingHeader" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

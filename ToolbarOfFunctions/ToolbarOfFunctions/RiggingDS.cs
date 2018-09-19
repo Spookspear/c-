@@ -42,6 +42,8 @@ namespace ToolbarOfFunctions
 
         public List<RiggingLinesDS> lstRiggingLines { get; set; }
 
+        public Guid LinkToLines { get; set; }
+
 
     }
 
@@ -63,6 +65,8 @@ namespace ToolbarOfFunctions
 
         public string TestProcedure { get; set; }
 
+        public string LineOrAdditional { get; set; }
+
         public double GetTotalValue()
         {
             double iItemValue = 0;
@@ -81,9 +85,13 @@ namespace ToolbarOfFunctions
             return System.Convert.ToDouble(iItemValue * iQty);
         }
 
+        public Guid LinkToHeader { get; set; }
+
 
     }
 
 
-
 }
+
+
+
