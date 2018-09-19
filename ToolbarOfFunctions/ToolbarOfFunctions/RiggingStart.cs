@@ -55,7 +55,6 @@ namespace ToolbarOfFunctions
             #endregion
 
             #region [Declare and instantiate work book/sheet variables]
-
             string strPath = "C:\\Work\\Rigging7\\OneSheet";
 
             // read into a worksheet initally
@@ -68,10 +67,9 @@ namespace ToolbarOfFunctions
             #endregion
 
             #region [Ask to display a Message?]
-            // DialogResult dlgResult = DialogResult.Yes;
-            // string strMessage;
+            DialogResult dlgResult = DialogResult.Yes;
+            string strMessage;
 
-            /*
             if (boolDisplayInitialMessage)
             {
                 strMessage = "Read workbooks - located : " + strPath + LF +
@@ -86,39 +84,31 @@ namespace ToolbarOfFunctions
 
                 dlgResult = MessageBox.Show(strMessage, "Read Rigging", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
             }
-            */
-
 
             #endregion
 
             #region [Start of work]
-            // if (dlgResult == DialogResult.Yes) {
+            if (dlgResult == DialogResult.Yes) {
 
                 DateTime dteStart = DateTime.Now;
-                // open up each sheet - 1st
-                // will move to own sub later
-                // put into this sheet
 
                 int intLastRow = CommonExcelClasses.getLastRow(WksMaster);
                 int intNoOfFiles = arrFiles.GetUpperBound(0);
                 int intObjTotal = (intNoOfFiles+1);
-                int intObjCnt = 1;
 
-                // need to turn riggingDS into array as well
-                // guessing obj cantr be zero based and always has to be plus 1
-                RiggingHeaderDS[] riggingDS = new RiggingHeaderDS[10];
-                // RiggingHeaderDS.RiggingLinesDS[] linesDs = new RiggingHeaderDS.RiggingLinesDS[300];
+                // delare lists
+                List<RiggingHeaderDS> lstRiggingHeaderDS = new List<RiggingHeaderDS>();
+                List<RiggingLinesDS> lstRiggingLinesDS = new List<RiggingLinesDS>();
 
                 for (int intFileNo = arrFiles.GetLowerBound(0); intFileNo <= arrFiles.GetUpperBound(0); intFileNo++)
                 {
-                    processHeaderAndLineItemsIntoObject(arrFiles[intFileNo].ToString(), intFileNo, riggingDS);
+                    processHeaderAndLinesIntoList(arrFiles[intFileNo].ToString(), intFileNo, lstRiggingHeaderDS, lstRiggingLinesDS);
 
                 }
 
-                // processObjectIntoWorksheet(WksMaster, intLastRow, intLastRow, riggingDS[intNoOfFiles]);
-                // WksMaster.Columns.AutoFit();
-            #endregion
-            /*
+                populateWorksheetFromHeaderAndLinesLists(WksMaster, lstRiggingHeaderDS, intLastRow);
+                WksMaster.Columns.AutoFit();
+
                 #region [Display Complete Message]
                 if (boolDisplayCompleteMessage)
                 {
@@ -139,19 +129,80 @@ namespace ToolbarOfFunctions
                 }
                 #endregion
 
-                */
-            // }
+            }
+            #endregion
 
         }
 
 
-        private void processHeaderAndLineItemsIntoObject(string strFileName, int intFileNo, RiggingHeaderDS[] riggingDS)
+        private void populateWorksheetFromHeaderAndLinesLists(Worksheet wksMaster, List<RiggingHeaderDS> lstRiggingHeaderDS, int iRow)
+        {
+            // int iRow = 3;
+            int iCol = 1;
+
+            foreach (RiggingHeaderDS h in lstRiggingHeaderDS)
+            {
+
+                wksMaster.Cells[iRow, iCol].value = h.FileName;
+                iCol++;
+                wksMaster.Cells[iRow, iCol].value = h.FileDate;
+                iCol++;
+
+                wksMaster.Cells[iRow, iCol].value = h.ContactPerson;
+                iCol++;
+                wksMaster.Cells[iRow, iCol].value = h.BudgetHolder;
+                iCol++;
+                wksMaster.Cells[iRow, iCol].value = h.VesselLocation;
+                iCol++;
+                wksMaster.Cells[iRow, iCol].value = h.ProjectDepartment;
+                iCol++;
+                wksMaster.Cells[iRow, iCol].value = h.DateRequested;
+                iCol++;
+                wksMaster.Cells[iRow, iCol].value = h.DateRequired;
+                iCol++;
+                wksMaster.Cells[iRow, iCol].value = h.ProjectDuration;
+                iCol++;
+                wksMaster.Cells[iRow, iCol].value = h.SAPCostCode;
+
+                foreach (RiggingLinesDS l in h.lstRiggingLines)
+                {
+                    wksMaster.Cells[iRow, iCol].value = l.HighLevelDesc;
+                    iCol++;
+                    wksMaster.Cells[iRow, iCol].value = l.LowLevelDesc;
+                    iCol++;
+                    wksMaster.Cells[iRow, iCol].value = l.Quantity;
+                    iCol++;
+                    wksMaster.Cells[iRow, iCol].value = l.ItemValue;
+                    iCol++;
+                    wksMaster.Cells[iRow, iCol].value = l.TotalValue;
+                    iCol++;
+                    wksMaster.Cells[iRow, iCol].value = l.TestProcedure;
+                    iCol++;
+                    wksMaster.Cells[iRow, iCol].value = l.GetTotalValue();
+
+                    iRow++;
+                    iCol = 11;
+
+                }
+
+                iRow++;
+                iCol = 1;
+
+            }
+
+        }
+
+
+
+
+        private void processHeaderAndLinesIntoList(string strFileName, int intFileNo, List<RiggingHeaderDS> lstRiggingHeaderDS, List<RiggingLinesDS> lstRiggingLinesDS)
         {
 
+            #region [workbook Stuff]
             // open workbook
             var oXL = new Microsoft.Office.Interop.Excel.Application
             {
-                Visible = true      // change to false on live
+                Visible = false      // change to false on live
 
             };
 
@@ -169,96 +220,52 @@ namespace ToolbarOfFunctions
 
             string strRange = "";
             int intLRow;
+            #endregion
 
+            RiggingHeaderDS clsRiggingHeader = new RiggingHeaderDS();
+            RiggingLinesDS clsRiggingLines = new RiggingLinesDS();
 
-            riggingDS[intFileNo] = new RiggingHeaderDS
-            {
-                FileName = strFileName,
-                FileDate = CommonExcelClasses.getFileDate(strFileName.ToString()),
-                ContactPerson = getExcelValue(WksNew, arrAddrHead[0]),
-                BudgetHolder = getExcelValue(WksNew, arrAddrHead[1]),
-                VesselLocation = getExcelValue(WksNew, arrAddrHead[2]),
-                ProjectDepartment = getExcelValue(WksNew, arrAddrHead[3]),
-                DateRequested = getExcelValue(WksNew, arrAddrHead[4]),
-                DateRequired = getExcelValue(WksNew, arrAddrHead[5]),
-                ProjectDuration = getExcelValue(WksNew, arrAddrHead[6]),
-                SAPCostCode = getExcelValue(WksNew, arrAddrHead[7]),
-                DeliveryDetails = getExcelValue(WksNew, arrAddrFoot[0]),
-                Remarks = getExcelValue(WksNew, arrAddrFoot[1]),
-                ATRWONO = getExcelValue(WksNew, arrAddrFoot[2]),
-                Vendor = getExcelValue(WksNew, arrAddrFoot[3]),
-                PONumber = getExcelValue(WksNew, arrAddrFoot[4])
+            clsRiggingHeader.FileName = strFileName;
+            clsRiggingHeader.FileDate = CommonExcelClasses.getFileDate(strFileName.ToString());
+            clsRiggingHeader.ContactPerson = getExcelValue(WksNew, arrAddrHead[0]);
+            clsRiggingHeader.BudgetHolder = getExcelValue(WksNew, arrAddrHead[1]);
+            clsRiggingHeader.VesselLocation = getExcelValue(WksNew, arrAddrHead[2]);
+            clsRiggingHeader.ProjectDepartment = getExcelValue(WksNew, arrAddrHead[3]);
+            clsRiggingHeader.DateRequested = getExcelValue(WksNew, arrAddrHead[4]);
+            clsRiggingHeader.DateRequired = getExcelValue(WksNew, arrAddrHead[5]);
+            clsRiggingHeader.ProjectDuration = getExcelValue(WksNew, arrAddrHead[6]);
+            clsRiggingHeader.SAPCostCode = getExcelValue(WksNew, arrAddrHead[7]);
+            clsRiggingHeader.DeliveryDetails = getExcelValue(WksNew, arrAddrFoot[0]);
+            clsRiggingHeader.Remarks = getExcelValue(WksNew, arrAddrFoot[1]);
+            clsRiggingHeader.ATRWONO = getExcelValue(WksNew, arrAddrFoot[2]);
+            clsRiggingHeader.Vendor = getExcelValue(WksNew, arrAddrFoot[3]);
+            clsRiggingHeader.PONumber = getExcelValue(WksNew, arrAddrFoot[4]);
 
-            };
-
-
-            // RiggingHeaderDS.RiggingLinesDS[] linesDs = new RiggingHeaderDS.RiggingLinesDS[intNoLines];
-
-            // riggingDS.RiggingLinesDS[] = testc new riggingDS.RiggingLinesDS[];
-
-            // riggingDS[intFileNo].RiggingLinesDS riggingLinesDs = new riggingDS[].Length;
-
-            // Student student = new Student();
-            // student.Grade.GradeName = "A";
-
-            // Grade Grade = new Grade();
-            // Grade.Student.Name = "test";
-
-            // student.Grade.GradeName = "A";
-
-            // linesDs.RiggingLinesDS.Quantity = "1";
-            // RiggingHeaderDS[] riggingDS = new RiggingHeaderDS[10];
-            // riggingDS[intFileNo].RiggingLinesDS.Quantity = "1";
-            // RiggingHeaderDS.RiggingLinesDS[] linesDs = new RiggingHeaderDS.RiggingLinesDS[300];
-            // RiggingHeaderDS.[] linesDs = new RiggingHeaderDS[10];
-            // RiggingHeaderDS linesDs = new RiggingHeaderDS();
-            // RiggingLinesDS[] linesDSTst = riggingDS.RiggingLinesDS;
-
-
-            RiggingLinesDS[] ds = new RiggingLinesDS[30];
-
-            // ds[0].HighLevelDesc = "";
+            lstRiggingLinesDS = new List<RiggingLinesDS>();
 
             for (int index = 0; index <= intNoLines; index++)
             {
 
-                // instantiate obj
-                // linesDs[index] = new riggingDS[intFileNo].RiggingLinesDS();
-
                 intLRow = (index + intLineStart);
                 strRange = "A" + intLRow.ToString();
 
-                ds[index] = new RiggingLinesDS();
-
-                // riggingDS[intFileNo].RiggingLinesDS.HighLevelDesc = getExcelValue(WksNew, strRange);
-                ds[index].HighLevelDesc = getExcelValue(WksNew, strRange);
+                clsRiggingLines.HighLevelDesc = getExcelValue(WksNew, strRange);
 
                 strRange = "B" + intLRow.ToString();
-                // riggingDS[intFileNo].RiggingLinesDS.LowLevelDesc = getExcelValue(WksNew, strRange);
-                ds[index].LowLevelDesc = getExcelValue(WksNew, strRange);
+                clsRiggingLines.LowLevelDesc = getExcelValue(WksNew, strRange);
 
                 strRange = "C" + intLRow.ToString();
-                // riggingDS[intFileNo].RiggingLinesDS.Quantity = getExcelValue(WksNew, strRange);
-                ds[index].Quantity = getExcelValue(WksNew, strRange);
+                clsRiggingLines.Quantity = getExcelValue(WksNew, strRange);
 
                 strRange = "D" + intLRow.ToString();
-                // riggingDS[intFileNo].RiggingLinesDS.ItemValue = getExcelValue(WksNew, strRange);
-                ds[index].ItemValue = getExcelValue(WksNew, strRange);
+                clsRiggingLines.ItemValue = getExcelValue(WksNew, strRange);
 
-                // ds[index].RiggingHeaderDS.Add(riggingDS[intFileNo]);
+                lstRiggingLinesDS.Add(clsRiggingLines);
 
-
-                // riggingDS[intFileNo].RiggingLinesDS.GetTotalValue();
-
+                clsRiggingHeader.lstRiggingLines = lstRiggingLinesDS;
+                lstRiggingHeaderDS.Add(clsRiggingHeader);
 
             }
-        
-
-
-            // close workbook
-            Marshal.FinalReleaseComObject(WksNew);
-            WkbToScan.Close(false);
-            Marshal.FinalReleaseComObject(WkbToScan);
 
 
         }
@@ -266,84 +273,6 @@ namespace ToolbarOfFunctions
 
 
 
-
-
-
-
-        private void processLineItemsIntoObject(Workbook wkbToScan, int intFileNo, RiggingHeaderDS[] riggingDS)
-        {
-            // starting at: A10 
-            // loop down
-            // creating new objects for each line
-            Excel.Worksheet WksNew = wkbToScan.Worksheets["RR05"];
-
-            // find: Additional Items (Free Text)
-            // will need number of lines
-            int intDAdrRw = CommonExcelClasses.searchForValue(WksNew, GC_DELIVERY_DETAILS, 1);
-
-            int intLineStart = 10;
-
-            //  Number of lines is addresses of: bottom = ((Delivery Details) - 2 := (28 - 9?) := 19
-            int intNoLines = ((intDAdrRw - 2) - (intLineStart-1));
-
-            // riggingDS[0].
-
-            // working
-            // RiggingHeaderDS.RiggingLinesDS[] linesDs = new RiggingHeaderDS.RiggingLinesDS[intNoLines];
-            // RiggingHeaderDS.RiggingLinesDS[] linesDs = new RiggingHeaderDS.RiggingLinesDS[intNoLines];
-
-            // how do I link these to the header?
-            // do I need to?
-
-
-        }
-
-        private void processObjectIntoWorksheet(Excel.Worksheet wksMaster, int iRow, int iOffSet, RiggingHeaderDS riggingDS)
-        {
-            int iR = iRow + iOffSet;
-            int iC = 1;
-
-            // header
-            wksMaster.Cells[iR , iC].value = riggingDS.FileName;
-            iC++;
-            wksMaster.Cells[iR , iC].value = riggingDS.FileDate;
-            iC++;
-            wksMaster.Cells[iR , iC].value = riggingDS.ContactPerson;
-            iC++;
-            wksMaster.Cells[iR , iC].value = riggingDS.BudgetHolder;
-            iC++;
-            wksMaster.Cells[iR , iC].value = riggingDS.VesselLocation;
-            iC++;
-            wksMaster.Cells[iR , iC].value = riggingDS.ProjectDepartment;
-            iC++;
-            wksMaster.Cells[iR , iC].value = riggingDS.DateRequested;
-            iC++;
-            wksMaster.Cells[iR , iC].value = riggingDS.DateRequired;
-            iC++;
-            wksMaster.Cells[iR , iC].value = riggingDS.ProjectDuration;
-            iC++;
-            wksMaster.Cells[iR , iC].value = riggingDS.SAPCostCode;
-
-
-            // the line items go here // along with the exisiting data
-            // the extrac items - wont matter on a database though
-
-
-            iC = 18;
-
-            // footer
-            wksMaster.Cells[iR , iC].value = riggingDS.DeliveryDetails;
-            iC++;
-            wksMaster.Cells[iR , iC].value = riggingDS.Remarks;
-            iC++;
-            wksMaster.Cells[iR , iC].value = riggingDS.ATRWONO;
-            iC++;
-            wksMaster.Cells[iR , iC].value = riggingDS.Vendor;
-            iC++;
-            wksMaster.Cells[iR , iC].value = riggingDS.PONumber;
-
-
-        }
 
         private string getExcelValue(Excel.Worksheet WksNew,  string v)
         {

@@ -17,17 +17,15 @@ namespace ToolbarOfFunctions
             // delare lists
             List<Mother> lstMothers = new List<Mother>();
             List<Child> lstChildren = new List<Child>();
-            Mother clsMother = new Mother();
-            Child clsChild = new Child();
 
             // pass to a seperate procedure to populate
-            populateMotherChildObjects(lstMothers, lstChildren, clsMother, clsChild);
-            populateWorksheetFromMotherChildObjects(WksMaster, lstMothers);
+            populateMotherChildObjects(lstMothers, lstChildren);
+            populateWorksheetFromMotherChildLists(WksMaster, lstMothers);
 
 
         }
 
-        private void populateWorksheetFromMotherChildObjects(Worksheet wksMaster, List<Mother> lstMothers)
+        private void populateWorksheetFromMotherChildLists(Worksheet wksMaster, List<Mother> lstMothers)
         {
             int iRow = 2;
             int iCol = 1;
@@ -55,22 +53,22 @@ namespace ToolbarOfFunctions
 
         }
 
-        private void populateMotherChildObjects(List<Mother> lstMothers, List<Child> lstChildren, Mother clsMother, Child clsChild)
+        private void populateMotherChildObjects(List<Mother> lstMothers, List<Child> lstChildren)
         {
 
             // instantiate objects from classes
+            Mother clsMother = new Mother();
+            Child clsChild = new Child();
+
 
             // 1st mother
-            lstChildren = new List<Child>();
 
             // clsMother.Name = "Mandy";
             clsMother.FirstName = "Mandy";
             clsMother.LastName = "Bishop";
             clsMother.Age = 45;
-            // out of intrest?
-            clsMother.FullName();
 
-
+            lstChildren = new List<Child>();
             clsChild.FirstName = "Anthony";
             clsChild.LastName = "Bishop";
             clsChild.Age = 16;

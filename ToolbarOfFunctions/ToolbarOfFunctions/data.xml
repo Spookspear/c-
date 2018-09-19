@@ -17,9 +17,9 @@
   <ColourFore_Found>Blue</ColourFore_Found>
   <ColourBold_Found>true</ColourBold_Found>
   <ColourBack_Found>White</ColourBack_Found>
-  <ColourFore_NotFound>#FF8000</ColourFore_NotFound>
+  <ColourFore_NotFound>Red</ColourFore_NotFound>
   <ColourBold_NotFound>false</ColourBold_NotFound>
-  <ColourBack_NotFound>#400000</ColourBack_NotFound>
+  <ColourBack_NotFound>White</ColourBack_NotFound>
   <TimeSheetRowNo>5532</TimeSheetRowNo>
   <TimeSheetGetRowNo>true</TimeSheetGetRowNo>
   <PingSheetRowNo>2</PingSheetRowNo>

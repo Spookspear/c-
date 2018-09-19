@@ -40,7 +40,7 @@ namespace ToolbarOfFunctions
 
         public string PONumber { get; set; }
 
-        public List<RiggingLinesDS> RiggingLines { get; set; }
+        public List<RiggingLinesDS> lstRiggingLines { get; set; }
 
 
     }
