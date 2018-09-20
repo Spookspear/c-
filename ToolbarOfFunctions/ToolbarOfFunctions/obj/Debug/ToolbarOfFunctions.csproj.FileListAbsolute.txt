@@ -12,3 +12,9 @@ D:\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\obj\Debug\ToolbarOfFunctions.
 D:\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\obj\Debug\ToolbarOfFunctions.dll
 D:\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\obj\Debug\ToolbarOfFunctions.pdb
 D:\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\obj\Debug\ToolbarOfFunctions.csprojAssemblyReference.cache
+D:\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\bin\Debug\ToolbarOfFunctions.dll.config
+D:\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\bin\Debug\EntityFramework.dll
+D:\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\bin\Debug\EntityFramework.SqlServer.dll
+D:\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\bin\Debug\EntityFramework.xml
+D:\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\bin\Debug\EntityFramework.SqlServer.xml
+D:\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\obj\Debug\ToolbarOfFunctions.Migrations.init.resources

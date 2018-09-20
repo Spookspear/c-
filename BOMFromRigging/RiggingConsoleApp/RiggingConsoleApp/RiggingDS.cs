@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace ToolbarOfFunctions
+namespace RiggingConsoleApp
 {
     public class RiggingHeaderDS
     {
@@ -28,7 +25,7 @@ namespace ToolbarOfFunctions
 
         public string ProjectDuration { get; set; }
 
-        public string SAPCostCode  { get; set; }
+        public string SAPCostCode { get; set; }
 
         public string DeliveryDetails { get; set; }
 
@@ -42,10 +39,8 @@ namespace ToolbarOfFunctions
 
         public List<RiggingLinesDS> lstRiggingLines { get; set; }
 
-
     }
 
-    // line items - link to second class?
     public class RiggingLinesDS
     {
         public int Id { get; set; }
@@ -64,17 +59,10 @@ namespace ToolbarOfFunctions
 
         public string LineOrAdditional { get; set; }
 
-           // public Guid LinkToHeader { get; set; }
+        // public Guid LinkToHeader { get; set; }
 
         public int RiggingHeaderId { get; set; }
 
         public virtual RiggingHeaderDS RiggingHeader { get; set; }
-
-
     }
-
-
 }
-
-
-

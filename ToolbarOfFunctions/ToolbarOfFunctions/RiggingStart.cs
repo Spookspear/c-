@@ -186,8 +186,7 @@ namespace ToolbarOfFunctions
                 Remarks = getExcelValue(WksNew, arrAddrFoot[1]),
                 ATRWONO = getExcelValue(WksNew, arrAddrFoot[2]),
                 Vendor = getExcelValue(WksNew, arrAddrFoot[3]),
-                PONumber = getExcelValue(WksNew, arrAddrFoot[4]),
-                LinkToLines = new Guid()
+                PONumber = getExcelValue(WksNew, arrAddrFoot[4])
 
             };
 
@@ -206,7 +205,7 @@ namespace ToolbarOfFunctions
 
                 string strCheckRange = "A" + intLRow.ToString() + ":C" + intLRow.ToString();
                 string[] arrAddrLines = populateAddressLines(intLRow);
-
+                
                 if (!CommonExcelClasses.checkEmptyRange(WksNew, strCheckRange))
                 {
                     if (getExcelValue(WksNew, arrAddrLines[0]) == GC_ADDITIONAL_ITEMS)
@@ -225,8 +224,7 @@ namespace ToolbarOfFunctions
                             ItemValue = getExcelValue(WksNew, arrAddrLines[3]),
                             TotalValue = getExcelValue(WksNew, arrAddrLines[4]),
                             TestProcedure = getExcelValue(WksNew, arrAddrLines[5]),
-                            LineOrAdditional = strLineMainOrAdditional,
-                            LinkToHeader = clsRiggingHeader.LinkToLines
+                            LineOrAdditional = strLineMainOrAdditional
                         };
 
                         lstRiggingLinesDS.Add(clsRiggingLines);
@@ -259,12 +257,12 @@ namespace ToolbarOfFunctions
                 #region [Line Items]
                 // int iCol = 11;
 
-                // writeOutRiggingHeader(wksMaster, h, iRow);
+                writeOutRiggingHeader(wksMaster, h, iRow);
 
 
                 foreach (RiggingLinesDS l in h.lstRiggingLines)
                 {
-                    writeOutRiggingHeader(wksMaster, h, iRow);
+                    // writeOutRiggingHeader(wksMaster, h, iRow);
                     writeOutRiggingLines(wksMaster, l, iRow);
 
                     iRow++;
@@ -421,7 +419,6 @@ namespace ToolbarOfFunctions
             }
 
         }
-
 
 
         private string getExcelValue(Excel.Worksheet WksNew,  string v)
