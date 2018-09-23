@@ -59,6 +59,11 @@ namespace RiggingConsoleApp
             // string filePath = existingFile;
             // openExcelFile();
 
+            string strMessage = "this is a test".Message();
+
+            // strMessage.Message();
+
+
             StartOfRiggingProcess();
             // TestCode();
 
@@ -68,32 +73,27 @@ namespace RiggingConsoleApp
 
         private static void StartOfRiggingProcess()
         {
-
-            string strPath = "C:\\Work\\Rigging7\\OneSheet";
+            string strPath = "C:\\Work\\Rigging7\\TwoSheets";
             
             // check not reading sub folders
-            string searchPattern = "*.xlsx";
-            string[] arrFiles = Directory.GetFiles(strPath, searchPattern, SearchOption.TopDirectoryOnly);
-            DateTime dteStart = DateTime.Now;
+            string strSearchPattern = "*.xlsx";
+            string[] arrOfFiles = Directory.GetFiles(strPath, strSearchPattern, SearchOption.TopDirectoryOnly);
 
-            // int intLastRow = CommonExcelClasses.getLastRow(WksMaster) + 1;        not reading into master workbook
-            int intNoOfFiles = arrFiles.GetUpperBound(0);
-            int intObjTotal = (intNoOfFiles + 1);
+            DateTime dteStart = DateTime.Now;           // for time recording later
 
-            // delare lists
+            int intNoOfFiles = arrOfFiles.GetUpperBound(0);
+
+            // declare lists
             List<RiggingHeaderDS> lstRiggingHeaderDS = new List<RiggingHeaderDS>();
             List<RiggingLinesDS> lstRiggingLinesDS = new List<RiggingLinesDS>();
 
-            for (int intFileNo = arrFiles.GetLowerBound(0); intFileNo <= arrFiles.GetUpperBound(0); intFileNo++)
+            for (int intFileNo = arrOfFiles.GetLowerBound(0); intFileNo <= arrOfFiles.GetUpperBound(0); intFileNo++)
             {
-                processHeaderAndLinesIntoList(arrFiles[intFileNo].ToString(), lstRiggingHeaderDS, lstRiggingLinesDS);
+                processHeaderAndLinesIntoList(arrOfFiles[intFileNo].ToString(), lstRiggingHeaderDS, lstRiggingLinesDS);
 
             }
 
             // populateWorksheetFromHeaderAndLinesLists(WksMaster, lstRiggingHeaderDS, intLastRow);
-
-
-
 
         }
 
@@ -105,23 +105,20 @@ namespace RiggingConsoleApp
             IExcelDataReader WkbNew;
 
             WkbNew = openExcelFile(strFileName);
-            var varWksNew = WkbNew.AsDataSet();
+            var WksNew = WkbNew.AsDataSet().Tables[0];
 
-            var WksNew = varWksNew.Tables[0];
+            // var WksNew = varWksNew.Tables[0];
 
-            
+            int iFr = (CommonExcelClasses.searchForValue(WksNew, GC_DELIVERY_DETAILS, 0) +1);       // iFr = int Footer Row
 
-
-            int intDAdrRw = (CommonExcelClasses.searchForValue(WksNew, GC_DELIVERY_DETAILS, 0) +1);
-
-            if (intDAdrRw > 1)
+            if (iFr > 1)
             {
                 int intLineRowStart = 10;
 
-                int intNoLines = ((intDAdrRw - 2) - (intLineRowStart - 1));                     //  Number of lines is addresses of: bottom = ((Delivery Details) - 2 := (28 - 9?) := 19
+                int intNoLines = ((iFr - 2) - (intLineRowStart - 1));                     //  Number of lines is addresses of: bottom = ((Delivery Details) - 2 := (28 - 9?) := 19
 
                 string[] arrAddrHead = populateAddressHeader();
-                string[] arrAddrFoot = prepareParseAddressArrayFooter(intDAdrRw);               // Read each Footer
+                string[] arrAddrFoot = prepareParseAddressArrayFooter(iFr);               // Read each Footer
 
                 int intLRow = 0;
 
@@ -159,14 +156,14 @@ namespace RiggingConsoleApp
                 string strLineMainOrAdditional;
                 strLineMainOrAdditional = "H";
 
-
-
                 for (int index = 0; index < intNoLines; index++)
                 {
                     intLRow = (index + intLineRowStart);
 
-                    string strCheckRange = "A" + intLRow.ToString() + ":C" + intLRow.ToString();
+                    string strCheckRange = "A" + intLRow.ToString() + ":F" + intLRow.ToString();
                     string[] arrAddrLines = populateAddressLines(intLRow);
+
+                    // this isnt working the way it sould be
 
                     if (!CommonExcelClasses.checkEmptyRange(WksNew, strCheckRange,1))
                     {
@@ -211,33 +208,32 @@ namespace RiggingConsoleApp
             }
             else
             {
+                #region [close the worksheet / workbook]
+                Marshal.FinalReleaseComObject(WksNew);
+                WkbNew.Close();
+
+                Marshal.FinalReleaseComObject(WkbNew);
+                #endregion
+
                 CommonExcelClasses.MsgBox("Cant find data");
             }
-
-            // int intLRow = 0;
-
-
-
-
-
 
         }
 
         private static string getExcelValue(DataTable dataTable, string strAddress, int intOffset)
         {
 
-            double[] dblArrCoords = CommonExcelClasses.getCoordsFromRange1(strAddress);
+            // double[] dblArrCoords = CommonExcelClasses.getCoordsFromRange1(strAddress);
 
-            int iCol = Convert.ToInt32(dblArrCoords[_COL1]);
-            int iRow = Convert.ToInt32(dblArrCoords[_ROW1]);
+            int iCol = strAddress.Col();
+            int iRow = strAddress.Row(); 
 
-            string strRetVal = dataTable.Rows[iRow - intOffset][iCol- intOffset].ToString();
+            string strRetVal = dataTable.Rows[(iRow - intOffset)][(iCol - intOffset)].ToString();
 
             return strRetVal;
 
 
         }
-
 
 
         private static string[] populateAddressHeader()
@@ -247,14 +243,15 @@ namespace RiggingConsoleApp
 
         }
 
-        private static string[] prepareParseAddressArrayFooter(int intDAdrRw)
+        private static string[] prepareParseAddressArrayFooter(int iFr)
         {
+            // iFr = int Footer Row
 
-            string[] arrFooterAddr = { "B" + intDAdrRw.ToString() ,           // Bx           Delivery Details       B30
-                                       "B" + (intDAdrRw +2).ToString() ,      // Bx+2         Remarks                B32
-                                       "A" + (intDAdrRw +5).ToString() ,      // Ax+5         ATR WO NO              A35
-                                       "B" + (intDAdrRw +5).ToString() ,      // Bx+5         Vendor                 B35
-                                       "D" + (intDAdrRw +5).ToString()  };    // Dx+5         PO Number              D35
+            string[] arrFooterAddr = { "B" + iFr.ToString() ,           // Bx           Delivery Details       B30
+                                       "B" + (iFr +2).ToString() ,      // Bx+2         Remarks                B32
+                                       "A" + (iFr +5).ToString() ,      // Ax+5         ATR WO NO              A35
+                                       "B" + (iFr +5).ToString() ,      // Bx+5         Vendor                 B35
+                                       "D" + (iFr +5).ToString()  };    // Dx+5         PO Number              D35
 
 
             return arrFooterAddr;
@@ -265,15 +262,16 @@ namespace RiggingConsoleApp
 
         }
 
-        private static string[] populateAddressLines(int intLRow)
+        private static string[] populateAddressLines(int iLr)
         {
+            // iLr = int List Row
 
-            string[] arrAddrLines = { "A" + intLRow.ToString(),         // Ax   High Level Description      A10
-                                      "B" + intLRow.ToString() ,        // Bx   Low Level Description       B10
-                                      "C" + intLRow.ToString() ,        // Cx   Quantity                    C10
-                                      "D" + intLRow.ToString() ,        // Dx   Item Value                  D10
-                                      "E" + intLRow.ToString(),         // Ex   Total Value                 E10      
-                                      "F" + intLRow.ToString(),         // Fx   Test Procedure/Legislation  E10      
+            string[] arrAddrLines = { "A" + iLr.ToString(),         // Ax   High Level Description      A10
+                                      "B" + iLr.ToString() ,        // Bx   Low Level Description       B10
+                                      "C" + iLr.ToString() ,        // Cx   Quantity                    C10
+                                      "D" + iLr.ToString() ,        // Dx   Item Value                  D10
+                                      "E" + iLr.ToString(),         // Ex   Total Value                 E10      
+                                      "F" + iLr.ToString(),         // Fx   Test Procedure/Legislation  E10      
                                     };
 
 

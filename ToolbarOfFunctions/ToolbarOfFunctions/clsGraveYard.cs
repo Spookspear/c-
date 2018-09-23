@@ -42,7 +42,7 @@ valueRange.set_Value(Excel.XlRangeValueDataType.xlRangeValueDefault, myArray);
 // string strClearOrColour = "Colour";     // need to get this from somewhere
 // strClearOrColour = (string)frmSettings.cmboCompareDifferences.SelectedItem;  // read from settings
 // string strClearOrColour = SaveXML.readProperty("strCompareOrColour");    // read from function, that gets data from class
-/* 1gvb1 - can I read thisd from the object?
+/* 1gvb2 - can I read thisd from the object?
 InformationFromSettingsForm info = new InformationFromSettingsForm();
 strClearOrColour = info.HighLightOrDelete;
 
@@ -86,7 +86,7 @@ namespace ToolbarOfFunctions_Graveyard
                 }
             }*/
 
-            // c# code to stop a macro running - 1GVB1: 15-08-2018
+            // c# code to stop a macro running - 1GVB2: 15-08-2018
 
             var subDirectories = Directory.GetDirectories(root);
             // does this need to be var?

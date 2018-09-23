@@ -846,6 +846,9 @@ namespace ToolbarOfFunctions
 
         public void sortHours(Excel.Worksheet Wks, decimal intRowCount, decimal intStartOfWeekRow)
         {
+
+            // code not adding hours in last col - 1gvb1
+
             string strSearchCat = "";
             if (!CommonExcelClasses.isEmptyCell(Wks.Cells[intRowCount, C_COL_CATEGORY]))
             {

@@ -51,25 +51,16 @@ namespace RiggingConsoleApp
             MessageBox.Show(strMessage, strCaption, MessageBoxButtons.OK, whichIcon);
         }
 
-        public static bool checkEmptyRange(DataTable Wks, string strRange, int intOffset)
+        public static bool checkEmptyRange(DataTable Wks, string strRange, int i)
         {
-            double[] dblArrCoords = getCoordsFromRange1(strRange);
+            int[] intArrCoords = getCoordsFromRange(strRange);
             int intNotEmpty = 0;
-            int iRow;
-            int iCol;
-
-            MsgBox("Not tested");
-
-            // loop along the Rows
-            for (double x = dblArrCoords[_ROW1]; x <= dblArrCoords[_ROW2]; x++)
-            {
-                // loop along the Cols
-                for (double y = dblArrCoords[_COL1]; y <= dblArrCoords[_COL2]; y++)
+            
+            for (int x = intArrCoords[_ROW1]; x <= intArrCoords[_ROW2]; x++)                // loop along the Rows
+            {                
+                for (int y = intArrCoords[_COL1]; y <= intArrCoords[_COL2]; y++)            // loop along the Cols
                 {
-                    iRow = Convert.ToInt32(x) - intOffset;
-                    iCol = Convert.ToInt32(y) - intOffset;
-
-                    if (Wks.Rows[iRow][iCol].ToString() == "")
+                    if (Wks.Rows[(x- i)][(y- i)].ToString() != "")
                     {
                         intNotEmpty++;
                         break;
@@ -83,8 +74,8 @@ namespace RiggingConsoleApp
 
             return (intNotEmpty == 0);
 
-
         }
+
 
         public static string myCellFormat(string strCell)
         {
@@ -98,32 +89,18 @@ namespace RiggingConsoleApp
         internal static int searchForValue(DataTable dataTable, string searchString, int intScanCol)
         {
 
-            // might have to do this the old way - loop both dimentions
-            // var dataTable = wksNew.Tables[0];
-
             int intRow = 1;
             int intRetVal = 0;
 
             for (int iRows = intRow; iRows < dataTable.Rows.Count; iRows++)
             {
-
-                Console.WriteLine(dataTable.Rows[iRows][intScanCol].ToString());
+                // Console.WriteLine(dataTable.Rows[iRows][intScanCol].ToString());
 
                 if (dataTable.Rows[iRows][intScanCol].ToString() == searchString)
                 {
                     intRetVal = iRows;
                     break;
                 }
-                /*
-                if (getDBIntValue(dataTable.Rows[iRows][intScanCol], 0) > 0)
-                {
-                    if ((string)dataTable.Rows[iRows][intScanCol].ToString() == searchString)
-                    {
-                        intRetVal = iRows;
-                        break;
-                    }
-                }
-                */
 
             }
 
@@ -145,102 +122,33 @@ namespace RiggingConsoleApp
         }
 
 
-        public static double[] getCoordsFromRange1(string strRange)
+        public static int[] getCoordsFromRange(string strRange)
         {
-            // var cellStr = "AB2"; // var cellStr = "A1";
-            double dblCol1 = 0; double dblRow1 = 0; double dblCol2 = 0; double dblRow2 = 0;
+            int intCol1 = 0, intRow1 = 0, intCol2 = 0, intRow2 = 0;
             int intSPos;
-            string strAddress;
+            string strAddress1, strAddress2;
 
             intSPos = strRange.IndexOf(":");
 
             if (intSPos < 0)
-                strAddress = strRange;
+                strAddress1 = strRange;
             else
-                strAddress = strRange.Substring(0, intSPos);
-
-
-            double[] dblArrColRow = getArrGetColRow(strAddress);
+                strAddress1 = strRange.Substring(0, intSPos);
 
             // stick into return values
-            dblCol1 = dblArrColRow[0];
-            dblRow1 = dblArrColRow[1];
+            intCol1 = strAddress1.Col();
+            intRow1 = strAddress1.Row();
 
             if (intSPos > 0)
             {
-                strAddress = strRange.Substring(intSPos + 1);
-                dblArrColRow = getArrGetColRow(strAddress);
-
-                // stick into return values
-                dblCol2 = dblArrColRow[0];
-                dblRow2 = dblArrColRow[1];
-
+                strAddress2 = strRange.Substring(intSPos + 1);
+                intCol2 = strAddress2.Col();
+                intRow2 = strAddress2.Row();
             }
 
-            double[] intArrReturn = { dblCol1, dblRow1, dblCol2, dblRow2 };
+            int[] intArrReturn = { intCol1, intRow1, intCol2, intRow2 };
 
             return intArrReturn;
-
-        }
-
-        private static double[] getArrGetColRow(string cellStr)
-        {
-            var match = Regex.Match(cellStr, @"(?<col>[A-Z]+)(?<row>\d+)");
-            string colStr = match.Groups["col"].ToString();
-            double col = colStr.Select((t, i) => (colStr[i] - 64) * Math.Pow(26, colStr.Length - i - 1)).Sum();
-            double row = int.Parse(match.Groups["row"].ToString());
-
-            double[] dblArrReturn = { col, row };
-
-            return dblArrReturn;
-
-        }
-
-        public static double[] getCoordsFromRange2(string strRange)
-        {
-
-            double dblCol1 = 0; double dblRow1 = 0; double dblCol2 = 0; double dblRow2 = 0;
-            string strAddress;
-            int intSPos;
-
-            intSPos = strRange.IndexOf(":");
-
-            if (intSPos < 0)
-                strAddress = strRange;
-            else
-                strAddress = strRange.Substring(0, intSPos);
-
-
-            // A20:F20 but could be AA20:FF20 - so now need to get 1st occurance of a number
-            int intIdx = strAddress.IndexOfAny("0123456789".ToCharArray());
-            dblCol1 = CommonExcelClasses.getExcelColumnNumber(strAddress.Substring(0, intIdx));
-            dblRow1 = Convert.ToInt32(strAddress.Substring(intIdx));
-
-            if (intSPos > 0)
-            {
-                strAddress = strRange.Substring(intSPos + 1);
-                intIdx = strAddress.IndexOfAny("0123456789".ToCharArray());
-                dblCol2 = CommonExcelClasses.getExcelColumnNumber(strAddress.Substring(0, intIdx));
-                dblRow2 = Convert.ToInt32(strAddress.Substring(intIdx));
-            }
-
-            double[] intArrReturn = { dblCol1, dblRow1, dblCol2, dblRow2 };
-
-            return intArrReturn;
-
-        }
-
-        public static int getExcelColumnNumber(string strLetter)
-        {
-            strLetter = strLetter.ToUpper();
-            int intOutNum = 0;
-
-            for (int i = 0; i < strLetter.Length; i++)
-            {
-                intOutNum *= 26;
-                intOutNum += (strLetter[i] - 'A' + 1);
-            }
-            return intOutNum;
 
         }
 
@@ -252,6 +160,44 @@ namespace RiggingConsoleApp
             return oFileInfo.LastWriteTime;
 
         }
+
+
+        // extensability - will it work?
+
+
+        public static int Col(this string strRange)
+        {
+            var match = Regex.Match(strRange, @"(?<col>[A-Z]+)(?<row>\d+)");
+            string colStr = match.Groups["col"].ToString();
+            double col = colStr.Select((t, i) => (colStr[i] - 64) * Math.Pow(26, colStr.Length - i - 1)).Sum();
+            return Convert.ToInt32(col);
+
+        }
+
+        public static int Row(this string strRange)
+        {
+            var match = Regex.Match(strRange, @"(?<col>[A-Z]+)(?<row>\d+)");
+            string colStr = match.Groups["col"].ToString();
+            double row = int.Parse(match.Groups["row"].ToString());
+            return Convert.ToInt32(row);
+
+        }
+
+
+        public static string Message(this string strMessage)
+        {
+
+            string strWhichIcon = "Information";
+            MessageBoxIcon whichIcon = MessageBoxIcon.Information;
+            string strCaption = strWhichIcon;
+
+            MessageBox.Show(strMessage, "Information", MessageBoxButtons.OK, whichIcon);
+
+            return strMessage;
+
+        }
+
+
 
     }
 
