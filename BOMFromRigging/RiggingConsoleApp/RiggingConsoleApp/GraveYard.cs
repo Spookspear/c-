@@ -1,6 +1,8 @@
-﻿using System;
+﻿using ExcelDataReader;
+using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -75,7 +77,6 @@ namespace RiggingConsoleApp
 
         }
 
-
         public static double[] getCoordsFromRange1(string strRange)
         {
             // var cellStr = "AB2"; // var cellStr = "A1";
@@ -127,8 +128,6 @@ namespace RiggingConsoleApp
 
         }
 
-
-
         public static int getExcelColumnNumber(string strLetter)
         {
             strLetter = strLetter.ToUpper();
@@ -142,7 +141,6 @@ namespace RiggingConsoleApp
             return intOutNum;
 
         }
-
 
         public static double[] getCoordsFromRange2(string strRange)
         {
@@ -288,12 +286,87 @@ namespace RiggingConsoleApp
 
             CommonExcelClasses.MsgBox(strMessage, "Information");
 
+        }
+
+        private static void codeeg02()
+        {
+            string strFileName = "";
+
+            FileStream stream = File.Open(strFileName, FileMode.Open, FileAccess.Read);
+            IExcelDataReader excelReader;
+
+            //1. Reading Excel file
+            if (Path.GetExtension(strFileName).ToUpper() == ".XLS")
+            {
+                //1.1 Reading from a binary Excel file ('97-2003 format; *.xls)
+                excelReader = ExcelReaderFactory.CreateBinaryReader(stream);
+            }
+            else
+            {
+                //1.2 Reading from a OpenXml Excel file (2007 format; *.xlsx)
+                excelReader = ExcelReaderFactory.CreateOpenXmlReader(stream);
+            }
+
+            //2. DataSet - The result of each spreadsheet will be created in the result.Tables
+            DataSet result = excelReader.AsDataSet();
+
+            //3. DataSet - Create column names from first row
+            // excelReader.IsFirstRowAsColumnNames = false;
+            int rowPosition = 3;
+            int columnPosition = 3;
+
+            DataTable dt = result.Tables[0];
+            Console.WriteLine(dt.Rows[rowPosition][columnPosition]);
+
+            // qwihtut datasedt
+            Console.WriteLine(result.Tables[0].Rows[rowPosition][columnPosition]);
+
+            Console.WriteLine(result.Tables[0].Rows[rowPosition][columnPosition]);
+
+            // another way
+            stream = File.Open(@"C:\Users\Desktop\ExcelDataReader.xlsx", FileMode.Open, FileAccess.Read);
+            IExcelDataReader excelReaderNew = ExcelReaderFactory.CreateOpenXmlReader(stream);
+            DataSet resultNew = excelReaderNew.AsDataSet();
+
+            DataTable dtNew = result.Tables[0];
+            string text = dt.Rows[1][0].ToString();
 
 
 
         }
 
+        private static void codeeg01()
+        {
 
+            string strFileName = "";
+
+            using (var stream = File.Open(strFileName, FileMode.Open, FileAccess.Read))
+            {
+
+                // Auto-detect format, supports:
+                //  - Binary Excel files (2.0-2003 format; *.xls)
+                //  - OpenXml Excel files (2007 format; *.xlsx)
+                using (var reader = ExcelReaderFactory.CreateReader(stream))
+                {
+
+                    // Choose one of either 1 or 2:
+                    // 1. Use the reader methods
+                    do
+                    {
+                        while (reader.Read())
+                        {
+                            // reader.GetDouble(0);
+                        }
+                    } while (reader.NextResult());
+
+                    // 2. Use the AsDataSet extension method
+                    var result = reader.AsDataSet();
+
+                    // The result of each spreadsheet is in result.Tables
+                }
+            }
+
+        }
 
 
     }
