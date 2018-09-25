@@ -47,7 +47,6 @@ namespace RiggingConsoleApp
         {
             // var cellStr = "AB2"; // var cellStr = "A1";
 
-
             string cellStr = strRange;
 
             var match = Regex.Match(cellStr, @"(?<col>[A-Z]+)(?<row>\d+)");
@@ -142,10 +141,10 @@ namespace RiggingConsoleApp
 
         }
 
-        public static double[] getCoordsFromRange2(string strRange)
+        public static double[] getCoordsFromRangeMine(string strRange)
         {
 
-            double dblCol1 = 0; double dblRow1 = 0; double dblCol2 = 0; double dblRow2 = 0;
+            double dblCol1 = 0, dblRow1 = 0, dblCol2 = 0, dblRow2 = 0;
             string strAddress;
             int intSPos;
 
@@ -256,7 +255,7 @@ namespace RiggingConsoleApp
 
 
             // my way
-            intArrCoords = getCoordsFromRange2(strRange);
+            intArrCoords = getCoordsFromRangeMine(strRange);
 
             // string interpolation
             strMessage = string.Format("strRange= {0} is: Row1: {1} and Col1: {2}, Row2: {3}, Col2: {4} ", strRange, intArrCoords[_ROW1].ToString(), intArrCoords[_COL1].ToString(), intArrCoords[_ROW2].ToString(), intArrCoords[_COL2].ToString());
@@ -279,7 +278,7 @@ namespace RiggingConsoleApp
             // my way
             strRange = "AB15:AZ15";
 
-            intArrCoords = getCoordsFromRange2(strRange);
+            intArrCoords = getCoordsFromRangeMine(strRange);
 
             // string interpolation
             strMessage = string.Format("strRange= {0} is: Row1: {1} and Col1: {2}, Row2: {3}, Col2: {4} ", strRange, intArrCoords[_ROW1].ToString(), intArrCoords[_COL1].ToString(), intArrCoords[_ROW2].ToString(), intArrCoords[_COL2].ToString());

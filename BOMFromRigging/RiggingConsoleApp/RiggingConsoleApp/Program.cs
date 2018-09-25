@@ -18,11 +18,17 @@ using System.Diagnostics;               // .FileVersionInfo
 // using RiggingConsoleApp_CommonExcelClasses;
 
 
-
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using ExcelDataReader;
 using System.Data;
+using RiggingConsoleApp.DAL;
+
+using System.Data.Entity;
+
+using RiggingConsoleApp.DAL.Models;
+
+
 
 namespace RiggingConsoleApp
 {
@@ -37,21 +43,24 @@ namespace RiggingConsoleApp
         public const int _COL2 = 2;
         public const int _ROW2 = 3;
 
-
-
         public const string GC_DELIVERY_DETAILS = "Delivery Details:";
         public const string GC_ADDITIONAL_ITEMS = "Additional Items (Free Text)";
 
 
         static void Main(string[] args)
         {
+
             StartOfRiggingProcess();
 
         }
 
         private static void StartOfRiggingProcess()
         {
+            // string strMsg = "hello Nicola".Message();
+
             string strPath = "C:\\Work\\Rigging7\\TwoSheets";
+
+
             
             // check not reading sub folders
             string strSearchPattern = "*.xlsx";
@@ -63,11 +72,13 @@ namespace RiggingConsoleApp
 
             // declare lists
             List<RiggingHeaderDS> lstRiggingHeaderDS = new List<RiggingHeaderDS>();
-            List<RiggingLinesDS> lstRiggingLinesDS = new List<RiggingLinesDS>();
+            List<RiggingLineDS> lstRiggingLinesDS = new List<RiggingLineDS>();
 
             for (int intFileNo = arrOfFiles.GetLowerBound(0); intFileNo <= arrOfFiles.GetUpperBound(0); intFileNo++)
             {
                 processHeaderAndLinesIntoList(arrOfFiles[intFileNo].ToString(), lstRiggingHeaderDS, lstRiggingLinesDS);
+
+                SaveToDb( lstRiggingHeaderDS);
 
             }
 
@@ -75,9 +86,18 @@ namespace RiggingConsoleApp
 
         }
 
+        private static void SaveToDb(List<RiggingHeaderDS> lstRiggingHeaderDS)
+        {
+            using (var db = new RiggingContext())
+            {
 
+                db.RiggingHeaders.AddRange(lstRiggingHeaderDS);
+                db.SaveChanges();
+   
+            }
+        }
 
-        private static void processHeaderAndLinesIntoList(string strFileName, List<RiggingHeaderDS> lstRiggingHeaderDS, List<RiggingLinesDS> lstRiggingLinesDS)
+        private static void processHeaderAndLinesIntoList(string strFileName, List<RiggingHeaderDS> lstRiggingHeaderDS, List<RiggingLineDS> lstRiggingLinesDS)
         {
 
             IExcelDataReader WkbNew;
@@ -103,7 +123,7 @@ namespace RiggingConsoleApp
                 #region [Header]
 
                 RiggingHeaderDS clsRiggingHeader;
-                RiggingLinesDS clsRiggingLines;
+                RiggingLineDS clsRiggingLines;
 
                 clsRiggingHeader = new RiggingHeaderDS
                 {
@@ -128,7 +148,7 @@ namespace RiggingConsoleApp
                 #endregion
 
                 #region [Line Items]
-                lstRiggingLinesDS = new List<RiggingLinesDS>();
+                lstRiggingLinesDS = new List<RiggingLineDS>();
 
                 // Line Indicator (Main or Additional) line items
                 string strLineMainOrAdditional;
@@ -151,7 +171,7 @@ namespace RiggingConsoleApp
                         }
                         else
                         {
-                            clsRiggingLines = new RiggingLinesDS
+                            clsRiggingLines = new RiggingLineDS
                             {
                                 HighLevelDesc = getExcelValue(WksNew, arrAddrLines[0],1),
                                 LowLevelDesc = getExcelValue(WksNew, arrAddrLines[1],1),
@@ -176,10 +196,10 @@ namespace RiggingConsoleApp
                 #endregion
 
                 #region [close the worksheet / workbook]
-                Marshal.FinalReleaseComObject(WksNew);
+                // Marshal.FinalReleaseComObject(WksNew);
                 WkbNew.Close();
 
-                Marshal.FinalReleaseComObject(WkbNew);
+                // Marshal.FinalReleaseComObject(WkbNew);
                 #endregion
 
 
@@ -187,10 +207,10 @@ namespace RiggingConsoleApp
             else
             {
                 #region [close the worksheet / workbook]
-                Marshal.FinalReleaseComObject(WksNew);
+                // Marshal.FinalReleaseComObject(WksNew);
                 WkbNew.Close();
 
-                Marshal.FinalReleaseComObject(WkbNew);
+                // Marshal.FinalReleaseComObject(WkbNew);
                 #endregion
 
                 CommonExcelClasses.MsgBox("Cant find data");
@@ -204,7 +224,8 @@ namespace RiggingConsoleApp
             // double[] dblArrCoords = CommonExcelClasses.getCoordsFromRange1(strAddress);
 
             int iCol = strAddress.Col();
-            int iRow = strAddress.Row(); 
+            int iRow = strAddress.Row();
+
 
             string strRetVal = dataTable.Rows[(iRow - intOffset)][(iCol - intOffset)].ToString();
 
