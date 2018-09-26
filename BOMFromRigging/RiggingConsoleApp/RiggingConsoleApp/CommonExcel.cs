@@ -9,8 +9,9 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-
 using System.Windows.Forms;
+
+using OfficeOpenXml;
 
 namespace RiggingConsoleApp
 {
@@ -51,7 +52,7 @@ namespace RiggingConsoleApp
             MessageBox.Show(strMessage, strCaption, MessageBoxButtons.OK, whichIcon);
         }
 
-        public static bool checkEmptyRange(DataTable Wks, string strRange, int i)
+        public static bool checkEmptyRange(ExcelWorksheet Wks, string strRange, int i)
         {
             int[] intArrCoords = getCoordsFromRange(strRange);
             int intNotEmpty = 0;
@@ -60,10 +61,13 @@ namespace RiggingConsoleApp
             {                
                 for (int y = intArrCoords[_COL1]; y <= intArrCoords[_COL2]; y++)            // loop along the Cols
                 {
-                    if (Wks.Rows[(x- i)][(y- i)].ToString() != "")
+                    if (!isEmptyCell(Wks.Cells[(x - i), (y - i)]))
                     {
-                        intNotEmpty++;
-                        break;
+                        if (Wks.Cells[(x - i), (y - i)].Value.ToString() != "")
+                        {
+                            intNotEmpty++;
+                            break;
+                        }
                     }
                 }
 
@@ -86,20 +90,22 @@ namespace RiggingConsoleApp
             return strCell;
         }
 
-        internal static int searchForValue(DataTable dataTable, string searchString, int intScanCol)
+        internal static int searchForValue(ExcelWorksheet wks, string searchString, int intScanCol)
         {
-
             int intRow = 1;
             int intRetVal = 0;
 
-            for (int iRows = intRow; iRows < dataTable.Rows.Count; iRows++)
+            for (int iRows = intRow; iRows < wks.Dimension.End.Row; iRows++)
             {
-                // Console.WriteLine(dataTable.Rows[iRows][intScanCol].ToString());
-
-                if (dataTable.Rows[iRows][intScanCol].ToString() == searchString)
+                if (!isEmptyCell(wks.Cells[iRows, intScanCol]))
                 {
-                    intRetVal = iRows;
-                    break;
+                    Console.WriteLine(wks.Cells[iRows, intScanCol].Value.ToString());
+
+                    if (wks.Cells[iRows, intScanCol].Value.ToString() == searchString)
+                    {
+                        intRetVal = iRows;
+                        break;
+                    }
                 }
 
             }
@@ -108,6 +114,18 @@ namespace RiggingConsoleApp
 
         }
 
+        public static bool isEmptyCell(ExcelRange xlCell)
+        {
+            bool boolRetVal = false;
+
+            if (xlCell.Value == null)
+            {
+                boolRetVal = true;
+            }
+
+            return boolRetVal;
+
+        }
 
         public static int getDBIntValue(object value, int defaultValue)
         {
@@ -182,6 +200,7 @@ namespace RiggingConsoleApp
             return Convert.ToInt32(row);
 
         }
+
 
 
         public static string Message(this string strMessage)

@@ -2,67 +2,40 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-
 using System.IO;                        // for Directory function
-// using System.Windows.Forms;             // for ok prompt
-using System.Diagnostics;               // .FileVersionInfo
-
-// using Excel = Microsoft.Office.Interop.Excel;
-// using Microsoft.Office.Interop.Excel;
-
-
-// using RiggingConsoleApp_CommonExcelClasses;
-
-
-using System.Runtime.InteropServices;
-using System.Text.RegularExpressions;
-using ExcelDataReader;
+// using ExcelDataReader;
 using System.Data;
 using RiggingConsoleApp.DAL;
-
 using System.Data.Entity;
-
 using RiggingConsoleApp.DAL.Models;
 
-
+using OfficeOpenXml;
+using System.Runtime.InteropServices;
 
 namespace RiggingConsoleApp
 {
     class Program
     {
-        private static string strFileName = "";
-
-
-        public const int _COL1 = 0;     // A
-        public const int _ROW1 = 1;     // 6
-
-        public const int _COL2 = 2;
-        public const int _ROW2 = 3;
-
         public const string GC_DELIVERY_DETAILS = "Delivery Details:";
         public const string GC_ADDITIONAL_ITEMS = "Additional Items (Free Text)";
 
-
         static void Main(string[] args)
         {
-
             StartOfRiggingProcess();
 
+            // testEPPlus();
         }
 
+        
         private static void StartOfRiggingProcess()
         {
-            // string strMsg = "hello Nicola".Message();
+            string strPath;
 
-            string strPath = "C:\\Work\\Rigging7\\TwoSheets";
+            // strPath = "C:\\Work\\Rigging7\\TwoSheets";
+            // strPath = "K:\\Work\\Work\\Rigging7\\Projects\\BOMFromRigging\\Rigging7Workbooks\\OneSheet";
+            strPath = "K:\\Work\\Work\\Rigging7\\Projects\\BOMFromRigging\\Rigging7Workbooks\\ExampleSheets";
 
-
-            
-            // check not reading sub folders
+            // not reading sub folders
             string strSearchPattern = "*.xlsx";
             string[] arrOfFiles = Directory.GetFiles(strPath, strSearchPattern, SearchOption.TopDirectoryOnly);
 
@@ -78,9 +51,12 @@ namespace RiggingConsoleApp
             {
                 processHeaderAndLinesIntoList(arrOfFiles[intFileNo].ToString(), lstRiggingHeaderDS, lstRiggingLinesDS);
 
-                SaveToDb( lstRiggingHeaderDS);
+                // SaveToDb( lstRiggingHeaderDS);
 
             }
+
+            // save after full population
+            SaveToDb(lstRiggingHeaderDS);
 
             // populateWorksheetFromHeaderAndLinesLists(WksMaster, lstRiggingHeaderDS, intLastRow);
 
@@ -90,24 +66,30 @@ namespace RiggingConsoleApp
         {
             using (var db = new RiggingContext())
             {
-
                 db.RiggingHeaders.AddRange(lstRiggingHeaderDS);
                 db.SaveChanges();
-   
+
+                //Database.ExecuteSqlCommand  
+
+
             }
         }
 
         private static void processHeaderAndLinesIntoList(string strFileName, List<RiggingHeaderDS> lstRiggingHeaderDS, List<RiggingLineDS> lstRiggingLinesDS)
         {
 
-            IExcelDataReader WkbNew;
+            // IExcelDataReader WkbNew;
+            // WkbNew = openExcelFile(strFileName);
+            // var Wks = WkbNew.AsDataSet().Tables[0];
 
-            WkbNew = openExcelFile(strFileName);
-            var WksNew = WkbNew.AsDataSet().Tables[0];
+            // changing this library
 
-            // var WksNew = varWksNew.Tables[0];
+            FileInfo fiFilePath = new FileInfo(strFileName);
 
-            int iFr = (CommonExcelClasses.searchForValue(WksNew, GC_DELIVERY_DETAILS, 0) +1);       // iFr = int Footer Row
+            ExcelPackage Wkb = new ExcelPackage(fiFilePath);
+            ExcelWorksheet Wks = Wkb.Workbook.Worksheets["RR05"];
+
+            int iFr = CommonExcelClasses.searchForValue(Wks, GC_DELIVERY_DETAILS, 1);        // iFr = int Footer Row
 
             if (iFr > 1)
             {
@@ -129,19 +111,19 @@ namespace RiggingConsoleApp
                 {
                     FileName = strFileName,
                     FileDate = CommonExcelClasses.getFileDate(strFileName.ToString()),
-                    ContactPerson = getExcelValue(WksNew, arrAddrHead[0],1),
-                    BudgetHolder = getExcelValue(WksNew, arrAddrHead[1], 1),
-                    VesselLocation = getExcelValue(WksNew, arrAddrHead[2], 1),
-                    ProjectDepartment = getExcelValue(WksNew, arrAddrHead[3], 1),
-                    DateRequested = getExcelValue(WksNew, arrAddrHead[4], 1),
-                    DateRequired = getExcelValue(WksNew, arrAddrHead[5], 1),
-                    ProjectDuration = getExcelValue(WksNew, arrAddrHead[6], 1),
-                    SAPCostCode = getExcelValue(WksNew, arrAddrHead[7], 1),
-                    DeliveryDetails = getExcelValue(WksNew, arrAddrFoot[0], 1),
-                    Remarks = getExcelValue(WksNew, arrAddrFoot[1], 1),
-                    ATRWONO = getExcelValue(WksNew, arrAddrFoot[2], 1),
-                    Vendor = getExcelValue(WksNew, arrAddrFoot[3], 1),
-                    PONumber = getExcelValue(WksNew, arrAddrFoot[4], 1)
+                    ContactPerson = getExcelValue(Wks, arrAddrHead[0],0),
+                    BudgetHolder = getExcelValue(Wks, arrAddrHead[1], 0),
+                    VesselLocation = getExcelValue(Wks, arrAddrHead[2], 0),
+                    ProjectDepartment = getExcelValue(Wks, arrAddrHead[3], 0),
+                    DateRequested = getExcelValue(Wks, arrAddrHead[4], 0),
+                    DateRequired = getExcelValue(Wks, arrAddrHead[5], 0),
+                    ProjectDuration = getExcelValue(Wks, arrAddrHead[6], 0),
+                    SAPCostCode = getExcelValue(Wks, arrAddrHead[7], 0),
+                    DeliveryDetails = getExcelValue(Wks, arrAddrFoot[0], 0),
+                    Remarks = getExcelValue(Wks, arrAddrFoot[1], 0),
+                    ATRWONO = getExcelValue(Wks, arrAddrFoot[2], 0),
+                    Vendor = getExcelValue(Wks, arrAddrFoot[3], 0),
+                    PONumber = getExcelValue(Wks, arrAddrFoot[4], 0)
 
                 };
 
@@ -163,9 +145,9 @@ namespace RiggingConsoleApp
 
                     // this isnt working the way it sould be
 
-                    if (!CommonExcelClasses.checkEmptyRange(WksNew, strCheckRange,1))
+                    if (!CommonExcelClasses.checkEmptyRange(Wks, strCheckRange, 0))
                     {
-                        if (getExcelValue(WksNew, arrAddrLines[0],1) == GC_ADDITIONAL_ITEMS)
+                        if (getExcelValue(Wks, arrAddrLines[0],0) == GC_ADDITIONAL_ITEMS)
                         {
                             strLineMainOrAdditional = "A";
                         }
@@ -173,12 +155,12 @@ namespace RiggingConsoleApp
                         {
                             clsRiggingLines = new RiggingLineDS
                             {
-                                HighLevelDesc = getExcelValue(WksNew, arrAddrLines[0],1),
-                                LowLevelDesc = getExcelValue(WksNew, arrAddrLines[1],1),
-                                Quantity = getExcelValue(WksNew, arrAddrLines[2],1),
-                                ItemValue = getExcelValue(WksNew, arrAddrLines[3],1),
-                                TotalValue = getExcelValue(WksNew, arrAddrLines[4],1),
-                                TestProcedure = getExcelValue(WksNew, arrAddrLines[5],1),
+                                HighLevelDesc = getExcelValue(Wks, arrAddrLines[0],0),
+                                LowLevelDesc = getExcelValue(Wks, arrAddrLines[1], 0),
+                                Quantity = getExcelValue(Wks, arrAddrLines[2], 0),
+                                ItemValue = getExcelValue(Wks, arrAddrLines[3], 0),
+                                TotalValue = getExcelValue(Wks, arrAddrLines[4], 0),
+                                TestProcedure = getExcelValue(Wks, arrAddrLines[5], 0),
                                 LineOrAdditional = strLineMainOrAdditional
                             };
 
@@ -196,9 +178,11 @@ namespace RiggingConsoleApp
                 #endregion
 
                 #region [close the worksheet / workbook]
-                // Marshal.FinalReleaseComObject(WksNew);
-                WkbNew.Close();
+                // Marshal.FinalReleaseComObject(Wks);
+                Wks.Dispose();
+                Wkb.Dispose();
 
+                // Marshal.ReleaseComObject(fiFilePath);
                 // Marshal.FinalReleaseComObject(WkbNew);
                 #endregion
 
@@ -207,8 +191,8 @@ namespace RiggingConsoleApp
             else
             {
                 #region [close the worksheet / workbook]
-                // Marshal.FinalReleaseComObject(WksNew);
-                WkbNew.Close();
+                // Marshal.FinalReleaseComObject(Wks);
+                Wkb.Dispose();
 
                 // Marshal.FinalReleaseComObject(WkbNew);
                 #endregion
@@ -218,7 +202,8 @@ namespace RiggingConsoleApp
 
         }
 
-        private static string getExcelValue(DataTable dataTable, string strAddress, int intOffset)
+
+        private static string getExcelValue(ExcelWorksheet wks, string strAddress, int intOffset)
         {
 
             // double[] dblArrCoords = CommonExcelClasses.getCoordsFromRange1(strAddress);
@@ -226,11 +211,14 @@ namespace RiggingConsoleApp
             int iCol = strAddress.Col();
             int iRow = strAddress.Row();
 
+            string strRetVal = "";
 
-            string strRetVal = dataTable.Rows[(iRow - intOffset)][(iCol - intOffset)].ToString();
+            if (!CommonExcelClasses.isEmptyCell(wks.Cells[(iRow - intOffset), (iCol - intOffset)]))
+            {
+                wks.Cells[(iRow - intOffset), (iCol - intOffset)].Value.ToString();
 
+            }
             return strRetVal;
-
 
         }
 
@@ -256,7 +244,7 @@ namespace RiggingConsoleApp
             return arrFooterAddr;
 
             // close and free the memory
-            // Marshal.FinalReleaseComObject(WksNew);
+            // Marshal.FinalReleaseComObject(Wks);
 
 
         }
@@ -279,33 +267,128 @@ namespace RiggingConsoleApp
 
         }
 
-        private static IExcelDataReader openExcelFile(string strFileName)
+
+        private static void testEPPlus()
         {
-            // string strFileName = "C:\\Work\\Rigging7\\OneSheet\\FieldsToCells.xlsx";
 
-            FileStream stream = File.Open(strFileName, FileMode.Open, FileAccess.Read);
-            IExcelDataReader wkbNew;
+            string strPathFile = "K:\\Work\\Work\\Rigging7\\Projects\\BOMFromRigging\\Rigging7Workbooks\\OneSheet\\FieldsToCells.xlsx";
+            FileInfo fiFilePath = new FileInfo(strPathFile);
 
-            //1. Reading Excel file
-            if (Path.GetExtension(strFileName).ToUpper() == ".XLS")
+            using (ExcelPackage Wkb = new ExcelPackage(fiFilePath))
             {
-                //1.1 Reading from a binary Excel file ('97-2003 format; *.xls)
-                wkbNew = ExcelReaderFactory.CreateBinaryReader(stream);
+                ExcelWorksheet Wks = Wkb.Workbook.Worksheets["RR05"];
+
+
+                string strRange = "A5";
+                string varContactPersonField = Wks.Cells[strRange.Row(), strRange.Col()].Value.ToString();
+
+                strRange = "A6";
+                string varContactPersonValue = Wks.Cells[strRange.Row(), strRange.Col()].Value.ToString();
+
+                CommonExcelClasses.MsgBox("varContactPersonField: " + varContactPersonField);
+                CommonExcelClasses.MsgBox("varContactPersonValue: " + varContactPersonValue);
+
+
             }
-            else
-            {
-                //1.2 Reading from a OpenXml Excel file (2007 format; *.xlsx)
-                wkbNew = ExcelReaderFactory.CreateOpenXmlReader(stream);
-            }
-
-            //2. DataSet - The result of each spreadsheet will be created in the result.Tables
-            // var result = excelReader.AsDataSet();
-
-            // return excelReader.AsDataSet();
-            return wkbNew;
-
 
         }
+
+
+
+        private static void testEPPlusOld()
+        {
+
+            string strPathFile = "K:\\Work\\Work\\Rigging7\\Projects\\BOMFromRigging\\Rigging7Workbooks\\OneSheet\\FieldsToCells.xlsx";
+
+
+            //Open the workbook (or create it if it doesn't exist)
+            // var fi = new FileInfo(@"c:\workbooks\myworkbook.xlsx");
+            // var fi = new FileInfo(strPathFile);
+            FileInfo fiFilePath = new FileInfo(strPathFile);
+
+            using (ExcelPackage Wkb = new ExcelPackage(fiFilePath))
+            {
+                //Get the Worksheet created in the previous codesample. 
+                // var Wks = Wkb.Workbook.Worksheets["RR05"];
+                ExcelWorksheet Wks = Wkb.Workbook.Worksheets["RR05"];
+
+
+                // Set the cell value using row and column.
+                // Wks.Cells[2, 1].Value = "This is cell B1. It is set to bolds";
+                string strRange = "";
+
+                strRange = "A5";
+                // var varContactPersonField = Wks.Cells[strRange.Row(), strRange.Col()].Value.ToString();
+
+                string varContactPersonField = Wks.Cells[strRange.Row(), strRange.Col()].Value.ToString();
+
+                CommonExcelClasses.MsgBox("varContactPersonField: " + varContactPersonField);
+
+                strRange = "A6";
+                string varContactPersonValue = Wks.Cells[strRange.Row(), strRange.Col()].Value.ToString();
+
+                CommonExcelClasses.MsgBox("varContactPersonValue: " + varContactPersonValue);
+
+
+                //The style object is used to access most cells formatting and styles.
+                // Wks.Cells[2, 1].Style.Font.Bold = true;
+                //Save and close the package.
+                // Wkb.Save();
+            }
+
+            /*
+
+            // string path = Server.MapPath("YourFolder/YourFile.xlsx")
+
+            int maxRow = 1048576 //max row in excel
+            int maxCol = 0;
+
+            for (int row = 2; row < maxRow; row++)//for looping the rows
+            {
+                //check if the row has a value by checking the 1st cell of the row if not break the loop
+                if (ExcelWorksheet.Cells[row, 1].Value == null)
+                    break;
+                int temp = 1;
+                if (row == 2)
+                    for (int col = 1; col <= temp; col++)
+                    {
+                        if (worksheet.Cells[1, col].Value == null)
+                            maxCol = col - 1;
+                        else
+                            temp++;
+                    }
+                string var1, var2;
+                for (int col = 1; col <= maxCol + 1; col++)//for looping the columns
+                {
+                    if (col == 1)
+                        var1 = worksheet.Cells[row, col].Value.ToString();
+                    else //for column 2
+                        var2 = worksheet.Cells[row, col].Value.ToString();
+                    if (col == maxCol + 1)//condition to insert into database
+                                    //here you can call a method that inserts the variables
+                                    //ie var 1 and var2 in the database
+
+                }
+            }
+
+
+
+        private static string Demo()
+        {
+
+            string strAddress = "H21";
+
+            int iCol = strAddress.Col();
+            int iRow = strAddress.Row();
+
+        }
+
+
+
+    */
+
+        }
+
 
 
     }

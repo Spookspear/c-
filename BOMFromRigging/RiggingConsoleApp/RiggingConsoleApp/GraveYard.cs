@@ -10,8 +10,27 @@ using System.Threading.Tasks;
 
 namespace RiggingConsoleApp
 {
+
+    class IncluesRemoved
+    {
+        // Program.cs
+
+        // using System.Linq;
+        // using System.Text;
+        // using System.Threading.Tasks;
+        // using System.Diagnostics;               // .FileVersionInfo
+        // using System.Runtime.InteropServices;
+        // using System.Text.RegularExpressions;
+
+
+
+
+    }
+
     class GraveYard
     {
+
+
 
         /*
         var result = excelReader.AsDataSet(new ExcelDataSetConfiguration() {
