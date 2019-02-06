@@ -1,7 +1,3 @@
-D:\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\bin\Debug\ToolbarOfFunctions.dll
-D:\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\bin\Debug\ToolbarOfFunctions.pdb
-D:\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\bin\Debug\ToolbarOfFunctions.dll.manifest
-D:\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\bin\Debug\ToolbarOfFunctions.vsto
 D:\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\bin\Debug\Microsoft.Office.Tools.Common.v4.0.Utilities.dll
 D:\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\obj\Debug\ToolbarOfFunctions.frmSettings.resources
 D:\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\obj\Debug\ToolbarOfFunctions.Properties.Resources.resources
@@ -9,12 +5,36 @@ D:\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\obj\Debug\ToolbarOfFunctions.
 D:\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\obj\Debug\ToolbarOfFunctions.csproj.GenerateResource.cache
 D:\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\obj\Debug\ToolbarOfFunctions.csproj.CoreCompileInputs.cache
 D:\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\obj\Debug\ToolbarOfFunctions.csproj.CopyComplete
-D:\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\obj\Debug\ToolbarOfFunctions.dll
-D:\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\obj\Debug\ToolbarOfFunctions.pdb
 D:\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\obj\Debug\ToolbarOfFunctions.csprojAssemblyReference.cache
-D:\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\bin\Debug\ToolbarOfFunctions.dll.config
 D:\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\bin\Debug\EntityFramework.dll
 D:\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\bin\Debug\EntityFramework.SqlServer.dll
 D:\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\bin\Debug\EntityFramework.xml
 D:\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\bin\Debug\EntityFramework.SqlServer.xml
 D:\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\obj\Debug\ToolbarOfFunctions.Migrations.init.resources
+D:\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\bin\Debug\ToolbarOfFunctions.dll.config
+D:\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\bin\Debug\ToolbarOfFunctions.dll
+D:\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\bin\Debug\ToolbarOfFunctions.pdb
+D:\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\bin\Debug\ToolbarOfFunctions.dll.manifest
+D:\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\bin\Debug\ToolbarOfFunctions.vsto
+D:\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\obj\Debug\ToolbarOfFunctions.dll
+D:\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\obj\Debug\ToolbarOfFunctions.pdb
+O:\Global Business Applications\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\bin\Debug\ToolbarOfFunctionsDev.dll.config
+O:\Global Business Applications\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\bin\Debug\ToolbarOfFunctionsDev.dll
+O:\Global Business Applications\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\bin\Debug\ToolbarOfFunctionsDev.pdb
+O:\Global Business Applications\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\bin\Debug\ToolbarOfFunctionsDev.dll.manifest
+O:\Global Business Applications\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\bin\Debug\ToolbarOfFunctionsDev.vsto
+O:\Global Business Applications\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\bin\Debug\EntityFramework.dll
+O:\Global Business Applications\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\bin\Debug\EntityFramework.SqlServer.dll
+O:\Global Business Applications\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\bin\Debug\Microsoft.Office.Tools.Common.v4.0.Utilities.dll
+O:\Global Business Applications\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\bin\Debug\EntityFramework.xml
+O:\Global Business Applications\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\bin\Debug\EntityFramework.SqlServer.xml
+O:\Global Business Applications\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\obj\Debug\ToolbarOfFunctions.frmSettings.resources
+O:\Global Business Applications\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\obj\Debug\ToolbarOfFunctions.Migrations.init.resources
+O:\Global Business Applications\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\obj\Debug\ToolbarOfFunctions.Properties.Resources.resources
+O:\Global Business Applications\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\obj\Debug\ToolbarOfFunctions.ExcelRibbon.resources
+O:\Global Business Applications\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\obj\Debug\ToolbarOfFunctions.csproj.GenerateResource.cache
+O:\Global Business Applications\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\obj\Debug\ToolbarOfFunctions.csproj.CoreCompileInputs.cache
+O:\Global Business Applications\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\obj\Debug\ToolbarOfFunctions.csproj.CopyComplete
+O:\Global Business Applications\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\obj\Debug\ToolbarOfFunctionsDev.dll
+O:\Global Business Applications\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\obj\Debug\ToolbarOfFunctionsDev.pdb
+O:\Global Business Applications\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\obj\Debug\ToolbarOfFunctions.csprojAssemblyReference.cache

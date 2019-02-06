@@ -21,376 +21,381 @@ using System.IO;
 
 namespace ToolbarOfFunctions
 {
-    public partial class frmSettings : Form
-    {
+	public partial class frmSettings : Form
+	{
 
-        InformationForSettingsForm myData = new InformationForSettingsForm();
+		InformationForSettingsForm myData = new InformationForSettingsForm();
 
-        public frmSettings()
-        {
-            InitializeComponent();
-        }
+		public frmSettings()
+		{
+			InitializeComponent();
+		}
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            myData = myData.LoadMyData();               // read data from settings file
+		private void Form1_Load(object sender, EventArgs e)
+		{
 
-            chkLargeButtons.Checked = myData.LargeButtons;
-            chkHideText.Checked = myData.HideText;
+			// CommonExcelClasses.MsgBox("I was called");
 
-            chkLBColorOrCompare.Text = myData.CompareOrColour;
+			myData = myData.LoadMyData();               // read data from settings file
 
-            // tick the correct box
-            if (chkLBColorOrCompare.CheckedItems.Count == 0)
-            {
+			chkLargeButtons.Checked = myData.LargeButtons;
+			chkHideText.Checked = myData.HideText;
 
-                if (myData.CompareOrColour == "Colour")
-                {
-                    chkLBColorOrCompare.SetItemChecked(0, true);
-                } else {
-                    chkLBColorOrCompare.SetItemChecked(1, true);
-                }
-            }
+			chkLBColorOrCompare.Text = myData.CompareOrColour;
 
-            // - New 
-            chkLBColourOrDelete.Text = myData.ColourOrDelete;
+			// tick the correct box
+			if (chkLBColorOrCompare.CheckedItems.Count == 0)
+			{
 
-            // tick the correct box
-            if (chkLBColourOrDelete.CheckedItems.Count == 0)
-            {
-                if (myData.ColourOrDelete == "Colour")
-                {
-                    chkLBColourOrDelete.SetItemChecked(0, true);
-                }
-                else if (myData.ColourOrDelete == "Delete")
-                {
-                    chkLBColourOrDelete.SetItemChecked(1, true);
-                }
-                else if (myData.ColourOrDelete == "Clear")
-                {
-                    chkLBColourOrDelete.SetItemChecked(2, true);
-                }
+				if (myData.CompareOrColour == "Colour")
+				{
+					chkLBColorOrCompare.SetItemChecked(0, true);
+				} else {
+					chkLBColorOrCompare.SetItemChecked(1, true);
+				}
+			}
 
-            }
+			// - New
+			chkLBColourOrDelete.Text = myData.ColourOrDelete;
 
-            // -New eof
+			// tick the correct box
+			if (chkLBColourOrDelete.CheckedItems.Count == 0)
+			{
+				if (myData.ColourOrDelete == "Colour")
+				{
+					chkLBColourOrDelete.SetItemChecked(0, true);
+				}
+				else if (myData.ColourOrDelete == "Delete")
+				{
+					chkLBColourOrDelete.SetItemChecked(1, true);
+				}
+				else if (myData.ColourOrDelete == "Clear")
+				{
+					chkLBColourOrDelete.SetItemChecked(2, true);
+				}
 
-            chkDisplayTimeTaken.Checked = myData.DisplayTimeTaken;
+			}
 
-            chkProduceInitialMessageBox.Checked = myData.ProduceInitialMessageBox;
-            chkProduceCompleteMessageBox.Checked = myData.ProduceCompleteMessageBox;
+			// -New eof
 
-            cmboDelMode.Text = myData.DelModeAorBorC;
-            numHighlightRowsOver.Value = myData.HighlightRowsOver;
-            // ---------
+			chkDisplayTimeTaken.Checked = myData.DisplayTimeTaken;
 
-            numNoOfColumnsToCheck.Value = myData.NoOfColumnsToCheck;
-            numComparingStartRow.Value = myData.ComparingStartRow;
-            numDupliateColumnToCheck.Value = myData.DupliateColumnToCheck;
+			chkProduceInitialMessageBox.Checked = myData.ProduceInitialMessageBox;
+			chkProduceCompleteMessageBox.Checked = myData.ProduceCompleteMessageBox;
 
-            txtColourFound.ForeColor = ColorTranslator.FromHtml(myData.ColourFore_Found);
-            txtColourNotFound.ForeColor = ColorTranslator.FromHtml(myData.ColourFore_NotFound);
+			cmboDelMode.Text = myData.DelModeAorBorC;
+			numHighlightRowsOver.Value = myData.HighlightRowsOver;
+			// ---------
 
-            chkFoundBold.Checked = myData.ColourBold_Found;
+			numNoOfColumnsToCheck.Value = myData.NoOfColumnsToCheck;
+			numComparingStartRow.Value = myData.ComparingStartRow;
+			numDupliateColumnToCheck.Value = myData.DupliateColumnToCheck;
 
-            txtColourFound.BackColor = ColorTranslator.FromHtml(myData.ColourBack_Found);
-            txtColourNotFound.BackColor = ColorTranslator.FromHtml(myData.ColourBack_NotFound);
+			txtColourFound.ForeColor = ColorTranslator.FromHtml(myData.ColourFore_Found);
+			txtColourNotFound.ForeColor = ColorTranslator.FromHtml(myData.ColourFore_NotFound);
 
-            chkNotFoundBold.Checked = myData.ColourBold_NotFound;
+			chkFoundBold.Checked = myData.ColourBold_Found;
 
-            // ---------
-            numTimeSheetRowNo.Value = myData.TimeSheetRowNo;
-            chkTimeSheetGetRowNo.Checked = myData.TimeSheetGetRowNo;
+			txtColourFound.BackColor = ColorTranslator.FromHtml(myData.ColourBack_Found);
+			txtColourNotFound.BackColor = ColorTranslator.FromHtml(myData.ColourBack_NotFound);
 
-            // ---------
-            numPingSheetRowNo.Value = myData.PingSheetRowNo;
-            numColPingRead.Value = myData.ColPingRead;
-            numColPingWrite.Value = myData.ColPingWrite;
+			chkNotFoundBold.Checked = myData.ColourBold_NotFound;
 
-            chkTestCode.Checked = myData.TestCode;
+			// ---------
+			numTimeSheetRowNo.Value = myData.TimeSheetRowNo;
+			chkTimeSheetGetRowNo.Checked = myData.TimeSheetGetRowNo;
 
-            chkTurnOffScreenValidation.Checked = myData.TurnOffScreenValidation;
+			// ---------
+			numPingSheetRowNo.Value = myData.PingSheetRowNo;
+			numColPingRead.Value = myData.ColPingRead;
+			numColPingWrite.Value = myData.ColPingWrite;
 
-            if (cmboDelMode.Items.Count != 4)
-            {
-                cmboDelMode.Items.Add("Mode: A");
-                cmboDelMode.Items.Add("Mode: B");
-                cmboDelMode.Items.Add("Mode: C");
-                cmboDelMode.Items.Add("Mode: D");
-            }
+			chkTestCode.Checked = myData.TestCode;
 
-            checkCompareCombo();
+			chkTurnOffScreenValidation.Checked = myData.TurnOffScreenValidation;
 
-            chkClearFormatting.Checked = myData.ClearFormatting;
+			if (cmboDelMode.Items.Count != 4)
+			{
+				cmboDelMode.Items.Add("Mode: A");
+				cmboDelMode.Items.Add("Mode: B");
+				cmboDelMode.Items.Add("Mode: C");
+				cmboDelMode.Items.Add("Mode: D");
+			}
 
-            cmboWhichDate.Text = myData.FileDateTime;
+			checkCompareCombo();
 
-            chkExtractFileName.Checked = myData.ExtractFileName;
+			chkClearFormatting.Checked = myData.ClearFormatting;
 
-            numColNoForExtractedName.Value = myData.ColExtractedFile;
+			cmboWhichDate.Text = myData.FileDateTime;
 
-            numZapSheetStartRow.Value = myData.ZapStartDefaultRow;
+			chkExtractFileName.Checked = myData.ExtractFileName;
 
-        }
+			numColNoForExtractedName.Value = myData.ColExtractedFile;
 
-        private void btnApply_Click(object sender, EventArgs e)
-        {
-            myData.LargeButtons = chkLargeButtons.Checked;
-            myData.HideText = chkHideText.Checked;
+			numZapSheetStartRow.Value = myData.ZapStartDefaultRow;
 
-            myData.CompareOrColour = chkLBColorOrCompare.Text;               // new item
-            myData.ColourOrDelete = chkLBColourOrDelete.Text;          // new item
+		}
 
-            myData.DisplayTimeTaken = chkDisplayTimeTaken.Checked;
+		private void btnApply_Click(object sender, EventArgs e)
+		{
+			myData.LargeButtons = chkLargeButtons.Checked;
+			myData.HideText = chkHideText.Checked;
 
-            myData.ProduceInitialMessageBox = chkProduceInitialMessageBox.Checked;
-            myData.ProduceCompleteMessageBox = chkProduceCompleteMessageBox.Checked;
+			myData.CompareOrColour = chkLBColorOrCompare.Text;               // new item
+			myData.ColourOrDelete = chkLBColourOrDelete.Text;          // new item
 
-            myData.DelModeAorBorC = cmboDelMode.Text;
-            myData.HighlightRowsOver = numHighlightRowsOver.Value;
-            // ---------
+			myData.DisplayTimeTaken = chkDisplayTimeTaken.Checked;
 
-            myData.NoOfColumnsToCheck = numNoOfColumnsToCheck.Value;
-            myData.ComparingStartRow = numComparingStartRow.Value;
-            myData.DupliateColumnToCheck = numDupliateColumnToCheck.Value;
+			myData.ProduceInitialMessageBox = chkProduceInitialMessageBox.Checked;
+			myData.ProduceCompleteMessageBox = chkProduceCompleteMessageBox.Checked;
 
-            myData.ColourFore_Found = ColorTranslator.ToHtml(txtColourFound.ForeColor);
-            myData.ColourFore_NotFound = ColorTranslator.ToHtml(txtColourNotFound.ForeColor);
+			myData.DelModeAorBorC = cmboDelMode.Text;
+			myData.HighlightRowsOver = numHighlightRowsOver.Value;
+			// ---------
 
-            myData.ColourBold_Found = chkFoundBold.Checked;
+			myData.NoOfColumnsToCheck = numNoOfColumnsToCheck.Value;
+			myData.ComparingStartRow = numComparingStartRow.Value;
+			myData.DupliateColumnToCheck = numDupliateColumnToCheck.Value;
 
-            myData.ColourBack_Found = ColorTranslator.ToHtml(txtColourFound.BackColor);
-            myData.ColourBack_NotFound = ColorTranslator.ToHtml(txtColourNotFound.BackColor);
+			myData.ColourFore_Found = ColorTranslator.ToHtml(txtColourFound.ForeColor);
+			myData.ColourFore_NotFound = ColorTranslator.ToHtml(txtColourNotFound.ForeColor);
 
-            myData.ColourBold_NotFound = chkNotFoundBold.Checked;
+			myData.ColourBold_Found = chkFoundBold.Checked;
 
-            // ---------
-            myData.TimeSheetRowNo = numTimeSheetRowNo.Value;
-            myData.TimeSheetGetRowNo = chkTimeSheetGetRowNo.Checked;
+			myData.ColourBack_Found = ColorTranslator.ToHtml(txtColourFound.BackColor);
+			myData.ColourBack_NotFound = ColorTranslator.ToHtml(txtColourNotFound.BackColor);
 
-            // ---------
-            myData.PingSheetRowNo = numPingSheetRowNo.Value;
-            myData.ColPingRead = numColPingRead.Value;
-            myData.ColPingWrite = numColPingWrite.Value;
+			myData.ColourBold_NotFound = chkNotFoundBold.Checked;
 
-            //---- misc
-            myData.TestCode = chkTestCode.Checked;
-            // myData.RecordTimes = chkRecordTimes.Checked;
+			// ---------
+			myData.TimeSheetRowNo = numTimeSheetRowNo.Value;
+			myData.TimeSheetGetRowNo = chkTimeSheetGetRowNo.Checked;
 
-            myData.TurnOffScreenValidation = chkTurnOffScreenValidation.Checked;
+			// ---------
+			myData.PingSheetRowNo = numPingSheetRowNo.Value;
+			myData.ColPingRead = numColPingRead.Value;
+			myData.ColPingWrite = numColPingWrite.Value;
 
-            myData.ClearFormatting = chkClearFormatting.Checked;
+			//---- misc
+			myData.TestCode = chkTestCode.Checked;
+			// myData.RecordTimes = chkRecordTimes.Checked;
 
-            myData.FileDateTime = cmboWhichDate.Text;
-            myData.ExtractFileName = chkExtractFileName.Checked;
-            myData.ColExtractedFile = numColNoForExtractedName.Value;
+			myData.TurnOffScreenValidation = chkTurnOffScreenValidation.Checked;
 
-            myData.ZapStartDefaultRow = numZapSheetStartRow.Value;
+			myData.ClearFormatting = chkClearFormatting.Checked;
 
-            InformationForSettingsForm.SaveData(myData);
+			myData.FileDateTime = cmboWhichDate.Text;
+			myData.ExtractFileName = chkExtractFileName.Checked;
+			myData.ColExtractedFile = numColNoForExtractedName.Value;
 
-            this.Hide();
+			myData.ZapStartDefaultRow = numZapSheetStartRow.Value;
 
-        }
+			InformationForSettingsForm.SaveData(myData);
 
-        private void btnColourNotFound_Click(object sender, EventArgs e)
-        {
+			this.Hide();
 
-            // myData = SaveXML.LoadData();
-            // colorDialog1.Color = ColorTranslator.FromHtml(myData.ColourFore_NotFound);
+		}
 
-            colorDialog1.Color = txtColourNotFound.ForeColor;
+		private void btnColourNotFound_Click(object sender, EventArgs e)
+		{
 
-            if (colorDialog1.ShowDialog() == DialogResult.OK)
-            {
-                txtColourNotFound.ForeColor = colorDialog1.Color;
+			// myData = SaveXML.LoadData();
+			// colorDialog1.Color = ColorTranslator.FromHtml(myData.ColourFore_NotFound);
 
-                // if (colorDialog1.Color.IsNamedColor)                {                }
-                // txtColourNotFound.Text = colorDialog1.Color.Name;
-            }
+			colorDialog1.Color = txtColourNotFound.ForeColor;
 
-        }
+			if (colorDialog1.ShowDialog() == DialogResult.OK)
+			{
+				txtColourNotFound.ForeColor = colorDialog1.Color;
 
-        private void btnColourFound_Click(object sender, EventArgs e)
-        {
-            // myData = SaveXML.LoadData();
-            // colorDialog1.Color = ColorTranslator.FromHtml(myData.ColourFore_Found);
+				// if (colorDialog1.Color.IsNamedColor)                {                }
+				// txtColourNotFound.Text = colorDialog1.Color.Name;
+			}
 
-            colorDialog1.Color = txtColourFound.ForeColor;
+		}
 
-            if (colorDialog1.ShowDialog() == DialogResult.OK)
-            {
-                txtColourFound.ForeColor = colorDialog1.Color;
-                // txtColourFound.Text = colorDialog1.Color.Name;
-                // if (colorDialog1.Color.IsNamedColor)                {                }
-            }
+		private void btnColourFound_Click(object sender, EventArgs e)
+		{
+			// myData = SaveXML.LoadData();
+			// colorDialog1.Color = ColorTranslator.FromHtml(myData.ColourFore_Found);
 
+			colorDialog1.Color = txtColourFound.ForeColor;
 
-        }
+			if (colorDialog1.ShowDialog() == DialogResult.OK)
+			{
+				txtColourFound.ForeColor = colorDialog1.Color;
+				// txtColourFound.Text = colorDialog1.Color.Name;
+				// if (colorDialog1.Color.IsNamedColor)                {                }
+			}
 
 
-        private void btnColourFoundBack_Click(object sender, EventArgs e)
-        {
+		}
 
-            // myData = SaveXML.LoadData();
-            // colorDialog1.Color = ColorTranslator.FromHtml(myData.ColourBack_Found);
 
-            colorDialog1.Color = txtColourFound.BackColor;
+		private void btnColourFoundBack_Click(object sender, EventArgs e)
+		{
 
-            if (colorDialog1.ShowDialog() == DialogResult.OK)
-            {
-                txtColourFound.BackColor = colorDialog1.Color;
-            }
+			// myData = SaveXML.LoadData();
+			// colorDialog1.Color = ColorTranslator.FromHtml(myData.ColourBack_Found);
 
-        }
+			colorDialog1.Color = txtColourFound.BackColor;
 
-        private void btnColourNotFoundBack_Click(object sender, EventArgs e)
-        {
-            // myData = SaveXML.LoadData();
-            // colorDialog1.Color = ColorTranslator.FromHtml(myData.ColourBack_NotFound);
+			if (colorDialog1.ShowDialog() == DialogResult.OK)
+			{
+				txtColourFound.BackColor = colorDialog1.Color;
+			}
 
-            colorDialog1.Color = txtColourNotFound.BackColor;
+		}
 
-            if (colorDialog1.ShowDialog() == DialogResult.OK)
-            {
-                txtColourNotFound.BackColor = colorDialog1.Color;
-            }
+		private void btnColourNotFoundBack_Click(object sender, EventArgs e)
+		{
+			// myData = SaveXML.LoadData();
+			// colorDialog1.Color = ColorTranslator.FromHtml(myData.ColourBack_NotFound);
 
-        }
+			colorDialog1.Color = txtColourNotFound.BackColor;
 
+			if (colorDialog1.ShowDialog() == DialogResult.OK)
+			{
+				txtColourNotFound.BackColor = colorDialog1.Color;
+			}
 
-        private void cmboCompareDifferences_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            checkCompareCombo();
-        }
+		}
 
 
-        private void checkCompareCombo()
-        {
-            bool boolEnabled = false;
+		private void cmboCompareDifferences_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			checkCompareCombo();
+		}
 
-            if (chkLBColorOrCompare.Text == "Colour")
-            {
-                boolEnabled = true;
-            }
 
-            label8.Enabled = boolEnabled;
-            txtColourFound.Enabled = boolEnabled;
-            btnColourFound.Enabled = boolEnabled;
-            label9.Enabled = boolEnabled;
-            txtColourNotFound.Enabled = boolEnabled;
-            btnColourNotFound.Enabled = boolEnabled;
+		private void checkCompareCombo()
+		{
+			bool boolEnabled = false;
 
-            btnColourFoundBack.Enabled = boolEnabled;
-            btnColourNotFoundBack.Enabled = boolEnabled;
+			if (chkLBColorOrCompare.Text == "Colour")
+			{
+				boolEnabled = true;
+			}
 
-        }
+			label8.Enabled = boolEnabled;
+			txtColourFound.Enabled = boolEnabled;
+			btnColourFound.Enabled = boolEnabled;
+			label9.Enabled = boolEnabled;
+			txtColourNotFound.Enabled = boolEnabled;
+			btnColourNotFound.Enabled = boolEnabled;
 
-        private void chkProduceCompleteMessageBox_CheckedChanged(object sender, EventArgs e)
-        {
-            chkDisplayTimeTaken.Enabled = chkProduceCompleteMessageBox.Checked;
-            chkDisplayTimeTaken.Checked = chkProduceCompleteMessageBox.Checked;
-        }
+			btnColourFoundBack.Enabled = boolEnabled;
+			btnColourNotFoundBack.Enabled = boolEnabled;
 
+		}
 
+		private void chkProduceCompleteMessageBox_CheckedChanged(object sender, EventArgs e)
+		{
+			chkDisplayTimeTaken.Enabled = chkProduceCompleteMessageBox.Checked;
+			chkDisplayTimeTaken.Checked = chkProduceCompleteMessageBox.Checked;
+		}
 
-        private void chkLBColorOrCompare_ItemCheck(object sender, ItemCheckEventArgs e)
-        {
-            if (e.NewValue == CheckState.Checked && chkLBColorOrCompare.CheckedItems.Count > 0)
-            {
-                chkLBColorOrCompare.ItemCheck -= chkLBColorOrCompare_ItemCheck;
-                chkLBColorOrCompare.SetItemChecked(chkLBColorOrCompare.CheckedIndices[0], false);
-                chkLBColorOrCompare.ItemCheck += chkLBColorOrCompare_ItemCheck;
-            }
 
-        }
 
+		private void chkLBColorOrCompare_ItemCheck(object sender, ItemCheckEventArgs e)
+		{
+			if (e.NewValue == CheckState.Checked && chkLBColorOrCompare.CheckedItems.Count > 0)
+			{
+				chkLBColorOrCompare.ItemCheck -= chkLBColorOrCompare_ItemCheck;
+				chkLBColorOrCompare.SetItemChecked(chkLBColorOrCompare.CheckedIndices[0], false);
+				chkLBColorOrCompare.ItemCheck += chkLBColorOrCompare_ItemCheck;
+			}
 
-        private void chkLBColorOrCompare_Leave(object sender, EventArgs e)
-        {
-            if (chkLBColorOrCompare.CheckedItems.Count == 0) 
-                chkLBColorOrCompare.SetItemChecked(0, true);
-            
-        }
+		}
 
 
-        private void chkLBColorOrCompare_SelectedIndexChanged_1(object sender, EventArgs e)
-        {
-            checkCompareCombo();
-        }
+		private void chkLBColorOrCompare_Leave(object sender, EventArgs e)
+		{
+			if (chkLBColorOrCompare.CheckedItems.Count == 0)
+				chkLBColorOrCompare.SetItemChecked(0, true);
 
-        // ----------
+		}
 
-        private void chkLBColourOrDelete_ItemCheck(object sender, ItemCheckEventArgs e)
-        {
-            if (e.NewValue == CheckState.Checked && chkLBColourOrDelete.CheckedItems.Count > 0)
-            {
-                chkLBColourOrDelete.ItemCheck -= chkLBColourOrDelete_ItemCheck;
-                chkLBColourOrDelete.SetItemChecked(chkLBColourOrDelete.CheckedIndices[0], false);
-                chkLBColourOrDelete.ItemCheck += chkLBColourOrDelete_ItemCheck;
-            }
 
-        }
+		private void chkLBColorOrCompare_SelectedIndexChanged_1(object sender, EventArgs e)
+		{
+			checkCompareCombo();
+		}
 
+		// ----------
 
-        private void chkLBColourOrDelete_Leave(object sender, EventArgs e)
-        {
-            if (chkLBColourOrDelete.CheckedItems.Count == 0)
-                chkLBColourOrDelete.SetItemChecked(0, true);
+		private void chkLBColourOrDelete_ItemCheck(object sender, ItemCheckEventArgs e)
+		{
+			if (e.NewValue == CheckState.Checked && chkLBColourOrDelete.CheckedItems.Count > 0)
+			{
+				chkLBColourOrDelete.ItemCheck -= chkLBColourOrDelete_ItemCheck;
+				chkLBColourOrDelete.SetItemChecked(chkLBColourOrDelete.CheckedIndices[0], false);
+				chkLBColourOrDelete.ItemCheck += chkLBColourOrDelete_ItemCheck;
+			}
 
-        }
+		}
 
-        private void chkFoundBold_CheckedChanged(object sender, EventArgs e)
-        {
 
-            chkFoundBold.SwitchToBoldRegularChkBox();
-            txtColourFound.SwtichToBoldRegularTextBox();
+		private void chkLBColourOrDelete_Leave(object sender, EventArgs e)
+		{
+			if (chkLBColourOrDelete.CheckedItems.Count == 0)
+				chkLBColourOrDelete.SetItemChecked(0, true);
 
-            /*
-            // set font to bold
-            if (chkFoundBold.Checked)
-            {
-                txtColourFound.Font = new Font(txtColourFound.Font, FontStyle.Bold);
-                chkFoundBold.Font = new Font(chkFoundBold.Font, FontStyle.Bold);
-            } else {
-                txtColourFound.Font = new Font(txtColourFound.Font, FontStyle.Regular);
-                chkFoundBold.Font = new Font(chkFoundBold.Font, FontStyle.Regular);
+		}
 
-            }*/
+		private void chkFoundBold_CheckedChanged(object sender, EventArgs e)
+		{
 
-        }
+			chkFoundBold.SwitchToBoldRegularChkBox();
+			txtColourFound.SwtichToBoldRegularTextBox();
 
-        private void chkNotFoundBold_CheckedChanged(object sender, EventArgs e)
-        {
-            chkNotFoundBold.SwitchToBoldRegularChkBox();
-            txtColourNotFound.SwtichToBoldRegularTextBox();
+			/*
+			// set font to bold
+			if (chkFoundBold.Checked)
+			{
+				txtColourFound.Font = new Font(txtColourFound.Font, FontStyle.Bold);
+				chkFoundBold.Font = new Font(chkFoundBold.Font, FontStyle.Bold);
+			} else {
+				txtColourFound.Font = new Font(txtColourFound.Font, FontStyle.Regular);
+				chkFoundBold.Font = new Font(chkFoundBold.Font, FontStyle.Regular);
 
+			}*/
 
+		}
 
+		private void chkNotFoundBold_CheckedChanged(object sender, EventArgs e)
+		{
+			chkNotFoundBold.SwitchToBoldRegularChkBox();
+			txtColourNotFound.SwtichToBoldRegularTextBox();
 
-            // set font to bold
-            // if (chkNotFoundBold.Checked)
-            // {
-            //CommonExcelClasses.SwtichToBoldRegularChkBox(chkNotFoundBold);
-            //CommonExcelClasses.SwtichToBoldRegularTextBox(txtColourNotFound);
 
-            // txtColourNotFound.Font = new Font(txtColourNotFound.Font, FontStyle.Bold);
-            // chkNotFoundBold.Font = new Font(chkFoundBold.Font, FontStyle.Bold);
-            // }
-            //  else
-            // {
-            // txtColourNotFound.Font = new Font(txtColourNotFound.Font, FontStyle.Regular);
-            // chkNotFoundBold.Font = new Font(chkFoundBold.Font, FontStyle.Regular);
 
-        }
 
-        private void groupBox2_Enter(object sender, EventArgs e)
-        {
+			// set font to bold
+			// if (chkNotFoundBold.Checked)
+			// {
+			//CommonExcelClasses.SwtichToBoldRegularChkBox(chkNotFoundBold);
+			//CommonExcelClasses.SwtichToBoldRegularTextBox(txtColourNotFound);
 
-        }
+			// txtColourNotFound.Font = new Font(txtColourNotFound.Font, FontStyle.Bold);
+			// chkNotFoundBold.Font = new Font(chkFoundBold.Font, FontStyle.Bold);
+			// }
+			//  else
+			// {
+			// txtColourNotFound.Font = new Font(txtColourNotFound.Font, FontStyle.Regular);
+			// chkNotFoundBold.Font = new Font(chkFoundBold.Font, FontStyle.Regular);
 
+		}
 
+		private void groupBox2_Enter(object sender, EventArgs e)
+		{
 
-    }
+		}
+
+		private void btnTestCode_Click( object sender, EventArgs e )
+		{
+
+		}
+	}
 
 }

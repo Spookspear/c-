@@ -17,176 +17,180 @@ using System.Net.NetworkInformation;
 
 namespace ToolbarOfFunctions
 {
-    public partial class ThisAddIn
-    {
+	public partial class ThisAddIn
+	{
 
-        public void pingServersIntoWorksheet(Excel.Application xls)
-        {
+		public void pingServersIntoWorksheet(Excel.Application xls)
+		{
 
-            #region [Declare and instantiate variables for process]
-            myData = myData.LoadMyData();               // read data from settings file
+			#region [Declare and instantiate variables for process]
+			myData = myData.LoadMyData();               // read data from settings file
 
-            bool boolDisplayInitialMessage = myData.ProduceInitialMessageBox;
-            bool boolDisplayCompleteMessage = myData.ProduceCompleteMessageBox;
-            bool booltimeTaken = myData.DisplayTimeTaken;
-            bool boolTurnOffScreen = myData.TurnOffScreenValidation;
-            bool boolTestCode = myData.TestCode;
+			bool boolDisplayInitialMessage = myData.ProduceInitialMessageBox;
+			bool boolDisplayCompleteMessage = myData.ProduceCompleteMessageBox;
+			bool booltimeTaken = myData.DisplayTimeTaken;
+			bool boolTurnOffScreen = myData.TurnOffScreenValidation;
+			bool boolTestCode = myData.TestCode;
 
-            int intStartRow = (int)myData.ComparingStartRow;
-            int intServerColumn = (int)myData.ColPingRead;
-            int intWriteColumn = (int)myData.ColPingWrite;
+			int intStartRow = (int)myData.ComparingStartRow;
+			int intServerColumn = (int)myData.ColPingRead;
+			int intWriteColumn = (int)myData.ColPingWrite;
 
-            #endregion
-            int intSourceRow = intStartRow;
+			#endregion
+			int intSourceRow = intStartRow;
 
-            try
-            {
-                #region [Declare and instantiate variables for worksheet/book]
+			try
+			{
+				#region [Declare and instantiate variables for worksheet/book]
 
-                Excel.Workbook Wkb = xls.ActiveWorkbook;
-                Excel.Worksheet Wks;
-                Wks = Wkb.ActiveSheet;      // get current sheet
+				Excel.Workbook Wkb = xls.ActiveWorkbook;
+				Excel.Worksheet Wks;
+				Wks = Wkb.ActiveSheet;      // get current sheet
 
-                string strMessage = "Ping Servers in Column: " + CommonExcelClasses.getExcelColumnLetter((int)myData.ColPingRead);
-                strMessage = strMessage + " and write results into column: " + CommonExcelClasses.getExcelColumnLetter((int)myData.ColPingWrite);
-
-                #endregion
-
-                #region [Ask to display a Message?]
-                DialogResult dlgResult = DialogResult.Yes;
-
-                if (boolDisplayInitialMessage)
-                {
-                    if (booltimeTaken)
-                        strMessage = strMessage + LF + " and display the time taken";
-
-                    dlgResult = MessageBox.Show(strMessage + "?", "Active Directory", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
-                }
-
-                #endregion
+				// string strMessage = "Ping Servers in Column: " + CommonExcelClasses.getExcelColumnLetter((int)myData.ColPingRead);		// 1gvb3
+				// strMessage = strMessage + " and write results into column: " + CommonExcelClasses.getExcelColumnLetter((int)myData.ColPingWrite);
 
 
-                #region [Start of work]
-                if (dlgResult == DialogResult.Yes)
-                {
+				string strMessage = "Ping Servers in Column: " + myData.ColPingRead.getColLtr();
+				strMessage = strMessage + " and write results into column: " + myData.ColPingWrite.getColLtr();
 
-                    if (boolTurnOffScreen)
-                        CommonExcelClasses.turnAppSettings("Off", xls, myData.TestCode);
+				#endregion
 
-                    DateTime dteStart = DateTime.Now;
-                    int intSheetLastRow = CommonExcelClasses.getLastRow(Wks);
-                    string strServer = "";
+				#region [Ask to display a Message?]
+				DialogResult dlgResult = DialogResult.Yes;
 
-                    // do work
-                    for (intSourceRow = intStartRow; intSourceRow <= intSheetLastRow; intSourceRow++)
-                    {
-                        // read in vlaue from sheet 
-                        // maybe I should ready all into arrays - maybe later?
+				if (boolDisplayInitialMessage)
+				{
+					if (booltimeTaken)
+						strMessage = strMessage + LF + " and display the time taken";
 
-                        if (!CommonExcelClasses.isEmptyCell(Wks.Cells[intSourceRow, intServerColumn]))
-                        {
-                            strServer = Wks.Cells[intSourceRow, intServerColumn].Value;
+					dlgResult = MessageBox.Show(strMessage + "?", "Active Directory", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+				}
 
-                            if (!boolTestCode)
-                            {
-                                if (CommonExcelClasses.isEmptyCell(Wks.Cells[intSourceRow, intServerColumn+1]))
-                                {
-                                    Wks.Cells[intSourceRow, intWriteColumn].Value = PingHost(strServer);
-                                    Wks.Cells[intSourceRow, intWriteColumn + 1].Value = "PingHost(strServer)";
-                                }
-                            }
-                            else
-                            {
-                                if (CommonExcelClasses.isEmptyCell(Wks.Cells[intSourceRow, intServerColumn + 1]))
-                                {
-                                    Wks.Cells[intSourceRow, intWriteColumn].Value = PingHost2(strServer);
-                                    Wks.Cells[intSourceRow, intWriteColumn + 1].Value = "PingHost2(strServer)";
-                                }
-                            }
-
-                        }
-
-                    }
+				#endregion
 
 
-                    if (boolTurnOffScreen)
-                        CommonExcelClasses.turnAppSettings("On", xls, myData.TestCode);
+				#region [Start of work]
+				if (dlgResult == DialogResult.Yes)
+				{
+
+					if (boolTurnOffScreen)
+						CommonExcelClasses.turnAppSettings("Off", xls, myData.TestCode);
+
+					DateTime dteStart = DateTime.Now;
+					int intSheetLastRow = CommonExcelClasses.getLastRow(Wks);
+					string strServer = "";
+
+					// do work
+					for (intSourceRow = intStartRow; intSourceRow <= intSheetLastRow; intSourceRow++)
+					{
+						// read in vlaue from sheet
+						// maybe I should ready all into arrays - maybe later?
+
+						if (!CommonExcelClasses.isEmptyCell(Wks.Cells[intSourceRow, intServerColumn], false))
+						{
+							strServer = Wks.Cells[intSourceRow, intServerColumn].Value;
+
+							if (!boolTestCode)
+							{
+								if (CommonExcelClasses.isEmptyCell(Wks.Cells[intSourceRow, intServerColumn+1], false))
+								{
+									Wks.Cells[intSourceRow, intWriteColumn].Value = PingHost(strServer);
+									Wks.Cells[intSourceRow, intWriteColumn + 1].Value = "PingHost(strServer)";
+								}
+							}
+							else
+							{
+								if (CommonExcelClasses.isEmptyCell(Wks.Cells[intSourceRow, intServerColumn + 1], false))
+								{
+									Wks.Cells[intSourceRow, intWriteColumn].Value = PingHost2(strServer);
+									Wks.Cells[intSourceRow, intWriteColumn + 1].Value = "PingHost2(strServer)";
+								}
+							}
+
+						}
+
+					}
 
 
-                    #region [Display Complete Message]
-                    if (boolDisplayCompleteMessage)
-                    {
-                        strMessage = "";
-                        strMessage = strMessage + "Complete ...";
-
-                        if (booltimeTaken)
-                        {
-                            DateTime dteEnd = DateTime.Now;
-                            int milliSeconds = (int)((TimeSpan)(dteEnd - dteStart)).TotalMilliseconds;
-
-                            strMessage = strMessage + "that took {TotalMilliseconds} " + milliSeconds;
-
-                        }
-
-                        CommonExcelClasses.MsgBox(strMessage);          // localisation?
-                    }
-                    #endregion
-                }
-
-                #endregion
-
-            }
-            catch (System.Exception excpt)
-            {
-                CommonExcelClasses.MsgBox("Issues around row" + intSourceRow.ToString(), "Error");
-                Console.WriteLine(excpt.Message);
-            }
-
-        }
+					if (boolTurnOffScreen)
+						CommonExcelClasses.turnAppSettings("On", xls, myData.TestCode);
 
 
-        public static string PingHost(string nameOrAddress)
-        {
-            bool pingable = false;
-            Ping pinger = null;
-            string strRetVal = "";
-            try
-            {
-                pinger = new Ping();
-                PingReply reply = pinger.Send(nameOrAddress);
-                pingable = reply.Status == IPStatus.Success;
+					#region [Display Complete Message]
+					if (boolDisplayCompleteMessage)
+					{
+						strMessage = "";
+						strMessage = strMessage + "Complete ...";
 
-                if (pingable)
-                {
+						if (booltimeTaken)
+						{
+							DateTime dteEnd = DateTime.Now;
+							int milliSeconds = (int)((TimeSpan)(dteEnd - dteStart)).TotalMilliseconds;
 
-                    strRetVal  = reply.RoundtripTime.ToString() + " ms";
-                }
+							strMessage = strMessage + "that took {TotalMilliseconds} " + milliSeconds;
 
-            }
-            catch (PingException)
-            {
-                // Discard PingExceptions and return false;
-            }
+						}
+
+						CommonExcelClasses.MsgBox(strMessage);          // localisation?
+					}
+					#endregion
+				}
+
+				#endregion
+
+			}
+			catch (System.Exception excpt)
+			{
+				CommonExcelClasses.MsgBox("Issues around row" + intSourceRow.ToString(), "Error");
+				Console.WriteLine(excpt.Message);
+			}
+
+		}
 
 
-            return strRetVal;
-        }
+		public static string PingHost(string nameOrAddress)
+		{
+			bool pingable = false;
+			Ping pinger = null;
+			string strRetVal = "";
+			try
+			{
+				pinger = new Ping();
+				PingReply reply = pinger.Send(nameOrAddress);
+				pingable = reply.Status == IPStatus.Success;
 
-        public static string PingHost2(string strServer)
-        {
-            Ping p = new Ping();
-            PingReply r;
-            string strRetVal = "";
+				if (pingable)
+				{
 
-            r = p.Send(strServer);
+					strRetVal  = reply.RoundtripTime.ToString() + " ms";
+				}
 
-            if (r.Status == IPStatus.Success) {
-                strRetVal =  "Ping to " + strServer.ToString() + "[" + r.Address.ToString() + "]" + " Successful Response delay = " + r.RoundtripTime.ToString() + " ms";
-            }
+			}
+			catch (PingException)
+			{
+				// Discard PingExceptions and return false;
+			}
 
-            return strRetVal.ToString();
-        }
 
-    }
+			return strRetVal;
+		}
+
+		public static string PingHost2(string strServer)
+		{
+			Ping p = new Ping();
+			PingReply r;
+			string strRetVal = "";
+
+			r = p.Send(strServer);
+
+			if (r.Status == IPStatus.Success) {
+				strRetVal =  "Ping to " + strServer.ToString() + "[" + r.Address.ToString() + "]" + " Successful Response delay = " + r.RoundtripTime.ToString() + " ms";
+			}
+
+			return strRetVal.ToString();
+		}
+
+	}
 
 }

@@ -24,13 +24,13 @@ namespace ToolbarOfFunctions
 {
     /// <summary>
     /// 11-09-2018
-    ///  This will evetually be moved into a console applicaiton 
+    ///  This will evetually be moved into a console applicaiton
     ///  to be run as a sevice
     ///  Things outstanding
     ///     write data to a SQL database
     ///     Read documents from sharepoint / Documentset
     /// </summary>
-    /// 
+    ///
 
 
     public partial class ThisAddIn
@@ -127,7 +127,7 @@ namespace ToolbarOfFunctions
 
                     }
 
-                    CommonExcelClasses.MsgBox(strMessage); 
+                    CommonExcelClasses.MsgBox(strMessage);
                 }
                 #endregion
 
@@ -154,7 +154,7 @@ namespace ToolbarOfFunctions
             Excel.Worksheet WksNew = WkbToScan.Worksheets["RR05"];
             int intDAdrRw = CommonExcelClasses.searchForValue(WksNew, GC_DELIVERY_DETAILS, 1);
             int intLineRowStart = 10;
-            
+
             int intNoLines = ((intDAdrRw - 2) - (intLineRowStart - 1));                     //  Number of lines is addresses of: bottom = ((Delivery Details) - 2 := (28 - 9?) := 19
 
             string[] arrAddrHead = populateAddressHeader();
@@ -167,7 +167,7 @@ namespace ToolbarOfFunctions
 
             // add a gui to link the header and lines
 
-            RiggingHeaderDS clsRiggingHeader; 
+            RiggingHeaderDS clsRiggingHeader;
             RiggingLinesDS clsRiggingLines;
 
             clsRiggingHeader = new RiggingHeaderDS
@@ -205,7 +205,7 @@ namespace ToolbarOfFunctions
 
                 string strCheckRange = "A" + intLRow.ToString() + ":C" + intLRow.ToString();
                 string[] arrAddrLines = populateAddressLines(intLRow);
-                
+
                 if (!CommonExcelClasses.checkEmptyRange(WksNew, strCheckRange))
                 {
                     if (getExcelValue(WksNew, arrAddrLines[0]) == GC_ADDITIONAL_ITEMS)
@@ -430,7 +430,7 @@ namespace ToolbarOfFunctions
 
             string strRetVal = "";
 
-            if (!CommonExcelClasses.isEmptyCell(xlCell))
+            if (!CommonExcelClasses.isEmptyCell(xlCell, false))
                 strRetVal = xlCell.Value.ToString();
 
             return strRetVal;
@@ -447,8 +447,8 @@ namespace ToolbarOfFunctions
                                       "B" + intLRow.ToString() ,        // Bx   Low Level Description       B10
                                       "C" + intLRow.ToString() ,        // Cx   Quantity                    C10
                                       "D" + intLRow.ToString() ,        // Dx   Item Value                  D10
-                                      "E" + intLRow.ToString(),         // Ex   Total Value                 E10      
-                                      "F" + intLRow.ToString(),         // Fx   Test Procedure/Legislation  E10      
+                                      "E" + intLRow.ToString(),         // Ex   Total Value                 E10
+                                      "F" + intLRow.ToString(),         // Fx   Test Procedure/Legislation  E10
                                     };
 
 

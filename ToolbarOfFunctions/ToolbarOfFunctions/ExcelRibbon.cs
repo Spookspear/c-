@@ -13,6 +13,10 @@ using ToolbarOfFunctions_CommonClasses;
 using ToolbarOfFunctions;
 
 
+using Microsoft.VisualStudio.CommandBars;
+
+
+
 
 using System.Xml.Serialization;
 using System.IO;
