@@ -23,13 +23,8 @@ O:\Global Business Applications\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\
 O:\Global Business Applications\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\bin\Debug\ToolbarOfFunctionsDev.pdb
 O:\Global Business Applications\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\bin\Debug\ToolbarOfFunctionsDev.dll.manifest
 O:\Global Business Applications\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\bin\Debug\ToolbarOfFunctionsDev.vsto
-O:\Global Business Applications\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\bin\Debug\EntityFramework.dll
-O:\Global Business Applications\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\bin\Debug\EntityFramework.SqlServer.dll
 O:\Global Business Applications\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\bin\Debug\Microsoft.Office.Tools.Common.v4.0.Utilities.dll
-O:\Global Business Applications\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\bin\Debug\EntityFramework.xml
-O:\Global Business Applications\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\bin\Debug\EntityFramework.SqlServer.xml
 O:\Global Business Applications\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\obj\Debug\ToolbarOfFunctions.frmSettings.resources
-O:\Global Business Applications\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\obj\Debug\ToolbarOfFunctions.Migrations.init.resources
 O:\Global Business Applications\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\obj\Debug\ToolbarOfFunctions.Properties.Resources.resources
 O:\Global Business Applications\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\obj\Debug\ToolbarOfFunctions.ExcelRibbon.resources
 O:\Global Business Applications\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\obj\Debug\ToolbarOfFunctions.csproj.GenerateResource.cache

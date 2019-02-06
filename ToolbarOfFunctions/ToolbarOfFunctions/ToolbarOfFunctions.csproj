@@ -123,12 +123,6 @@
   -->
   <ItemGroup>
     <Reference Include="Accessibility" />
-    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.VisualStudio.CommandBars, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
@@ -195,7 +189,6 @@
     <Compile Include="CommonExcel.cs" />
     <Compile Include="clsGraveYard.cs" />
     <Compile Include="Constants.cs" />
-    <Compile Include="DAL\RiggingContext.cs" />
     <Compile Include="FolderBrowserDialogEx.cs" />
     <Compile Include="frmSettings.cs">
       <SubType>Form</SubType>
@@ -204,28 +197,16 @@
       <DependentUpon>frmSettings.cs</DependentUpon>
     </Compile>
     <Compile Include="Information.cs" />
-    <Compile Include="Migrations\201809201154526_init.cs" />
-    <Compile Include="Migrations\201809201154526_init.Designer.cs">
-      <DependentUpon>201809201154526_init.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="OneToMany.cs" />
     <Compile Include="pingServers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="readActiveDirectory.cs" />
     <Compile Include="ReadFolders.cs" />
-    <Compile Include="RiggingDS.cs" />
-    <Compile Include="RiggingStart.cs" />
-    <Compile Include="TestClass.cs" />
     <Compile Include="Threads.cs" />
     <Compile Include="Win32.cs" />
     <EmbeddedResource Include="frmSettings.resx">
       <DependentUpon>frmSettings.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201809201154526_init.resx">
-      <DependentUpon>201809201154526_init.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -237,7 +218,6 @@
     </EmbeddedResource>
     <None Include="App.config" />
     <None Include="ClassDiagram1.cd" />
-    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

@@ -30,6 +30,23 @@ using System.Runtime.InteropServices;
 
 using System.DirectoryServices;
 
+/*     Author : G V Bishop
+		 Date : 24th May 2018
+		 Name : ToolbarOfFunctions
+  Description : Holds all code to Excel toolbar
+	  History :
+  ------------+------------+------------------------------
+  Modified by | Date       | Reason
+  ------------+------------+------------------------------
+  To-Do
+  --------------------------------------------------------
+	Get History from github
+	Need to split this out into smaller files
+	Create routine to handle each question
+	Convert Messages to use: string interpolation
+	Fix each function starting from left
+	Work out how to use mso icons from office
+  -------------------------------------------------------- */
 namespace ToolbarOfFunctions
 {
 	public partial class ThisAddIn
@@ -93,13 +110,11 @@ namespace ToolbarOfFunctions
 		}
 
 
-
-
 		/// <summary>
 		/// dealWithSingleDuplicates
 		/// Loops down a single column looking for duplicates
 		/// </summary>
-		internal void dealWithSingleDuplicates(Excel.Application xls)
+		internal void dealWithSingleDuplicatesWorking(Excel.Application xls)
 		{
 
 			#region [Declare and instantiate variables for process]
@@ -118,6 +133,7 @@ namespace ToolbarOfFunctions
 
 			decimal decStartRow = myData.ComparingStartRow;
 			decimal decStartColumToCheck = myData.DupliateColumnToCheck;
+			// int decStartColumToCheck = (int)myData.DupliateColumnToCheck;
 
 			#endregion
 
@@ -143,20 +159,25 @@ namespace ToolbarOfFunctions
 				decimal decSourceRow = decStartRow;
 				#endregion
 
+				// this whole section to be passed to a routine that  handles it - 1gvb1
+
 				#region [Display a Message?]
 				if (boolDisplayInitialMessage)
 				{
+
 					strMessage = "";
-					strMessage = strMessage + "Worksheet: " + Wks.Name + LF;
-					strMessage = strMessage + "Column: " + strColumnName + LF;
-					strMessage = strMessage + "and: " + strColourOrDelete + " ones which are the same";
+					strMessage = strMessage + "Worksheet: {0} " + LF;
+					strMessage = strMessage + "Column: {1}" + LF;
+					strMessage = strMessage + "and: {2}" +  " ones which are the same";
 
 					if (booltimeTaken)
-					{
 						strMessage = strMessage + LF + " and display the time taken";
-					}
 
 					strMessage = strMessage + "?";
+
+
+					strMessage = string.Format(strMessage, Wks.Name, strColumnName, strColourOrDelete);
+
 
 					dlgResult = MessageBox.Show(strMessage, "Duplicate Rows Check", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
 
@@ -170,6 +191,7 @@ namespace ToolbarOfFunctions
 
 				}
 				#endregion
+
 
 				#region [Start of work]
 				if (dlgResult == DialogResult.Yes)
@@ -255,6 +277,214 @@ namespace ToolbarOfFunctions
 				CommonExcelClasses.MsgBox("There was an error?", "Error");
 				Console.WriteLine(excpt.Message);
 			}
+		}
+
+		internal void dealWithSingleDuplicates( Excel.Application xls )
+		{
+
+			#region [Declare and instantiate variables for process]
+			myData = myData.LoadMyData();               // read data from settings file
+
+			bool boolDisplayInitialMessage = myData.ProduceInitialMessageBox;
+			bool boolDisplayCompleteMessage = myData.ProduceCompleteMessageBox;
+			bool booltimeTaken = myData.DisplayTimeTaken;
+			string strColourOrDelete = myData.ColourOrDelete;
+			bool boolTurnOffScreen = myData.TurnOffScreenValidation;
+			bool boolClearFormatting = myData.ClearFormatting;
+
+			// colours for the Colour or delete option
+			Color clrFoundForeColour = ColorTranslator.FromHtml(myData.ColourFore_Found);
+			Color clrFoundBackColour = ColorTranslator.FromHtml(myData.ColourBack_Found);
+
+			decimal decStartRow = myData.ComparingStartRow;
+			decimal decStartColumToCheck = myData.DupliateColumnToCheck;
+			// int decStartColumToCheck = (int)myData.DupliateColumnToCheck;
+
+			#endregion
+
+			try
+			{
+
+				#region [Declare and instantiate variables for worksheet/book]
+				Excel.Workbook Wkb = xls.ActiveWorkbook;
+				Excel.Worksheet Wks;   // get current sheet
+
+				Wks = Wkb.ActiveSheet;
+
+				string strColumnName = decStartColumToCheck.getColLtr();
+
+				DialogResult dlgResult = DialogResult.Yes;
+
+
+				// string strMessage;
+
+				int intLastRow = CommonExcelClasses.getLastRow(Wks);
+
+				// start of loop
+				decimal decSourceRow = decStartRow;
+				#endregion
+
+				// this whole section to be passed to a routine that  handles it - 1gvb1
+				string[] arrQs = new string[3];
+				arrQs[0] = Wks.Name;
+				arrQs[1] = strColumnName;
+				arrQs[2] = strColourOrDelete;
+
+
+				dlgResult = getAnswer("Worksheet: {0} Column: {1} and: {2}" + " ones which are the same", "Duplicate Rows Check", arrQs);
+
+
+				// remove formatting - format black and white but only if no was selected
+				if (dlgResult == DialogResult.No)
+					if (boolClearFormatting)
+						CommonExcelClasses.clearFormattingRange(Wks);
+
+
+				#region [Start of work]
+				if (dlgResult == DialogResult.Yes)
+				{
+
+					DateTime dteStart = DateTime.Now;
+
+					decimal decNoRecords = 0;
+
+
+					if (boolTurnOffScreen)
+						CommonExcelClasses.turnAppSettings("Off", xls, myData.TestCode);
+
+					#region [Start of loop]
+					while (!CommonExcelClasses.isEmptyCell(Wks.Cells[decSourceRow, decStartColumToCheck], false))
+					{
+						// hightlight, delete or clear?
+						if (Wks.Cells[decSourceRow, decStartColumToCheck].Value == Wks.Cells[decSourceRow + 1, decStartColumToCheck].Value)
+						{
+							while (Wks.Cells[decSourceRow, decStartColumToCheck].Value == Wks.Cells[decSourceRow + 1, decStartColumToCheck].Value)
+							{
+								if (strColourOrDelete == "Colour")
+								{
+									CommonExcelClasses.colourCells(Wks, (decSourceRow + 1), "Error", 1, clrFoundForeColour, clrFoundBackColour, false);
+									decSourceRow++;
+								}
+								else if (strColourOrDelete == "Delete")
+								{
+									Wks.Rows[decSourceRow].Delete();
+								}
+								else
+								{
+									CommonExcelClasses.colourCells(Wks, (decSourceRow), strColourOrDelete, 1, clrFoundForeColour, clrFoundBackColour, false);
+									decSourceRow++;
+								}
+
+								decNoRecords++;
+
+								if (CommonExcelClasses.isEmptyCell(Wks.Cells[decSourceRow + 1, decStartColumToCheck], false))
+									break;
+
+							}
+
+						}
+
+						decSourceRow++;
+					}
+					#endregion [Start of loop]
+
+
+
+					if (boolTurnOffScreen)
+						CommonExcelClasses.turnAppSettings("On", xls, myData.TestCode);
+
+					arrQs[0] = dteStart.ToString();
+					arrQs[1] = decNoRecords.ToString();
+
+
+					dlgResult = getAnswer("", "Duplicate Rows Check", arrQs);
+
+
+
+				}
+				#endregion [Start of work]
+
+				#region [Release memory]
+				Marshal.ReleaseComObject(Wks);
+				Marshal.ReleaseComObject(Wkb);
+				#endregion
+
+			}
+			catch (System.Exception excpt)
+			{
+				CommonExcelClasses.MsgBox("There was an error?", "Error");
+				Console.WriteLine(excpt.Message);
+			}
+		}
+
+		private DialogResult getAnswer( string strMessage, string strHead, string[] arrQs )
+		{
+			#region [Declare and instantiate variables for process]
+			myData = myData.LoadMyData();               // read data from settings file
+
+			bool boolDisplayInitialMessage = myData.ProduceInitialMessageBox;
+			bool boolDisplayCompleteMessage = myData.ProduceCompleteMessageBox;
+			bool booltimeTaken = myData.DisplayTimeTaken;
+
+			// string strColourOrDelete = myData.ColourOrDelete;
+			// bool boolTurnOffScreen = myData.TurnOffScreenValidation;
+			// bool boolClearFormatting = myData.ClearFormatting;
+			// colours for the Colour or delete option
+			// Color clrFoundForeColour = ColorTranslator.FromHtml(myData.ColourFore_Found);
+			// Color clrFoundBackColour = ColorTranslator.FromHtml(myData.ColourBack_Found);
+			// decimal decStartRow = myData.ComparingStartRow;
+			// decimal decStartColumToCheck = myData.DupliateColumnToCheck;
+			// int decStartColumToCheck = (int)myData.DupliateColumnToCheck;
+
+			#endregion
+
+			DialogResult dlgResult = DialogResult.Yes;
+
+			if (strMessage.Length > 0) {
+
+				if (boolDisplayInitialMessage)
+				{
+					if (booltimeTaken)
+						strMessage = strMessage + LF + " and display the time taken";
+
+					strMessage = strMessage + "?";
+					strMessage = string.Format(strMessage, arrQs[0], arrQs[1], arrQs[2]);
+
+					dlgResult = MessageBox.Show(strMessage, strHead, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+
+				}
+
+			} else {
+
+				#region [Display Complete Message]
+				if (boolDisplayCompleteMessage)
+				{
+					strMessage = "Complete ...";
+
+					if (booltimeTaken)
+					{
+						DateTime dteStart;
+						dteStart = Convert.ToDateTime(arrQs[0]);
+						DateTime dteEnd = DateTime.Now;
+
+						int milliSeconds = (int)((TimeSpan)(dteEnd - dteStart)).TotalMilliseconds;
+
+						strMessage = strMessage + "that took {TotalMilliseconds} " + milliSeconds + LF;
+						strMessage = strMessage + LF + "And handled: " + arrQs[1] + " duplicates";
+
+					}
+					CommonExcelClasses.MsgBox(strMessage);
+
+					#endregion
+
+
+
+				}
+
+			}
+
+			return dlgResult;
+
 		}
 
 

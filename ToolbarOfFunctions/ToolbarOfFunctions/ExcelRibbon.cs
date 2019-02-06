@@ -231,7 +231,7 @@ namespace ToolbarOfFunctions
         private void btnTestCode_Click(object sender, RibbonControlEventArgs e)
         {
             // Globals.ThisAddIn.testThreads(Globals.ThisAddIn.Application);
-            Globals.ThisAddIn.StartOfRiggingProcess(Globals.ThisAddIn.Application);
+
             // Globals.ThisAddIn.ClassTestCodeMotherChild(Globals.ThisAddIn.Application);
 
 

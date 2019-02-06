@@ -380,15 +380,15 @@ namespace ToolbarOfFunctions_CommonClasses
 		public static string getColLtr( this decimal decColumnNumber )
 		{
 
-			decimal decDiv = decColumnNumber;
+			int intDiv = (int)decColumnNumber;
 			string strColumnName = String.Empty;
-			decimal decMod;
+			int intMod;
 
-			while (decDiv > 0)
+			while (intDiv > 0)
 			{
-				decMod = (decDiv - 1) % 26;
-				strColumnName = Convert.ToChar(65 + decMod).ToString() + strColumnName;
-				decDiv = (int)((decDiv - decMod) / 26);
+				intMod = (intDiv - 1) % 26;
+				strColumnName = Convert.ToChar(65 + intMod).ToString() + strColumnName;
+				intDiv = (int)((intDiv - intMod) / 26);
 			}
 			return strColumnName;
 
@@ -765,15 +765,6 @@ namespace ToolbarOfFunctions_CommonClasses
 
 		}
 
-
-		// exstensability
-		public static void SwitchMainOrAdditional(this RiggingLinesDS c)
-		{
-			if (c.LineOrAdditional != "M")
-				c.LineOrAdditional = "M";
-			else
-				c.LineOrAdditional = "A";
-		}
 
 	}
 
