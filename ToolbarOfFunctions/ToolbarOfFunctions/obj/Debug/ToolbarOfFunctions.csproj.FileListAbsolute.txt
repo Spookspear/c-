@@ -28,3 +28,18 @@ D:\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\bin\Debug\ToolbarOfFunctionsD
 D:\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\bin\Debug\ToolbarOfFunctionsDev1.vsto
 D:\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\obj\Debug\ToolbarOfFunctionsDev1.dll
 D:\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\obj\Debug\ToolbarOfFunctionsDev1.pdb
+G:\OneDrive\Global Business Applications\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\bin\Debug\ToolbarOfFunctionsDev1.dll.config
+G:\OneDrive\Global Business Applications\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\bin\Debug\ToolbarOfFunctionsDev1.dll
+G:\OneDrive\Global Business Applications\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\bin\Debug\ToolbarOfFunctionsDev1.pdb
+G:\OneDrive\Global Business Applications\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\bin\Debug\ToolbarOfFunctionsDev1.dll.manifest
+G:\OneDrive\Global Business Applications\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\bin\Debug\ToolbarOfFunctionsDev1.vsto
+G:\OneDrive\Global Business Applications\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\bin\Debug\Microsoft.Office.Tools.Common.v4.0.Utilities.dll
+G:\OneDrive\Global Business Applications\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\obj\Debug\ToolbarOfFunctions.csprojAssemblyReference.cache
+G:\OneDrive\Global Business Applications\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\obj\Debug\ToolbarOfFunctions.frmSettings.resources
+G:\OneDrive\Global Business Applications\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\obj\Debug\ToolbarOfFunctions.Properties.Resources.resources
+G:\OneDrive\Global Business Applications\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\obj\Debug\ToolbarOfFunctions.ExcelRibbon.resources
+G:\OneDrive\Global Business Applications\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\obj\Debug\ToolbarOfFunctions.csproj.GenerateResource.cache
+G:\OneDrive\Global Business Applications\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\obj\Debug\ToolbarOfFunctions.csproj.CopyComplete
+G:\OneDrive\Global Business Applications\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\obj\Debug\ToolbarOfFunctionsDev1.dll
+G:\OneDrive\Global Business Applications\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\obj\Debug\ToolbarOfFunctionsDev1.pdb
+G:\OneDrive\Global Business Applications\GitHub\c-\ToolbarOfFunctions\ToolbarOfFunctions\obj\Debug\ToolbarOfFunctions.csproj.CoreCompileInputs.cache
