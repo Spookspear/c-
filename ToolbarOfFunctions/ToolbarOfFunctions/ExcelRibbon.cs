@@ -214,7 +214,6 @@ namespace ToolbarOfFunctions
         }
 
 
-
         private void btnReadGroupUsersMembershipSheetName_Click(object sender, RibbonControlEventArgs e)
         {
             // 3rd button
@@ -230,21 +229,22 @@ namespace ToolbarOfFunctions
 
         private void btnTestCode_Click(object sender, RibbonControlEventArgs e)
         {
-            // Globals.ThisAddIn.testThreads(Globals.ThisAddIn.Application);
 
-            // Globals.ThisAddIn.ClassTestCodeMotherChild(Globals.ThisAddIn.Application);
+			// Globals.ThisAddIn.toggleWorksheetVisability(Globals.ThisAddIn.Application);
 
-
-            // Start of rigging
-            // need to read a folder of excel files
-            // into a database
-            // but only once
-            // and if updated
-
-
+            Globals.ThisAddIn.InsertNewWorksheet(Globals.ThisAddIn.Application);
 
         }
+		
+		/*
+		private void btnTestCode_ClickOldCode(object sender, RibbonControlEventArgs e)
+		{
+			// this has where I left off - for testign threads when pinging servers in a worksheet
+			// Globals.ThisAddIn.testThreads(Globals.ThisAddIn.Application);
+			// Globals.ThisAddIn.ClassTestCodeMotherChild(Globals.ThisAddIn.Application);
+		}
+		*/
 
-    }
+	}
 
 }

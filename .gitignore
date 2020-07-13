@@ -243,3 +243,10 @@ paket-files/
 # JetBrains Rider
 .idea/
 *.sln.iml
+
+# Visual c#
+*.suo
+*.user
+bin
+obj
+packages
