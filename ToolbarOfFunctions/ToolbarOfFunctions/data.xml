@@ -9,7 +9,7 @@
   <ProduceCompleteMessageBox>true</ProduceCompleteMessageBox>
   <DelModeAorBorC>Mode: B</DelModeAorBorC>
   <HighlightRowsOver>24</HighlightRowsOver>
-  <NoOfColumnsToCheck>1</NoOfColumnsToCheck>
+  <NoOfColumnsToCheck>8</NoOfColumnsToCheck>
   <ComparingStartRow>1</ComparingStartRow>
   <DupliateColumnToCheck>1</DupliateColumnToCheck>
   <ColourFoundText>Blue</ColourFoundText>
@@ -20,7 +20,7 @@
   <ColourFore_NotFound>Red</ColourFore_NotFound>
   <ColourBold_NotFound>false</ColourBold_NotFound>
   <ColourBack_NotFound>White</ColourBack_NotFound>
-  <TimeSheetRowNo>2168</TimeSheetRowNo>
+  <TimeSheetRowNo>2432</TimeSheetRowNo>
   <TimeSheetGetRowNo>true</TimeSheetGetRowNo>
   <PingSheetRowNo>2</PingSheetRowNo>
   <ColPingRead>1</ColPingRead>

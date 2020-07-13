@@ -174,10 +174,7 @@ namespace ToolbarOfFunctions
 						strMessage = strMessage + LF + " and display the time taken";
 
 					strMessage = strMessage + "?";
-
-
 					strMessage = string.Format(strMessage, Wks.Name, strColumnName, strColourOrDelete);
-
 
 					dlgResult = MessageBox.Show(strMessage, "Duplicate Rows Check", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
 
@@ -279,6 +276,8 @@ namespace ToolbarOfFunctions
 			}
 		}
 
+
+		// started AskQ function here  - 1gvb1
 		internal void dealWithSingleDuplicates( Excel.Application xls )
 		{
 
@@ -321,7 +320,7 @@ namespace ToolbarOfFunctions
 				int intLastRow = CommonExcelClasses.getLastRow(Wks);
 
 				// start of loop
-				decimal decSourceRow = decStartRow;
+
 				#endregion
 
 				// this whole section to be passed to a routine that  handles it - 1gvb1
@@ -330,9 +329,7 @@ namespace ToolbarOfFunctions
 				arrQs[1] = strColumnName;
 				arrQs[2] = strColourOrDelete;
 
-
 				dlgResult = getAnswer("Worksheet: {0} Column: {1} and: {2}" + " ones which are the same", "Duplicate Rows Check", arrQs);
-
 
 				// remove formatting - format black and white but only if no was selected
 				if (dlgResult == DialogResult.No)
@@ -353,6 +350,7 @@ namespace ToolbarOfFunctions
 						CommonExcelClasses.turnAppSettings("Off", xls, myData.TestCode);
 
 					#region [Start of loop]
+					decimal decSourceRow = decStartRow;
 					while (!CommonExcelClasses.isEmptyCell(Wks.Cells[decSourceRow, decStartColumToCheck], false))
 					{
 						// hightlight, delete or clear?
@@ -921,6 +919,7 @@ namespace ToolbarOfFunctions
 					dlgResult = MessageBox.Show(strMessage, "Correct Timesheet", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
 				}
 				#endregion
+
 
 				#region [Start of work]
 				if (dlgResult == DialogResult.Yes)
